@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "平台管理员管理";
+}
+<style>
+    .col-sm-10 {
+        margin-left: 60px;
+    }
+</style>
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Areas/Admin/Scripts/managerManagement.js"></script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>管理员管理</strong>
+        <li class="active"><a>管理员</a></li>
+        <li class="add-manager"><a>添加管理员</a></li>
+        <em class="primary-btn">
+            <span class="glyphicon glyphicon-question-sign"></span>
+            <div class="primary">
+                <h3>温馨提示：</h3>
+                <span>*</span><p>对平台的管理员账号进行管理，还可以调整管理员所属的权限组</p>
+            </div>
+        </em>
+    </ul>
+
+    <table class="table" id="list">
+        <div class="tabel-operate" id="batchOperate">
+            <button type="button" class="btn btn-danger btn-ssm" onclick="BatchDelete()">批量删除</button>
+        </div>
+    </table>
+</div>
+<div class="dialog-form" id="addManagerform" style="display:none">
+    <div class="form-group" id="UserNameDiv">
+        <label class="label-inline" for="" style="color:red">用户名</label>
+        <label id="name-prefix"></label>
+        <input class="form-control input-sm" type="text" id="UserName" name="regName" autocomplete="off"
+               onpaste="return false;" value="请输入用户名" onfocus="    if (this.value == '用户名') this.value = ''; this.style.color = '#333'"
+               onblur="if (this.value == '') { this.value = '用户名'; this.style.color = '#999999' }" style="color: rgb(153, 153, 153);">
+        <label id="regName_info" style="display:none;" class="focus">请输入用户名</label>
+        <label id="regName_error" style="display:none;" class="error">用户名不能为空</label>
+    </div>
+    <div class="form-group" id="div1">
+        <label class="label-inline" for="" style="color:red">密码</label>
+        <input class="form-control input-sm" type="password" id="PassWord" name="PassWord">
+        <label id="pwd_info" class="focus" style="display:none;"><span>6-20位字符，可使用字母、数字或符号的组合</span></label>
+        <label id="pwd_error" class="focus" style="display:none;color:red"><span>密码长度只能在6-20位字符之间，不包含空格</span></label>
+    </div>
+    <div class="form-group" id="div2">
+        <label class="label-inline" for="" style="color:red">确认密码</label>
+        <input class="form-control input-sm" type="password" id="confirmPassWord" name="confirmPassWord">
+        <label id="pwdRepeat_info" class="focus" style="display:none;"><span>6-20位字符，可使用字母、数字或符号的组合</span></label>
+        <label id="pwdRepeat_error" class="focus" style="display:none;color:red"><span>两次输入的密码不一致</span></label>
+    </div>
+    <div class="form-group" id="roleGroupDiv">
+        <label class="label-inline" for="">权限组</label>
+        <select class="form-control input-sm" id="RoleId" name="RoleId">
+        </select>
+    </div>
+    <input type="hidden" id="userName" value="@ViewBag.UserName" />
+    <input type="hidden" id="userRoleId" value="@ViewBag.userRoleId" />
+    <input class="form-control input-sm" type="text" id="userId" name="userId" style="display:none" value="@ViewBag.UserId">
+    <input class="form-control input-sm" type="text" id="shopId" name="userId" style="display:none" value="@ViewBag.ShopId">
+</div>

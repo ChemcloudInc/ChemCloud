@@ -1,0 +1,4 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\bin\Release\MyChemCloudCSharp.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\bin\Release\MyChemCloudCSharp.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\obj\Release\MyChemCloudCSharp.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\obj\Release\MyChemCloudCSharp.pdb

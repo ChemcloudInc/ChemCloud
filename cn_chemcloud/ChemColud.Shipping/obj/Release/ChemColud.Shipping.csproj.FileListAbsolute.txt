@@ -1,0 +1,8 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\bin\Release\ChemColud.Shipping.dll.config
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\bin\Release\ChemColud.Shipping.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\bin\Release\ChemColud.Shipping.XmlSerializers.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\bin\Release\ChemColud.Shipping.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\bin\Release\Newtonsoft.Json.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\obj\Release\ChemColud.Shipping.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\obj\Release\ChemColud.Shipping.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\obj\Release\ChemColud.Shipping.XmlSerializers.dll

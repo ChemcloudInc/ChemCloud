@@ -1,0 +1,204 @@
+﻿<script src="~/Scripts/jquery.UploadRec.js"></script>
+<link href="~/Content/inner-custom.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-switch.min.css" rel="stylesheet" />
+
+
+
+
+
+<style>
+    .chose-img {
+        height: 129px;
+        width: 300px;
+        float:left;
+        margin-bottom:15px;
+    }
+
+        .chose-img input[type=radio] {
+            vertical-align: middle;
+            margin-left: 15px;
+            margin-bottom:5px;
+        }
+
+    .rfi_imgs {
+        clear: both;
+        width: 100%;
+        height: auto;
+        height: 700px;
+        margin-top: 180px;
+        margin-left: 60px;
+    }
+
+    .rfi_imgs_div {
+        width: 340px;
+        float: left;
+        margin-left: 50px;
+        height: 240px;
+        background: #ccc;
+        border-radius: 5px;
+        margin: 15px;
+        padding-left:40px;
+        padding-top:20px;
+    }
+
+        .rfi_imgs_div label {
+            font-size: 16px;
+        }
+
+    .input-sm{
+        width:180px;
+    }
+    .fl{
+        width:180px;
+    }
+    .form-horizontal {
+        height:auto;
+    }
+</style>
+
+
+
+
+<iframe name="iframeUpload" src="" width="350" height="35" frameborder="0" scrolling="no" style="display:none" id="iframe"></iframe>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>首页设置</a></li>
+    </ul>
+    <div class="form-horizontal form-pt0">
+        <h3 class="table-hd">模板选择</h3>
+        <div class="chose-img">
+            <input type="radio" name="choose" id="radio1"  onclick="RadioClick(1)"/>
+            <img src="~/Storage/Plat/ImageAd/250.png" />
+        </div>
+        <div class="chose-img">
+            <input type="radio" name="choose" id="radio2" onclick="RadioClick(2)" />
+            <img src="~/Storage/Plat/ImageAd/homeimg/952490pic2.png"  />
+        </div>
+        <div class="chose-img">
+            <input type="radio" name="choose" id="radio3" onclick="RadioClick(3)" />
+            <img src="~/Storage/Plat/ImageAd/homeimg/952490pic3.png"  />
+        </div>
+        <div class="chose-img">
+            <input type="radio" name="choose" id="radio4" onclick="RadioClick(4)" />
+            <img src="~/Storage/Plat/ImageAd/homeimg/952490pi4.png" />
+        </div>
+        <div class="btn btn-info" style="clear:both;" onclick="ChangeRadio()">
+            启用该模板
+        </div>
+        <div class="rfi_imgs">
+
+            
+            
+            
+        </div>
+
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#radio"+@ViewBag.typeid ).attr("checked","checked");
+        getSource(@ViewBag.typeid);
+    })
+
+    function Change(id)
+    {
+        $.post('Update', { Id: id, URL: $("#Url_"+id).val(),tag:$("#tag_"+id).val(),ImageURL:$('#Rfi_'+id).hishopUpload('getImgSrc') }, function (result) {
+            if (result.success) {
+                $.dialog.succeedTips('修改成功！');
+                loading.close();
+            }
+            else {
+                $.dialog.errorTips('修改失败！' + result.msg);
+                loading.close();
+            }
+        });
+    }
+
+    function ChangeRadio(){
+        $.post('UpdateSetting', {typeid:$("input:radio:checked").attr("id") }, function (result) {
+            if (result.success) {
+                $.dialog.succeedTips('修改成功！');
+                loading.close();
+            }
+            else {
+                $.dialog.errorTips('修改失败！' + result.msg);
+                loading.close();
+            }
+        });
+    }
+
+    function RadioClick(type){
+        getSource(type);
+    }
+
+    function getSource(type){
+        $.post('GetTypeId', {id:type }, function (result) {
+            if (result!=null) {
+                var model= $.parseJSON(result);
+                var html = "";
+                for(var i=0;i<model.length;i++){
+                    html+="<div class='rfi_imgs_div'>";
+                    html+="     <div class='form-group'>";
+                    html+="         <label class='col-sm-2 control-label' for=''>Img</label>";
+                    html+="       <div class='col-sm-4'>";
+                    html+="            <div class='form-group upload-img ' id='Rfi_"+model[i].Id+"'></div>";
+                    html+="<label class=''style='font-size:12px;width:100px;' >推荐尺寸 "+model[i].Width+"*"+model[i].Height+"</label>";
+                    html+="         </div>";
+                    html+="        <div class='col-sm-4'>";
+                    html+="            <p class='help-default'></p>";
+                    html+="       </div>";
+                    html+="  </div>";
+                    html+="   <div class='form-group'>";
+                    html+="   <label class='col-sm-2 control-label' for=''>Tag</label>";
+                    html+="       <div class='col-sm-4'>";
+                    html+="          <input type='text' class='form-control input-sm' id='tag_"+model[i].Id+"' value='"+model[i].Tag+"' />";
+                    html+="      </div>";
+                    html+="     <div class='col-sm-4'>";
+                    html+="         <p class='help-default'></p>";
+                    html+="       </div>";
+                    html+="    </div>";
+                    html+="    <div class='form-group'>";
+                    html+="        <label class='col-sm-2 control-label' for=''>URL</label>";
+                    html+="        <div class='col-sm-4'>";
+                    html+="           <input type='text' class='form-control input-sm' id='Url_"+model[i].Id+"' value='"+model[i].URL+"' />";
+                    html+="       </div>";
+                    html+="        <div class='col-sm-4'>";
+                    html+="            <p class='help-default'></p>";
+                    html+="        </div>";
+                    html+="    </div>";
+                    html+="      <div style='width:80%;text-align:center;'>";
+                    html+="              <div class='btn btn btn-info' onclick='Change("+model[i].Id+")'>";
+                    html+="        确认修改";
+                    html+="   </div>";
+                    html+="   </div>";
+                    html+=" </div>";
+                    html+=" <script type='text/javascript'>";
+                    html+="   $(function () {";
+                    html+="    $('#Rfi_"+model[i].Id+"').hishopUpload({";
+                    html+="       title: '',";
+                    html+=" imageDescript: '',";
+                    html+="  displayImgSrc: '"+model[i].ImageUrl+"',";
+                    html+="    imgFieldName: 'AD_"+model[i].Id+"',";
+                    html+="   defaultImg: '/Images/default_100x100.png',";
+                    html+="  imagesCount: 1,";
+                    html+=" dataWidth: 6";
+                    html+=" });";
+                    html+="  })";
+                    html+="</";
+                    html+="script>";
+                }
+                $(".rfi_imgs").html(html);
+            }
+            else {
+               
+            }
+        });
+    }
+    
+</script>
+
+
+
+
+
+

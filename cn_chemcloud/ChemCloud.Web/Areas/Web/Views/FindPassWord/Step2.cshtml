@@ -1,0 +1,215 @@
+﻿@{
+ 
+    ViewBag.Title = "找回密码-验证用户信息";
+}
+@model ChemCloud.Model.UserMemberInfo
+<link href="~/Areas/Web/Content/css.css" rel="stylesheet" />
+<link href="~/Areas/Web/Content/findpassword1.css" rel="stylesheet" type="text/css">
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Scripts/v.js"></script>
+<link href="~/Areas/Web/Content/common.css" rel="stylesheet" />
+<style>
+    #top .top_cent .top_fr .top_fr-2 li img {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .top_fl p span img {
+        margin: 5px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    body {
+        background: #fff;
+    }
+    #mohu{
+            width: 80px;
+            float: right;
+            margin-top: -55px;
+            margin-right: -55px;
+        }
+</style>
+
+<div id="container">
+    <div class="w pt10">
+        <div id="main">
+            <div class="g-0">
+                <div id="content">
+                    <div class="mod-main mod-comm">
+                        <div class="mt">
+                            <input type="hidden" name="key" id="key" value="@ViewBag.Key" />
+                            <input type="hidden" name="username" id="username" value="@ViewBag.UserName" />
+
+                        </div>
+                        <div class="mc">
+                            <div class="stepflex " id="sflex04">
+                                <dl class="first done">
+                                    <dt class="s-num">1</dt>
+                                    <dd class="s-text">填写账户名<s></s><b></b></dd>
+                                    <dd></dd>
+                                </dl>
+                                <dl class="normal doing">
+                                    <dt class="s-num">2</dt>
+                                    <dd class="s-text">验证身份<s></s><b></b></dd>
+                                </dl>
+                                <dl class="normal">
+                                    <dt class="s-num">3</dt>
+                                    <dd class="s-text">设置新密码<s></s><b></b></dd>
+                                </dl>
+                                <dl class="last">
+                                    <dt class="s-num">&nbsp;</dt>
+                                    <dd class="s-text">完成<s></s><b></b></dd>
+                                </dl>
+                            </div>
+
+                            <div class="form formno">
+                                @*<div class="item">
+                                        <span class="label">请选择验证身份方式：</span>
+                                        <div class="fl">
+                                            <select onchange="selectVerifyType();" name="" id="type" class="selt">
+                                                @foreach (var messagePlugin in @ViewBag.BindContactInfo)
+                                                {
+                                                    if (@messagePlugin.IsBind)
+                                                    {
+                                                        <option value="@(messagePlugin.PluginId)">@messagePlugin.ShortName</option>
+                                                    }
+                                                }
+                                            </select>
+                                            <div class="clr"></div>
+                                        </div>
+                                        <div class="clr"></div>
+                                    </div>
+                                    <div id="mobileDiv" style="display: none;">
+                                        <div class="item">
+                                            <span class="label">昵称：</span>
+                                            <div class="fl">
+                                                <strong class="ftx-un">@Model.UserName</strong>
+                                                <label id="username_succeed" class="blank invisible"></label>
+                                                <div class="clr"></div>
+                                            </div>
+                                            <div class="clr"></div>
+                                        </div>
+                                        <div class="item">
+                                            <span class="label">已验证手机：</span>
+                                            <div class="fl">
+                                                <strong class="ftx-un" id="mobileSpan">@Model.CellPhone</strong>
+                                                <div class="clr"></div>
+                                            </div>
+                                            <div class="clr"></div>
+                                        </div>
+                                        <div class="item">
+                                            <span class="label">请填写手机校验码：</span>
+                                            <div class="fl">
+                                                <input type="text" id="code" name="code" class="itxt text-1" disabled="disabled">
+                                                <a class="btn btn-10 ml10" id="sendMobileCode" href="javascript:sendFindPwdCode('sendMobileCode','@ViewBag.Key');">
+                                                    <s></s>获取短信校验码
+                                                </a>
+                                                <div class="clr"></div>
+                                                <div class="msg-text" style="display:none;" id="timeDiv">
+                                                    校验码已发出，请注意查收短信，如果没有收到，你可以在<strong class="ftx-01">35</strong>秒后要求系统重新发送
+                                                </div>
+                                                <div class="" id="code_error"></div>
+                                            </div>
+                                            <div class="clr"></div>
+                                        </div>
+                                        <div class="item">
+                                            <span class="label">&nbsp;</span>
+                                            <div class="fl">
+                                                <input class="btn-5" onclick="validFindPwdCode('@ViewBag.Key');" id="submitCode" value="提交" href="javascript:void(0);" type="submit">
+                                            </div>
+                                            <div class="clr"></div>
+                                        </div>
+                                    </div>*@
+
+
+                                <div id="emailDiv">
+                                    @*<div class="item">
+                                            <span class="label">昵称：</span>
+                                            <div class="fl">
+                                                <strong class="ftx-un">@Model.UserName</strong>
+                                                <label id="username_succeed" class="blank invisible"></label>
+                                                <div class="clr"></div>
+                                            </div>
+                                            <div class="clr"></div>
+                                        </div>*@
+                                    @*<div class="item">
+                                            <span class="label">邮箱地址：</span>
+                                            <div class="fl">
+                                                <strong class="ftx-un" id="mobileSpan">@Model.Email</strong>
+                                                <div class="clr"></div>
+                                            </div>
+                                            <div class="clr"></div>
+                                        </div>*@
+                                    <div class="item">
+                                        <span class="label">请填写邮箱校验码：</span>
+                                        <div class="fl">
+                                            <input type="text" id="txtvalidCode" name="txtvalidCode" class="itxt text-1">
+                                            <a class="btn btn-10 ml10" id="getValideCode">
+                                                <s></s>获取邮箱校验码
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <span class="label">&nbsp;</span>
+                                        <div class="fl">
+                                            <input class="btn-5" id="submitCode" value="下一步" type="submit">
+                                        </div>
+                                        <div class="clr"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="clr"></span>
+        </div>
+    </div>
+</div>
+ 
+
+<script>
+    var allcookies = document.cookie;
+    function getCookie(cookie_name) {
+        var allcookies = document.cookie;
+        var cookie_pos = allcookies.indexOf(cookie_name);
+        if (cookie_pos != -1) {
+            cookie_pos += cookie_name.length + 1;
+            var cookie_end = allcookies.indexOf(";", cookie_pos);
+            if (cookie_end == -1) {
+                cookie_end = allcookies.length;
+            }
+            var value = unescape(allcookies.substring(cookie_pos, cookie_end));
+        }
+        return value;
+    }
+
+    $('#getValideCode').click(function () {
+        var loading = showLoading();
+        var UserName = '@ViewBag.UserName';
+
+        $.post("SendMail", { "username": UserName }, function (result) {
+            if (result.success)
+                alert('验证码已经发送到您的邮箱，请查收');
+                //$.dialog.succeedTips(result.msg);
+            else
+                alert('验证码发送失败');
+            loading.close();
+        });
+    });
+
+    $('#submitCode').click(function () {
+        var id = getCookie("validCode");
+        var valid = $("#txtvalidCode").val();
+        /*万能验证码*/
+        if (valid == "9999") {
+            window.location.href = "/findpassword/Step3?key=" + $('#key').val();
+        } else {
+            if (id == valid) {
+                window.location.href = "/findpassword/Step3?key=" + $('#key').val();
+            } else { alert('验证码错误,请重新生成验证码！'); }
+        }
+    });
+</script>

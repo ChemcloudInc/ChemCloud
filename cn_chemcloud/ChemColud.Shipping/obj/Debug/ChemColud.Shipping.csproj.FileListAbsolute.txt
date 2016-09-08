@@ -1,0 +1,7 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\bin\Debug\ChemColud.Shipping.dll.config
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\bin\Debug\ChemColud.Shipping.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\bin\Debug\ChemColud.Shipping.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\bin\Debug\Newtonsoft.Json.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.csprojResolveAssemblyReference.cache

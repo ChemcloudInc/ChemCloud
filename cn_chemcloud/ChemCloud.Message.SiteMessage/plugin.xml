@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PluginInfo>
+  <PluginId>Himall.Plugin.Message.SiteMessage</PluginId>
+  <DisplayName>站内消息</DisplayName>
+  <ClassFullName>Himall.Plugin.Message.SiteMessage.Service,Himall.Plugin.Message.SiteMessage</ClassFullName>
+  <Description>站内消息插件</Description>
+  <Type>3,6</Type>
+  <Author>Himall</Author>
+  <Version>1.0</Version>
+  <MinHimallVersion>1.0.0</MinHimallVersion>
+  <MaxHimallVersion></MaxHimallVersion>
+  <Enable>0</Enable>
+</PluginInfo>

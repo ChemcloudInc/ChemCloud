@@ -1,0 +1,627 @@
+﻿@using ChemCloud.Model;
+@using ChemCloud.Web.Areas.SellerAdmin.Models;
+
+@model ChemCloud.Model.CASInfo
+@section Style{
+    <link href="~/content/bootstrap.minv2.css" rel="stylesheet" />
+    <link href="~/Content/inner-custom.css" rel="stylesheet" />
+}
+<style>
+    .ul {
+        background-color: #ffffff;
+        padding-top: 1em;
+    }
+
+        .ul li {
+            line-height: 2.4em;
+            padding-left: 10px;
+            font-size: 14px;
+        }
+
+    .sl-wrap {
+        position: relative;
+        border-bottom: 1px solid #DDD;
+        /* background: #f3f3f3; */
+    }
+
+    .sl-key {
+        float: left;
+        width: 80px;
+        padding-left: 10px;
+        margin-right: 20px;
+        white-space: nowrap;
+        display: inline-block;
+        overflow: hidden;
+        background: #f3f3f3;
+    }
+
+    .sl-value {
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .sl-v-list {
+        overflow: hidden;
+    }
+
+        .sl-v-list li {
+            float: left;
+            overflow: hidden;
+            height: 30px;
+            margin-right: 20px;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+
+            .sl-v-list li span {
+                padding: 0 10px;
+                font-size: 14px;
+            }
+
+                .sl-v-list li span:hover {
+                    background: #f2f2f2;
+                }
+
+        .sl-v-list .background_f2 {
+            background: #f2f2f2;
+        }
+
+    .glyphicon {
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        font-family: 'Glyphicons Halflings';
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .table .glyphicon-plus-sign, .table .glyphicon-minus-sign {
+        color: #666;
+        cursor: pointer;
+        margin-right: 5px;
+        padding: 4px;
+    }
+
+    .table tbody tr td:nth-child(4) div {
+        margin-left: 0px;
+        text-align: left !important;
+    }
+
+    .table .glyphicon:hover {
+        color: #3498DB;
+    }
+
+    .table tbody tr {
+        font-size: 14px;
+    }
+
+    tr.detial {
+        border: 1px solid #3498DB;
+    }
+
+    .td1, .td2, .td3, .td4 {
+        background: rgb(230,230,230);
+    }
+
+    #select .mt h1 {
+        float: left;
+        height: 30px;
+        font: normal 15px/30px 'microsoft yahei';
+        color: #3498DB;
+        padding-left: 25px;
+        line-height: 40px;
+    }
+
+    .table thead tr th {
+        background: rgb(52,168,232);
+        color: #fff;
+    }
+
+    .gou_wu_ce {
+        display: block;
+        background: url(/Areas/Web/Images/gouwuche.png) no-repeat;
+        width: 24px;
+        height: 24px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    .ming_a {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 50px;
+        display: inline-block;
+        margin-bottom: -5px;
+    }
+
+    .jian {
+        margin-right: 2px;
+        cursor: pointer;
+    }
+
+    .jia {
+        cursor: pointer;
+    }
+
+    .text_box {
+        text-align: center;
+    }
+</style>
+
+<div class="w main">
+    <input type="hidden" id="hdCurrentUserType" value="@ViewBag.CurrentUserType" />
+    @if (null != Model)
+    {
+    <input type="hidden" id="hdproductname" value="@ViewBag.CASNo" />
+    <div class="crumb">全部结果&nbsp;&gt;&nbsp;<strong>@Model.Pub_CID</strong></div>
+    <div class="right-extra" style="position:relative; z-index:1; width:1185px;">
+        <div class="clr"></div>
+        <div class="m" id="select">
+            <div class="mt" style="height:40px;">
+                <img src="~/Images/iconfont-huaxuepin.png" style="width:18px;position: ABSOLUTE;margin-top: 10px;" />
+                <input type="hidden" id="productname" value="@Model.CHINESE" />
+                @if ("" != Model.CHINESE && null != Model.CHINESE)
+                    {
+                    <h1>@Model.CHINESE</h1>
+                    }
+                    else
+                    {
+                    <h1>产品信息</h1>
+                    }
+            </div>
+            <div style="width:100%; min-height:180px; background-color:#ffffff; padding-top:2px;">
+                <div style="width:100%;min-height:110px; background-color:#ffffff;overflow:hidden;">
+                    <div style="overflow:hidden; width:200px;height:140px;display: table-cell;vertical-align: middle;text-align: center;border: 1px solid #ccc;">
+
+                        @{string imgdataurl = "https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=" + @Model.Pub_CID + "&t=l";}
+                        @if (!string.IsNullOrEmpty(Model.C2D_Structure))
+                            {
+                                if (Model.C2D_Structure.Length > 10)
+                                {
+                                    imgdataurl = Model.C2D_Structure;
+                                }
+                            }
+                        <img alt="ImagePath" src="@imgdataurl" style="max-width: 100%;" />
+                    </div>
+                    <div style="display: table-cell;overflow:hidden;">
+                        <ul class="ul" style="clear:both;padding-left:10px;width:720px;">
+                            <li>
+                                @if (Model.CAS != "0" && !string.IsNullOrEmpty(Model.CAS))
+                                    {
+                                    <span>CAS#：</span>@Model.CAS
+                                    }
+                            </li>
+                            <li>英文名称：@Model.Record_Title</li>
+                            <li>
+                                精确质量：@if (Model.Exact_Mass != "0")
+                                    {
+                                    @Model.Exact_Mass
+                                    }
+                            </li>
+                            <li>
+                                分子量：@if (Model.Molecular_Weight != "0")
+                                    {
+                                    @Model.Molecular_Weight
+                                    }
+                            </li>
+                            <li>
+                                <span id="fenzishi">
+                                    分子式：@if (Model.Molecular_Formula != "0")
+                                        {
+                                    @Model.Molecular_Formula
+                                        } &nbsp;
+                                </span><a style="color:#3498DB" href="/Search/SearchProductInfo?id=@Model.Pub_CID">【详细链接】</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clr"></div>
+        <div style="padding-bottom:5px; margin-top:30px; line-height:30px;  border:solid 1px dashed;">
+            <div class="sl-wrap">
+                <div class="sl-key"><strong style="font-size:14px;">供应商类型：</strong></div>
+                <div class="sl-value">
+                    <div class="sl-v-list">
+                        <ul>
+                            <li>
+                                <span id="shoptype0" class="background_f2">全部供应商</span>
+                            </li>
+                            <li>
+                                <span id="shoptype2">实地认证供应商</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="m psearch prebuy plist-n7 no-preview" id="plist">
+            <table class="table mt30" id="shopDatagrid" style="width:100%"></table>
+        </div>
+    </div>
+    <span class="clr"></span>
+    }
+    else
+    {
+    <div style="min-height:200px; text-align:center; width:100%; padding-top:10px;">
+        <span style="font-size:18px; font-weight:bolder;">没有找到符合条件的数据</span>
+    </div>
+    }
+</div>
+
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script type="text/javascript">
+    $(function () {
+        /*分子式*/
+        var obj = $("#fenzishi");
+        obj.html(obj.html().replace(/(\d+)/g, "<sub>$1</sub>"));
+
+
+        /*正则验证数量*/
+        var regnum = /^\+?[1-9][0-9]*$/;
+
+        setTimeout(function () { $(".glyphicon-plus-sign").trigger("click"); }, 3000)
+
+        shopsearch("0");
+        $("#shoptype").change(function () {
+            var shoptypevalue = $(this).val();
+            shopsearch(shoptypevalue);
+        });
+        $("#shoptype0").click(function () {
+            $('.sl-v-list li span').removeClass('background_f2');
+            $('#shoptype0').addClass('background_f2');
+            shopsearch("0");
+        });
+
+        $("#shoptype2").click(function () {
+            $('.sl-v-list li span').removeClass('background_f2');
+            $('#shoptype2').addClass('background_f2');
+            shopsearch("2");
+        });
+
+        /*++*/
+        $(".jia").live("click", function () {
+            var $input = $(this).prev();//object num
+
+            $input.val(Number($input.val()) + 1); //num change
+
+            var $price = $.trim($(this).parent().parent().prev().find('div').html());//current price
+
+            var $xiaoji = $(this).parent().parent().next().find('.xiaoji'); //object span xiaoji
+
+            $xiaoji.html((Number($price) * Number($input.val())).toFixed(2));
+        });
+
+        /*--*/
+        $(".jian").live("click", function () {
+            var $input = $(this).next();//object num
+            if (Number($input.val()) === 0) { return false; }
+            $input.val(Number($input.val()) - 1); //num change
+
+            var $price = $.trim($(this).parent().parent().prev().find('div').html());//current price
+
+            var $xiaoji = $(this).parent().parent().next().find('.xiaoji'); //object span xiaoji
+
+            $xiaoji.html((Number($price) * Number($input.val())).toFixed(2));
+        });
+
+        /*blur*/
+        $(".text_box").live("blur", function () {
+            var $price = $.trim($(this).parent().parent().prev().find('div').html());
+            var $this = $(this);
+            var $num = $.trim($(this).val());
+            if (!regnum.test($num)) {
+                $.dialog.errorTips("数量必须为数字！"); //succeedTips
+                $this.val(0);
+                return false;
+            }
+
+            var $xiaoji = $(this).parent().parent().next().find('.xiaoji'); //object span xiaoji
+            $xiaoji.html((Number($price) * Number($num)).toFixed(2));
+        });
+
+        /*gou_wu_ce*/
+        $(".gou_wu_ce").live("click", function () {
+            var $tr = $(this).parent().parent().parent();
+            var productid = $(this).attr('id');
+            var packing = $.trim($tr.children('td').eq(3).children().find('div').html());
+            var spelevel = $.trim($tr.children('td').eq(4).find('div').html());
+            var purity = $.trim($tr.children('td').eq(5).find('div').html());
+            var num = $.trim($tr.children('td').eq(7).children().find('.text_box').val());
+            var totalprice = $.trim($tr.children('td').eq(8).children().find('.xiaoji').html());
+            if (Number(num) == 0) {
+                $.dialog.errorTips("请选择产品数量！");
+                return false;
+            }
+            var productname = $("#productname").val();
+            var prodcutcointypename = "CNY";/*货币*/
+            var shopid = $(this).attr('alt');; /*供应商*/
+
+            var jsoncart = "";
+            jsoncart += "{";
+            jsoncart += "\"shopid\":\"" + shopid + "\",";
+            jsoncart += "\"productid\":\"" + productid + "\",";
+            jsoncart += "\"cartproductlist\":[";
+            jsoncart += "{";
+            jsoncart += "\"ProductId\":\"" + productid + "\",";
+            jsoncart += "\"ProductName\":\"" + productname + "\",";
+            jsoncart += "\"Num\":\"" + num + "\",";
+            jsoncart += "\"PurchasePrice\":\"" + totalprice + "\",";
+            jsoncart += "\"CoinType\":\"" + prodcutcointypename + "\",";
+            jsoncart += "\"PackingUnit\":\"" + packing + "\",";
+            jsoncart += "\"SpecLevel\":\"" + spelevel + "\",";
+            jsoncart += "\"Purity\":\"" + purity + "\"";
+            jsoncart += "}";
+            jsoncart += "]}";
+            var loading = showLoading();
+            $.ajax({
+                type: 'POST', url: "/cart/addtocart",
+                data: { json: jsoncart },
+                dataType: 'json',
+                success: function (data) {
+                    loading.close();
+                    if (data.success == true) {
+                        /*刷新购物车数量*/
+                        $.post('/cart/GetCartProducts', {}, function (cart) {
+                            var products = cart.products;
+                            var count = cart.totalCount;
+                            $('#shopping-amount,#right_cart em').html(count);
+                        });
+                        $.dialog.succeedTips('已加入购物车');
+                    } else {
+                        loading.close();
+                        $.dialog.errorTips('请登录后再添加产品加入购物车');
+                    }
+                },
+                error: function (e) {
+                    loading.close();
+                    $.dialog.errorTips('请登录后再添加产品加入购物车');
+                }
+            });
+        });
+
+        var tt = '@ViewBag.GetTitle';
+        if (tt != null && tt != "") {
+            $(document).attr("title", "ChemCloud产品详细-" + tt);
+        } else {
+            $(document).attr("title", "ChemCloud产品详细");
+        }
+
+      
+    });
+ 
+   
+  
+
+    /*在线咨询*/
+    function onlinetalk(shopID) {
+        ///没有用户在线
+        if ($.cookie("ChemCloud-User") == null) {
+            var r = confirm("请先登陆!");
+            if (r == true) {
+                window.location.href = '/Login';
+            }
+            return;
+        }
+        $.get('/ChatOtherSide/GetOtherSideInfoByShop'
+        , {
+            shopID: shopID
+        }, function (result) {
+            if (result.Result == -1) {
+
+                $.dialog.errorTips('商家不存在');
+
+            } else {
+                $.cookie("currentSelectedShopUserID", result.UserID, { expires: 100, path: '/' });
+                $.cookie("currentSelectedShopUserName", result.UserName, { expires: 100, path: '/' });
+                //window.open("/ChatMessage/Index");
+                var w = window.open();
+                setTimeout(function () {
+                    w.location = "/ChatMessage/Index";
+                }, 1000);
+            }
+        });
+    }
+
+    /*点击+—*/
+    function getdetial(id, shopid, e) {
+        if ($(e).hasClass('glyphicon-plus-sign')) {
+
+            /*点击加号*/
+            $(e).addClass("glyphicon-minus-sign").removeClass("glyphicon-plus-sign");
+            var tb = $(e).parent().parent().parent().parent()[0];//tbody
+
+            /*当前行号，标识弹出行，可选择性的+—*/
+            var tbno = $(e).parent().parent().parent().attr("himalldatagrid-row-index");
+
+            $.post('/Search/ShowDetial', { productid: id }, function (result) {
+                if (result.length > 1) {
+                    for (var i = 1; i < result.length; i++) {
+                        var html = "";
+                        var trindex = $(e).parent().parent().parent()[0].rowIndex + i;//tr
+                        html += "<tr style='border:1px solid #3498DB;' class='detial tr" + tbno + "'><td class='td1'></td>";
+                        html += "<td class='td2'></td>";
+                        html += "<td class='td3'></td>";
+                        html += "<td field='PackagingLevel' style='width:60px;background: rgb(230,230,230);color:#333'><div><div style='text-align:center;padding-left: 28px;' class='hiMallDatagrid-cell '>" + result[i].Packaging + "</div></div></td>";
+                        html += "<td field='SpecLevel' style='width:80px;background: rgb(230,230,230);color:#333'><div style='text-align:center;' class='hiMallDatagrid-cell '>" + result[i].SpecLevel + "</div></td>";
+                        html += "<td field='Purity' style='width:60px;background: rgb(230,230,230);color:#333'><div style='text-align:center;' class='hiMallDatagrid-cell '>" + result[i].Purity + "</div></td>";
+                        html += "<td field='MarketPrice' style='width:60px;background: rgb(230,230,230);color:#333'><div style='text-align:center;' class='hiMallDatagrid-cell '>" + result[i].Price + "</div></td></tr>";
+
+                        html += "<td field='number' style='width:60px;background: rgb(230,230,230);color:#333'><div style='text-align:center;' class='hiMallDatagrid-cell '><span class='jian'>-</span><input class='text_box' type='text' style='width:20px' name='name' value='0'><span class='jia'>+</span></div></td>";
+                        html += "<td field='Subtotal' style='width:60px;background: rgb(230,230,230);color:#333'><div style='text-align:center;' class='hiMallDatagrid-cell '><span class='xiaoji'>0.00</span></div></td>";
+                        html += "<td field='Shopping' style='width:60px;background: rgb(230,230,230);color:#333'><div style='text-align:center;' class='hiMallDatagrid-cell '><span class='gou_wu_ce' id='" + result[i].ProductId + "' alt='" + shopid + "'></span></div></td>";
+                        html += "<td field='operation' style='width:200px;background: rgb(230,230,230);color:#333'><div style='text-align:center;' class='hiMallDatagrid-cell '></div></td>";
+
+                        var tr = tb.insertRow(trindex - 1);
+                        tr.innerHTML = html;
+                        $(tr).addClass("detial tr" + tbno);
+                    }
+                }
+            });
+        } else {
+            /*当前行*/
+            var tbno = $(e).parent().parent().parent().attr("himalldatagrid-row-index");
+            var eles = document.getElementsByClassName("tr" + tbno);
+            for (var i = eles.length - 1; i >= 0; i--) {
+                $(eles[i]).remove();
+            }
+            $(e).addClass("glyphicon-plus-sign").removeClass("glyphicon-minus-sign");;
+        }
+    }
+
+    /*供应商查询*/
+    function shopsearch(shoptype) {
+        $("#shopDatagrid").hiMallDatagrid({
+            url: "/Search/ProductWithShops",//target="_blank" href="/userCenter/Index
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '暂时没有供应商发布该产品记录,您可以选择以下方式进行购买：<a  href="/UserCenter/?c=5" target="_blank"><span style="font-weight:bold;color:blue;">代理采购</span></a>,&nbsp;&nbsp;&nbsp;&nbsp;<a  href="/UserCenter/?c=4" target="_blank"><span style="font-weight:bold;color:blue;">合成订单</span></a>',
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { "CASNo": $("#hdproductname").val(), "ShopType": shoptype },
+            toolbar: "#shopToolBar",
+            columns:
+            [[
+                //{
+                //    field: 'GMPPhoto', title: "GMP认证", width: 100, align: "center",halign:"center", formatter: function (value, row, index) {
+                //        var html = ['<span class="btn-a">'];
+                //        if (row.GMPPhoto != null && row.GMPPhoto != "") {
+                //            html.push(' <img alt="ImagePath" style="width:36px;height:36px;" src="/Areas/Web/Images/ico_gmp.png" />');
+                //        }
+                //        html.push("</span>");
+                //        return html.join("");
+                //    },
+
+                //},
+                //{
+                //    field: 'FDAPhoto', title: "FDA认证", width: 100, align: "center", halign: "center", formatter: function (value, row, index) {
+                //        var html = ['<span class="btn-a">'];
+                //        if (row.FDAPhoto != null && row.FDAPhoto != "") {
+                //            html.push(' <img alt="ImagePath" style="width:36px;height:36px;padding:2px;" src="/Areas/Web/Images/ico_fda.png" />');
+                //        }
+                //        html.push("</span>");
+                //        return html.join("");
+                //    },
+
+                //},
+                //{
+                //    field: 'ISOPhoto', title: "ISO认证", width: 100, align: "center", halign: "center", formatter: function (value, row, index) {
+                //        var html = ['<span class="btn-a" >'];
+                //        if (row.ISOPhoto != null && row.ISOPhoto != "") {
+                //            html.push(' <img alt="ImagePath" style="width:36px;height:36px;" src="/Areas/Web/Images/ico_iso.png" />');
+                //        }
+                //        html.push("</span>");
+                //        return html.join("");
+                //      },
+                //},
+                {
+                    field: "ShopName", title: "供应商名称", width: 420, align: "left",
+                    formatter: function (value, row, index) {
+
+                        var html = ['<span class="btn-a" style="float:left;">'];
+                        /*判断条件*/
+                        if (row.GMPPhoto != null && row.GMPPhoto != "") {
+                            html.push(' <img alt="ImagePath" style="width:32px;height:32px;margin-right:0px;" src="/Areas/Web/Images/ico_gmp.png" />');
+                        }
+                        if (row.FDAPhoto != null && row.FDAPhoto != "") {
+                            html.push(' <img alt="ImagePath" style="width:32px;height:32px;margin-right:0px;" src="/Areas/Web/Images/ico_fda.png" />');
+                        }
+                        if (row.ISOPhoto != null && row.ISOPhoto != "") {
+                            html.push(' <img alt="ImagePath" style="width:32px;height:32px;margin-right:0px;" src="/Areas/Web/Images/ico_iso.png" />');
+                        }
+                        html.push(' <a target="_blank" style="color:#3498DB" href="/Shop/ShopStore?shopId=' + row.ShopId + '" title="' + row.ShopName + '">' + setString(row.ShopName, 12) + '</a>');
+
+                        html.push("</span>");
+
+                        return html.join("");
+                    }
+                },
+                {
+                    field: "CASNo", title: "CAS #", width: 80
+                },
+                {
+                    field: "ProductName", title: "产品名称", width: 180
+                },
+                {
+                    field: "Packaging", title: "包装规格", width: 100, formatter: function (value, row, index) {
+                        var html = ['']
+                        html.push('<span class="glyphicon glyphicon-plus-sign" style="margin-right:0" onclick="getdetial(' + row.Id + ',' + row.ShopId + ',this)"></span>');
+                        html.push('<div style="display:inline-block;margin-left:0" class="hiMallDatagrid-cell ">' + row.Packaging + '</div>');
+                        return html.join('');
+                    }
+                },
+                {
+                    field: "SpecLevel", title: "等级", width: 80
+                },
+                {
+                    field: "Purity", title: "纯度", width: 60
+                },
+                {
+                    field: "Price", title: "价格", width: 60
+                },
+                 {
+                     field: "number", title: "数量", width: 60,
+                     formatter: function (value, row, index) {
+                         var html = [''];
+                         html.push('<span class="jian">-</span>');
+                         html.push('<input class="text_box" type="text" style="width:20px" name="name" value="0" />');
+                         html.push('<span class="jia">+</span>');
+                         return html.join('');
+                     }
+                 },
+                {
+                    field: "Subtotal", title: "小计", width: 60,
+                    formatter: function (value, row, index) {
+                        var html = [''];
+                        html.push('<span class="xiaoji">0.00</span>');
+                        return html.join('');
+                    }
+                },
+                {
+                    field: "Shopping", title: "购物车",
+                    formatter: function (value, row, index) {
+                        var html = [''];
+                        html.push('<span class="gou_wu_ce" id="' + row.Id + '" alt=' + row.ShopId + '></span>');
+                        return html.join('');
+                    }
+                },
+                {
+                    field: "operation", operation: true, title: "操作", width: 204,
+                    formatter: function (value, row, index) {
+                        if ($("#hdCurrentUserType").val() != "2") {
+                            var html = ['<span class="btn-a">'];
+                            html.push('<a class="btnaa" style="color:#e4393c" target="_blank" href="/userCenter/Index?productid=' + row.Id + '&type=bargain">询盘</a>');
+
+                            html.push('<a class="btnaa" style="color:#e4393c"  onclick="onlinetalk(' + row.ShopId + ')">在线咨询</a>');
+
+                            html.push('<a class="btnaa" style="color:#e4393c" target="_blank" href="/userCenter/Index?productid=' + row.Id + '&type=order">下单</a>');
+                            html.push("</span>");
+                            return html.join("");
+                        }
+                    }
+                }
+            ]]
+        });
+    };
+    function checkshopid(sid, pid) {
+        var falg = false;
+        $.post('./CheckShopid', { 'sid': sid, 'pid': pid }, function (result) {
+            if (result == "ok") {
+                falg = true;
+            } else {
+                falg = false;
+            }
+        });
+        return falg;
+    }
+    function setString(str, count) {
+        if (str.length > 11) {
+            str = str.substring(str, 11) + "...";
+        }
+        return str;
+    };
+</script>

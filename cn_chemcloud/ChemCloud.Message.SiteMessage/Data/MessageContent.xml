@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MessageContent>
+  <Bind><![CDATA[【#siteName#】尊敬的用户:#userName#,您正在进行邮箱验证操作，您的验证码为：#checkCode#,验证码有效期为24小时]]></Bind>
+  <OrderCreated><![CDATA[【#siteName#】尊敬的用户:#userName#，您的订单(#orderId#)已成功创建.]]></OrderCreated>
+  <OrderPay><![CDATA[【#siteName#】尊敬的用户:#userName#，您的订单(#orderId#)已成功付款#Total#元]]></OrderPay>
+  <OrderShipping><![CDATA[【#siteName#】尊敬的用户:#userName#，您的订单(#orderId#)已经发货，物流公司为:#shippingCompany#,物流单号：#shippingNumber#]]></OrderShipping>
+  <OrderRefund><![CDATA[【#siteName#】尊敬的用户:#userName#，您的订单(#orderId#),已经退款，退款金额:#RefundMoney#,请注意查收！]]></OrderRefund>
+  <FindPassWord><![CDATA[【#siteName#】尊敬的用户:#userName#，您已经成功通过邮件重置密码！]]></FindPassWord>
+  <ShopAudited><![CDATA[【#siteName#】尊敬的用户:#userName#，#companyName#的资料已经成功提交审核,请耐心等待.]]></ShopAudited>
+  <ShopSuccess><![CDATA[【#siteName#】尊敬的用户:#userName#，#companyName#已经完成审核,请登录查看结果.]]></ShopSuccess>
+  <ReceApply><![CDATA[【#siteName#】尊敬的用户:#userName#，#companyName#已经接受实地认证申请,请登录并进行下一步操作.]]></ReceApply>
+  <StartAuthentic><![CDATA[【#siteName#】尊敬的用户:#userName#，#companyName#已经开始实地认证,客服人员将会尽快与您联系.]]></StartAuthentic>
+  <FinishAuthentic><![CDATA[【#siteName#】尊敬的用户:#userName#，#companyName#已经完成实地认证审核,请登录查看结果.]]></FinishAuthentic>
+</MessageContent> 

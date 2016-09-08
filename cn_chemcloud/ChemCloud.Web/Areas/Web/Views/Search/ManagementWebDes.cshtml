@@ -1,0 +1,55 @@
+﻿@{
+    //Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "法律法规";
+}
+<link href="~/Areas/Web/Content/user-center.css" rel="stylesheet" />
+<!--时间空间-->
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/datetimeCustom.js"></script>
+<!--本页-->
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Areas/Admin/Scripts/upload/browser.js"></script>
+<script src="~/Areas/Admin/Scripts/upload/jquery.form.js"></script>
+
+<!--分页-->
+<link href="~/Areas/Web/Content/JobWeb.css" rel="stylesheet" />
+<script src="~/Areas/Web/Scripts/js_web/left_nav.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/ManagementLawInfoWebDes.js" type="text/javascript"></script>
+<script src="~/Areas/Web/Scripts/js_web/pageGroup.js"></script>
+
+<div class="new_syl">
+    <h1 id="hTitle"></h1>
+
+    <div class="title_same">
+        <span class="time">发布时间：<span class="glyphicon glyphicon-calendar" id="spanMeetingTime"></span></span>
+        @*<span class="xiaoxi"><span class="glyphicon glyphicon-eye-open"></span>16次浏览</span>*@
+        <span class="fenlei">作者：<span id="spanMeetingPlace"></span></span>
+    </div>
+    <div class="news_main" id="divMeetingContent">
+    </div>
+    <div class="new_syl_header">
+        <div class="download_div">
+            <div class="new_download">文件列表：</div>
+            <div class="downloads" id="attachmentList">
+            </div>
+        </div>
+
+        <div class="new_syl_left">
+            <span>上一篇：</span>
+            <a href="#" id="a_PreInfo"></a>
+            <span id="span_pre_no" style="display:none;">没有了</span>
+        </div>
+        <div class="new_syl_right">
+            <span>下一篇：</span>
+            <a href="#" id="a_NextInfo"></a>
+            <span id="span_next_no" style="display:none;">没有了</span>
+        </div>
+
+    </div>
+</div>
+
+
+

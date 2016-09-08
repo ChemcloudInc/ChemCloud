@@ -1,0 +1,96 @@
+﻿@model ChemCloud.Web.Areas.Admin.Models.Product.CategoryModel
+
+@{
+    ViewBag.Title = "Edit";
+    var fileName = "";
+}
+
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#Name").focus();
+        $("#upload-img").himallUpload({
+            displayImgSrc: "@Model.Icon"
+        });
+    });
+</script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>分类</strong>
+        <li><a href="./Management">管理</a></li>
+        <li class="active"><a href="#">编辑</a></li>
+    </ul>
+    @using (Html.BeginForm("Edit", "Category", new { Area = "Admin" }, FormMethod.Post, new { id = "categoryForm", @class = "form-horizontal" }))
+    {
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label"><b style="color:red">*</b>名称：</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control input-sm" })
+            </div>
+            <div class="col-sm-3">@Html.ValidationMessageFor(m => m.Name, "", new { @class = "help-default cor-red" })</div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label"><b style="color:red">*</b>分类英文名称：</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(m => m.ENName, new { @class = "form-control input-sm" })
+            </div>
+            <div class="col-sm-3">@Html.ValidationMessageFor(m => m.ENName, "", new { @class = "help-default cor-red" })</div>
+        </div>
+        <div id="upload-img" class="form-group upload-img">
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label"><b style="color:red">*</b>选择类型：</label>
+            <div class="col-sm-3">
+                @*<select class="form-control input-sm" name="TypeId">*@
+                @*@Html.GenerateTypeSelect(((IEnumerable<ChemCloud.Model.ProductTypeInfo>)ViewBag.Types), Model.TypeId,-1)*@
+                @Html.DropDownListFor(t => t.TypeId, (IEnumerable<SelectListItem>)ViewBag.Types, new { @class = "form-control input-sm " })
+                @*</select>*@
+            </div>
+            <div class="col-sm-3">
+                @Html.ValidationMessageFor(t => t.TypeId)
+            </div>
+        </div>
+        if ((int)ViewBag.Depth == 3)
+        {
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">分佣比例：</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(m => m.CommisRate, new { @class = "form-control input-sm" })
+                </div>
+                <div class="col-sm-1"><span class="help-default">%</span></div>
+                <div class="col-sm-3">@Html.ValidationMessageFor(m => m.CommisRate, "", new { @class = "help-default cor-red" })</div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(m => m.CommisRate)
+        }
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">标题(title)：</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control input-sm" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">关键字(keywords)：</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control input-sm" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">描述(description)：</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(m => m.Description, new { @class = "form-control input-sm" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">保 存</button>
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.Id)
+    }
+
+</div>

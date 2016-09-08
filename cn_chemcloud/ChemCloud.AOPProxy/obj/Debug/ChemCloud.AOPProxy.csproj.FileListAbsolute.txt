@@ -1,0 +1,6 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\bin\Debug\ChemCloud.AOPProxy.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\bin\Debug\ChemCloud.AOPProxy.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\bin\Debug\Newtonsoft.Json.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\obj\Debug\ChemCloud.AOPProxy.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\obj\Debug\ChemCloud.AOPProxy.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\obj\Debug\ChemCloud.AOPProxy.csprojResolveAssemblyReference.cache

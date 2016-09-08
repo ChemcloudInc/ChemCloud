@@ -1,0 +1,335 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "个人信息";
+}
+@using ChemCloud.Core;
+@model ChemCloud.Model.MemberDetail
+
+<style type="text/css">
+    .textarea {
+        width: 300px;
+        height: 60px;
+    }
+
+    .edui-default .edui-editor-iframeholder {
+        height: 340px !important;
+    }
+</style>
+
+<div class="box1 lh24">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">修改企业信息</h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            <div class="form">
+                @Html.ValidationMessageFor(item => item.Id)
+                @Html.TextBoxFor(item => item.Id, new { style = "width:0px;height:0px;border-width:0px;" })
+                <div class="item">
+                    <span class="label" style="color:red"><em style="color:red">*</em>公司/个人名称：</span>
+                    <div class="fl" style="width:800px">
+                        @Html.TextBoxFor(item => item.CompanyName, new { @class = "itxt", maxlength = "50", style = "width:600px;float:left;" })
+                        @*@Html.ValidationMessageFor(item => item.CompanyName)*@
+                        <label id="CompanyNameNote" class="error-msg" style="color:red;display:none;">请您填写公司/个人名称</label>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label" style="color:red"><em style="color:red">*</em>地区：</span>
+                    <div class="fl" style="width:800px">
+                        <select id="companyLocationProvince" class="sele" style="width:300px"><option></option></select>
+                        <select id="companyLocationCity" class="sele" style="width:145px"><option></option></select>
+                        <select id="companyLocationDistrict" class="sele" style="width:145px"><option></option></select>
+                        @*@Html.ValidationMessageFor(item => item.CityRegionId)*@
+                        @Html.TextBoxFor(item => item.CityRegionId, new { style = "width:0px;height:0px;border-width:0px;float:left;" })
+                        <label id="areaNote" class="error-msg" style="color:red;display:none;">请您填写完整的地区信息</label>
+                    </div>
+                    <div class="clr"></div>
+                </div>
+                <div class="item">
+                    <span class="label" style="color:red"><em style="color:red">*</em>详细地址：</span>
+                    <div class="fl" style="width:800px">
+                        @Html.TextBoxFor(item => item.CompanyAddress, new { @class = "itxt", @id = "CompanyAddress", maxlength = "200", style = "width:600px;float:left;" })
+                        @*@Html.ValidationMessageFor(item => item.CompanyAddress)*@
+                        <label id="CompanyAddressNote" class="error-msg" style="color:red;display:none;">请您填详细地址</label>
+                    </div>
+
+                    <div class="clr"></div>
+                </div>
+                <div class="item">
+                    <span class="label">ZIPCODE：</span>
+                    <div class="fl" style="width:800px">
+                        @Html.TextBoxFor(item => item.ZipCode, new { @class = "itxt", maxlength = "200", style = "width:600px;float:left;" })
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">用户名：</span>
+                    <div class="fl" style="width:800px">
+                        @Html.TextBoxFor(item => item.MemberName, new { @disabled = "disabled", @class = "itxt", maxlength = "200", style = "width:600px;float:left;" })
+                    </div>
+                    <div class="clr"></div>
+                </div>
+                <div class="item">
+                    <span class="label">Email：</span>
+                    <div class="fl" style="width:800px">
+                        @Html.TextBoxFor(item => item.Email, new { @disabled = "disabled", @class = "itxt", maxlength = "200", style = "width:600px;float:left;" })
+                    </div>
+                    <div class="clr"></div>
+                </div>
+
+
+                <div class="item">
+                    <span class="label">公司/个人标志：</span>
+                    <div class="fl">
+                        @{
+                            if (string.IsNullOrWhiteSpace(@Model.CompanySign))
+                            {
+                                <div class="form-group upload-img" id="CompanySign"></div>
+                                <div class="clr"></div>
+                            }
+                            else
+                            {
+                                <img style="max-width:50px" src="@Model.CompanySign" alt="" />
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">证明性文件：</span>
+                    <div class="fl">
+                        @{
+                            if (string.IsNullOrWhiteSpace(@Model.CompanyProveFile))
+                            {
+                                <div class="form-group upload-img " id="CompanyProveFile"></div>
+                                <div class="clr"></div>
+                            }
+                            else
+                            {
+                                <img style="max-width:50px" src="@Model.CompanyProveFile" alt="" />
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="item" style="height:400px">
+                    <span class="label">公司/个人简介：</span>
+                    <div class="fl">
+                        @*@Html.TextBoxFor(item => item.CompanyIntroduction, new { @class = "itxt" })*@
+
+                        @Html.TextAreaFor(item => item.CompanyIntroduction, new { @class = "textarea" })
+
+                        @Html.ValidationMessageFor(item => item.CompanyIntroduction)
+                        @*<span id="CompanyIntroductionNote" class="error-msg hide">请您填写公司/个人简介</span>*@
+                        <div class="clr"></div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <span class="label">&nbsp;</span>
+                    <div class="fl">
+                        <a id="id_btn" class="btn-5">保存修改</a>
+                    </div>
+                </div>
+                @*<input type="hidden" id="Sign">
+                    <input type="hidden" id="ProveFile">*@
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery.form.js"></script>
+<script src="~/Scripts/Region.js"></script>
+<script src="~/Scripts/RegionBind.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/jquery.himemberpUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/autoNumeric.js"></script>
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var eidtor;
+        eidtor = UE.getEditor('CompanyIntroduction', { initialFrameHeight: 400, initialFrameWidth: 600 });
+        (function initRichTextEditor() {
+            eidtor = UE.getEditor('CompanyIntroduction');
+            eidtor.addListener('contentChange', function () {
+                $('#contentError').hide();
+            });
+        })();
+        $("#CompanyName").blur(function () {
+            var errorLabel = $("#CompanyNameNote");
+            if ($.trim($('#CompanyName').val()) == "") {
+                errorLabel.css('display', 'block');
+                //errorLabel.removeClass(".error-msg hide");
+            } else {
+                errorLabel.css('display', 'none');
+            }
+        });
+        checkRegion();
+        $("#CompanyAddress").blur(function () {
+            var errorLabel = $("#CompanyAddressNote");
+            if ($.trim($('#CompanyAddress').val()) == "") {
+                errorLabel.css('display', 'block');
+                //errorLabel.removeClass(".error-msg hide");
+            } else {
+                errorLabel.css('display', 'none');
+            }
+        });
+        $('#id_btn').click(function () {
+            var errorLabel = $("#CompanyNameNote");
+            if ($.trim($('#CompanyName').val()) == "") {
+                errorLabel.css('display', 'block');
+                return false;
+                //errorLabel.removeClass(".error-msg hide");
+            }
+            var photoCompanySign = $('#CompanySign').hishopUpload('getImgSrc'); //公司/个人标志
+            var photoCompanyProveFile = $('#CompanyProveFile').hishopUpload('getImgSrc'); //公司/个人证明性文件
+            if ($('#companyLocationProvince option:selected').text() == "请选择" || $('#companyLocationCity option:selected').text() == "请选择" || $('#companyLocationDistrict option:selected').text() == "请选择") {
+                $("#areaNote").css('display', 'block');
+                return false;
+            }
+            if ($.trim($("#CompanyAddress").val()) == "") {
+                $("#CompanyAddressNote").css('display', 'block');
+                return false;
+            }
+            var zipcode = $('#ZipCode').val();
+            if (zipcode.length > 10) {
+                $.dialog.errorTips('邮编位数不得超过10位！');
+                return false;
+            }
+            else {
+                //var data = form.serialize();
+                var loading = showLoading();
+                var companyname = $("#CompanyName").val();
+                var cityRegionId = $("#companyLocationDistrict option:selected").val();
+                var companyAddress = $("#CompanyAddress").val();
+                var companySign = $('#CompanySign').hishopUpload('getImgSrc');
+                var companyProveFile = $('#CompanySign').hishopUpload('getImgSrc');
+                var companyIntroduction = UE.getEditor('CompanyIntroduction').getContent();
+                var zipCode = $("#ZipCode").val();
+                var param = {
+                    "CompanyName": companyname,
+                    "CityRegionId": cityRegionId,
+                    "CompanyAddress": companyAddress,
+                    "CompanySign": companySign,
+                    "CompanyProveFile": companyProveFile,
+                    "CompanyIntroduction": companyIntroduction,
+                    "ZipCode": zipCode
+                }
+                var param2 = JSON.stringify(param);
+                $.ajax({
+                    type: "POST",
+                    url: "/UserInfo/EditMemberDetail",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: param2,
+                    beforeSend: function () {
+                    },
+                    success: function (result) {
+                        if (result.success) {
+                            $.dialog.succeedTips("保存成功！", '', 2);
+                            loading.close();
+                        } else {
+                            $.dialog.errorTips('保存失败！' + result.msg);
+                            loading.close();
+                        }
+
+                    }
+                });
+                //$.post('EditMemberDetail', param2, function (result) {
+                //    loading.close();
+                //    if (result.success)
+                //        $.dialog.succeedTips("保存成功！", '', 2);
+                //    else
+                //        $.dialog.errorTips('保存失败！' + result.msg);
+                //});
+            }
+        });
+
+        //公司/个人标志
+        $('#CompanySign').hishopUpload({
+            //title: '<b>*</b>公司/个人标志：',
+            title: '',
+            imageDescript: '',
+            displayImgSrc: '@Model.CompanySign',
+            imgFieldName: "CompanySign",
+            dataWidth: 6
+        });
+
+        //公司/个人证明性文件
+        $('#CompanyProveFile').hishopUpload({
+            //title: '<b>*</b>公司/个人标志：',
+            title: '',
+            imageDescript: '',
+            displayImgSrc: '@Model.CompanyProveFile',
+            imgFieldName: "CompanyProveFile",
+            dataWidth: 6
+        });
+
+        //公司所在地
+        $('#companyLocationProvince,#companyLocationCity,#companyLocationDistrict').himallLinkage({
+            url: '/common/RegionAPI/GetRegion',
+            enableDefaultItem: true,
+            defaultItemsText: '请选择',
+            defaultSelectedValues: [@ViewBag.CompanyRegionIds],
+            onChange: function (level, value, text) {
+                var len = $("#companyLocationDistrict option").size();
+                if (level == 1 && len == 0) {
+                    $('input[name="CityRegionId"]').val(value);
+                }
+                else if (level == 2)
+                    $('input[name="CityRegionId"]').val(value);
+            }
+        });
+    });
+    function checkRegion() {
+        if ($('#companyLocationProvince option:selected').text() == "请选择" || $('#companyLocationCity option:selected').text() == "请选择" || $('#companyLocationDistrict option:selected').text() == "请选择") {
+            $("#areaNote").css('display', 'block');
+        } else {
+            $("#areaNote").css('display', 'none');
+        }
+    }
+
+    var isSelectAddr = function (p, c, t) {
+        if (!p || !c || !t)
+            return false;
+        var haveProvince = false;
+        var haveCity = false;
+        var haveTown = false;
+        p.children().each(function (i, e) {
+            s = e.selected;
+            if (s == true && i > 0) {
+                haveProvince = true;
+                return;
+            }
+        });
+        if (haveProvince) {
+            c.children().each(function (i, e) {
+                s = e.selected;
+                v = e.value;
+                if (s == true && v != "") {
+                    haveCity = true;
+                    return;
+                }
+            });
+            if (haveCity) {
+                var idx = 0;
+                t.children().each(function (i, e) {
+                    s = e.selected;
+                    v = e.value;
+                    idx = i;
+                    if (s == true && v != "") {
+                        haveTown = true;
+                        return;
+                    }
+                });
+                haveTown = idx > 0 ? haveTown : true;
+            }
+        }
+        return haveProvince && haveCity && haveTown;
+    };
+
+</script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

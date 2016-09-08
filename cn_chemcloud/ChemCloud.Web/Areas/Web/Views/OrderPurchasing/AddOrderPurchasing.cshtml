@@ -1,0 +1,620 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+}
+<style type="text/css">
+    .baojiatable tr td {
+        text-align: center;
+    }
+
+    .baojiatable tr th {
+        text-align: center;
+    }
+</style>
+<div class="box1 lh24">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">发布代购订单</h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            <form class="form" id="form_step1">
+                <div class="item">
+                    <span class="label" style="color:red"><em style="color:red">*</em>产品名称：</span>
+                    <div class="fl">
+                        <input class="itxt" id="productName" name="productName" type="text" value="">
+                        <span id="productNameNote" class="error-msg hide">请您输入产品名称</span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label" style="color:red;padding-top:15px;"><em style="color:red">*</em>数量：</span>
+                    <div class="fl">
+                        <input class="itxt" id="productCount" name="productCount" type="text" value="">&nbsp;<select class="search_order" style="width:auto;"><option>kg</option><option>g</option><option>L</option><option>ml</option></select>
+                        <span id="productCountNote" class="error-msg hide">请您输入产品数量</span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label" style="color:red"><em style="color:red">*</em>邮箱：</span>
+                    <div class="fl">
+                        <input class="itxt" id="email" name="email" type="text" value="">
+                        <span id="emailNote" class="error-msg hide">请您输入邮箱</span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label" style="color:red"><em style="color:red">*</em>公司名称：</span>
+                    <div class="fl">
+                        <input class="itxt" id="companyName" name="companyName" type="text" value="">
+                        <span id="companyNameNote" class="error-msg hide">请您输入公司名称</span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label" style="color:red"><em style="color:red">*</em>产品价格：</span>
+                    <div class="fl">
+                        <input class="itxt" id="productPrice" name="productPrice" type="text" value="">
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">Cas#：</span>
+                    <div class="fl">
+                        <input class="itxt" id="casNo" name="productName" type="text" value="">
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">化学品名：</span>
+                    <div class="fl">
+                        <input class="itxt" id="chemName" name="productName" type="text" value="">
+                        <div class="clr"></div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <span class="label">纯度：</span>
+                    <div class="fl">
+                        <input class="itxt" id="productChundu" name="productChundu" type="text" value="">&nbsp;<span>%</span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <span class="label">详情：</span>
+                    <div class="fl">
+                        <textarea id="productDesc" cols="3" rows="6" style="line-height:18px;padding:5px;width:480px;border:1px solid #ccc;"></textarea>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label" style="padding-top:15px;">有效期：</span>
+                    <div class="fl">
+                        <select class="search_order" style="width:auto;" id="orderDate">
+                            <option value="3">3天</option>
+                            <option value="7">7天</option>
+                            <option value="15">15天</option>
+                            <option value="30">30天</option>
+                            <option value="90">90天</option>
+                        </select>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <span class="label">联系人：</span>
+                    <div class="fl">
+                        <input class="itxt" id="conUser" name="conUser" type="text" value="">
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">地址：</span>
+                    <div class="fl">
+                        <input class="itxt" id="webSite" name="webSite" type="text" value="">
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">电话/手机：</span>
+                    <div class="fl">
+                        <input class="itxt" id="telPhone" name="telPhone" type="text" value="">
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                @*附件*@
+                <div class="item" id="div_OrderSynthesis_Attachment_List">
+                    <span class="label">附件列表：</span>
+                    <div class="fl">
+                        <ul id="ul_OrderSynthesis_Attachment_List"></ul>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item" style="width:100%;" id="divmarvin">
+                    <span class="label">结构式绘图：</span>
+                    <div class="fl" style="width:80%;height：400px;">
+
+                        <iframe id="ketcherFrame" name="ketcherFrame" scrolling="no" src="../Areas/Web/Content/marvinjs-16.6.6-all/editor.html" style="overflow:auto; min-width: 500px; min-height: 400px;width:100%;height:400px;"></iframe>
+                        <img id="imgstruct" style="display:none;" />
+                    </div>
+                </div>
+
+                <div class="item" id="divimg" style="display:none;">
+                    <span class="label">产品图片：</span>
+                    <div class="fl">
+                        <img src="" id="imgmol" style="width:80px;height:80px;" />
+                        <div class="clr"></div>
+                    </div>
+                </div>
+
+                <div class="item" id="replyC">
+                    <hr style="color:#ccc;" />
+                    <span class="label">平台回复：</span>
+                    <div class="fl">
+                        <span id="reply" style="font-weight:600;"></span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item hide" id="Orderstatus">
+                    <span class="label">订单状态：</span>
+                    <div class="fl">
+                        <span id="ostatus" style="font-weight:bold;font-size:16px;color:black;"></span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+
+                <div class="item" id="signupshoplist" style="display:none;">
+                    <hr style="color:#ccc;" />
+                    <span class="label">报价列表：</span>
+                    <div class="fl">
+                        <span style="color:red;">勾选复选框，可接受报价。</span>
+                        <div class="clr"></div>
+                        <table class="baojiatable">
+                            <tr style="background-color:#ccc;">
+                                <th style="width:45px;  font-weight:bolder; ">编号</th>
+                                <th style="width:140px; font-weight:bolder;">报价日期</th>
+                                <th style="width:140px; font-weight:bolder;">供应商</th>
+                                <th style="width:80px; font-weight:bolder;">竞标单价</th>
+                                @*<th style="width:80px; font-weight:bolder;">交货期</th>*@
+                                <th style="width:80px; font-weight:bolder;">选择</th>
+                            </tr>
+                            <tbody id="tbbaojia"></tbody>
+                        </table>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+
+                <div class="item" id="ex01">
+                    <hr style="color:#ccc;" />
+                    <span class="label" style="padding-top:15px;">物流公司：</span>
+                    <div class="fl" style="padding-top:10px;">
+                        <span id="exname"></span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item" id="ex02">
+                    <span class="label">物流编号：</span>
+                    <div class="fl">
+                        <span id="exid"></span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="item" id="ex03">
+                    <span class="label">物流详情：</span>
+                    <div class="fl">
+                        <table class="table table-bordered" id="tbExpressData"></table>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+
+                <div class="item" id="div_DeliveryDate" style="display:none;">
+                    <span class="label">发货时间：</span>
+                    <div class="fl">
+                        <span id="DeliveryDate" style="font-weight:600;"></span>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+
+                <div class="item" id="btnSub">
+                    <span class="label">&nbsp;</span>
+                    <div class="fl">
+                        <a id="id_btn" class="btn-5">确认提交</a>
+                    </div>
+                </div>
+                <div class="item" id="btnZF" style="display:none;">
+                    <span class="label">&nbsp;</span>
+                    <div class="fl">
+                        <a id="btnzf" class="btn-5">去支付</a>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <span class="label">&nbsp;</span>
+                    <div class="fl">
+                        <span class="label">&nbsp;</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="hdorderid" value="" />
+
+<input type="hidden" id="hidid" value="" />
+<input type="hidden" id="hidoid" value="" />
+
+<script src="~/Scripts/jquery.form.js"></script>
+<script src="~/Scripts/Region.js"></script>
+<script src="~/Scripts/RegionBind.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/jquery.himemberpUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/autoNumeric.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        var stat; var zhifusign;
+        var id = '@Request.QueryString["id"]';
+        if (id == null || id == "" || id == 0) {
+            $("#replyC").css("display", "none");
+            $("#Orderstatus").css("display", "none");
+            $("#zhifu").css("display", "none");
+            $("#ex01").css("display", "none");
+            $("#ex02").css("display", "none");
+            $("#ex03").css("display", "none");
+        } else {
+            $("#hdorderid").val(id); /*隐藏域赋值*/
+            $("#divmarvin").css("display", "none"); /*marvin*/
+            $("#btnSub").css("display", "none");
+
+            $("#replyC").css("display", "block");
+            $("#Orderstatus").css("display", "block");
+            $("#zhifu").css("display", "none");
+            $("#ex01").css("display", "none");
+            $("#ex02").css("display", "none");
+            $("#ex03").css("display", "none");
+
+            $.post('GetOrderInfo', { id: id }, function (data) {
+                if (data != null) {
+                    $("#divimg").css("display", "block");
+                    $("#imgmol").attr("src", data.Mol);
+
+                    $("#hidid").val(data.Id);
+                    $("#hidoid").val(data.OrderNum);
+                    $("#productName").val(data.ProductName);
+                    $("#casNo").val(data.CASNo);
+                    $("#chemName").val(data.ChemName);
+                    $("#productCount").val(data.ProductCount);
+                    $("#productChundu").val(data.ProductPurity);
+                    $("#productPrice").val(data.ProductPrice);
+                    $("#productDesc").val(data.ProductDesc);
+                    $("#email").val(data.Email);
+                    $("#companyName").val(data.CompanyName);
+                    $("#conUser").val(data.ConUserName);
+                    $("#webSite").val(data.ConWebsite);
+                    $("#telPhone").val(data.ConTelPhone);
+                    $("#reply").html(data.ReplyContent);
+                    $("#exname").text(data.KuaiDi);
+                    $("#exid").text(data.KuaiDiNo);
+                    /*附件列表*/
+                    $.post('OrderPurchasing_Attachment_List', { 'Id': data.Id }, function (result) {
+                        var html = "";
+                        if (result.success == true) {
+                            if (result.jsonstr != "") {
+                                var json = $.parseJSON(result.jsonstr);
+                                $.each(json, function (i, item) {
+                                    html += "<li><a style='cursor:pointer;text-decoration:underline;' href='" + item.AttachmentName + "' target='_blank' >附件" + item.Id + "</a></li>";
+                                });
+                                $("#ul_OrderSynthesis_Attachment_List").html(html);
+                            }
+                        } else {
+                            $("#div_OrderSynthesis_Attachment_List").css("display", "none");
+                        }
+                    });
+                    if (data.Status != 0) {
+
+                        /*报价列表*/
+                        $.post('AcceptCustomizedOrderList', { 'OrderNumber': data.OrderNum }, function (result) {
+                            var html = "";
+                            if (result.success == true) {
+                                if (result.jsonstr != "") {
+                                    $("#signupshoplist").css("display", "block");
+                                    var json = $.parseJSON(result.jsonstr);
+                                    $.each(json, function (i, item) {
+                                        if (data.Status == 1) {
+                                            html += "<tr><td>" + item.Id + "</td><td>" + item.DateTime + "</td><td>" + item.ShopName + "</td><td>" + item.Offer + "</td> <td><input type=\"checkbox\" id=\"" + item.ShopId + "\" class=\"baojia\"/></td></tr>";
+                                        } else {
+                                            html += "<tr><td>" + item.Id + "</td><td>" + item.DateTime + "</td><td>" + item.ShopName + "</td><td>" + item.Offer + "</td> <td><input type=\"checkbox\" id=\"" + item.ShopId + "\" class=\"baojia\" disabled=\"disabled\" /></td></tr>";
+                                        }
+                                    });
+                                    $("#tbbaojia").html(html);
+                                }
+                            }
+                        });
+                    }
+
+                    var ostatus = data.Status;
+                    stat = ostatus;
+                    if (ostatus == 0) {
+                        //$("#ostatus").text("平台未确认");
+                        //$("#replyC").css("display", "none");
+                        $("#Orderstatus").css("display", "none");
+                        $("#zhifu").css("display", "none");
+                        $("#ex01").css("display", "none");
+                        $("#ex02").css("display", "none");
+                        $("#ex03").css("display", "none");
+                        $("#btnSub").css("display", "block");
+                    } else if (ostatus == 1) {
+                        $("#btnSub").css("display", "none");
+                        $("#ostatus").text("平台已确认");
+                    } else if (ostatus == 2) {
+                        $("#btnZF").css("display", "block");
+                        $("#btnSub").css("display", "none");
+                        $("#ostatus").text("订单已被接受,待付款");
+                    } else if (ostatus == 3) {
+                        $("#ostatus").text("已付款");
+                        //$("#id_btn").text("确认收货");
+                    } else if (ostatus == 4) {
+                        $("#ostatus").text("未发货");
+                    } else if (ostatus == 5) {
+                        $("#div_DeliveryDate").css("display", "block");
+                        $("#DeliveryDate").html(jsonDateFormat(data.DeliveryDate));
+                        $("#btnSub").css("display", "block");
+                        $("#ostatus").text("已发货");
+                        $("#id_btn").text("确认签收");
+                        $("#ex01").css("display", "block");
+                        $("#ex02").css("display", "block");
+                        $("#ex03").css("display", "block");
+                    } else if (ostatus == 6) {
+                        $("#ostatus").text("未签收");
+                        $("#id_btn").text("确认签收");
+                    } else if (ostatus == 7) {
+                        $("#ostatus").text("已签收");
+                    }
+
+                    if (data.KuaiDiNo != null && data.KuaiDiNo != "") {
+                        $.post('GetExpressData', { expressCompanyName: data.KuaiDi, shipOrderNumber: data.KuaiDiNo }, function (result) {
+                            var html;
+                            var objdata = result.ExpressContentCN;
+                            var obj = jQuery.parseJSON(objdata);
+                            var data = obj;
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<tr><td>' + data[i].time + '</td>\
+                             <td>' + data[i].context + '</td>';
+                                html += '</tr>';
+                            }
+                            if (html == "") {
+                                html += '<tr><td colspan="3">该单号暂无物流进展，请稍后再试，或检查公司和单号是否有误。</td></tr>';
+                            }
+                            $("#tbExpressData").html(html);
+                        });
+                    }
+                }
+            });
+
+            //Marvin控件高度自适应
+            $("#ketcherFrame").load(function () {
+                $("#ketcherFrame").contents().find("div").height($("#ketcherFrame").height());
+            });
+        }
+        checkForm();
+
+        /*保存*/
+
+        /*正则验证价格*/
+        var regprice = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/;
+        $("#id_btn").on("click", function () {
+
+            var price = $.trim($("#productPrice").val());
+            if (price == "") {
+                $.dialog.errorTips("价格不能为空！");
+                return false;
+            }
+            if (!regprice.test(price)) {
+                $.dialog.errorTips('价格必须为数字！');
+                return false;
+            }
+            //document.ketcherFrame获取iframe写法不兼容火狐浏览器，用document.getElementById('ketcherFrame').contentWindow替换
+            var settings = document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.getDisplaySettings();
+            settings.width = 420;
+            settings.height = 420;
+            settings.backgroundColor = "#ffffff"; 
+            document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.exportStructure("jpeg", settings).then(function (source) {
+                /*dataurl*/
+                var mol = source;
+                /*订单号*/
+                var id = '@Request.QueryString["id"]';
+                if (id == "" || id == null) {
+                    if (checkFormValid() == true) {
+                        $.post('AddOrderInfo',
+                            {
+                                casNo: $.trim($("#casNo").val()), chemName: $.trim($("#chemName").val()),
+                                productName: $.trim($("#productName").val()), productCount: $.trim($("#productCount").val()),
+                                productChundu: $.trim($("#productChundu").val()), productPrice: $.trim($("#productPrice").val()),
+                                productDesc: $.trim($("#productDesc").val()), orderDate: $.trim($("#orderDate option:selected").val()),
+                                email: $.trim($("#email").val()), companyName: $.trim($("#companyName").val()), conUser: $.trim($("#conUser").val()),
+                                webSite: $.trim($("#webSite").val()), telPhone: $.trim($("#telPhone").val()), mol: mol
+                            },
+                            function (data) {
+                                if (data.Successful) {
+                                    if (data.parentId != "" && data.parentId != null) {
+                                        var parentId = data.parentId;
+                                        var attachmentName = "代理采购" + $("#productName").val();
+                                        var type = "add";
+                                        UpLoadFile(parentId, attachmentName, type);
+                                    }
+                                } else if (data.Successful == false) {
+                                    $.dialog.errorTips("订单提交失败！");
+                                } else {
+                                    $.dialog.errorTips(data);
+                                }
+                            });
+                    }
+                }
+                else {
+                    //编辑
+                    if (stat == 0) {
+                        $.post('EditOrderInfo',
+                            {
+                                id: id,
+                                casNo: $.trim($("#casNo").val()),
+                                chemName: $.trim($("#chemName").val()),
+                                productName: $.trim($("#productName").val()),
+                                productCount: $.trim($("#productCount").val()),
+                                productChundu: $.trim($("#productChundu").val()),
+                                productPrice: $.trim($("#productPrice").val()),
+                                productDesc: $.trim($("#productDesc").val()),
+                                orderDate: $.trim($("#orderDate option:selected").val()),
+                                email: $.trim($("#email").val()),
+                                companyName: $.trim($("#companyName").val()),
+                                conUser: $.trim($("#conUser").val()),
+                                webSite: $.trim($("#webSite").val()),
+                                telPhone: $.trim($("#telPhone").val()),
+                                mol: mol
+                            }, function (data) {
+                                if (data.Successful) {
+                                    alert('提交成功！');
+                                    location.href = "/OrderPurchasing/ManageMent";
+                                } else if (data.Successful == false) {
+                                    $.dialog.errorTips("订单提交失败！");
+                                } else {
+                                    $.dialog.errorTips(data);
+                                }
+
+                            });
+                    }
+                    /*确认收获*/
+                    if (stat == 5) {
+                        $.post('UpdateOrderInfo', { id: $("#hidid").val(), status: 7 }, function (data) {
+                            if (data.Successful == true) {
+                                $.dialog.succeedTips("确认收货成功！");
+                                location.href = "ManageMent";
+                            } else {
+                                $.dialog.errorTips("确认收货失败！");
+
+                            }
+                        });
+                    }
+                }
+            });
+        });
+        /*支付*/
+        $("#btnzf").on("click", function () {
+            var oid = $("#hidoid").val();
+            if (oid != null && oid != "") {
+                top.location.href = "/Order/Pay?orderIds=" + oid + "&type=0&paytype=5&targetid=" + oid, "_blank"; //代理采购的金额在平台配置
+            }
+        });
+    });
+    function checkForm() {
+        $("#productName").on("blur", function () {
+            if ($("#productName").val() != "") {
+                $("#productNameNote").addClass("hide");
+            }
+            if ($("#productName").val() == "") {
+                $("#productNameNote").removeClass("hide");
+            }
+        });
+        $("#productCount").on("blur", function () {
+            if ($("#productCount").val() != "") {
+                $("#productCountNote").addClass("hide");
+            }
+            if ($("#productCount").val() == "") {
+                $("#productCountNote").removeClass("hide");
+            }
+        });
+        $("#email").on("blur", function () {
+            if ($("#email").val() != "") {
+                $("#emailNote").addClass("hide");
+            }
+            if ($("#email").val() == "") {
+                $("#emailNote").removeClass("hide");
+            }
+        });
+        $("#companyName").on("blur", function () {
+            if ($("#companyName").val() != "") {
+                $("#companyNameNote").addClass("hide");
+            }
+            if ($("#companyName").val() == "") {
+                $("#companyNameNote").removeClass("hide");
+            }
+        });
+    };
+    function checkFormValid() {
+        if ($("#productName").val() == "") {
+            $("#productNameNote").removeClass("hide");
+            return false;
+        }
+        if ($("#productCount").val() == "") {
+            $("#productCountNote").removeClass("hide");
+            return false;
+        }
+        if ($("#email").val() == "") {
+            $("#emailNote").removeClass("hide");
+            return false;
+        }
+        if ($("#companyName").val() == "") {
+            $("#companyNameNote").removeClass("hide");
+            return false;
+        }
+        return true;
+    };
+
+    /*日期格式*/
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    };
+</script>
+<script>
+    function UpLoadFile(parentId, attachmentName, type) {
+        $.dialog.confirm('确定需要上传附件吗?',
+            function () {
+                window.location.href = "/OrderPurchasing/uploadfile?parentId=" + parentId + '&attachmentName=' + attachmentName + '&type=' + type;
+            }),
+            function () {
+                window.location.href = './Management';
+            };
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".baojia").live("click", function () {
+            var $this = $(this);
+            $(".baojia").each(function () {
+                $(this).removeAttr("checked");
+            });
+            $this.attr("checked", "checked");
+
+            /*hdorderid*/
+            var orderid = $("#hdorderid").val(); /*订单号*/
+            var shopid = $this.attr("id");
+            var price = Number($this.parent("td").parent("tr").children("td").eq(3).html()).toFixed(2);
+
+
+            $.dialog.confirm("确定接受此报价？", function () {
+
+                $.post('UpdateAcceptCustomizedOrder', { orderid: orderid, shopid: shopid, price: price, cycel: "" }, function (result) {
+                    if (result.success == true) {
+                        $.dialog.succeedTips(result.msg, function () { location.href = "OrderPurchasing/ManageMent"; });
+                    } else {
+                        $.dialog.errorTips(result.msg);
+                    }
+                });
+            });
+        });
+    });
+</script>

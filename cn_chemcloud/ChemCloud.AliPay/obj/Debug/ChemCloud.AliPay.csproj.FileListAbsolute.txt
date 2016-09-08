@@ -1,0 +1,5 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\bin\Debug\ChemCloud.AliPay.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\bin\Debug\ChemCloud.AliPay.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.csprojResolveAssemblyReference.cache

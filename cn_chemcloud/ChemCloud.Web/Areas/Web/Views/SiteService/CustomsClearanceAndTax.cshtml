@@ -1,0 +1,250 @@
+﻿@using System.Collections
+@{
+    //Layout = "~/Areas/Web/Views/Shared/_SimpeHeadAndFoot.cshtml";
+    ViewBag.Title = "CustomsClearanceAndTax";
+}
+<link href="~/Areas/Web/Content/css.css" rel="stylesheet" />
+<link href="~/Content/inner-custom.css" rel="stylesheet" />
+<link href="~/Areas/Web/Content/news.css" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+<style>
+     #mohu {
+        margin-top: -55px;
+    }
+     .top_fl {
+        width: 446px;
+    }
+     a{
+         font-size:12px;
+     }
+     .syl_img_bg{
+        width: 1300px;
+        margin: 0 auto;
+     }
+    .syl_left_img {
+        /*background-color: #f7f7f7;*/
+            height: 400px;
+        background: url(/Areas/Web/Images/tu_02.png) no-repeat #f7f7f7;
+        background-repeat: no-repeat;
+        background-position: 20%;
+    }
+    .syl_left_img_main {
+        width: 600px;
+        margin-left: 500px;
+        /* margin-top: 200px; */
+    }
+
+    .syl_left_img_main h3 {
+        color: #666;
+        font-size: 30px;
+        font-weight: 400;
+        padding-bottom: 10px;
+        font-family: '华文新魏';
+    }
+
+    .syl_left_img_main div {
+        color: #6d6d6d;
+        font-size: 14px;
+        line-height: 30px;
+    }
+
+    .syl_right_img {
+            height: 444px;
+        background: url(/Areas/Web/Images/renzheng_03.png) no-repeat;
+        background-repeat: no-repeat;
+        background-position: 80% 64%;
+    }
+
+    .title_back_1 {
+        background-position-x: 10%;
+        height: 80px;
+        background: url(/Areas/Web/Images/tu_01.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+
+    .title_back_2 {
+        background-position-x: 10%;
+        height: 80px;
+        background: url(/Areas/Web/Images/tu_06.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+    .title_back_3{
+        height: 80px;
+        background-position-x: 10%;
+        background: url(/Areas/Web/Images/tu_04.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+    .syl_right_img .tabl {
+        border-radius: 4px;
+    }
+
+    .syl_right_img .syl_right_img_main {
+        width: 600px;
+        margin-left: 200px;
+    }
+
+    .borderR {
+        border: 1px solid rgb(221,221,221);
+        border-radius: 4px;
+    }
+
+    #divNews table tr td {
+        border: none;
+    }
+
+    #divNews table {
+        margin-top: 0;
+    }
+
+    #divNews table tr:nth-child(odd) {
+        background-color: #fafafa;
+    }
+
+    #divNews table tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    .header_img_back {
+        background: url(/Areas/Web/Images/banner_02.png);
+        background-size: 100%;
+        height: 229px;
+    }
+
+    .syl_right_img_main h3 {
+        background: rgb(240,240,240);
+    display: inline-block;
+    width: 350px;
+    text-align: center;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    font-family: '华文新魏';
+    font-size: 30px;
+    }
+
+    .title_q {
+        width: 1120px;
+        margin: 0 auto;
+        height: 50px;
+        background: url(/Areas/Web/Images/tu_05.png) no-repeat;
+        line-height: 50px;
+        text-indent: 4em;
+        font-size: 16px;
+        color: rgb(59,127,174);
+    }
+
+    .width_a {
+        width: 1120px;
+        margin: 0 auto;
+        clear: both;
+        overflow: hidden;
+    }
+
+    .title_a {
+        width: 1030px;
+        background: rgb(250,250,250);
+        float: right;
+        border-radius: 4px;
+        margin: 6px 0;
+        line-height: 20px;
+        padding: 5px;
+    }
+</style>
+<div id="divNews">
+    <div>
+        <div class="header_img_back"></div>
+        <div class="syl_img_bg">
+            <div class="syl_left_img">
+                <div class="title_back_1"></div>
+                <div class="syl_left_img_main">
+                    <h3>Chemcloud结税通关服务介绍</h3>
+                    <div>
+                        中小型企业在进出口环节中常遇到因自身进出口规模小、渠道少、议价能力效果差的问题。
+                        Chemcloud依托平台规模优势，通过对物流、银行、保险等各方面资源的整合，最终为客户
+                        实现外贸成本的降低、效率的提升。
+                        <br />
+                        Chemcloud提供从进出口贸易开始的第一道环节到最后一道环节的全程贴心服务，客户从
+                        此可以远离复杂的海关和商检手续，避免了由于自身的不专业而在外贸环节中可能出现的经
+                        济损失，减少客户在非核心业务中被占用的资源，将客户的全部重心转移到产品的研发和销
+                        售中，实现企业的利润最大化。
+                        <br />
+                        Chemcloud专业的服务团队和良好的渠道关系，将为客户提供便捷、高效、灵活的服务。
+                    </div>
+                </div>
+            </div>
+            <div class="syl_right_img">
+                <div class="title_back_2"></div>
+                <div class="syl_right_img_main">
+                    <h3>为什么选择开姆金融服务</h3>
+                    <div class="borderR">
+                        <table class="tab1">
+                            <tr>
+                                <td></td>
+                                <td>传统外贸代理</td>
+                                <td>Chemcloud物流服务</td>
+                            </tr>
+                            <tr>
+                                <td>服务定位</td>
+                                <td>既做代理，也做贸易</td>
+                                <td>物流服务</td>
+                            </tr>
+                            <tr>
+                                <td>操作方式</td>
+                                <td>人工跟单</td>
+                                <td>订单系统流程化管理</td>
+                            </tr>
+                            <tr>
+                                <td>可视化服务</td>
+                                <td>无</td>
+                                <td>有</td>
+                            </tr>
+                            <tr>
+                                <td>问题处理能力</td>
+                                <td>中</td>
+                                <td>强</td>
+                            </tr>
+                            <tr>
+                                <td>费用开支</td>
+                                <td>市价</td>
+                                <td>只需承担基本费用</td>
+                            </tr>
+                            <tr>
+                                <td>垫税、融资</td>
+                                <td>可能有</td>
+                                <td>有</td>
+                            </tr>
+                            <tr>
+                                <td>外贸服务代理费</td>
+                                <td>按合同总金额的百分比收费 <br />（1%-1.5%）</td>
+                                <td>注册认证客户免费</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="syl_left_img">
+                <div class="title_back_3"></div>
+                <div class="syl_left_img_main" style="padding-top: 50px;">
+                    <h3>服务内容</h3>
+                    <div>
+                        1. 代理口岸进出口报关，出入境检验检疫报检服务
+                        <br />
+                        2．实时结算货物应付或应退税款
+                        <br />
+                        3．您可以通过Chemcloud在线系统平台实时查询货物信息、通关状态和相关费用明细
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

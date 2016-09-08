@@ -1,0 +1,216 @@
+﻿
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>采购商管理</a></li>
+    </ul>
+
+    <div class="search-box only-line">
+        <form class="custom-inline" role="form">
+            @*<div class="form-group">
+                    <label class="label-inline" for="">会员名</label>
+                    <input class="form-control input-ssm" type="text" id="autoTextBox" autocomplete="off">
+                </div>*@
+            <div class="form-group">
+                <label class="label-inline" for="">用户名：</label>
+                <input class="form-control input-ssm" type="text" id="CompanyNameTextBox" autocomplete="off">
+            </div>
+            <button type="button" id="searchBtn" class="btn btn-primary btn-sm">搜 索</button>
+
+            <button type="button" id="searchBtn" class="btn btn-primary btn-sm" onclick="BatchDelete()">批量删除</button>
+        </form>
+    </div>
+    <table class="table" id="list"></table>
+</div>
+
+@*<script src="~/Areas/Admin/Scripts/memberManagement.js"></script>*@
+
+<script type="text/javascript">
+
+    $(function () {
+        query();
+        $("#searchBtn").click(function () { query(); });
+        AutoComplete();
+    })
+
+    function Delete(id) {
+        $.dialog.confirm('确定删除该用户吗？', function () {
+            var loading = showLoading();
+            $.post("./Delete", { id: id }, function (data) { $.dialog.tips(data.msg); query(); loading.close(); });
+        });
+    }
+    function Lock(id) {
+        $.dialog.confirm('确定冻结该用户吗？', function () {
+            var loading = showLoading();
+            $.post("./Lock", { id: id }, function (data) { $.dialog.tips(data.msg); query(); loading.close(); });
+        });
+    }
+    function UnLock(id) {
+        $.dialog.confirm('确定重新激活该用户吗？', function () {
+            var loading = showLoading();
+            $.post("./UnLock", { id: id }, function (data) { $.dialog.tips(data.msg); query(); loading.close(); });
+        });
+    }
+
+    function BatchLock() {
+        var selectedRows = $("#list").hiMallDatagrid("getSelections");
+
+
+        if (selectedRows.length == 0) {
+            $.dialog.tips("你没有选择任何选项！");
+        }
+        else {
+            var selectids = new Array();
+            for (var i = 0; i < selectedRows.length; i++) {
+                selectids.push(selectedRows[i].Id);
+            }
+            $.dialog.confirm('确定冻结选择的用户吗？', function () {
+                var loading = showLoading();
+                $.post("./BatchLock", { ids: selectids.join(',') }, function (data) { $.dialog.tips(data.msg); query(); loading.close(); });
+            });
+        }
+    }
+
+    function BatchDelete() {
+        var selectedRows = $("#list").hiMallDatagrid("getSelections");
+        var selectids = new Array();
+
+        for (var i = 0; i < selectedRows.length; i++) {
+            selectids.push(selectedRows[i].Id);
+        }
+        if (selectedRows.length == 0) {
+            $.dialog.tips("你没有选择任何选项！");
+        }
+        else {
+            $.dialog.confirm('确定删除选择的用户吗？', function () {
+                var loading = showLoading();
+                $.post("./BatchDelete", { ids: selectids.join(',') }, function (data) { $.dialog.tips(data.msg); query(); loading.close(); });
+            });
+        }
+    }
+
+    /*查询方法*/
+    function query() {
+        $("#list").hiMallDatagrid({
+            url: './list',
+            nowrap: false,
+            rownumbers: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            border: false,
+            fit: true,
+            fitColumns: true,
+            pagination: true,
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "CompanyName": $("#CompanyNameTextBox").val() },
+            operationButtons: "#batchOperate",
+            columns:
+            [[
+                { checkbox: true, width: 39 },
+                { field: "Id", hidden: true },
+
+                 {
+                     field: "UserName", title: "用户名", width: 160, align: 'center', halign: 'center', formatter: function (value, row, index) {
+                         if (row.CompanyName == "") {
+                             return '<a onclick="javascript: $.dialog.tips(\'该采购商信息尚未维护！\')" style="cursor:pointer;color:blue;">' + row.UserName + '</a>';
+                         }
+                         else {
+                             return '<a href="./Detail?id=' + row.Id + '" style="cursor:pointer;color:blue;">' + row.UserName + '</a>';
+                         }
+                     }
+                 },
+                {
+                    field: "CompanyName", title: "采购商名称", width: 160, formatter: function (value, row, index) {
+                        return row.CompanyName;
+                    }
+                },
+                { field: "Email", title: '邮箱' },
+
+                {
+                    field: "CreateDate", title: "创建日期", width: 150, formatter: function (value, row, index) {
+                        html = "";
+                        html += "<span>" + jsonDateFormat(row.CreateDate) + "</span>";
+                        return html;
+                    }
+                },
+
+                 {
+                     field: "operation", operation: true, title: "操作",
+                     formatter: function (value, row, index) {
+                         var html = ["<span class=\"btn-a\">"];
+                         //企业信息尚未维护
+                         if (row.CompanyName == "") { html.push('<span style="color:#ccc">未维护</span>'); }
+                         else {
+                             html.push('<a href="./Detail?id=' + row.Id + '">查看</a>');
+                         }
+                         html.push("<a onclick=\"Delete('" + row.Id + "');\">删除</a>");
+                         html.push("</span>");
+                         return html.join("");
+                     }
+                 }
+            ]]
+        });
+    }
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    };
+
+
+    function ChangePassWord(id) {
+        $.dialog({
+            title: '修改密码',
+            lock: true,
+            id: 'ChangePwd',
+            width: '400px',
+            content: document.getElementById("dialogform"),
+            padding: '20px 10px',
+            okVal: '确定',
+            init: function () { $("#password").focus(); },
+            ok: function () {
+                var passwpord = $("#password").val();
+                if (passwpord.length < 6) {
+                    $.dialog.errorTips("密码长度至少是6位！");
+                    return false;
+                }
+                var loading = showLoading();
+                $.post("./ChangePassWord", { id: id, password: passwpord }, function (data) { $.dialog.tips(data.msg); $("#password").val(""); loading.close(); });
+            }
+        });
+
+    }
+
+
+    function AutoComplete() {
+        //autocomplete
+        $('#autoTextBox').autocomplete({
+            source: function (query, process) {
+                var matchCount = this.options.items;//返回结果集最大数量
+                $.post("./getMembers", { "keyWords": $('#autoTextBox').val() }, function (respData) {
+                    return process(respData);
+                });
+            },
+            formatItem: function (item) {
+                return item.value;
+            },
+            setValue: function (item) {
+                return { 'data-value': item.value, 'real-value': item.key };
+            }
+        });
+    }
+</script>

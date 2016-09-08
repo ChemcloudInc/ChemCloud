@@ -1,0 +1,187 @@
+﻿@{
+    ViewBag.Title = "我要采购";
+}
+
+<!--本页-->
+<link href="~/Areas/Web/Content/user-center.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<script src="~/Scripts/datetimeCustom.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/IWantToBuy_Web.js" type="text/javascript"></script>
+
+<link href="~/Areas/Web/Content/IWantToBuy.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Areas/Web/Scripts/js_web/JqueryHelper_Ver.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/pageGroup.js"></script>
+
+<div class="main">
+    <div class="div_IWantToBy">
+        <div class="div_IWantToBy_Left">
+            <table id="table_Form" style="display:none;">
+                <thead>
+                    <tr><td colspan="2">发布我的采购信息</td></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>产品名称：</td>
+                        <td><input id="txt_ProductName" type="text" class="input_name_300" placeholder="请输入产品名称" /></td>
+                    </tr>
+                    <tr>
+                        <td>采购量：</td>
+                        <td><input id="txt_Quantity" type="text" class="input_name_300" placeholder="请输入采购数量（该数量以单价中“单位”为单位）" /></td>
+                    </tr>
+                    <tr>
+                        <td>单价：</td>
+                        <td><input id="txt_UnitPrice" type="text" class="input_name_200" placeholder="价格" />&nbsp;/&nbsp;<input id="txt_Unit" type="text" class="input_name_140" placeholder="单位" /></td>
+                    </tr>
+                    <tr>
+                        <td>总价：</td>
+                        <td><input id="txt_TotalPrice" type="text" class="input_name_300" placeholder="请输入总价" /></td>
+                    </tr>
+                    <tr>
+                        <td>货币类型：</td>
+                        <td>
+                            <select id="select_TypeOfCurrency" class="select_300">
+                                <option value="1">人民币</option>
+                                <option value="2">美元</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>交付日期：</td>
+                        <td><input id="txt_DeliveryDate" onclick="dateTime_YMD_CN(this)" class="start_datetime input_name_300 inputDateTime" type="text" placeholder="请输入交付日期" /></td>
+                    </tr>
+                    <tr>
+                        <td>收货地址：</td>
+                        <td><input id="txt_Address" type="text" class="input_name_300" placeholder="请输入收货地址" /></td>
+                    </tr>
+                    <tr>
+                        <td>要求备注：</td>
+                        <td><textarea id="txtArea_Remarks" rows="5" cols="30" placeholder="请输入要求备注" class="input_name_300"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><span id="span_IWantToBuy" onclick="IWantToBuy_Add_Web()">提交</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table id="table_Supplier" style="display:none;">
+                <thead id="table_Supplier_thead_list">
+                    <tr>
+                        <td class="li_productname">产品名称</td>
+                        @*<td class="li_unit">发布单价</td>*@
+                        <td class="li_totalprice">发布总价</td>
+                        <td class="li_createDate">发布日期</td>
+                        <td class="li_latestDate">截止日期</td>
+                        <td class="li_status">采购状态</td>
+                    </tr>
+                </thead>
+                <tbody id="table_Supplier_tbody_list"></tbody>
+            </table>
+
+            <table id="table_LoginOut" style="display:none;">
+                <thead id="table_LoginOut_thead_list">
+                    <tr>
+                        <td class="li_productname">产品名称</td>
+                        @*<td class="li_unit">发布单价</td>*@
+                        <td class="li_totalprice">发布总价</td>
+                        <td class="li_createDate">发布日期</td>
+                        <td class="li_latestDate">截止日期</td>
+                        <td class="li_status">采购状态</td>
+                        <td class="li_status" style="text-align:left;"><span class="span_wytb_lan1" style="padding:3px 10px;" onclick="getParamVel_Default()">我要采购</span></td>
+                    </tr>
+                </thead>
+                <tbody id="table_LoginOut_tbody_list"></tbody>
+            </table>
+
+            <!-------------------------------------------分页----------------------------------------------------------------->
+                <div id="pageGro2" style="float: left;margin-top: 10px;">
+                    <div id="preSpanBtn2">上一页</div>
+                    <div class="pageList">
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                        </ul>
+                    </div>
+                    <div id="nextSpanBtn2">下一页</div>
+                </div>
+            <!-------------------------------------------END 分页----------------------------------------------------------------->
+            <!-------------------------------------------分页----------------------------------------------------------------->
+                <div id="pageGro3" style="float: left;margin-top: 10px;">
+                    <div id="preSpanBtn3">上一页</div>
+                    <div class="pageList">
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                        </ul>
+                    </div>
+                    <div id="nextSpanBtn3">下一页</div>
+                </div>
+            <!-------------------------------------------END 分页----------------------------------------------------------------->
+
+        </div>
+        <div class="div_IWantToBy_Right">
+            <div class="div_IWantToBy_Right_1">服务说明</div>
+            <div class="div_IWantToBy_Right_2">
+                <p>服务说明书是服务行业、社会服务机构向用户介绍自己所提供服务的性质、对象、收费情况及申请或使用这种服务的办法、条件等而使用的说明书。</p>
+                <p>服务介绍说明是一种比较简单的服务说明书，主要说明提供服务的项目、内容，借以增强客户的了解；服务办法说明是一种比较具体，详细的服务说明书，它除了介绍各种服务项目外，着重说明申请服务的手续、方法及有关细则、注意事项等。</p>
+                <p>服务说明书是服务行业、社会服务机构向用户介绍自己所提供服务的性质、对象、收费情况及申请或使用这种服务的办法、条件等而使用的说明书。</p>
+                <p>服务介绍说明是一种比较简单的服务说明书，主要说明提供服务的项目、内容，借以增强客户的了解；服务办法说明是一种比较具体，详细的服务说明书，它除了介绍各种服务项目外，着重说明申请服务的手续、方法及有关细则、注意事项等。</p>
+            </div>
+        </div>
+    </div>
+    <div class="div_jobs_list" id="iWantToBuyList" style="display:none;">
+        <div class="recruit">
+            <div id="div_content">
+                <table id="table_list">
+                    <thead id="thead_list">
+                        <tr>
+                            <td class="li_productname">产品名称</td>
+                            <td class="li_quantity">发布数量</td>
+                            <td class="li_unitprice">发布单位</td>
+                            <td class="li_unit">发布单价</td>
+                            <td class="li_totalprice">发布总价</td>
+                            <td class="li_createDate">发布日期</td>
+                            <td class="li_latestDate">截止日期</td>
+                            <td class="li_status">采购状态</td>
+                            <td class="li_status"></td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_list"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-------------------------------------------分页----------------------------------------------------------------->
+  
+            <div id="pageGro1" style="float: left;margin-top: 10px;">
+                <div id="preSpanBtn1">上一页</div>
+                <div class="pageList">
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+                <div id="nextSpanBtn1">下一页</div>
+            </div>
+
+        <!-------------------------------------------END 分页----------------------------------------------------------------->
+
+    </div>
+
+
+</div>
+
+

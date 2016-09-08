@@ -1,0 +1,167 @@
+﻿
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+<script src="~/Scripts/jquery.json.js"></script>
+
+<div class="container" style="padding-top:68px">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>退款列表</a></li>
+    </ul>
+    <div class="search-box">
+        <form class="custom-inline" role="form">
+
+            <div class="form-group">
+                <label class="label-inline" for="" style="width:60px;">订单编号：</label>
+                <input class="form-control input-ssm" type="text" id="txtOrderId" style="width:auto;">
+            </div>
+
+            <div class="form-group">
+                <label class="label-inline" for="">状态：</label>
+                <select id="type" style="height:26px;width:100px;margin-left:20px">
+                    <option value="0">请选择</option>
+                    <option value="1">退款中</option>
+                    <option value="2">仲裁中</option>
+                    <option value="3">同意退款</option>
+                    <option value="4">拒绝退款</option>
+                    <option value="5">已完成</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-sm" id="searchButton">搜 索</button>
+        </form>
+    </div>
+    <table id="list" class="table"></table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        /*查询列表*/
+        Query();
+
+        /*绑定事件*/
+        $("#searchButton").on("click", function () {
+            Query();
+        });
+    });
+
+    /*查询方法*/
+    function Query() {
+        $("#list").hiMallDatagrid({
+            url: "ListTK",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到退款信息.',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "status": $("#type").val(), "OrderNum": $("#txtOrderId").val() },
+            columns:
+             [[{
+                 field: "OrderId", title: "订单号", width: 180,
+             },
+            {
+                field: "TKAmont", title: "退款金额", width: 100,
+            },
+            {
+                field: "TKDate", title: "退款时间", width: 350, formatter: function (value, row, index) {
+                    html = "";
+                    html += "<span>" + jsonDateFormat(row.TKDate) + "</span>";
+                    return html;
+                }
+            },
+            {
+                field: "EndDate", title: "到期时间", width: 350, formatter: function (value, row, index) {
+                    html = "";
+                    html += "<span>" + jsonDateFormat(row.EndDate) + "</span>";
+                    return html;
+                }
+            },
+            {
+                field: "TKType", title: "状态", width: 350, formatter: function (value, row, index) {
+                    html = "";
+                    if (row.TKType == 1) {
+                        html += "退款中";
+                    } else if (row.TKType == 2) {
+                        html += "仲裁中";
+                    }
+                    else if (row.TKType == 3) {
+                        html += "同意退款";
+                    }
+                    else if (row.TKType == 4) {
+                        html += "拒绝退款";
+                    }
+                    else if (row.TKType == 5) {
+                        html += "已完成";
+                    }
+                    return html;
+                }
+            },
+            {
+                field: "BuyerName", title: "采购商", width: 150,
+            },
+            {
+                field: "SellerName", title: "供应商", width: 150,
+            },
+            {
+                field: "operation", operation: true, width: 50, title: "操作", width: "233",
+                formatter: function (value, row, index) {
+                    html = "";
+                    if (row.TKType == 3) {
+                        html += "<span  class=\"btn-a\"><a  href='TKDetail?orderNo="
+                            + row.OrderId + "' style=\"color:green;\" >审核</a></span>";
+                    } else {
+                        html += "<span  class=\"btn-a\"><a  href='TKDetail?orderNo="
+                          + row.OrderId + "' style=\"color:green;\" >查看</a></span>";
+                    }
+                    return html;
+                }
+            }
+             ]]
+        });
+    };
+
+    /*同意退款*/
+    function TKTY(str, oid) {
+        if (str == "" || str == "underfind") {
+            return false;
+        }
+        $.post('TKTY', { thnum: str, orderid: oid }, function (data) {
+            if (data == "yes") {
+                alert("成功退款,退款已成功返还给采购商.");
+                location.reload(true);
+            }
+        });
+    };
+
+    /*拒绝退款*/
+    function TKJJ(str) {
+        if (str == "" || str == "underfind") {
+            return false;
+        }
+        $.post('TKJJ', { thnum: str }, function (data) {
+            if (data == "yes") {
+                alert("操作完成.");
+            } else {
+                alert("操作失败.");
+            }
+            location.reload(true);
+        });
+    };
+
+    /*日期格式转换方法*/
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    };
+</script>

@@ -1,0 +1,136 @@
+﻿@model ChemCloud.Model.ProductInfo
+@{
+    long? proid = (long?)ViewBag.ProductId;
+}
+<script src="~/Scripts/jquery.himemberpUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<div class="container"  style="padding-top:20px">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a href="ProductAuthentication">产品认证</a></li>
+    </ul>
+    <div class="search-box">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">企业名称：</label>
+                <div class="col-sm-4">
+                    <input class="form-control input-sm" value="@ViewBag.ComName" maxlength="50" type="text" id="com_name" disabled="disabled">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">产品名称：</label>
+                <div class="col-sm-4">
+                    <input class="form-control input-sm" value="@(Model.ProductName??"")" maxlength="50" type="text" id="goods_name" disabled="disabled">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">产品 #：</label>
+                <div class="col-sm-4">
+                    <input class="form-control input-sm" value="@(Model.ProductCode??"")" maxlength="50" type="text" id="goods_code" disabled="disabled">
+                </div>
+            </div>
+            @*<div class="form-group">
+                    <label class="col-sm-2 control-label" for=""><span class="red">*</span>电汇支付凭证：</label>
+                    <div class="col-sm-4">
+                        <div class="form-group upload-img" id="PayImg"></div>
+                        <span id="PayImgNote" class="error-msg hide"></span>
+                    </div>
+                </div>*@
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">COA产品分析报告：</label>
+                <div class="col-sm-4">
+                    @if (ViewBag.AuthStatus == "1" || ViewBag.AuthStatus == "4" || ViewBag.AuthStatus == "0")
+                    {
+                        <div class="form-group upload-img" id="COAImg"></div>
+                        <span id="COAImgNote" class="error-msg hide"></span>
+                    }
+                    else
+                    {
+                        <img src="@ViewBag.ComAttachment" style="max-width:500px;" />
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for=""></label>
+                <div class="col-sm-4">
+                    @if (ViewBag.AuthStatus == "1")
+                    {
+                        <input class="form-control input-sm" style="background:#3498db;color:white;width:120px;" value="去支付" type="button" id="submit_pay" />
+                    }
+                    else
+                    {
+                        if (ViewBag.BtnLalel == "提交认证")
+                        {
+                            <input class="form-control input-sm" style="background:#3498db;color:white;width:120px;" value="@ViewBag.BtnLalel" type="button" id="submit_ok" />
+                        }
+                        else
+                        {
+                            <input class="form-control input-sm" style="background:#3498db;color:white;width:120px;" value="@ViewBag.BtnLalel" type="button" id="submit_ok" disabled="disabled" />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hdOrderId" value="@ViewBag.OrderId" />
+
+<script type="text/javascript">
+    $(function () {
+        var id = getUrlParam("productId");
+        var MaxFileSize = 1048576;//1M
+        $("#submit_ok").on("click", function () {
+            //var photoCompanySign = $('#PayImg').hishopUpload('getImgSrc');
+            var photoCompanySign = "";
+            var COAIMG = $('#COAImg').hishopUpload('getImgSrc');
+            $.post('./CheckPAuthInfo', { "ProductId": id }, function (result) {
+                if (result.Successful != "") {
+                    $.dialog.errorTips(result.Successful);
+                    return false;
+                }
+                //if (photoCompanySign == "") {
+                //    $.dialog.errorTips("请上传电汇支付凭证！");
+                //    return false;
+                //}
+                var loading = showLoading();
+                $.post('./AddPAuthInfo', { "ProductId": id, "ProductCode": $("#goods_code").val(), "ProductIMG": photoCompanySign, "ComName": $("#com_name").val(), "COAIMG": COAIMG }, function (result) {
+                    loading.close();
+                    if (result.Successful == true) {
+                        $.dialog.succeedTips("提交成功！");
+                        location.href = "ProductAuthentication";
+                    } else {
+                        $.dialog.errorTips("提交失败！");
+                    }
+                });
+            });
+        });
+        //电汇支付凭证
+        $('#PayImg').hishopUpload({
+            title: '<b>*</b>电汇支付凭证：',
+            title: '',
+            imageDescript: '',
+            displayImgSrc: '',
+            imgFieldName: "PayImg",
+            dataWidth: 6
+        });
+        $('#COAImg').hishopUpload({
+            title: '<b>*</b>COA产品分析报告：',
+            title: '',
+            imageDescript: '',
+            displayImgSrc: '',
+            imgFieldName: "COAImg",
+            dataWidth: 6
+        });
+
+        //产品认证支付
+        $("#submit_pay").on("click", function () {
+            var oid = $("#hdOrderId").val();
+            top.location.href = "/Order/Pay?orderIds=" + oid + "&type=0&paytype=2&targetid=" + id, "_blank";
+        });
+
+    });
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+</script>

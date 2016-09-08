@@ -1,0 +1,6 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\bin\Debug\WxPayAPI.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\bin\Debug\WxPayAPI.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\bin\Debug\LitJson.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.csprojResolveAssemblyReference.cache

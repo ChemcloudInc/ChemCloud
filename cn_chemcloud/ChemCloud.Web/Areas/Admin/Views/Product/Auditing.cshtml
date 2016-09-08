@@ -1,0 +1,289 @@
+﻿@model ChemCloud.Web.Areas.Admin.Models.Product.ProductModel
+@using ChemCloud.Core;
+@{
+    ViewBag.Title = "Auditing";
+}
+<script src="~/Scripts/CommonJS.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.refuse-shop').click(function () {
+            $.dialog({
+                title: '拒绝理由',
+                lock: true,
+                id: 'refuseShop',
+                content: ['<div class="dialog-form">',
+					'<div class="form-group">',
+						'<textarea id="refuseComment" class="form-control" cols="40" rows="3"></textarea>',
+					'</div>',
+				'</div>'].join(''),
+                padding: '0',
+                okVal: '确认',
+                ok: function () {
+                    var comment = $("#refuseComment").val();
+                    var date = new Date();//.toDateString("yyyy-MM-dd")
+                    if (comment.length < 5) {
+                        $.dialog.errorTips('必须填写拒绝理由，且拒绝理由不能小于五个字符！');
+                        return false;
+                    }
+                    var loading = showLoading();
+                    ajaxRequest({
+                        type: 'post',
+                        url: '@Url.Action("Auditing")',
+                        param: { Id: $("#Id").val(), status: 3, comment: comment },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.Successful == true) {
+                                location.href = "./Management?type=";
+                            }
+                            loading.close();
+                        }, error: function () { loading.close(); }
+                    });
+                }
+            });
+        });
+        $(".statusBtn").click(function () {
+            var status = 1;
+            if ($(this).attr('status') == 'passProduct')
+                status = 2;
+            var loading = showLoading();
+            ajaxRequest({
+                type: 'post',
+                url: '@Url.Action("Auditing")',
+                param: { Id: $("#Id").val(), status: status },
+                dataType: "json",
+                success: function (data) {
+                    if (data.Successful == true) {
+                        location.href = "./Management?type=";
+                    }
+                    loading.close();
+                }, error: function () { loading.close(); }
+            });
+        });
+    });
+</script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>产品</strong>
+
+        <li><a href="./Management?type=Auditing">单一产品审核</a></li>
+        <li><a href="./Management?type=NoCasNoAuditing">结构式审核</a></li>
+
+    </ul>
+
+    <h3 class="table-hd">产品信息</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>产品名称</td>
+                <td>@Model.name</td>
+            </tr>
+            <tr>
+                <td>产品英文名</td>
+                <td>@Model.name</td>
+            </tr>
+          
+            <tr>
+                <td>中文别名</td>
+                <td>@Model.Alias</td>
+            </tr>
+            <tr>
+                <td>英文别名</td>
+                <td>@Model.Ealias</td>
+            </tr>
+            <tr>
+                <td>CASNO</td>
+                <td>@Model.CASNo</td>
+            </tr>
+            <tr>
+                <td>产品编码</td>
+                <td>@Model.ProductCode</td>
+            </tr>
+            <tr>
+                <td>分子式</td>
+                <td>@Model.MolecularFormula</td>
+            </tr>
+            <tr>
+                <td>分子量</td>
+                <td>@Model.MolecularWeight</td>
+            </tr>
+            <tr>
+                <td>PAS值</td>
+                <td>@Model.PASNo</td>
+            </tr>
+            <tr>
+                <td>LogP</td>
+                <td>@Model.LogP</td>
+            </tr>
+           
+           
+        </tbody>
+    </table>
+    <h3 class="table-hd">物化性质</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+          
+            <tr>
+                <td>外观与形状</td>
+                <td>@Model.Shape</td>
+            </tr>
+            <tr>
+                <td>密度</td>
+                <td>@Model.Density</td>
+            </tr>
+            <tr>
+                <td>熔点</td>
+                <td>@Model.FusingPoint</td>
+            </tr>
+            <tr>
+                <td>沸点</td>
+                <td>@Model.BoilingPoint</td>
+            </tr>
+            <tr>
+                <td>闪点</td>
+                <td>@Model.FlashPoint</td>
+            </tr>
+            <tr>
+                <td>折射率</td>
+                <td>@Model.RefractiveIndex</td>
+            </tr>
+            <tr>
+                <td>存储条件</td>
+                <td>@Model.StorageConditions</td>
+            </tr>
+            <tr>
+                <td>蒸汽压</td>
+                <td>@Model.VapourPressure</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 class="table-hd">安全信息</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>海关编码</td>
+                <td>@Model.HSCODE</td>
+            </tr>
+            <tr>
+                <td>危险等级</td>
+                <td>@Model.DangerLevel</td>
+            </tr>
+            
+            @*<tr>
+                <td>危险类别码</td>
+                <td>@Model.RiskCategoryCode</td>
+            </tr>*@
+            <tr>
+                <td>危险品运输编号</td>
+                <td>@Model.TransportationNmber</td>
+            </tr>
+            <tr>
+                <td>RETCS</td>
+                <td>@Model.RETCS</td>
+            </tr>
+            <tr>
+                <td>WGKGermany</td>
+                <td>@Model.WGKGermany</td>
+            </tr>
+            <tr>
+                <td>安全信息</td>
+                <td>@Model.SafetyInstructions</td>
+            </tr>
+            @*<tr>
+                <td>化学品合成路线</td>
+                <td>@Model.SyntheticRoute</td>
+            </tr>
+            <tr>
+                <td>上下游产品</td>
+                <td>@Model.RelatedProducts</td>
+            </tr>*@
+        </tbody>
+    </table>
+    <h3 class="table-hd">产品报价</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>包装</td>
+                <td>@Model.PackagingLevel </td>
+            </tr>
+            <tr>
+                <td>纯度</td>
+                <td>@Model.Purity </td>
+            </tr>
+            <tr>
+                <td>单价</td>
+                <td>@Model.price  </td>
+            </tr>
+
+            
+          
+        </tbody>
+    </table>
+    @if (!string.IsNullOrEmpty(Model.MSDS))
+    {
+        <h3 class="table-hd">化学品安全技术说明书</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                @for (int i = 1; i < 4; i++)
+                {
+                    if (File.Exists(Server.MapPath(Model.MSDS + string.Format("{0}.png", i))))
+                    {
+                        <tr>
+                            <td><img style="max-width:700px" src="@(Model.MSDS + string.Format("{0}.png", i))" alt="" /></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    @if (!string.IsNullOrEmpty(Model.NMRSpectrum))
+    {
+        <h3 class="table-hd">核磁共振波谱</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                @for (int i = 1; i < 4; i++)
+                {
+                    if (File.Exists(Server.MapPath(Model.NMRSpectrum + string.Format("{0}.png", i))))
+                    {
+                        <tr>
+                            <td><img style="max-width:700px" src="@(Model.NMRSpectrum + string.Format("{0}.png", i))" alt="" /></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    <div class="mt20">
+        @if ((int)ViewBag.Status == 1)
+        {
+            <input type="button" class="btn btn-primary statusBtn" status="passProduct" value="通过审核" />
+            <input type="button" class="btn btn-warning refuse-shop" value="拒绝" />
+        }
+    </div>
+</div>
+
+<input type="hidden" value="@ViewBag.Id" id="Id" />
+<input type="hidden" value="@ViewBag.Status" id="Status" />

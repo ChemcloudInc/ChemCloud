@@ -1,0 +1,5 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\bin\Debug\ChemCloud.DBUtility.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\bin\Debug\ChemCloud.DBUtility.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.csprojResolveAssemblyReference.cache

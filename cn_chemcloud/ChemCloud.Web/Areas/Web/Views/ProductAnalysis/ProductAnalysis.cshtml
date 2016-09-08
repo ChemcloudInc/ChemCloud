@@ -1,0 +1,1173 @@
+﻿@{
+    ViewBag.Title = "ChemCloud分析鉴定";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ChemCloud分析鉴定</title>
+    <style>
+        #delegate {
+            width: 100%;
+        }
+
+            #delegate td {
+                border: 1px solid #ccc;
+                text-align: center;
+            }
+
+        .content {
+            width: 1200px;
+            margin: 0 auto;
+            height: 1150px;
+            padding-top: 20px;
+        }
+
+        .kong_98 {
+            width: 98%;
+            border: 0;
+        }
+
+        .xian_32 {
+            width: 32%;
+            border: 0;
+            border-bottom: 1px solid #666;
+            margin-bottom: 4px;
+        }
+
+        .xian_12 {
+            width: 12%;
+            border: 0;
+            border-bottom: 1px solid #666;
+            margin-bottom: 4px;
+        }
+
+        #delegate td.text_table_left {
+            text-align: left;
+            text-indent: 10px;
+        }
+
+        #delegate tr {
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+
+        <table id="delegate" cellpadding="0" cellspacing="0" border="0" style="width:75%;float:left;height:756px;">
+            <tr>
+                <td rowspan="3" style="width:14%">委托方信息</td>
+                <td style="width:13%">委托方名称</td>
+                <td style="width:30%" colspan="3">
+                    <input type="text" class="kong_98" id="txtClientName" maxlength="20" />
+                </td>
+
+                <td style="width:13%">报告抬头</td>
+                <td style="width:30%;text-align:left;padding-left:10px;">
+                    <input type="checkbox" style="margin-top: 7px;" id="与委托方相同" name="ReportHeader" checked="checked" value="与委托方相同" />
+                    <label for="与委托方相同">与委托方相同</label>
+                    <input type="checkbox" id="其他6" name="ReportHeader" value="其他" />
+                    <label for="其他6">其他</label>
+                    <input type="text" class="xian_32" id="txtReportHeader" maxlength="20" />
+                    <script type="text/javascript">
+                        /*报告抬头单选*/
+                        $(document).ready(function () {
+                            $(':checkbox[name=ReportHeader]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=ReportHeader]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:10%">联 系 人</td>
+                <td style="width:10%">
+                    <input type="text" class="kong_98" id="txtClientLinkMan" maxlength="10" />
+                </td>
+                <td>手 机</td>
+                <td>
+                    <input type="text" class="kong_98" id="txtClientMobilePhone" maxlength="20" />
+                </td>
+                <td>E-mail</td>
+                <td><input type="text" class="kong_98" id="txtClientEmail" maxlength="20" /></td>
+            </tr>
+            <tr>
+                <td>固  话</td>
+                <td><input type="text" class="kong_98" id="txtClientFixedLine" maxlength="20" /></td>
+                <td>传 真</td>
+                <td><input type="text" class="kong_98" id="txtClientFax" maxlength="20" /></td>
+                <td>地 址</td>
+                <td><input type="text" class="kong_98" id="txtClientAddress" maxlength="20" /></td>
+            </tr>
+            <tr>
+                <td rowspan="6">样品信息</td>
+                <td>样品名称</td>
+                <td><input type="text" class="kong_98" id="txtSampleName" maxlength="20" /></td>
+                <td>数量</td>
+                <td><input type="text" class="kong_98" id="txtSampleQuantity" maxlength="20" /></td>
+                <td>样品规格型号</td>
+                <td><input type="text" class="kong_98" id="txtSampleSpecifications" maxlength="20" /></td>
+            </tr>
+            <tr>
+                <td>样品来源</td>
+                <td colspan="3" style="padding-left:10px; text-align:left;">
+                    <input type="checkbox" id="委托方自送样" name="SampleSource" checked="checked" value="委托方自送样" />
+                    <label for="委托方自送样">委托方自送样</label>
+                    <input type="checkbox" id="委托方交由快递送样" name="SampleSource" value="委托方交由快递送样" />
+                    <label for="委托方交由快递送样">委托方交由快递送样</label>
+                    <script type="text/javascript">
+                        /*样品来源单选*/
+                        $(document).ready(function () {
+                            $(':checkbox[name=SampleSource]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=SampleSource]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+                <td>相关资料</td>
+                <td style="padding-left:10px;text-align:left;">
+                    <input type="checkbox" id="有" style="margin-top:8px;" name="RelatedData" value="有" />
+                    <label for="有">有</label>
+                    <input type="text" class="xian_32" id="txtRelatedData" maxlength="25" />
+                    <input type="checkbox" id="无" name="RelatedData" value="无" checked="checked" />
+                    <label for="无">无</label>
+                    <script type="text/javascript">
+                        /*样品来源单选*/
+                        $(document).ready(function () {
+                            $(':checkbox[name=RelatedData]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=RelatedData]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr style="height:60px;">
+                <td>样品已知信息</td>
+                <td colspan="5" class="text_table_left">
+                    <div style="height:40px">
+                        <input type="text" class="kong_98" style="border-bottom:0px solid #666;height:40px" id="txtKnownInformation" maxlength="100" />
+                    </div>
+                    <div>备注：信息包括产品牌号、用途\使用工艺、市场售价、可能成分及大致含量</div>
+                </td>
+            </tr>
+            <tr>
+                <td>性    状</td>
+                <td colspan="5" class="text_table_left">
+                    <div>
+                        <input type="checkbox" id="固体" name="CharacterItem" value="1" checked="checked" />
+                        <label for="固体">固体：</label>
+                        <input type="checkbox" id="粉末" name="CharacterItem1" value="粉末" checked="checked" />
+                        <label for="粉末">粉末</label>
+                        <input type="checkbox" id="颗粒" name="CharacterItem1" value="颗粒" />
+                        <label for="颗粒">颗粒</label>
+                        <input type="checkbox" id="块状" name="CharacterItem1" value="块状" />
+                        <label for="块状">块状</label>
+                        <input type="checkbox" id="片状" name="CharacterItem1" value="片状" />
+                        <label for="片状">片状</label>
+                        <input type="checkbox" id="膜状" name="CharacterItem1" value="膜状" />
+                        <label for="膜状">膜状</label>
+                        <input type="checkbox" id="棒状" name="CharacterItem1" value="棒状" />
+                        <label for="棒状">棒状</label>
+                        <input type="checkbox" id="其他" name="CharacterItem1" value="其他" />
+                        <label for="其他">其他</label>
+                        <input type="text" class="xian_12" id="txtCharacterItem1" maxlength="20" />
+                    </div>
+                    <div>
+                        <input type="checkbox" id="液体" name="CharacterItem" value="2" />
+                        <label for="液体">液体：</label>
+                        <input type="checkbox" id="普通液体" name="CharacterItem2" value="普通液体" />
+                        <label for="普通液体">普通液体</label>
+                        <input type="checkbox" id="乳液" name="CharacterItem2" value="乳液" />
+                        <label for="乳液">乳液</label>
+                        <input type="checkbox" id="悬浮液" name="CharacterItem2" value="悬浮液" />
+                        <label for="悬浮液">悬浮液</label>
+                        <input type="checkbox" id="粘稠液" name="CharacterItem2" value="粘稠液" />
+                        <label for="粘稠液">粘稠液</label>
+                        <input type="checkbox" id="膏体" name="CharacterItem2" value="膏体" />
+                        <label for="膏体">膏体</label>
+                        <input type="checkbox" id="其他1" name="CharacterItem2" value="其他" />
+                        <label for="其他1">其他</label>
+                        <input type="text" class="xian_12" id="txtCharacterItem2" maxlength="20" />
+                    </div>
+                    <div>
+                        <input type="checkbox" id="气体" name="CharacterItem" value="3" />
+                        <label for="气体">气体：</label>
+                        <input type="checkbox" id="其他2" name="CharacterItem3" value="其他">
+                        <label for="其他2">其他</label>
+                        <input type="text" class="xian_12" id="txtCharacterItem3" maxlength="20" />
+                    </div>
+                    <div>
+                        <label for="txtSampleColor">颜色：</label>
+                        <input type="text" class="xian_12" id="txtSampleColor" maxlength="10" />
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            /*性状单选*/
+                            $(':checkbox[name=CharacterItem]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=CharacterItem]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                            /*固体单选*/
+                            $(':checkbox[name=CharacterItem1]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=CharacterItem1]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                            /*液体单选*/
+                            $(':checkbox[name=CharacterItem2]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=CharacterItem2]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                            /*气体单选*/
+                            $(':checkbox[name=CharacterItem3]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=CharacterItem3]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>危 险 性</td>
+                <td colspan="5" class="text_table_left">
+                    <div>
+                        <input type="checkbox" id="无危险性" name="DangerItem" value="1" checked="checked" />
+                        <label for="无危险性">无危险性  </label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="危险性未知" name="DangerItem" value="2" />
+                        <label for="危险性未知">危险性未知 </label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="有以下危险性" name="DangerItem" value="3" />
+                        <label for="有以下危险性">有以下危险性：</label>
+                        <input type="checkbox" id="易爆" name="DangerItem3" value="易爆" />
+                        <label for="易爆">易爆</label>
+                        <input type="checkbox" id="易燃" name="DangerItem3" value="易燃" />
+                        <label for="易燃">易燃</label>
+                        <input type="checkbox" id="挥发性" name="DangerItem3" value="挥发性" />
+                        <label for="挥发性">挥发性</label>
+                        <input type="checkbox" id="刺激性气味" name="DangerItem3" value="刺激性气味" />
+                        <label for="刺激性气味">刺激性气味</label>
+                        <input type="checkbox" id="腐蚀性" name="DangerItem3" value="腐蚀性" />
+                        <label for="腐蚀性">腐蚀性 </label>
+                        <input type="checkbox" id="氧化性" name="DangerItem3" value="氧化性" />
+                        <label for="氧化性">氧化性</label>
+                        <input type="checkbox" id="剧毒" name="DangerItem3" value="剧毒" />
+                        <label for="剧毒">剧毒</label>
+                        <input type="checkbox" id="感染性" name="DangerItem3" value="感染性" />
+                        <label for="感染性">感染性</label>
+                        <br>
+                        <input type="checkbox" id="放射性" style="margin-left: 115px;" name="DangerItem3" value="放射性" />
+                        <label for="放射性">放射性 </label>
+                        <input type="checkbox" id="易致敏" name="DangerItem3" value="易致敏" />
+                        <label for="易致敏">易致敏</label>
+                        <input type="checkbox" id="磁性" name="DangerItem3" value="磁性" />
+                        <label for="磁性">磁性 </label>
+                        <input type="checkbox" id="其他3" name="DangerItem3" value="其他" />
+                        <label for="其他3">其他 </label>
+                        <input type="text" class="xian_12" id="DangerItem3" maxlength="10" />
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            /*危险性单选*/
+                            $(':checkbox[name=DangerItem]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=DangerItem]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                            /*有以下危险性单选*/
+                            $(':checkbox[name=DangerItem3]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=DangerItem3]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>保存条件</td>
+                <td colspan="5" class="text_table_left">
+                    <input type="checkbox" id="常规" name="StorageCondition" value="常规" checked="checked" />
+                    <label for="常规">常规 </label>
+                    <input type="checkbox" id="避光" name="StorageCondition" value="避光" />
+                    <label for="避光">避光 </label>
+                    <input type="checkbox" id="低温" name="StorageCondition" value="低温" />
+                    <label for="低温">低温</label>
+                    <input type="checkbox" id="其它4" name="StorageCondition" value="其它" />
+                    <label for="其它4">其它：</label>
+                    <input type="text" class="xian_12" id="txtStorageCondition">
+                    <script type="text/javascript">
+                        /*保存条件单选*/
+                        $(document).ready(function () {
+                            $(':checkbox[name=StorageCondition]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=StorageCondition]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">
+                    委托内容
+                </td>
+                <td>常规分析</td>
+                <td colspan="4" class="text_table_left">
+                    <div>
+                        <input type="checkbox" id="塑料  6760元/样品" name="GeneralAnaly" value="1" checked="checked" />
+                        <label for="塑料  6760元/样品">塑料  6760元/样品 </label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="精细化学品（含高分子类产品用助剂） 6760元/样品" name="GeneralAnaly" value="2" />
+                        <label for="精细化学品（含高分子类产品用助剂） 6760元/样品">精细化学品（含高分子类产品用助剂） 6760元/样品</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="橡胶、胶粘剂、涂料  8850元/样品" name="GeneralAnaly" value="3" />
+                        <label for="橡胶、胶粘剂、涂料  8850元/样品">橡胶、胶粘剂、涂料  8850元/样品</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="油墨  9850元/样品" name="GeneralAnaly" value="4" />
+                        <label for="油墨  9850元/样品">油墨  9850元/样品</label>
+                    </div>
+                    <script type="text/javascript">
+                        /*常规分析单选*/
+                        $(document).ready(function () {
+                            $(':checkbox[name=GeneralAnaly]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=GeneralAnaly]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+                <td class="text_table_left">
+                    <div>
+                        分析周期：
+                    </div>
+                    <div>
+                        <input type="checkbox" id="普通服务（10个工作日）" name="GeneralAnalyCycle" value="10" checked="checked" />
+                        <label for="普通服务（10个工作日）">普通服务（10个工作日）</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="加急服务（7个工作日，加收50%服务费）" name="GeneralAnalyCycle" value="7" />
+                        <label for="加急服务（7个工作日，加收50%服务费）">加急服务（7个工作日，加收50%服务费）</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="特急服务（5个工作日，加收100%服务费）" name="GeneralAnalyCycle" value="5" />
+                        <label for="特急服务（5个工作日，加收100%服务费）">特急服务（5个工作日，加收100%服务费）</label>
+                    </div>
+                    <script type="text/javascript">
+                        /*分析周期单选*/
+                        $(document).ready(function () {
+                            $(':checkbox[name=GeneralAnalyCycle]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=GeneralAnalyCycle]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    深度分析
+                </td>
+                <td colspan="4" class="text_table_left">
+                    <div>
+                        <input type="checkbox" id="塑料  10700元/样品" name="DepthAnalysis" value="1" />
+                        <label for="塑料  10700元/样品">塑料  10700元/样品 </label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="精细化学品（含高分子类产品用助剂）  10700元/样品" name="DepthAnalysis" value="2" />
+                        <label for="精细化学品（含高分子类产品用助剂）  10700元/样品">精细化学品（含高分子类产品用助剂）  10700元/样品</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="橡胶、胶粘剂、涂料  13700元/样品" name="DepthAnalysis" value="3" />
+                        <label for="橡胶、胶粘剂、涂料  13700元/样品">橡胶、胶粘剂、涂料  13700元/样品</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="油墨  15700元/样品" name="DepthAnalysis" value="4" />
+                        <label for="油墨  15700元/样品">油墨  15700元/样品</label>
+                    </div>
+                    <script type="text/javascript">
+                        /*深度分析单选*/
+                        $(document).ready(function () {
+                            $(':checkbox[name=DepthAnalysis]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=DepthAnalysis]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+                <td class="text_table_left">
+                    <div>
+                        分析周期：
+                    </div>
+                    <div>
+                        <input type="checkbox" id="普通服务（15个工作日）" name="DepthAnalysisCycle" value="15" />
+                        <label for="普通服务（15个工作日）">普通服务（15个工作日）</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="加急服务（10个工作日，加收50%服务费）" name="DepthAnalysisCycle" value="10" />
+                        <label for="加急服务（10个工作日，加收50%服务费）">加急服务（10个工作日，加收50%服务费）</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="特急服务（7个工作日，加收100%服务费）" name="DepthAnalysisCycle" value="7" />
+                        <label for="特急服务（7个工作日，加收100%服务费）">特急服务（7个工作日，加收100%服务费）</label>
+                    </div>
+                    <script type="text/javascript">
+                        /*深度分析单选*/
+                        $(document).ready(function () {
+                            $(':checkbox[name=DepthAnalysisCycle]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=DepthAnalysisCycle]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>重大项目分析</td>
+                <td colspan="4" class="text_table_left">
+                    <label for="txtProjectAnalysisCost">费用</label>
+                    <input type="text" class="xian_32" id="txtProjectAnalysisCost" maxlength="10" />（元）
+                </td>
+                <td class="text_table_left">
+                    <label for="txtProjectAnalysisCycle">分析周期</label>
+                    <input type="text" class="xian_32" id="txtProjectAnalysisCycle" maxlength="10" />（个工作日）
+                </td>
+            </tr>
+            <tr>
+                <td>备注</td>
+                <td colspan="6">
+                    <input type="text" class="kong_98" id="txtRemarks" maxlength="100" />
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">服务要求</td>
+                <td>余样处理（若有余样）</td>
+                <td colspan="5" style="text-align:left; padding-left:10px;">
+                    <input type="checkbox" id="由服务方处理" name="ResidualSampleTreatment" value="由服务方处理" checked="checked" />
+                    <label for="由服务方处理">由服务方处理 </label>
+                    <input type="checkbox" id="由委托方取回" name="ResidualSampleTreatment" value="由委托方取回" />
+                    <label for="由委托方取回">由委托方取回（退样地址：</label>
+                    <input type="checkbox" id="同委托方地址" name="ReturnSampleAddress" value="同委托方地址" checked="checked" />
+                    <label for="同委托方地址">同委托方地址</label>
+                    <input type="checkbox" id="其他5" name="ReturnSampleAddress" value="其他" />
+                    <label for="其他5">其他：</label>
+                    <input type="text" class="xian_12" id="txtReturnSampleAddress" maxlength="20" />）
+
+                    <script type="text/javascript">
+                        /*余样处理单选*/
+                        $(document).ready(function () {
+                            $(':checkbox[name=ResidualSampleTreatment]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=ResidualSampleTreatment]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+
+                            $(':checkbox[name=ReturnSampleAddress]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=ReturnSampleAddress]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+
+                </td>
+            </tr>
+            <tr>
+                <td>报告格式</td>
+                <td colspan="5" class="text_table_left" style=" text-align:left; ">
+                    <input type="checkbox" id="中文" name="ReportFormat" value="中文" checked="checked" />
+                    <label for="中文">中文</label>
+                    <input type="checkbox" id="英文" name="ReportFormat" value="英文" />
+                    <label for="英文">英文</label>
+                    <script type="text/javascript">
+                        /*报告格式单选*/
+                        $(document).ready(function () {
+                            $(':checkbox[name=ReportFormat]').each(function () {
+                                $(this).click(function () {
+                                    if ($(this).attr('checked')) {
+                                        $(':checkbox[name=ReportFormat]').removeAttr('checked');
+                                        $(this).attr('checked', 'checked');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>服务费用</td>
+                <td colspan="6">
+                    <input type="text" class="kong_98" id="txtServiceCharge" maxlength="10" value="6760" />
+                </td>
+            </tr>
+
+            <tr style="height:40px;">
+                <td></td>
+                <td colspan="7">
+                    <input type="button" id="btnsubmit" value="提交"
+                           style="width: 85px;height: 30px;color: #FFF;display: inline-block;border: 0px none;border-radius: 5px; font-size: 14px;background: #0F80E3;" />
+                </td>
+            </tr>
+        </table>
+
+        <div style="width:23%;float:left;padding-left:2px;text-indent:25px;display:inline-block;  border:solid 1px #cccccc;height:755px;line-height:30px;">
+            <p style="width:100%;text-align:center; font-weight:bolder;">ChemCloud分析服务通用条款</p>
+            <p>
+                ChemCloud分析是指通过微观谱图（光谱、色谱、质谱、能谱、核磁共振谱、热谱等）对未知成分进行分析的技术方法。
+                为了实现最好的服务质量，建议委托方按照实际需求选择相应的委托项目。
+            </p>
+
+            <p>（1）常规分析是指通过对样品进行常规的ChemCloud分析，了解样品配方体系，可作为产品开发前期的重要支撑；</p>
+            <p>
+                （2）深度分析是指通过采用比“常规分析”更多分析手段以及更高分析精度的大型仪器，对样品进行深度的ChemCloud分析，同时对
+                委托方关注问题进行重点解析；另外在样品小试过程中就相关问题可提供技术咨询；“深度分析”可为关键技术开发项目
+                提供前中期支撑，或者用于复杂样品分析；
+            </p>
+            <p>（3）重大项目分析是指在某个重大技术项目进展过程中，根据需要，全程提供个性化全方位的微观谱图分析服务。</p>
+
+        </div>
+
+        <div style="clear:both;"></div>
+        <div style="width:98.3%;border:solid 1px #cccccc;margin-top:10px;max-height:309px; min-height:309px;">
+            <table id="list" class="table" style="width:100%;"></table>
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+    .table-hd {
+        padding-left: 10px;
+        line-height: 36px;
+        font-size: 14px;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+
+    .table th {
+        background-color: #0F80E3;
+        color: white;
+        height: 30px;
+    }
+
+    .table td {
+        border: solid 1px #cccccc;
+        height: 30px;
+    }
+
+    .table-bt {
+        background: #fff;
+        padding: 14px 0;
+    }
+
+        .table-bt .tabel-operate {
+            float: left;
+            margin-left: 17px;
+        }
+
+        .table-bt label {
+            font-weight: 200;
+            margin-right: 8px;
+            margin-bottom: 0;
+            vertical-align: top;
+        }
+
+            .table-bt label input {
+                vertical-align: sub;
+                margin: 2px 5px 0 0;
+            }
+
+        .table-bt .btn {
+            margin-left: 8px;
+        }
+
+        .table-bt .pager {
+            float: right;
+            margin: 0;
+            position: relative;
+            margin-right: 10px;
+        }
+
+            .table-bt .pager .active-page {
+                vertical-align: middle;
+            }
+
+    .pager .tipic-dialog {
+        bottom: 30px;
+        right: 0;
+        display: none;
+    }
+</style>
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        /*样品数量为数字*/
+        $("#txtSampleQuantity").live("blur", function () {
+            var SampleQuantity = $.trim($("#txtSampleQuantity").val());
+            var reg = /^\+?[1-9][0-9]*$/;
+            if (!reg.test(SampleQuantity)) {
+                $.dialog.errorTips('样品数量必须为大于0的整数！');
+                return false;
+            }
+        });
+
+        /*查询列表*/
+        QueryList();
+
+        /*危险性*/
+        $(':checkbox[name=DangerItem]').each(function () {
+            $(this).click(function () {
+                if ($(':checkbox[name=DangerItem]:checkbox:checked').val() == 3) {
+                    $(':checkbox[name=DangerItem3]').each(function () {
+                        if ($(this).val() == "易爆") {
+                            $(this).attr('checked', 'checked');
+                        }
+                    });
+                } else {
+                    $(':checkbox[name=DangerItem3]').each(function () {
+                        $(':checkbox[name=DangerItem3]').removeAttr('checked');
+                    });
+                }
+            });
+        });
+
+        /*费用计算 --常规分析选项*/
+        $(':checkbox[name=GeneralAnaly]').live("click", function () {
+            var ServiceCharge = 0;/*服务费用*/
+            if ($(':checkbox[name=GeneralAnaly]:checkbox:checked').val() != undefined && $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val() != undefined) {
+                var GeneralAnalyCost = $(this).val();
+                switch (GeneralAnalyCost) {
+                    case "1": GeneralAnalyCost = 6760; break;
+                    case "2": GeneralAnalyCost = 6760; break;
+                    case "3": GeneralAnalyCost = 8850; break;
+                    case "4": GeneralAnalyCost = 9850; break;
+                }
+                var GeneralAnalyCycle = $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val();
+                if (GeneralAnalyCycle == 5) {
+                    GeneralAnalyCost = parseFloat(GeneralAnalyCost) * 2;
+                }
+                if (GeneralAnalyCycle == 7) {
+                    GeneralAnalyCost = parseFloat(GeneralAnalyCost) * 1.5;
+                }
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat(GeneralAnalyCost);
+            }
+
+            if ($(':checkbox[name=DepthAnalysis]:checkbox:checked').val() != undefined && $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val() != undefined) {
+                var DepthAnalysisCost = $(':checkbox[name=DepthAnalysis]:checkbox:checked').val();
+                switch (DepthAnalysisCost) {
+                    case "1": DepthAnalysisCost = 10700; break;
+                    case "2": DepthAnalysisCost = 10700; break;
+                    case "3": DepthAnalysisCost = 13700; break;
+                    case "4": DepthAnalysisCost = 15700; break;
+                }
+                var DepthAnalysisCycle = $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val();
+                if (DepthAnalysisCycle == 7) {
+                    DepthAnalysisCost = parseFloat(DepthAnalysisCost) * 2;
+                }
+                if (DepthAnalysisCycle == 10) {
+                    DepthAnalysisCost = parseFloat(DepthAnalysisCost) * 1.5;
+                }
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat(DepthAnalysisCost);
+
+            }
+
+            if ($.trim($("#txtProjectAnalysisCost").val()) != "" && parseFloat($.trim($("#txtProjectAnalysisCost").val())) > 0 && $.trim($("#txtProjectAnalysisCycle").val()) != "" && parseFloat($.trim($("#txtProjectAnalysisCycle").val())) > 0) {
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat($.trim($("#txtProjectAnalysisCost").val()));
+            }
+
+            $("#txtServiceCharge").val(ServiceCharge);
+        });
+
+        /*费用计算 --常规分析分析周期*/
+        $(':checkbox[name=GeneralAnalyCycle]').live("click", function () {
+            var ServiceCharge = 0;/*服务费用*/
+            if ($(':checkbox[name=GeneralAnaly]:checkbox:checked').val() != undefined && $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val() != undefined) {
+                var GeneralAnalyCost = $(':checkbox[name=GeneralAnaly]:checkbox:checked').val();
+                switch (GeneralAnalyCost) {
+                    case "1": GeneralAnalyCost = 6760; break;
+                    case "2": GeneralAnalyCost = 6760; break;
+                    case "3": GeneralAnalyCost = 8850; break;
+                    case "4": GeneralAnalyCost = 9850; break;
+                }
+                var GeneralAnalyCycle = $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val();
+                if (GeneralAnalyCycle == 5) {
+                    GeneralAnalyCost = parseFloat(GeneralAnalyCost) * 2;
+                }
+                if (GeneralAnalyCycle == 7) {
+                    GeneralAnalyCost = parseFloat(GeneralAnalyCost) * 1.5;
+                }
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat(GeneralAnalyCost);
+            }
+
+            if ($(':checkbox[name=DepthAnalysis]:checkbox:checked').val() != undefined && $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val() != undefined) {
+                var DepthAnalysisCost = $(':checkbox[name=DepthAnalysis]:checkbox:checked').val();
+                switch (DepthAnalysisCost) {
+                    case "1": DepthAnalysisCost = 10700; break;
+                    case "2": DepthAnalysisCost = 10700; break;
+                    case "3": DepthAnalysisCost = 13700; break;
+                    case "4": DepthAnalysisCost = 15700; break;
+                }
+                var DepthAnalysisCycle = $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val();
+                if (DepthAnalysisCycle == 7) {
+                    DepthAnalysisCost = parseFloat(DepthAnalysisCost) * 2;
+                }
+                if (DepthAnalysisCycle == 10) {
+                    DepthAnalysisCost = parseFloat(DepthAnalysisCost) * 1.5;
+                }
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat(DepthAnalysisCost);
+
+            }
+
+            if ($.trim($("#txtProjectAnalysisCost").val()) != "" && parseFloat($.trim($("#txtProjectAnalysisCost").val())) > 0 && $.trim($("#txtProjectAnalysisCycle").val()) != "" && parseFloat($.trim($("#txtProjectAnalysisCycle").val())) > 0) {
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat($.trim($("#txtProjectAnalysisCost").val()));
+            }
+
+            $("#txtServiceCharge").val(ServiceCharge);
+        });
+
+
+        /*费用计算 --深度分析选项*/
+        $(':checkbox[name=DepthAnalysis]').live("click", function () {
+            var ServiceCharge = 0;/*服务费用*/
+            if ($(':checkbox[name=GeneralAnaly]:checkbox:checked').val() != undefined && $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val() != undefined) {
+                var GeneralAnalyCost = $(':checkbox[name=GeneralAnaly]:checkbox:checked').val();
+                switch (GeneralAnalyCost) {
+                    case "1": GeneralAnalyCost = 6760; break;
+                    case "2": GeneralAnalyCost = 6760; break;
+                    case "3": GeneralAnalyCost = 8850; break;
+                    case "4": GeneralAnalyCost = 9850; break;
+                }
+                var GeneralAnalyCycle = $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val();
+                if (GeneralAnalyCycle == 5) {
+                    GeneralAnalyCost = parseFloat(GeneralAnalyCost) * 2;
+                }
+                if (GeneralAnalyCycle == 7) {
+                    GeneralAnalyCost = parseFloat(GeneralAnalyCost) * 1.5;
+                }
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat(GeneralAnalyCost);
+            }
+
+            if ($(':checkbox[name=DepthAnalysis]:checkbox:checked').val() != undefined && $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val() != undefined) {
+                var DepthAnalysisCost = $(':checkbox[name=DepthAnalysis]:checkbox:checked').val();
+                switch (DepthAnalysisCost) {
+                    case "1": DepthAnalysisCost = 10700; break;
+                    case "2": DepthAnalysisCost = 10700; break;
+                    case "3": DepthAnalysisCost = 13700; break;
+                    case "4": DepthAnalysisCost = 15700; break;
+                }
+                var DepthAnalysisCycle = $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val();
+                if (DepthAnalysisCycle == 7) {
+                    DepthAnalysisCost = parseFloat(DepthAnalysisCost) * 2;
+                }
+                if (DepthAnalysisCycle == 10) {
+                    DepthAnalysisCost = parseFloat(DepthAnalysisCost) * 1.5;
+                }
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat(DepthAnalysisCost);
+
+            }
+
+            if ($.trim($("#txtProjectAnalysisCost").val()) != "" && parseFloat($.trim($("#txtProjectAnalysisCost").val())) > 0 && $.trim($("#txtProjectAnalysisCycle").val()) != "" && parseFloat($.trim($("#txtProjectAnalysisCycle").val())) > 0) {
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat($.trim($("#txtProjectAnalysisCost").val()));
+            }
+
+            $("#txtServiceCharge").val(ServiceCharge);
+        });
+
+
+        /*费用计算 --深度分析周期选项*/
+        $(':checkbox[name=DepthAnalysisCycle]').live("click", function () {
+            var ServiceCharge = 0;/*服务费用*/
+            if ($(':checkbox[name=GeneralAnaly]:checkbox:checked').val() != undefined && $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val() != undefined) {
+                var GeneralAnalyCost = $(':checkbox[name=GeneralAnaly]:checkbox:checked').val();
+                switch (GeneralAnalyCost) {
+                    case "1": GeneralAnalyCost = 6760; break;
+                    case "2": GeneralAnalyCost = 6760; break;
+                    case "3": GeneralAnalyCost = 8850; break;
+                    case "4": GeneralAnalyCost = 9850; break;
+                }
+                var GeneralAnalyCycle = $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val();
+                if (GeneralAnalyCycle == 5) {
+                    GeneralAnalyCost = parseFloat(GeneralAnalyCost) * 2;
+                }
+                if (GeneralAnalyCycle == 7) {
+                    GeneralAnalyCost = parseFloat(GeneralAnalyCost) * 1.5;
+                }
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat(GeneralAnalyCost);
+            }
+
+            if ($(':checkbox[name=DepthAnalysis]:checkbox:checked').val() != undefined && $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val() != undefined) {
+                var DepthAnalysisCost = $(':checkbox[name=DepthAnalysis]:checkbox:checked').val();
+                switch (DepthAnalysisCost) {
+                    case "1": DepthAnalysisCost = 10700; break;
+                    case "2": DepthAnalysisCost = 10700; break;
+                    case "3": DepthAnalysisCost = 13700; break;
+                    case "4": DepthAnalysisCost = 15700; break;
+                }
+                var DepthAnalysisCycle = $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val();
+                if (DepthAnalysisCycle == 7) {
+                    DepthAnalysisCost = parseFloat(DepthAnalysisCost) * 2;
+                }
+                if (DepthAnalysisCycle == 10) {
+                    DepthAnalysisCost = parseFloat(DepthAnalysisCost) * 1.5;
+                }
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat(DepthAnalysisCost);
+
+            }
+
+            if ($.trim($("#txtProjectAnalysisCost").val()) != "" && parseFloat($.trim($("#txtProjectAnalysisCost").val())) > 0 && $.trim($("#txtProjectAnalysisCycle").val()) != "" && parseFloat($.trim($("#txtProjectAnalysisCycle").val())) > 0) {
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat($.trim($("#txtProjectAnalysisCost").val()));
+            }
+
+            $("#txtServiceCharge").val(ServiceCharge);
+        });
+
+        $("#txtProjectAnalysisCost ,#txtProjectAnalysisCycle").live("blur", function () {
+            var ServiceCharge = 0;/*服务费用*/
+            if ($(':checkbox[name=GeneralAnaly]:checkbox:checked').val() != undefined && $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val() != undefined) {
+                var GeneralAnalyCost = $(':checkbox[name=GeneralAnaly]:checkbox:checked').val();
+                switch (GeneralAnalyCost) {
+                    case "1": GeneralAnalyCost = 6760; break;
+                    case "2": GeneralAnalyCost = 6760; break;
+                    case "3": GeneralAnalyCost = 8850; break;
+                    case "4": GeneralAnalyCost = 9850; break;
+                }
+                var GeneralAnalyCycle = $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val();
+                if (GeneralAnalyCycle == 5) {
+                    GeneralAnalyCost = parseFloat(GeneralAnalyCost) * 2;
+                }
+                if (GeneralAnalyCycle == 7) {
+                    GeneralAnalyCost = parseFloat(GeneralAnalyCost) * 1.5;
+                }
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat(GeneralAnalyCost);
+            }
+
+            if ($(':checkbox[name=DepthAnalysis]:checkbox:checked').val() != undefined && $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val() != undefined) {
+                var DepthAnalysisCost = $(':checkbox[name=DepthAnalysis]:checkbox:checked').val();
+                switch (DepthAnalysisCost) {
+                    case "1": DepthAnalysisCost = 10700; break;
+                    case "2": DepthAnalysisCost = 10700; break;
+                    case "3": DepthAnalysisCost = 13700; break;
+                    case "4": DepthAnalysisCost = 15700; break;
+                }
+                var DepthAnalysisCycle = $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val();
+                if (DepthAnalysisCycle == 7) {
+                    DepthAnalysisCost = parseFloat(DepthAnalysisCost) * 2;
+                }
+                if (DepthAnalysisCycle == 10) {
+                    DepthAnalysisCost = parseFloat(DepthAnalysisCost) * 1.5;
+                }
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat(DepthAnalysisCost);
+
+            }
+
+            if ($.trim($("#txtProjectAnalysisCost").val()) != "" && parseFloat($.trim($("#txtProjectAnalysisCost").val())) > 0 && $.trim($("#txtProjectAnalysisCycle").val()) != "" && parseFloat($.trim($("#txtProjectAnalysisCycle").val())) > 0) {
+                ServiceCharge = parseFloat(ServiceCharge) + parseFloat($.trim($("#txtProjectAnalysisCost").val()));
+            }
+
+            $("#txtServiceCharge").val(ServiceCharge);
+        });
+
+
+        /*提交报告*/
+        $("#btnsubmit").click(function () {
+            /*委托方信息*/
+            var ClientName = $.trim($("#txtClientName").val());
+            var ReportHeader = $(':checkbox[name=ReportHeader]:checkbox:checked').val();
+            if (ReportHeader == "其他") {
+                if ($.trim($("#txtReportHeader").val()) != "") { ReportHeader = $.trim($("#txtReportHeader").val()); }
+            }
+            var ClientLinkMan = $.trim($("#txtClientLinkMan").val());
+            var ClientMobilePhone = $.trim($("#txtClientMobilePhone").val());
+            var ClientEmail = $.trim($("#txtClientEmail").val());
+            var ClientFixedLine = $.trim($("#txtClientFixedLine").val());
+            var ClientFax = $.trim($("#txtClientFax").val());
+            var ClientAddress = $.trim($("#txtClientAddress").val());
+            /*样品信息*/
+            var SampleName = $.trim($("#txtSampleName").val());
+
+            /*样品数量为数字*/
+            var SampleQuantity = $.trim($("#txtSampleQuantity").val());
+            var reg = /^\+?[1-9][0-9]*$/;
+            if (!reg.test(SampleQuantity)) {
+                $.dialog.errorTips('样品数量必须为大于0的整数！');
+                return false;
+            }
+
+            var SampleSpecifications = $.trim($("#txtSampleSpecifications").val());
+            var SampleSource = $(':checkbox[name=SampleSource]:checkbox:checked').val();
+            var RelatedData = $(':checkbox[name=RelatedData]:checkbox:checked').val();
+            if (RelatedData == "有") {
+                if ($.trim($("#txtRelatedData").val()) != "") { RelatedData = $.trim($("#txtRelatedData").val()); }
+            }
+            var KnownInformation = $.trim($("#txtKnownInformation").val());
+            /*性状  1固体2液体3气体*/
+            var CharacterItem = 0;
+            if ($(':checkbox[name=CharacterItem]:checkbox:checked').val() != undefined) {
+                CharacterItem = $(':checkbox[name=CharacterItem]:checkbox:checked').val();
+            }
+            var CharacterItemDescribe = "";
+            if (CharacterItem == 1) {
+                CharacterItemDescribe = $(':checkbox[name=CharacterItem1]:checkbox:checked').val();
+                if (CharacterItemDescribe == "其他") {
+                    if ($.trim($("#txtCharacterItem1").val()) != "") { CharacterItemDescribe = $.trim($("#txtCharacterItem1").val()); }
+                }
+            }
+            if (CharacterItem == 2) {
+                CharacterItemDescribe = $(':checkbox[name=CharacterItem2]:checkbox:checked').val();
+                if (CharacterItemDescribe == "其他") {
+                    if ($.trim($("#txtCharacterItem2").val()) != "") { CharacterItemDescribe = $.trim($("#txtCharacterItem2").val()); }
+                }
+            }
+            if (CharacterItem == 3) {
+                CharacterItemDescribe = $(':checkbox[name=CharacterItem3]:checkbox:checked').val();
+                if (CharacterItemDescribe == "其他") {
+                    if ($.trim($("#txtCharacterItem3").val()) != "") { CharacterItemDescribe = $.trim($("#txtCharacterItem3").val()); }
+                }
+            }
+            var SampleColor = "";
+            if ($.trim($("#txtSampleColor").val()) != "") { SampleColor = $.trim($("#txtSampleColor").val()) }
+
+            /*危 险 性  1无危险性2危险性未知3有以下危险性*/
+            var DangerItem = 0;
+            if ($(':checkbox[name=DangerItem]:checkbox:checked').val() != undefined) {
+                DangerItem = $(':checkbox[name=DangerItem]:checkbox:checked').val();
+            }
+            var DangerItemDescribe = "";
+            if (DangerItem == 3) {
+                DangerItemDescribe = $(':checkbox[name=DangerItem3]:checkbox:checked').val();
+                if (DangerItemDescribe == "其他") {
+                    if ($.trim($("#DangerItem3").val()) != "") { DangerItemDescribe = $.trim($("#DangerItem3").val()); }
+                }
+            }
+
+            var StorageCondition = $(':checkbox[name=StorageCondition]:checkbox:checked').val();
+            if (StorageCondition == "其他") {
+                if ($.trim($("#txtStorageCondition").val()) != "") { StorageCondition = $.trim($("#txtStorageCondition").val()); }
+            }
+            var GeneralAnaly = 0;
+            if ($(':checkbox[name=GeneralAnaly]:checkbox:checked').val() != undefined) {
+                GeneralAnaly = $(':checkbox[name=GeneralAnaly]:checkbox:checked').val();
+            }
+            var GeneralAnalyCycle = 0;
+            if ($(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val() != undefined) {
+                GeneralAnalyCycle = $(':checkbox[name=GeneralAnalyCycle]:checkbox:checked').val();
+            }
+            var DepthAnalysis = 0;
+            if ($(':checkbox[name=DepthAnalysis]:checkbox:checked').val() != undefined) {
+                DepthAnalysis = $(':checkbox[name=DepthAnalysis]:checkbox:checked').val();
+            }
+            var DepthAnalysisCycle = 0;
+            if ($(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val() != undefined) {
+                DepthAnalysisCycle = $(':checkbox[name=DepthAnalysisCycle]:checkbox:checked').val();
+            }
+            var ProjectAnalysisCost = 0;
+            if ($.trim($("#txtStorageCondition").val()) != "") { ProjectAnalysisCost = $.trim($("#txtStorageCondition").val()) }
+            var ProjectAnalysisCycle = 0;
+            if ($.trim($("#txtProjectAnalysisCycle").val()) != "") { ProjectAnalysisCycle = $.trim($("#txtProjectAnalysisCycle").val()) }
+
+            var Remarks = '';
+            if ($.trim($("#txtRemarks").val()) != "") { Remarks = $.trim($("#txtRemarks").val()) }
+
+            var ResidualSampleTreatment = $(':checkbox[name=ResidualSampleTreatment]:checkbox:checked').val();
+            var ReturnSampleAddress = $(':checkbox[name=ReturnSampleAddress]:checkbox:checked').val();
+            if (ReturnSampleAddress == "其他") {
+                if ($.trim($("#txtReturnSampleAddress").val()) != "") { ReturnSampleAddress = $.trim($("#txtReturnSampleAddress").val()); }
+            }
+
+            var ReportFormat = $(':checkbox[name=ReportFormat]:checkbox:checked').val();
+            var ServiceCharge = $.trim($("#txtServiceCharge").val());
+            var AnalysisStatus = 1; /*状态*/
+            var AnalysisAttachments = "";
+            var Memberid = 0;
+            var jsonstring = "";
+            jsonstring += "{";
+            jsonstring += "\"ClientName\":\"" + ClientName + "\",";
+            jsonstring += "\"ReportHeader\":\"" + ReportHeader + "\",";
+            jsonstring += "\"ClientLinkMan\":\"" + ClientLinkMan + "\",";
+            jsonstring += "\"ClientMobilePhone\":\"" + ClientMobilePhone + "\",";
+            jsonstring += "\"ClientEmail\":\"" + ClientEmail + "\",";
+            jsonstring += "\"ClientFixedLine\":\"" + ClientFixedLine + "\",";
+            jsonstring += "\"ClientFax\":\"" + ClientFax + "\",";
+            jsonstring += "\"ClientAddress\":\"" + ClientAddress + "\",";
+            jsonstring += "\"SampleName\":\"" + SampleName + "\",";
+            jsonstring += "\"SampleQuantity\":\"" + SampleQuantity + "\",";
+            jsonstring += "\"SampleSpecifications\":\"" + SampleSpecifications + "\",";
+            jsonstring += "\"SampleSource\":\"" + SampleSource + "\",";
+            jsonstring += "\"RelatedData\":\"" + RelatedData + "\",";
+            jsonstring += "\"KnownInformation\":\"" + KnownInformation + "\",";
+            jsonstring += "\"CharacterItem\":\"" + CharacterItem + "\",";
+            jsonstring += "\"CharacterItemDescribe\":\"" + CharacterItemDescribe + "\",";
+            jsonstring += "\"SampleColor\":\"" + SampleColor + "\",";
+            jsonstring += "\"DangerItem\":\"" + DangerItem + "\",";
+            jsonstring += "\"DangerItemDescribe\":\"" + DangerItemDescribe + "\",";
+            jsonstring += "\"StorageCondition\":\"" + StorageCondition + "\",";
+            jsonstring += "\"GeneralAnaly\":\"" + GeneralAnaly + "\",";
+            jsonstring += "\"GeneralAnalyCycle\":\"" + GeneralAnalyCycle + "\",";
+            jsonstring += "\"DepthAnalysis\":\"" + DepthAnalysis + "\",";
+            jsonstring += "\"DepthAnalysisCycle\":\"" + DepthAnalysisCycle + "\",";
+            jsonstring += "\"ProjectAnalysisCost\":\"" + ProjectAnalysisCost + "\",";
+            jsonstring += "\"ProjectAnalysisCycle\":\"" + ProjectAnalysisCycle + "\",";
+            jsonstring += "\"Remarks\":\"" + Remarks + "\",";
+            jsonstring += "\"ResidualSampleTreatment\":\"" + ResidualSampleTreatment + "\",";
+            jsonstring += "\"ReturnSampleAddress\":\"" + ReturnSampleAddress + "\",";
+            jsonstring += "\"ReportFormat\":\"" + ReportFormat + "\",";
+            jsonstring += "\"ServiceCharge\":\"" + ServiceCharge + "\",";
+            jsonstring += "\"Memberid\":\"" + 0 + "\",";
+            jsonstring += "\"AnalysisStatus\":\"" + AnalysisStatus + "\",";
+            jsonstring += "\"AnalysisAttachments\":\"" + AnalysisAttachments + "\"";
+            jsonstring += "}";
+
+            $.dialog.confirm("确定提交分析鉴定？", function () {
+
+                $.post('AddProductAnalysis', { strjson: jsonstring }, function (result) {
+                    if (result.success == true) {
+                        $.dialog.succeedTips("提交成功！", function () { QueryList(); });
+                    } else {
+                        $.dialog.errorTips("提交失败！");
+                    }
+                });
+            });
+        });
+
+    });
+
+    /*查询方法*/
+    function QueryList() {
+        $("#list").hiMallDatagrid({
+            url: "/ProductAnalysis/GetProductAnalysisList",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 7,
+            pageNumber: 1,
+            queryParams: {},
+            toolbar: "#shopToolBar",
+            columns:
+            [[
+                {
+                    field: "ClientName", title: "委托方名称", width: 350,
+                },
+                {
+                    field: "MemberName", title: "用户", width: 150,
+                },
+                {
+                    field: "ReportHeader", title: "报告抬头", width: 150,
+                },
+                {
+                    field: "SampleName", title: "样品名称", width: 150,
+                },
+                {
+                    field: "SampleQuantity", title: "样品数量", width: 150,
+                },
+                {
+                    field: "SampleSpecifications", title: "样品规格型号", width: 150,
+                },
+                {
+                    field: "AnalysisStatus", title: "状态", width: 350, formatter: function (value, row, index) {
+                        /*1已提交2已确认3已支付4分析中5已完成*/
+                        html = "";
+                        if (row.AnalysisStatus == 1) {
+                            html = "<span>已提交</span>";
+                        }
+                        if (row.AnalysisStatus == 2) {
+                            html = "<span>已确认</span>";
+                        } if (row.AnalysisStatus == 3) {
+                            html = "<span>已支付</span>";
+                        }
+                        if (row.AnalysisStatus == 4) {
+                            html = "<span>分析中</span>";
+                        }
+                        if (row.AnalysisStatus == 5) {
+                            html = "<span>已完成</span>";
+                        }
+                        return html;
+                    }
+                },
+                {
+                    field: "operation", operation: true, width: 50, title: "下载", width: "233",
+                    formatter: function (value, row, index) {
+                        html = "";
+                        if (row.AnalysisStatus == 5) {
+                            html = "<span  class=\"btn-a\"><a  style=\"color:green;\" href=\"" + row.AnalysisAttachments + "\" target=\"_blank\">附件</a></span>";
+                        } else {
+                            html = "<span  class=\"btn-a\">待上传</span>";
+                        }
+                        return html;
+                    }
+                }
+            ]]
+        });
+
+    }
+</script>

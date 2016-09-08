@@ -1,0 +1,5 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\bin\Release\ChemCloud.AOPProxy.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\bin\Release\ChemCloud.AOPProxy.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\bin\Release\Newtonsoft.Json.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\obj\Release\ChemCloud.AOPProxy.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AOPProxy\obj\Release\ChemCloud.AOPProxy.pdb

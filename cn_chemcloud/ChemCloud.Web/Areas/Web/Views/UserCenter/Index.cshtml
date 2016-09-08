@@ -1,0 +1,840 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit|ie-stand">
+    <meta name="viewport" content="width=device-width" />
+    <title>采购商中心</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="~/Areas/Web/Content/common.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+    <style type="text/css">
+        body {
+            background: #fff;
+        }
+
+        .dropdown-menu a {
+            color: #000;
+        }
+
+        .dropdown a.hover {
+            color: #000;
+        }
+
+        .logo {
+            background: none;
+        }
+
+        .aside {
+            top: 126px;
+        }
+
+            .aside ul {
+                margin: 0;
+            }
+
+                .aside ul li {
+                    margin: 0;
+                }
+
+            .aside li {
+                height: 32px;
+                line-height: 32px;
+            }
+
+                .aside li.li-lg {
+                    font-size: 14px;
+                    color: #333;
+                    border-top: 1px solid #f4f5fa;
+                    border-bottom: 2px solid #f4f5fa;
+                    line-height: 40px;
+                    height: 40px;
+                    background: url(/images/usecenter_l.png) no-repeat #dddddd;
+                }
+
+                    .aside li.li-lg.user-c {
+                        background: none;
+                    }
+
+                        .aside li.li-lg.user-c a {
+                            background: url(/images/usecenter_l.png) no-repeat 20px 13px;
+                        }
+
+                        .aside li.li-lg.user-c.current a {
+                            /*background-color: #3498DB;*/
+                            background-color: #3498DB;
+                            background-position: 20px -197px;
+                        }
+
+                .aside li.user-o {
+                    background-position: 20px -18px;
+                }
+
+                .aside li.user-m {
+                    background-position: 20px -48px;
+                }
+
+                .aside li.user-a {
+                    background-position: 20px -78px;
+                }
+
+                .aside li.user-r {
+                    background-position: 20px -139px;
+                }
+
+                .aside li.user-i {
+                    background-position: 20px -169px;
+                }
+
+                .aside li.user-p {
+                    background-position: 20px -108px;
+                }
+
+                .aside li.li-lg:first-child {
+                    border: 0;
+                }
+
+                .aside li.li-lg a {
+                    color: #000;
+                }
+
+                    .aside li.li-lg a:hover {
+                        color: #3498DB;
+                    }
+
+                .aside li.li-lg.current a {
+                    color: #fff;
+                }
+
+        .user-header {
+            height: 99px;
+            /*border-bottom: 2px solid #3498DB;*/
+            border-bottom: 2px solid #3498DB;
+            background: #fff;
+        }
+
+        .search-bar {
+            height: 60px;
+            padding-top: 10px;
+            width: 1190px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            float: left;
+            width: 330px;
+        }
+
+            .logo img {
+                display: inline-block;
+            }
+    </style>
+
+    <style type="text/css">
+        /* （2）第二行,由 LOGO 和搜索 两块组成 */
+        #header {
+            width: 1200px;
+            height: 96px;
+            margin: 0 auto;
+            margin-bottom: 40px;
+        }
+
+            #header img {
+                width: 358px;
+                height: 96px;
+                float: left;
+            }
+
+            #header .search_hr {
+                width: 640px;
+                height: 96px;
+                margin-left: 80px;
+                float: left;
+            }
+
+                #header .search_hr .search_COA {
+                    position: absolute;
+                    top: -24px;
+                    left: -2px;
+                }
+
+                    #header .search_hr .search_COA li {
+                        width: 70px;
+                        height: 22px;
+                        line-height: 22px;
+                        text-align: center;
+                        color: #555555;
+                        background: #f0f0f0;
+                        margin-right: 2px;
+                        cursor: pointer;
+                        float: left;
+                    }
+
+                        #header .search_hr .search_COA li:hover {
+                            background: #317ee7;
+                            color: #fff;
+                        }
+
+                    #header .search_hr .search_COA .active {
+                        background: #317ee7;
+                        color: #fff;
+                    }
+
+            #header .search_hr_bar {
+                position: relative;
+                top: 30px;
+                width: 587px;
+                height: 32px;
+                border: 2px solid #317ee7;
+            }
+
+                #header .search_hr_bar .text1 {
+                    width: 505px;
+                    height: 32px;
+                    line-height: 32px;
+                    border: none;
+                    padding-left: 5px;
+                    color: #666;
+                    float: left;
+                }
+
+                #header .search_hr_bar .btn1 {
+                    width: 77px;
+                    height: 32px;
+                    background: #317ee7;
+                    border: none;
+                    float: right;
+                    font-size: 14px;
+                    color: #fff;
+                }
+
+
+
+        .search-form {
+            width: 575px;
+            margin: 10px auto;
+            overflow: hidden;
+        }
+
+            .search-form .search-bd {
+                height: 25px;
+            }
+
+                .search-form .search-bd li {
+                    font-size: 12px;
+                    width: 60px;
+                    height: 25px;
+                    line-height: 25px;
+                    text-align: center;
+                    float: left;
+                    cursor: pointer;
+                    background-color: #eee;
+                    color: #666;
+                }
+
+                    .search-form .search-bd li.selected {
+                        color: #fff;
+                        font-weight: 700;
+                        background-color: #3480e8;
+                    }
+
+            .search-form .search-hd {
+                height: 39px;
+                background-color: #3480e8;
+                padding: 3px;
+                position: relative;
+            }
+
+                .search-form .search-hd .search-input {
+                    width: 490px;
+                    height: 22px;
+                    line-height: 22px;
+                    padding: 6px 0;
+                    background: none;
+                    text-indent: 2px;
+                    border: 0;
+                    outline: none;
+                    position: relative;
+                    left: 3px;
+                    top: 0;
+                    z-index: 5;
+                    #margin-left:-10px;
+                }
+
+                .search-form .search-hd .btn-search {
+                    width: 70px;
+                    height: 34px;
+                    line-height: 34px;
+                    position: absolute;
+                    right: 3px;
+                    top: 3px;
+                    border: 0;
+                    z-index: 6;
+                    cursor: pointer;
+                    font-size: 12px;
+                    color: #fff;
+                    font-weight: 700;
+                    background: none;
+                    outline: none;
+                }
+
+                .search-form .search-hd .pholder {
+                    display: inline-block;
+                    padding: 2px 0;
+                    font-size: 12px;
+                    color: #999;
+                    position: absolute;
+                    left: 13px;
+                    top: 11px;
+                    z-index: 4;
+                    padding-left: 25px;
+                    #top:11px;
+                }
+
+
+            .search-form .search-bg {
+                width: 495px;
+                height: 34px;
+                background-color: #fff;
+                position: absolute;
+                left: 3px;
+                top: 3px;
+                z-index: 1;
+            }
+
+
+        .search_link {
+            margin-left: 34px;
+        }
+
+            .search_link a {
+                margin-right: 8px;
+                text-decoration: none;
+                color: #777;
+            }
+
+                .search_link a:hover {
+                    color: #317ee7;
+                }
+
+            .search_link .more {
+                width: 35px;
+                height: 15px;
+                border: 1px solid #ddd;
+                margin-left: 140px;
+                padding: 0 6px;
+            }
+        /* END（2）第二行,由 LOGO 和搜索 两块组成 */
+        .icheckbox_sm-blue, .radio_sm-blue {
+            position: relative;
+            display: block;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            line-height: 36px;
+            color: #999;
+            background: #fff;
+            /*-webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;*/
+            cursor: pointer;
+            text-align: center;
+            border: 2px solid #CCCCCC;
+        }
+
+            .icheckbox_sm-blue:hover, .radio_sm-blue:hover {
+                border: 2px solid rgb(52,128,232);
+            }
+
+            .icheckbox_sm-blue.checked, .radio_sm-blue.checked {
+                background: #fff;
+                background: url(/Areas/Web/Images/icon-right.png) no-repeat right bottom;
+                border: 2px solid rgb(52,128,232);
+                color: #333;
+            }
+    </style>
+    <link href="~/Areas/Web/Content/artdilog.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/CommonJS.js"></script>
+    <script>
+        $(function () {
+            $("#searchBox").focus(function () {
+                $("#searchBox").css("border-color", "#7ABD54");
+            })
+            $("#searchBox").blur(function () {
+                $("#searchBox").css("border-color", "#ddd");
+            })
+        })
+        function IsExitsOrganization() {
+            var userId = $("#currentId").val();
+            $.post('/UserCenter/IsAdmin', { userId: userId }, function (result) {
+                if (!result.success) {
+                    $.dialog.tips("请联系管理员添加角色组和组织架构");
+                    setTimeout(3000);
+
+                } else {
+                    location.href = "/Organization/Management";
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    @{Html.RenderAction("TopInfo", "ProductPartial");}
+    @{
+        int i = 0;
+    }
+    <div style="width:100%;border-bottom:2px solid #317ee7;">
+        <div id="header">
+            <a href="/"><img src="~/Areas/Web/images/img/logo.jpg" /></a>
+            <div class="search_hr">
+                <!--代码部分begin-->
+                <div class="search-form">
+                    <div id="search-bd" class="search-bd">
+                        <ul>
+                            <li id="serachtxt" class="selected">文本搜索</li>
+                            <li id="serachcoa">COA搜索</li>
+                            <li><a class="nhover" target="_blank" href="@Url.Action("SuperSearch", "Search")">高级搜索</a></li>
+                            <li id="serachlaw" style="width: 140px;display:none">知识产权法律法规搜索</li>
+                        </ul>
+                    </div>
+                    <div id="search-hd" class="search-hd" style="height:40px;">
+                        <div class="search-bg"></div>
+                        <input type="text" id="searchBox" class="search-input" placeholder="请填写CAS号,英文名,中文名,化学分子式" />
+                        <button id="searchBtn" style="right: -1px; font-size: 16px;font-weight: 400; word-spacing: 8px;letter-spacing: 8px;font-family: " arial","microsoft yahei","黑体","宋体",sans-serif;" class="btn-search" value="搜索">搜索</button>
+                    </div>
+                    <div id="search-coa" class="search-hd" style="height:40px;display:none;">
+                        <div class="search-bg"></div>
+                        <input type="text" id="coasearchBox" class="search-input" placeholder="请输入COA编号." style="padding: 17px 0;" />
+                        <button id="coasearchBtn" style="right: -1px; font-size: 16px;font-weight:400; word-spacing: 8px;letter-spacing: 8px;font-family: " arial","microsoft yahei","黑体","宋体",sans-serif;" class="btn-search" value="搜索">搜索</button>
+                    </div>
+                    <div id="search-law" class="search-hd" style="height:40px;display:none;">
+                        <div class="search-bg"></div>
+                        <input type="text" id="lawsearchBox" class="search-input" placeholder="请输入知识产权,法律法规的标题、关键字." maxlength="20" />
+                        <button id="lawsearchBtn" style="right: -1px; font-size: 16px;font-weight: 400; word-spacing: 8px;letter-spacing: 8px;font-family: " arial","microsoft yahei","黑体","宋体",sans-serif;" class="btn-search" value="搜索">搜索</button>
+                    </div>
+                </div>
+                <div style="width: 80px;float: right;margin-top: -40px;margin-right: -55px;">
+                    <label for="issearchlike" style="display:block;font-weight:400;font-size:16px" class="icheckbox_sm-blue">
+                        <input type="checkbox" id="issearchlike" name="checkbox" value="111" style="position: absolute; opacity: 0;">
+                        模糊
+                        <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);">
+                        </ins>
+                    </label>
+                </div>
+                <!--代码部分end-->
+                <div class="search_link">
+                    @foreach (string item in (ViewBag.Keys as string[]))
+                    {
+                        <a href="/search/index?keywords=@item&islike=1">@item</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="aside" style="margin-top:87px;">
+        <ul class="aside-list">
+            <li class="current li-lg user-c"><a href="/UserCenter/home" target="iframe">采购商中心</a></li>
+            @if ((ViewBag.RoleName == "管理员") || (ViewBag.RoleName == "Admin"))
+            {
+                <li class="li-lg user-a" style="border-top: 2px solid #9fe0f6">部门管理</li>
+                <li><a href="/Organization/Management" target="iframe">配置组织架构</a></li>
+                <li><a href="/PermissionGroup/Management" target="iframe">采购等级管理</a></li>
+            }
+            <li class="li-lg user-o" style="border-top: 2px solid #f3e59a; ">我要采购</li>
+            <li><a href="/IWantToBuyUser/IWantToBuyUser" target="iframe">我要采购</a></li>
+            <li class="li-lg user-o" style="border-top: 2px solid #f3e59a; ">我的询盘</li>
+            <li><a href="/Bargain/BargainList" target="iframe">询盘管理</a></li>
+
+            <li class="li-lg user-o" style="border-top: 2px solid #f3e59a">我的订单</li>
+            <li><a href="/UserOrder" id="UserOrder_syl" target="iframe">订单管理</a></li>
+            <li><a href="/userComment" target="iframe">评价管理</a></li>
+            <li><a href="/OrderPurchasing/ManageMent" target="iframe">代购订单管理</a></li>
+            <li><a href="/OrderSynthesis/ManageMent" target="iframe">合成订单管理</a></li>
+            <li><a href="/TK/Management" target="iframe">退款管理</a></li>
+            <li><a href="/TH/Management" target="iframe">退货管理</a></li>
+            @*<li><a href="/OrderComplaint/Index" target="iframe">投诉维权</a></li>*@
+
+
+            <li class="li-lg user-i" style="border-top: 2px solid #f3b59b;">我的帐户</li>
+            <li><a href="/UserInfo/Index" id="c" target="iframe">企业信息</a></li>
+            <li><a href="/userCenter/AccountSafety" target="iframe">账户安全</a></li>
+            @*<li><a href="/userIntegral/Index" target="iframe">我的积分</a></li>*@
+            @*<li><a href="/Register/Management?currentuserid=@ViewBag.CurrentId" target="iframe">添加子账户</a></li>*@
+            <li><a href="/UserAddress" id="UserAddress_syl" target="iframe">收货地址管理</a></li>
+            <li><a href="/orderAddress" id="orderAddress_syl" target="iframe">账单地址管理</a></li>
+            @*<li><a href="/UserInfo/ChangePassword" target="iframe">修改密码</a></li>*@
+
+            <li class="li-lg user-a" style="border-top: 2px solid #f29c9c;">人才招聘</li>
+            <li><a href="/Jobs/Jobs" target="iframe">招聘信息</a></li>
+
+            <li class="li-lg user-o" style="border-top: 2px solid #9fe0f6">我的财务</li>
+            <li><a href="/Money/MoneyList" target="iframe">财务管理</a></li>
+            @*<li class="li-lg user-a">我的关注</li>
+                <li><a href="/productConcern/index" target="iframe">产品关注</a></li>*@
+
+            <li class="li-lg user-a" style="border-top: 2px solid #9fe0f6">我的消息</li>
+            <li><a href="/MessageDetail/Management" id="c1" target="iframe">消息列表</a></li>
+            <li><a href="/ChatMessage/Index" id="btnOpenChatMessageIndex">在线咨询</a></li>
+
+            <li class="li-lg user-a" style="border-top: 2px solid #9fe0f6">限额审核</li>
+            <li><a href="/LimitedApply/Management" id="c1" target="iframe">限额审核</a></li>
+
+            <li class="li-lg user-a" style="border-top: 2px solid #9fe0f6">技术资料</li>
+            <li><a href="/TechInfo/Management" id="c1" class="syl_TechInfo" target="iframe">技术资料</a></li>
+
+
+            <li class="li-lg user-a" style="border-top: 2px solid #9fe0f6">分析鉴定</li>
+            <li><a href="/Analysis/Index" id="c1" class="syl_TechInfo" target="iframe">分析鉴定</a></li>
+            @*<li><a href="/userConsultation" target="iframe">咨询管理</a></li>
+                <li><a href="/UserCapital/Index" target="iframe">我的账户</a></li>
+                <li><a href="/shopConcern/Index" target="iframe">供应商关注</a></li>
+                <li class="li-lg user-p">推广</li>
+                <li><a href="/userInvite/index" target="iframe">平台推广</a></li>
+                <li class="li-lg user-r">售后服务</li>
+                <li><a href="@Url.Action("List", "OrderRefund", new { Area = "Web", showtype =2})" target="iframe">退换货</a></li>
+                <li class="li-lg user-m">资产中心</li>
+                <li class="li-lg user-i">帐户管理</li>
+                <li><a href="/UserAddress" target="iframe">收货地址管理</a></li>
+                <li><a href="/UserInfo/Index" target="iframe">个人信息</a></li>
+                <li><a href="/userCenter/AccountSafety" target="iframe">账户安全管理</a></li>
+                <li><a href="/Register/RegisterChild?currentuserid=@ViewBag.CurrentId" target="iframe">添加子账户</a></li>
+                <li class="li-lg user-i">询价管理</li>
+                <li><a href="/Bargain/BargainList" target="iframe">议价单管理</a></li>
+                <li><a href="/userCoupon/index" target="iframe">我的优惠劵</a></li>*@
+        </ul>
+    </div>
+    <div class="content" style="width:100%;">
+        <input type="hidden" id="hdbargain" value="@ViewBag.productid" />
+        <input type="hidden" id="currentId" value="@ViewBag.CurrentId" />
+        @{
+            if (ViewBag.productid != "none")
+            {
+                if (ViewBag.type == "bargain")
+                {
+                    <iframe id="iframe" name="iframe" frameborder="0" scrolling="no" src="/Bargain/BargainAdd?Id=@ViewBag.productid"></iframe>
+                }
+                else if (ViewBag.type == "order")
+                {
+                    <iframe id="iframe" name="iframe" frameborder="0" scrolling="no" src="/Bargain/SubmitOrder?Id=@ViewBag.productid"></iframe>
+                }
+                else
+                {
+                    <iframe id="iframe" name="iframe" frameborder="0" scrolling="no" src="/UserCenter/home"></iframe>
+                }
+            }
+            else
+            {
+                if (ViewBag.orderlist == "1")
+                {
+                    <iframe id="iframe" name="iframe" frameborder="0" scrolling="no" src="/UserOrder/Index"></iframe>
+                }
+                else
+                {
+                    <iframe id="iframe" name="iframe" frameborder="0" scrolling="no" src="/UserCenter/home"></iframe>
+                }
+            }
+        }
+    </div>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //模糊搜索样式
+            var evTimeStamp = 0;
+            $('.icheckbox_sm-blue').click(function () {
+                var now = +new Date();
+                if (now - evTimeStamp < 100) {
+                    return;
+                }
+                evTimeStamp = now;
+                if ($('.icheckbox_sm-blue').hasClass('checked')) {
+                    $('.icheckbox_sm-blue').removeClass('checked');
+                } else {
+                    $('.icheckbox_sm-blue').addClass('checked');
+                }
+
+            })
+
+            //王传伟，打开 聊天窗口
+            $("#btnOpenChatMessageIndex").on("click", function () {
+
+                //window.open("/ChatMessage/Index");
+
+                var w = window.open();
+                setTimeout(function () {
+                    w.location = "/ChatMessage/Index";
+                }, 1000);
+
+                return false;
+
+            });
+            //end 王传伟，打开 聊天窗口
+
+            if (location.href.indexOf("c=1") > 0) {
+                $("#iframe").attr("src", "/UserInfo/Index");
+            } else if (location.href.indexOf("c=2") > 0) {
+                $("#iframe").attr("src", "/MessageDetail/Management");
+            } else if (location.href.indexOf("c=3") > 0) {
+                $("#iframe").attr("src", "/Bargain/BargainList");
+            }
+            else if (location.href.indexOf("c=5") > 0) {
+                $("#iframe").attr("src", "/OrderSynthesis/AddOrderSynthesis");
+
+            }
+            else if (location.href.indexOf("c=4") > 0) {
+                $("#iframe").attr("src", "/OrderPurchasing/AddOrderPurchasing");
+            }
+            //下拉菜单
+            $('.top .dropdown').hover(function () {
+                $(this).toggleClass('hover');
+            });
+
+            ////搜索切换
+            //$('.search-form label').click(function () {
+            //    $(this).siblings('ul').show();
+            //});
+            //$('.search-form ul li').click(function () {
+            //    $(this).parent().hide().siblings('label').text($(this).text());
+            //});
+
+            //左侧菜单栏自适应高度
+            $('.aside').height($(".aside-list").height() + 800);
+            $(window).resize(function () {
+                $('.aside').height($(".aside-list").height() + 800);
+
+            });
+
+            //右侧主界面自适应高度
+            $('.content').height($(".aside").height() + 800);
+            $(window).resize(function () {
+                $('.content').height($(".aside").height() + 800);
+
+            });
+
+
+            $('.aside-list li a').click(function () {
+                $(this).parent().addClass('current').siblings().removeClass('current');
+
+                //右侧主界面自适应高度,js获取iframe里页面的高度，给了最外侧的div，iframe高度自适应此div
+                if ($("#iframe").contents().find("body").height() > $(".aside-list").height()) {
+                    $(".content").height($("#iframe").contents().find("body").height() + 300);
+
+                    $(window).resize(function () {
+                        $('.content').height($("#iframe").contents().find("body").height() + 300);
+                    });
+
+                } else {
+                    $('.content').height($(".aside").height() + 20);
+
+                    $(window).resize(function () {
+                        $('.content').height($(".aside").height() + 20);
+                    });
+                }
+            });
+            $('#UserAddress_syl').click(function () {
+                $(this).parent().addClass('current').siblings().removeClass('current');
+
+                //为收货地址页面写的高度
+                $('.content').height($(".aside-list").height() + 2800);
+                $(window).resize(function () {
+                    $('.content').height($(".aside-list").height() + 2800);
+                });
+            });
+            $('#UserOrder_syl').click(function () {
+                $(this).parent().addClass('current').siblings().removeClass('current');
+
+                //为订单管理写的高度
+                $('.content').height($(".aside-list").height() + 600);
+                $(window).resize(function () {
+                    $('.content').height($(".aside-list").height() + 600);
+                });
+            });
+
+            $('.syl_TechInfo').click(function () {
+                $(this).parent().addClass('current').siblings().removeClass('current');
+
+                //为技术资料写的高度
+                $('.content').height($(".aside-list").height() + 300);
+                $(window).resize(function () {
+                    $('.content').height($(".aside-list").height() + 300);
+                });
+            });
+            $('#searchBtn').click(function () {
+
+                var keyWords = $.trim($('#searchBox').val());
+
+                if (keyWords == "") {
+                    $.dialog.errorTips("请输入搜索关键字");
+                    return false;
+                }
+
+
+                //if (keyWords.length < 3) {
+                //    $.dialog.errorTips("搜索长度不能小于3");
+                //    return false;
+                //}
+
+
+                if ($("#issearchlike").attr("checked") == "checked") {
+                    //模糊搜索
+                    location.href = "/search/index?keywords=" + encodeURIComponent(keyWords ? keyWords : $('#searchBox').attr('placeholder')) + "&islike=1";
+                }
+                else {
+                    //精确搜索
+                    location.href = "/search/index?keywords=" + encodeURIComponent(keyWords ? keyWords : $('#searchBox').attr('placeholder')) + "&islike=0";
+
+                }
+            });
+            $("#searchBox").keydown(function (e) {
+
+                if (e.keyCode == 13) {
+                    var keyWords = $('#searchBox').val();
+                    //location.href = "/search?keywords=" + encodeURIComponent(keyWords ? keyWords : $('#searchBox').attr('placeholder'))
+                    if ($("#issearchlike").attr("checked") == "checked") {
+                        //模糊搜索
+                        location.href = "/search/index?keywords=" + encodeURIComponent(keyWords ? keyWords : $('#searchBox').attr('placeholder')) + "&islike=1";
+                    }
+                    else {
+                        //精确搜索
+                        location.href = "/search/index?keywords=" + encodeURIComponent(keyWords ? keyWords : $('#searchBox').attr('placeholder')) + "&islike=0";
+
+                    }
+                }
+            });
+        });
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+        $(function () {
+            var myurl = GetQueryString("url");
+            if (myurl != null && myurl.toString().length > 1) {
+                var tar = GetQueryString("tar").toLowerCase();
+                $(".aside-list li a").each(
+                    function (index, item) {
+                        if ($(item).attr("href").toLowerCase().indexOf(tar) >= 0) {
+                            $(item).parent().click();
+                        }
+                    }
+                );
+                window.iframe.location.href = myurl;
+            } else {
+                $(".nav li").first().click();
+            }
+        });
+        //$("#Org").on("mouseover mouseout", function () {
+        //    var readId = $.trim($(this).attr("id").substring(8));
+        //    var ps = $(this).position();
+        //    if (event.type == 'mouseover') {
+        //        $.post('./GetReadState', { id: readId }, function (result) {
+        //            var html = "";
+        //            if (result != null) {
+        //                html += '<span>已读：' + result.Read + '未读：' + result.Noread + '</span>';
+        //            }
+        //            $("#float_box").children('span').html(html);
+        //            $("#float_box").css("position", "absolute");
+        //            $("#float_box").css("left", ps.left); //距离左边距
+        //            $("#float_box").css("top", ps.top + 20); //距离上边距
+        //            $("#float_box").show();
+        //        });
+
+        //    } else {
+        //        $("#float_box").hide();
+        //    }
+        //});
+
+        //Enter键，搜索功能
+        document.onkeydown = function (a) {
+            var b = document.all ? window.event : a;
+            if (13 == b.keyCode) {
+
+                if ($("#search-hd").css("display") == "block") {
+                    var keyWords = $.trim($('#searchBox').val());
+                    if (keyWords != "") {
+                        $("#searchBtn").click();
+                    }
+                } else if ($("#search-coa").css("display") == "block") {
+                    var keyWords = $.trim($('#coasearchBox').val());
+                    if (keyWords != "") {
+                        $("#coasearchBtn").click();
+                    }
+                } else if ($("#search-law").css("display") == "block") {
+                    var keyWords = $.trim($('#lawsearchBox').val());
+                    if (keyWords != "") {
+                        $("#lawsearchBtn").click();
+                    }
+                }
+
+            }
+        }
+        $("#coasearchBtn").click(function () {
+            var keyWords = $.trim($('#coasearchBox').val());
+            if (keyWords == "") {
+                $.dialog.errorTips("请输入COA编号");
+                return false;
+            }
+            //if (keyWords.length < 3) {
+            //    $.dialog.errortips("搜索长度不能小于3");
+            //    return false;
+            //}
+            $.post('/Search/SearchCoaR', { key: encodeURIComponent(keyWords ? keyWords : keyWords) }, function (data) {
+                if (data.success) {
+                    location.href = "/search/Search_COA?key=" + encodeURIComponent(keyWords ? keyWords : keyWords);
+                } else {
+                    $.dialog.errorTips("您搜索的COA编号不存在!");
+                }
+            });
+        });
+        $("#lawsearchBtn").click(function () {
+            var keyWords = $.trim($('#lawsearchBox').val());
+            var loading = showLoading();
+            if (keyWords == "") {
+                loading.close();
+                $.dialog.errorTips("请输入法律法规搜索关键字！");
+                setTimeout(3000);
+                return false;
+            }
+            if (keyWords.length < 3) {
+                loading.close();
+                $.dialog.errorTips("搜索关键字长度不能小于3！");
+                setTimeout(3000);
+                return false;
+            }
+            window.location.href = "/search/ManagementWeb?key=" + encodeURIComponent(keyWords ? keyWords : keyWords);
+        });
+        //文本搜索 coa搜索切换
+        $("#serachtxt").click(function () {
+            $("#search-hd").css("display", "block");
+            $("#search-coa").css("display", "none");
+            $("#search-law").css("display", "none");
+        });
+
+        $("#serachcoa").click(function () {
+            $("#search-hd").css("display", "none");
+            $("#search-coa").css("display", "block");
+            $("#search-law").css("display", "none");
+        });
+        $("#serachlaw").click(function () {
+            $("#search-hd").css("display", "none");
+            $("#search-coa").css("display", "none");
+            $("#search-law").css("display", "block");
+        });
+
+        //搜索li
+        $('#search-bd li').click(function () {
+            var index = $(this).index();
+            $('#search-hd .pholder').eq(index).show().siblings('.pholder').hide(0);
+            $('#search-hd .search-input').eq(index).show().siblings('.search-input').hide(0);
+            $(this).addClass('selected').siblings().removeClass('selected');
+            $('#search-hd .search-input').val('');
+        });
+    </script>
+</body>
+</html>

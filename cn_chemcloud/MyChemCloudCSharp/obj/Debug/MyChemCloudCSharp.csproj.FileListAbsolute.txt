@@ -1,0 +1,5 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\bin\Debug\MyChemCloudCSharp.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\bin\Debug\MyChemCloudCSharp.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.csprojResolveAssemblyReference.cache

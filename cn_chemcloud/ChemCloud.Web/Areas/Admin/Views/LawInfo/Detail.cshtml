@@ -1,0 +1,102 @@
+﻿@model ChemCloud.Model.LawInfo
+@using ChemCloud.Core;
+@{
+
+    ViewBag.Title = "Detail";
+}
+<script src="~/Scripts/jquery.nicescroll.min.js"></script>
+<script src="~/Scripts/jquery.nicescroll.plus.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script>
+    var eidtor;
+    $(function () {
+        eidtor = UE.getEditor('lawInfo', { initialFrameHeight: 400, initialFrameWidth: 700, setDisabled: ('fullscreen'), readonly: true });
+        (function initRichTextEditor() {
+            eidtor = UE.getEditor('lawInfo');
+            eidtor.addListener('contentChange', function () {
+                $('#contentError').hide();
+            });
+        })();
+
+    });
+</script>
+
+<div class="container">
+    <div class="title bot-border" style="margin-top:20px;">
+        <ul class="nav nav-tabs-custom clearfix">
+            <strong>法律法规</strong>
+            <li class="active"><a>法律法规明细</a></li>
+        </ul>
+    </div>
+    <form class="form-horizontal" role="form">
+        <h3 class="table-hd">法律法规</h3>
+
+        <div class="form-group" id="TitleDiv">
+            <label class="col-sm-2 control-label" for="">标题：</label>
+            <div class="col-sm-4">
+                <input type="text" id="Title" name="Title" class="form-control input-sm" value="@Model.Title" style="width:600px;height:30px" disabled="disabled"/>
+            </div>
+        </div>
+        <div class="form-group" id="div2">
+            <label class="col-sm-2 control-label" for="">作者:</label>
+            <div class="col-sm-4">
+                <input type="text" id="Author" name="Author" class="form-control input-sm" value="@Model.Author" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div2">
+            <label class="col-sm-2 control-label" for="">时间:</label>
+            <div class="col-sm-4">
+                <input type="text" id="CreateTime" name="CreateTime" class="form-control input-sm" value="@Model.CreateTime" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        
+        <div class="form-group" id="div2">
+            <label class="col-sm-2 control-label" for="">发布人:</label>
+            <div class="col-sm-4">
+                <input type="text" id="UserName" name="UserName" class="form-control input-sm" value="@Model.UserName" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div2">
+            <label class="col-sm-2 control-label" for="">语言版本:</label>
+            <div class="col-sm-4">
+                <input type="text" id="LanguageType" name="LanguageType" class="form-control input-sm" value="@Model.Language" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">正文:</label>
+            <div class="col-sm-4">
+                <textarea id="lawInfo" name="lawInfo" style="width:700px;height:400px">@Model.LawsInfo</textarea>
+            </div>
+        </div>
+        @if (@ViewBag.attachmentCount > 0)
+        {
+            {
+                int i = 1;
+                foreach (ChemCloud.Model.AttachmentInfo item in ViewBag.attachmentInfo as List<ChemCloud.Model.AttachmentInfo>)
+                {
+                    string fileName = System.IO.Path.GetFileName(@item.AttachmentName);
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="">已上传的附件：</label>
+                        <div class="col-sm-3 form-control-static" style="width:700px">
+                            <a id="URL_@i" href=@item.AttachmentName style="color:blue" target="_blank">附件 @fileName</a>@* @i*@
+                            <input type="hidden" id="attachmentId_@i" value="@item.Id" />
+
+                        </div>
+                    </div>
+
+                    i++;
+
+                }
+
+            }
+        }
+        <input type="hidden" id="Id" value="@Model.Id" />
+
+    </form>
+    
+</div>

@@ -1,0 +1,36 @@
+﻿@model ChemCloud.Web.Areas.Admin.Models.MessageSettingModel
+@using ChemCloud.Core;
+@{
+    ViewBag.Title = "Detail";
+}
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>查看配置详细</strong>
+        <li class="active"><a>查看</a></li>
+        <li><a href="./Management">模板配置</a></li>
+    </ul>
+
+    <h3 class="table-hd">模板配置详细</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+
+            <tr>
+                <td>模板ID</td>
+                <td>@Model.Id</td>
+            </tr>
+            <tr>
+                <td>模板名称</td>
+                <td>@Model.MessageNameId</td>
+            </tr>
+            <tr>
+                <td>消息内容</td>
+                <td>@Model.MessageContent</td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>

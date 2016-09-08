@@ -1,0 +1,167 @@
+﻿@using ChemCloud.Model;
+@using ChemCloud.Web.Areas.SellerAdmin.Models;
+
+@model IEnumerable<CASInfo>
+@{
+    ViewBag.Title = ViewBag.keywords + "  产品搜索";
+}
+
+<script src="~/Areas/Web/Scripts/jquery.pagination.js"></script>
+<script src="~/Areas/Web/Scripts/search.js"></script>
+
+<input type="hidden" value="@ViewBag.islike" id="hdislike" />
+<input type="hidden" value="@ViewBag.keywords" id="hdkeywords" />
+<input type="hidden" value="@ViewBag.exp_keywords" id="hdexp_keywords" />
+
+<div class="w main">
+    @if (true)
+    {
+        if (string.IsNullOrEmpty(ViewBag.keywords))
+        {
+            <div class="crumb">全部结果&nbsp;&gt;&nbsp;<strong>@ViewBag.exp_keywords</strong></div>
+        }
+        else
+        {
+            <div class="crumb">全部结果&nbsp;&gt;&nbsp;<strong>"@ViewBag.keywords"</strong></div>
+        }
+
+        <div class="left" style="display:none">
+            <div class="m" id="refilter">
+                <div class="mt">
+                    <h2>所有类目</h2>
+                </div>
+                <div class="mc">
+
+                    <div class="item fore hover">
+                        <h3>
+                            <b></b>
+                            <a class="curr">无机化学品</a>
+                        </h3>
+                        <ul>
+                            <li class="curr">
+                                <a>增溶剂</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item fore hover">
+                        <h3>
+                            <b></b>
+                            <a class="curr">催化剂及助剂</a>
+                        </h3>
+                        <ul>
+                            <li class="curr">
+                                <a>燃料及颜料</a>
+                            </li>
+                            <li class="curr">
+                                <a>增溶剂</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-extra" style="width:100%">
+            <div class="clr"></div>
+            <div class="m" id="select">
+                <div class="mt">
+                    <h1>@ViewBag.keywords &nbsp;&nbsp;<strong>产品筛选</strong></h1>
+                    <div class="total">
+                        <span>(共<strong id="res_count"></strong>个产品)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clr"></div>
+            @*<div id="filter">
+                <div class="fore1">
+                    <dl class="order">
+                        <dt>排序：</dt>
+                        <dd class="curr)">
+                            <a href="@Url.Action("Index", "Search", new{pageNo=1,keywords = ViewBag.keywords})">相关度</a><b></b>
+                        </dd>
+                    </dl>
+
+                    <div class="pagin pagin-m" id="top_pagi">
+
+                    </div>
+                    <span class="clr"></span>
+                </div>
+            </div>*@
+            <style>
+                .p-img {
+                    display: table-cell;
+                    vertical-align: middle;
+                    width: 193px;
+                    height: 235px;
+                    text-align: center;
+                }
+            </style>
+            <div class="m psearch prebuy plist-n7 no-preview" id="plist">
+                <ul class="list-h cl"></ul>
+            </div>
+
+            <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
+        </div>
+        <span class="clr"></span>
+    }
+    else
+    {
+        <div class="w main">
+            <div class="notice-search">
+                <span class="ns-icon"></span>
+                <div class="ns-content">
+                    <span>抱歉，没有找到与“<em>@(ViewBag.keywords + (string.IsNullOrWhiteSpace(ViewBag.exp_keywords) ? "" : "_" + ViewBag.exp_keywords))</em>”相关的产品</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        $('.v-option .o-more').click(function () {
+            if ($(this).hasClass('fold')) {
+                $(this).removeClass('fold').html('<b></b>更多');
+                $(this).parent().siblings().addClass('v-unfold');
+            } else {
+                $(this).addClass('fold').html('<b></b>收起');
+                $(this).parent().siblings().removeClass('v-unfold');
+            }
+        });
+        $('.a-values').each(function () {
+            var h = $(this).find('.v-fold').height();
+            if (h > 25) {
+                $(this).find('.v-option').show();
+                $(this).find('.v-fold').addClass('v-unfold');
+            } else {
+                $(this).find('.v-option').hide();
+            }
+        });
+
+        //关注产品
+        $(".btn-coll").click(function () {
+            var gid = $(this).attr('gid');
+            checkLogin(function (func) {
+                addFavoriteFun(gid, func);
+            });
+        });
+
+        var hdislike = $("#hdislike").val();
+
+        if (hdislike == "1") {
+            $("#issearchlike").attr("checked", "checked");
+            $('.icheckbox_sm-blue').addClass('checked');
+        } else {
+            $("#issearchlike").removeAttr("checked");
+            $('.icheckbox_sm-blue').removeClass('checked');
+        }
+
+        var hdkeywords = $("#hdkeywords").val();
+        $('#searchBox').val(hdkeywords);
+
+
+    });
+</script>
+<script type="text/javascript" src="~/Areas/Web/Scripts/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="~/Areas/Web/Scripts/blocksit.min.js"></script>
+

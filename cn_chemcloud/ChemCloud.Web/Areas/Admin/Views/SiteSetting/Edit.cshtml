@@ -1,0 +1,633 @@
+﻿@model ChemCloud.Web.Models.SiteSettingModel
+
+
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script>
+    $(function () {
+        $(".start_datetime text-box single-line").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".start_datetime text-box single-line").click(function () {
+            $(".start_datetime text-box single-line").datetimepicker('show');
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#SiteName").focus();
+    });
+</script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>站点设置</a></li>
+    </ul>
+    <div class="form-horizontal form-pt0">
+        @using (Html.BeginForm("Edit", "SiteSetting", FormMethod.Post))
+        {
+
+
+            @*<h3 class="table-hd">站点基本设置</h3>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">网站名称：</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(item => item.SiteName, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="help-default">显示在ChemCloud顶部欢迎信息等位置</p>
+                    </div>
+                </div>*@
+
+            @*<div class="form-group upload-img" id="Logo"></div>*@
+
+            @*<div class="form-group upload-img" id="wxlogobox"></div>*@
+
+            <div class="form-group upload-img" id="MemberLogo"></div>
+
+            @*<div class="form-group upload-img" id="QRCode"></div>*@
+
+            @*<div class="form-group">
+                    <label class="col-sm-2 control-label" for="">第三方流量统计代码：</label>
+                    <div class="col-sm-4">
+                        @Html.TextAreaFor(item => item.FlowScript, new { @class = "form-control input-sm", rows = 5 })
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="help-default">在ChemCloud（前台）各个页面加上第三方流量统计代码，用于记录各页面访问情况</p>
+                    </div>
+                </div>*@
+
+
+            <h3 class="table-hd">SEO设置</h3>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">Title：</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(item => item.Site_SEOTitle, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">Keywords：</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(item => item.Site_SEOKeywords, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">Description：</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(item => item.Site_SEODescription, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <h3 class="table-hd">站点状态</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">是否关闭站点：</label>
+                <div class="col-sm-8 form-control-static">
+                    @Html.CheckBoxFor(item => item.SiteIsOpen) (勾选关闭站点后，前台和供应商中心全部功能不能使用, 请您谨慎操作！)
+                </div>
+            </div>
+
+            <h3 class="table-hd">站点设置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">站点电话：</label>
+                <div class="col-sm-4 form-control-static">
+                    @Html.EditorFor(item => item.CustomerTel, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">搜索栏设置：</label>
+                <div class="col-sm-4 form-control-static">
+                    @Html.EditorFor(item => item.Keyword, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">热词设置(用逗号分隔)：</label>
+                <div class="col-sm-4 form-control-static">
+                    @Html.EditorFor(item => item.Hotkeywords, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                </div>
+            </div>
+            @*<h3 class="table-hd">会员注册</h3>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">是否需要手机验证：</label>
+                    <div class="col-sm-8 form-control-static">
+                        @Html.CheckBoxFor(item => item.MobileVerifOpen) (勾选手机验证后，会员注册需要经过手机验证！)
+                    </div>
+                </div>*@
+
+            <h3 class="table-hd">运营报告数据配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">昨日成交金额配置：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.FirstAmount, new { htmlAttributes = new { @class = "form-control input-sm", min = 0} })
+                    </div><span style="float:left; margin-top:11px; margin-left:2px;">亿</span>
+                    <div style="width:90%;float:left;margin-top:20px">
+                        @Html.EditorFor(item => item.SecondAmount, new { htmlAttributes = new { @class = "form-control input-sm" ,min=0 } })
+                    </div><span style="float:left; margin-top:11px; margin-left:2px;margin-top:26px">万元</span>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">累计成交金额配置：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.leijiFirstAmount, new { htmlAttributes = new { @class = "form-control input-sm", min = 0 } })
+                    </div><span style="float:left; margin-top:11px; margin-left:2px;">亿</span>
+                    <div style="width:90%;float:left; margin-top:20px">
+                        @Html.EditorFor(item => item.leijiSecondAmount, new { htmlAttributes = new { @class = "form-control input-sm", min = 0 } })
+                    </div><span style="float:left; margin-top:11px; margin-left:2px; margin-top:26px">万元</span>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">设置开始运营日期：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.Runtime, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div><span style="float:left; margin-top:11px; margin-left:2px;">日期格式："yyyy-mm-dd".如:2016-01-01</span>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <h3 class="table-hd">保险金额设置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">保险金额最大值：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.InsurancefeeMaxValue, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div><span style="float:left; margin-top:11px; margin-left:2px;">%</span>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <h3 class="table-hd">平台代发地址设置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">平台代发地址：</label>
+                <div class="col-sm-4" style="width: 314px;">
+                    @Html.EditorFor(item => item.PlatformCollectionAddress, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <h3 class="table-hd">耗材商城地址配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">耗材商城URL：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.MaterialMallURL, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <h3 class="table-hd">论坛地址配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">论坛URL：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.BBSURL, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <h3 class="table-hd">图片文件路径配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">图片文件路径：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.ImageFilePath, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+
+
+            <h3 class="table-hd">代理采购金额配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">代理采购金额：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.PurchasingAmount, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+
+            <h3 class="table-hd">定制合成金额配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">定制合成金额：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.SynthsisAmount, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+
+            <h3 class="table-hd">供应商认证金额配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">供应商认证金额：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.SupplierCertificationAmount, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+
+            <h3 class="table-hd">产品认证金额配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">产品认证金额：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.ProductCertificationAmount, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+
+            <h3 class="table-hd">排名付费金额配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">排名付费金额：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.SortCost, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <h3 class="table-hd">技术资料平台联系人</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">技术资料平台联系人：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.techName, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <h3 class="table-hd">联系人电话</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">联系人电话：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.techTel, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+
+            <h3 class="table-hd">联系人邮箱</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">联系人邮箱：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.techEmail, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+
+            <h3 class="table-hd">服务热线</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">服务热线：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.PlatCall, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+
+            <h3 class="table-hd">运营报告</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">运营报告：</label>
+                <div class="col-sm-4">
+                    <div style="width:90%;float:left;">
+                        @Html.EditorFor(item => item.Operationreport, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group upload-img" id="CompanySign"></div>
+                </div>
+            </div>
+
+            <h3 class="table-hd">首页导航栏显示配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">耗材商城显示配置：</label>
+                <div class="col-sm-8 form-control-static">
+                    @Html.CheckBoxFor(item => item.isShowHaoCai) 显示
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">会议中心显示配置：</label>
+                <div class="col-sm-8 form-control-static">
+                    @Html.CheckBoxFor(item => item.isShowHuiYiZhongXin) 显示
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">大数据中心显示配置：</label>
+                <div class="col-sm-8 form-control-static">
+                    @Html.CheckBoxFor(item => item.isShowDaShujuZhongXin) 显示
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">技术交易中心显示配置：</label>
+                <div class="col-sm-8 form-control-static">
+                    @Html.CheckBoxFor(item => item.isShowJiShuJiaoYiZhongXin) 显示
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">法律法规显示配置：</label>
+                <div class="col-sm-8 form-control-static">
+                    @Html.CheckBoxFor(item => item.isShowFaLvFaGui) 显示
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">人才市场显示配置：</label>
+                <div class="col-sm-8 form-control-static">
+                    @Html.CheckBoxFor(item => item.isShowRenCaiShiChang) 显示
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">论坛显示配置：</label>
+                <div class="col-sm-8 form-control-static">
+                    @Html.CheckBoxFor(item => item.isShowLunTan) 显示
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="button" id="Save" class="btn btn-primary" value="保 存">
+                </div>
+            </div>
+        }
+
+
+
+        @if (ViewBag.EmailSetting != null)
+        {
+            <h3 class="table-hd">邮件帐号设置</h3>
+            <input type="hidden" id="hdEmailSettingId" value="@ViewBag.EmailSetting.Id" />
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">邮箱服务器：</label>
+                <div class="col-sm-4">
+                    <input class="form-control input-sm" type="text" id="txtSmtpServer"
+                           value="@ViewBag.EmailSetting.SmtpServer" />
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">邮箱帐号：</label>
+                <div class="col-sm-4">
+                    <input class="form-control input-sm" type="text" id="txtSendMailId"
+                           value="@ViewBag.EmailSetting.SendMailId" />
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">邮箱密码：</label>
+                <div class="col-sm-4">
+                    <input class="form-control input-sm" type="text" id="txtSendMailPassword"
+                           value="@ViewBag.EmailSetting.SendMailPassword" />
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="button" id="btnsaveedit" class="btn btn-primary" value="保存邮件帐号">
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+        }
+        else
+        {
+            <h3 class="table-hd">邮件帐号设置</h3>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">邮箱服务器：</label>
+                <div class="col-sm-4">
+                    <input class="form-control input-sm" type="text" id="txtSmtpServer" />
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">邮箱帐号：</label>
+                <div class="col-sm-4">
+                    <input class="form-control input-sm" type="text" id="txtSendMailId" />
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">邮箱密码：</label>
+                <div class="col-sm-4">
+                    <input class="form-control input-sm" type="text" id="txtSendMailPassword" />
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="button" id="btnsaveadd" class="btn btn-primary" value="保存邮件帐号">
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-default"></p>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script>
+    $('#Save').click(function () {
+        var loading = showLoading();
+        $.post('./Edit', $('form').serialize(), function (result) {
+            loading.close();
+            if (result.success) {
+                $.dialog.tips('保存成功');
+            }
+            else
+                $.dialog.errorTips('保存失败！' + result.msg);
+        });
+    });
+
+    $(function () {
+        //金额验证
+        $('#FirstAmount').blur(function () {
+            if ($(this).val() != "") {
+                if (parseInt($(this).val()) < 0) {
+                    $(this).val(0);
+                }
+            }
+            else {
+                $(this).val(0);
+            }
+        });
+        $('#SecondAmount').blur(function () {
+            if ($(this).val() != "") {
+                if (parseInt($(this).val()) < 0) {
+                    $(this).val(0);
+                }
+            }
+            else {
+                $(this).val(0);
+            }
+        });
+        $('#leijiFirstAmount').blur(function () {
+            if ($(this).val() != "") {
+                if (parseInt($(this).val()) < 0) {
+                    $(this).val(0);
+                }
+            }
+            else {
+                $(this).val(0);
+            }
+        });
+        $('#leijiSecondAmount').blur(function () {
+            if ($(this).val() != "") {
+                if (parseInt($(this).val()) < 0) {
+                    $(this).val(0);
+                }
+            }
+            else {
+                $(this).val(0);
+            }
+        });
+        //邮箱设置 新增
+        $("#btnsaveadd").click(function () {
+            var SmtpServer = $.trim($("#txtSmtpServer").val());
+            if (SmtpServer == "") {
+                $.dialog.errorTips("请填写邮箱服务器！");
+                return false;
+            }
+            var SendMailId = $.trim($("#txtSendMailId").val());
+            if (SendMailId == "") {
+                $.dialog.errorTips("请填写邮箱帐号！");
+                return false;
+            }
+            var SendMailPassword = $.trim($("#txtSendMailPassword").val());
+            if (SendMailPassword == "") {
+                $.dialog.errorTips("请填写邮箱密码！");
+                return false;
+            }
+            var loading = showLoading();
+            $.post("EmailSettingEdit", { Id: "0", SmtpServer: SmtpServer, SendMailId: SendMailId, SendMailPassword: SendMailPassword }, function (result) {
+                loading.close();
+                if (result.success) {
+                    $.dialog.tips("添加成功！");
+                }
+                else
+                    $.dialog.errorTips("添加失败！");
+            });
+        });
+
+        //邮箱设置 编辑
+        $("#btnsaveedit").click(function () {
+            var Id = $.trim($("#hdEmailSettingId").val());
+            var SmtpServer = $.trim($("#txtSmtpServer").val());
+            if (SmtpServer == "") {
+                $.dialog.errorTips("请填写邮箱服务器！");
+                return false;
+            }
+            var SendMailId = $.trim($("#txtSendMailId").val());
+            if (SendMailId == "") {
+                $.dialog.errorTips("请填写邮箱帐号！");
+                return false;
+            }
+            var SendMailPassword = $.trim($("#txtSendMailPassword").val());
+            if (SendMailPassword == "") {
+                $.dialog.errorTips("请填写邮箱密码！");
+                return false;
+            }
+            var loading = showLoading();
+            $.post("EmailSettingEdit", { Id: Id, SmtpServer: SmtpServer, SendMailId: SendMailId, SendMailPassword: SendMailPassword }, function (result) {
+                loading.close();
+                if (result.success) {
+                    $.dialog.tips("编辑成功！");
+                }
+                else
+                    $.dialog.errorTips("编辑失败！");
+            });
+        });
+    })
+</script>
+
+<script src="~/Scripts/jquery.uploadpdf.js"></script>
+<script>
+    $(function () {
+        $("#btn").click(function () {
+            alert($('#CompanySign').hishopUpload('getImgSrc'));
+        });
+
+        //公司/个人标志
+        $('#CompanySign').hishopUpload({
+            //title: '<b>*</b>公司/个人标志：',
+            title: '',
+            imageDescript: '',
+            displayImgSrc: '@Model.Operationreport',
+            imgFieldName: "CompanySign",
+            dataWidth: 6
+        });
+    });
+
+</script>

@@ -1,0 +1,17 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\ChemCloud.Core.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\ChemCloud.Core.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\Autofac.Configuration.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\Autofac.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\log4net.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\Newtonsoft.Json.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\Quartz.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\System.Web.Mvc.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\ZipLib.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\zxing.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\Common.Logging.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\System.Web.Razor.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\System.Web.WebPages.Razor.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\System.Web.WebPages.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\bin\Release\System.Web.WebPages.Deployment.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\obj\Release\ChemCloud.Core.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Core\obj\Release\ChemCloud.Core.pdb

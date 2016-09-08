@@ -1,0 +1,4 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\bin\Release\ChemCloud.AliPay.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\bin\Release\ChemCloud.AliPay.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\obj\Release\ChemCloud.AliPay.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\obj\Release\ChemCloud.AliPay.pdb

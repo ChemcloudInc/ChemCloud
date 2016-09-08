@@ -1,0 +1,188 @@
+﻿@model ChemCloud.Model.UserMemberInfo
+<div class="footer_1">
+    <ul>
+        <li>
+            <img src="/Areas/Web/images/img/foot1.png" />
+            <h2>质量担保</h2>
+            <strong>产品认证与质量保证</strong>
+        </li>
+        <li>
+            <img src="/Areas/Web/images/img/foot2.png" />
+            <h2>7*24小时服务</h2>
+            <strong>全球服务</strong>
+        </li>
+        <li>
+            <img src="/Areas/Web/images/img/foot3.png" />
+            <h2>代理服务</h2>
+            <strong>代理采购和代理销售</strong>
+        </li>
+        <li>
+            <img src="/Areas/Web/images/img/foot4.png" />
+            <h2>帮助中心</h2>
+            <strong>您的购物指南</strong>
+        </li>
+    </ul>
+</div>
+
+
+<div id="footLink">
+    <div class="wx"><img src="~/Areas/Web/Images/qrimg.png" /><p>扫一扫，获取更多信息</p></div>
+    <div class="add_Link" style="width: 770px;">
+
+        @{
+            int i = 1;
+            var pageFootService = (IEnumerable<ChemCloud.Web.Areas.Web.Models.PageFootServiceModel>)ViewBag.PageFootService;
+        }
+        @if (pageFootService != null)
+        {
+            foreach (var t in pageFootService)
+            {
+                if (t != null)
+                {
+                    <div class="add_Link_1">
+                        <span>@t.CateogryName</span>
+
+                        @{var articles = (IEnumerable<ChemCloud.Model.ArticleInfo>)t.Articles;}
+                        @if (articles != null)
+                        {
+                            foreach (var article in t.Articles)
+                            {
+                                if (null != article)
+                                {
+                                    <p><a href="@Url.Action("Details", "Article", new { id = article.Id }) " target="_blank" rel="nofollow">@article.Title</a></p>
+
+                                }
+                            }
+                        }
+                    </div>
+                }
+            }
+        }
+    </div>
+
+    <div class="ChemCloud" style="width: 212px;">
+        <h1>ChemCloud</h1>
+        <img src="/Areas/Web/images/img/foot_tel.png" />
+        <p style="margin:0">服务热线</p><br />
+        <h3>@ViewBag.PlatCall</h3>
+    </div>
+</div>
+@*@{
+    ChemCloud.Service.SiteSettingService a = new ChemCloud.Service.SiteSettingService();
+    string MaterialsMallURL = a.GetSiteValue("MaterialMallURL");
+    string DiscuzURL = a.GetSiteValue("BBSURL");
+    string isShowHaoCai = a.GetSiteValue("isShowHaoCai");
+    string isShowHuiYiZhongXin = a.GetSiteValue("isShowHuiYiZhongXin");
+    string isShowDaShujuZhongXin = a.GetSiteValue("isShowDaShujuZhongXin");
+    string isShowJiShuJiaoYiZhongXin = a.GetSiteValue("isShowJiShuJiaoYiZhongXin");
+    string isShowRenCaiShiChang = a.GetSiteValue("isShowRenCaiShiChang");
+    string isShowLunTan = a.GetSiteValue("isShowLunTan");
+    string isShowFaLvFaGui = a.GetSiteValue("isShowFaLvFaGui");
+
+    string PlatCall = a.GetSiteValue("PlatCall");
+}*@
+<div id="footer_2">
+    <div class="footer_2_cen">
+        <div class="fr" style="float:none;width:100%;display:none">
+            <p>
+                @{ if (ViewBag.isShowHaoCai.ToLower().ToString() == "true")
+                 {
+                    @*<a href=@ViewBag.MaterialsMallURL class="active_2">首页</a>*@
+                    <a href="/" class="active_2">首页</a>
+                 }
+                 else
+                 {
+                    <a href=@ViewBag.MaterialsMallURL class="active_1" style="color:#3480e8;display:none;">耗材商城</a>
+                 }
+                }
+                @{if (ViewBag.isShowHuiYiZhongXin.ToLower().ToString() == "true")
+                {
+                    <a class="huiyi" href="/MeetingInfo/ManagementWeb">会议中心</a>
+                }
+                else
+                {
+                    <a class="huiyi" href="/MeetingInfo/ManagementWeb" style="display:none;">会议中心</a>
+                } }
+                @{ if (ViewBag.isShowDaShujuZhongXin.ToLower().ToString() == "true")
+                 {
+                    <a href="#" >大数据中心</a>
+                 }
+                 else
+                 {
+                    <a href="#" style="display:none" >大数据中心</a>
+                 } }
+                @{
+                    if (ViewBag.isShowJiShuJiaoYiZhongXin.ToLower().ToString() == "true")
+                    {
+                        <a class="jishu" href="/TechInfo/ManagementWeb" >技术交易中心</a>
+                    }
+                    else
+                    {
+                        <a class="jishu" href="/TechInfo/ManagementWeb" style="display:none;">技术交易中心</a>
+                    } }
+                @{
+                    if (ViewBag.isShowFaLvFaGui.ToLower().ToString() == "true")
+                    {
+                        <a class="zhishi" href="/Search/ManagementWeb">知识产权法律法规</a>
+                    }
+                    else
+                    {
+                        <a class="zhishi" href="/Search/ManagementWeb" style="display:none;">知识产权法律法规</a>
+                    } }
+                @{
+                    if (ViewBag.isShowRenCaiShiChang.ToLower().ToString() == "true")
+                    {
+                        <a class="rencai" href="/JobsWeb/JobsWeb">人才市场</a>
+                    }
+                    else
+                    {
+                        <a class="rencai" href="/JobsWeb/JobsWeb" style="display:none;">人才市场</a>
+                    } }
+                @{
+                    if (ViewBag.isShowLunTan.ToLower().ToString() == "true")
+                    {
+                        <a href=@ViewBag.DiscuzURL>论坛</a>
+                    }
+                    else
+                    {
+                        <a href=@ViewBag.DiscuzURL class="active_2" style="display:none;">论坛</a>
+                    } }
+            </p>
+            
+        </div>
+        <div style="width:100%;text-align:center;margin:0 auto;float: none;line-height: 30px;height: 30px;color:#fff">
+            <span class="fr" style="float: none;">www.ChemCloud.com 服务热线 @ViewBag.PlatCall 客服工作时间 9:00-17:00 您的关注是我的动力<a style="font-weight:400;text-decoration:none;float: none;width: 114px;" href="http://www.miibeian.gov.cn/">沪ICP备16018199号</a></span>
+            <a style="float: right;padding: 0 14px;background: #fff;border-radius: 5px;color: #1b7ccd;margin-top: 2px;height: 24px;line-height: 24px;" href=@ViewBag.DiscuzURL>论坛</a>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var patt1 = new RegExp("/MeetingInfo/ManagementWeb");
+        var patt2 = new RegExp("/JobsWeb/JobsWeb");
+        var patt3 = new RegExp("/TechInfo/ManagementWeb");
+        var patt4 = new RegExp("/Search/ManagementWeb");
+        if (window.location.pathname == "/") {
+        } else if (patt1.test(window.location.pathname)) {
+            $(".active_2").removeClass("active_2");
+            $(".huiyi").addClass("active_2");
+        } else if (patt2.test(window.location.pathname)) {
+            $(".active_2").removeClass("active_2");
+            $(".rencai").addClass("active_2");
+        } else if (patt3.test(window.location.pathname)) {
+            $(".active_2").removeClass("active_2");
+            $(".jishu2").addClass("active_2");
+        } else if (patt4.test(window.location.pathname)) {
+            $(".active_2").removeClass("active_2");
+            $(".zhishi").addClass("active_2");
+        }
+    })
+</script>
+@{
+    string FootScript = ViewBag.FlowScript;
+}
+<div style="display:none;">
+
+    @Html.Raw(FootScript)
+</div>
+

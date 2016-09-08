@@ -1,0 +1,98 @@
+﻿<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a href="ProductAuthentication">产品认证</a></li>
+    </ul>
+    <div class="search-box">
+        <form class="custom-inline">
+            <div class="form-group">
+                <label class="label-inline" for="">产品货号</label>
+                <input class="form-control input-ssm" type="text" id="productCode">
+            </div>
+            <div class="form-group">
+                <label class="label-inline" for="">审核状态</label>
+                <select class="form-control input-ssm" id="AuthStatus">
+                    <option value="">全部</option>
+                    <option value="0">申请中</option>
+                    <option value="1">已通过</option>
+                    <option value="2">未通过</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary btn-sm" id="searchButton">搜 索</button>
+            </div>
+        </form>
+    </div>
+    <table id="ProductDatagrid" class="table"></table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        Query();
+        $("#searchButton").on("click", function () {
+            Query();
+        });
+    });
+    function Query() {
+        $("#ProductDatagrid").hiMallDatagrid({
+            url: "./ListProductAuthentication",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "productCode": $("#productCode").val(), "AuthStatus": $('#AuthStatus option:selected').val() },
+            toolbar: "#shopToolBar1",
+            columns:
+            [[
+                { field: "ProductCode", title: "Product #", hidden: false },
+                {
+                    field: "AuthStatus", title: "审核状态", formatter: function (value, row, index) {
+                        var html = "";
+                        var dtype = row.AuthStatus;
+                        if (dtype == "0") {
+                            html = "<span style=\"color:red;\">审核中</span>";
+                        }
+                        else if (dtype == "1") {
+                            html = "<span style=\"color:green;\">审核通过</span>";
+                        } else {
+                            html = "<span style=\"color:green;\">审核拒绝</span>";
+                        }
+                        return html;
+                    }
+                },
+                {
+                    field: "ProductAuthDate", title: "申请日期", width: "280", formatter: function (value, row, index) {
+                        var AuthDate = row.ProductAuthDate;
+                        if (AuthDate != "") {
+                            AuthDate = jsonDateFormat(AuthDate);
+                        }
+                        return AuthDate;
+                    }
+                }
+                //},
+                //{
+                //    field: "operation", operation: true, title: "操作", align: "left", formatter: function (value, row, index) {
+                //        var html = "<span class=\"btn-a\"><a href=\"ProductAuthenticationDetails?Id=" + row.Id + "\">查看</a></span> | <span class=\"btn-a\"><a href=\"./ProductAuthenticationEdit?Id=" + row.Id + "\">编辑</a></span>";
+                //        return html;
+                //    }
+                //}
+            ]]
+        });
+    };
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    };
+
+</script>

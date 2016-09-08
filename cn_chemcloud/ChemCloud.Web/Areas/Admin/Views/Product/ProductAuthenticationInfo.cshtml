@@ -1,0 +1,151 @@
+﻿@model ChemCloud.Model.ProductAuthentication
+<script src="~/Scripts/jquery.himemberpUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>产品认证审核</a></li>
+    </ul>
+    <div class="search-box">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">企业名称：</label>
+                <div class="col-sm-4" style="padding-top:7px;">
+                    @(Model.ComName ?? "")
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">产品货号：</label>
+                <div class="col-sm-4" style="padding-top:7px;">
+                    @(Model.ProductCode ?? "")
+                </div>
+            </div>
+            <div class="form-group">
+                @*<label class="col-sm-2 control-label" for="">支付凭证：</label>
+                    <div class="col-sm-4">
+                        <img src="@Model.ProductIMG" style="max-width:500px;" />
+                    </div>*@
+                <label class="col-sm-2 control-label" for="">状态：</label>
+                <div class="col-sm-4" style="padding-top:7px;">
+
+                    @if (Model.AuthStatus == 2 )
+                    {
+                        <span style="color:green;">已支付</span>
+                    }
+                    else if (Model.AuthStatus == 3)
+                    {
+                        <span style="color:green;">审核已通过</span>
+                    }
+                    else if (Model.AuthStatus == 4)
+                    {
+                        <span style="color:green;">审核未通过</span>
+                    }
+                    else if (Model.AuthStatus == 1)
+                    {
+                        <span style="color:green;">已确认</span>
+                    }
+                    else
+                    {
+                       <span style="color:green;">已提交</span>
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">COA产品分析报告：</label>
+                <div class="col-sm-4" style="padding-top:7px;">
+                    <img src="@Model.ComAttachment" style="max-width:500px;" />
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for=""> </label>
+                <div class="col-sm-4" style="padding-top:7px;">
+                    @if (Model.AuthStatus == 0)
+                    { <input type="button" class="btn btn-primary statusBtn" value="确认" id="btnconfirm" />}
+                    else if (Model.AuthStatus == 2 )
+                    {
+                        <input type="button" class="btn btn-primary statusBtn" value="通过" id="btnpass" />
+                        <input type="button" class="btn btn-warning refuse-shop" value="拒绝" id="btnNO" />
+                    }
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        var Id = getUrlParam("Id");
+
+        //确认申请
+        $("#btnconfirm").on("click", function () {
+            var loading = showLoading();
+            ajaxRequest({
+                type: 'POST',
+                url: "./Success",
+                param: { "Id": Id, "AuthStatus": "1" },
+                dataType: "json",
+                success: function (data) {
+                    if (data.Successful == true) {
+                        location.href = "ProductAuthentication";
+                    }
+                    loading.close();
+                }, error: function () {
+                    loading.close();
+                }
+            });
+        });
+
+        //确认申请
+        $("#btnpass").on("click", function () {
+            var loading = showLoading();
+            ajaxRequest({
+                type: 'POST',
+                url: "./Success",
+                param: { "Id": Id, "AuthStatus": "3" },
+                dataType: "json",
+                success: function (data) {
+                    if (data.Successful == true) {
+                        location.href = "ProductAuthentication";
+                    }
+                    loading.close();
+                }, error: function () {
+                    loading.close();
+                }
+            });
+        });
+
+        //拒绝
+        $("#btnNO").on("click", function () {
+            var loading = showLoading();
+            ajaxRequest({
+                type: 'POST',
+                url: "./NoSuccess",
+                param: { "Id": Id },
+                dataType: "json",
+                success: function (data) {
+                    if (data.Successful == true) {
+                        location.href = "ProductAuthentication";
+                    }
+                    loading.close();
+                }, error: function () {
+                    loading.close();
+                }
+            });
+        });
+        $('#COAImg').hishopUpload({
+            title: '<b>*</b>COA产品分析报告：',
+            title: '',
+            imageDescript: '',
+            displayImgSrc: '',
+            imgFieldName: "COAImg",
+            dataWidth: 6
+        });
+    });
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    };
+</script>

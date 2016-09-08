@@ -1,0 +1,5 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Email\bin\Debug\ChemCloud.Email.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Email\bin\Debug\ChemCloud.Email.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Email\obj\Debug\ChemCloud.Email.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Email\obj\Debug\ChemCloud.Email.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Email\obj\Debug\ChemCloud.Email.csprojResolveAssemblyReference.cache

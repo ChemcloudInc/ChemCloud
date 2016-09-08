@@ -1,0 +1,4 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Weixin.MP\bin\Release\ChemCloud.Weixin.MP.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Weixin.MP\bin\Release\ChemCloud.Weixin.MP.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Weixin.MP\obj\Release\ChemCloud.Weixin.MP.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Weixin.MP\obj\Release\ChemCloud.Weixin.MP.pdb

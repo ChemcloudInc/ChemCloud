@@ -1,0 +1,20 @@
+
+
+
+ 记录时间：2016-09-08 13:16:48,632 
+日志级别：  ERROR 
+出错类：ChemCloud.Web.Framework.BaseController.OnException  
+错误描述：页面未捕获的异常：Area:Web,Controller:ProductPartial,Action:Foot 
+
+System.ApplicationException: 未配置ChemCloud.IServices.IArticleCategoryService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 d:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51
+
+
+
+ 记录时间：2016-09-08 13:16:48,659 
+日志级别：  ERROR 
+出错类：ChemCloud.Web.Framework.BaseController.OnException  
+错误描述：页面未捕获的异常：Area:Web,Controller:home,Action:Index 
+
+System.ApplicationException: 未配置ChemCloud.IServices.IArticleCategoryService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 d:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51

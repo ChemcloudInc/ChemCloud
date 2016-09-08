@@ -1,0 +1,5 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.MessagePlugin\bin\Debug\ChemCloud.MessagePlugin.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.MessagePlugin\bin\Debug\ChemCloud.MessagePlugin.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.MessagePlugin\obj\Debug\ChemCloud.MessagePlugin.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.MessagePlugin\obj\Debug\ChemCloud.MessagePlugin.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.MessagePlugin\obj\Debug\ChemCloud.MessagePlugin.csprojResolveAssemblyReference.cache

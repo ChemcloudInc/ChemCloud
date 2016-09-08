@@ -1,0 +1,125 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "Detail";
+}
+@using ChemCloud.Core
+@model ChemCloud.Model.MessageRevice
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script>
+    var eidtor;
+    $(function () {
+        eidtor = UE.getEditor('MessageContent', { initialFrameHeight: 300, initialFrameWidth: 700, setDisabled: ('fullscreen'), readonly: true });
+        (function initRichTextEditor() {
+            eidtor = UE.getEditor('MessageContent');
+            eidtor.addListener('contentChange', function () {
+                $('#contentError').hide();
+            });
+        })();
+
+    });
+</script>
+
+<style>
+    .nav > li > a {
+        padding: 0 10px;
+    }
+
+    .box1 {
+        margin: 0 auto;
+        margin-left: 0px;
+        padding-left: 272px;
+        padding: 0px 4px 4px 274px;
+        width: 78%;
+    }
+</style>
+
+<div class="box1 lh24">
+    <div class="title bot-border" style="margin-top:20px;">
+        <h3 class="title_txt cur">消息明细</h3><h3 class="title_txt cur" style="border:0"><a href="./Management">消息列表</a></h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            <div class="form">
+                @{
+                    if (@Model.MessageDetial.MsgType == 1)
+                    { 
+                        <div class="item" id="select-regName">
+                            <span class="label">消息类型：</span>
+                            <div class="fl item-ifo">
+                                <div class="o-intelligent-regName">
+                                    <input type="text" id="techTitle" name="techTitle" value="消息" class="text" style="width:570px;height:20px" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (@Model.MessageDetial.MsgType == 2)
+                    { 
+                        <div class="item" id="select-regName">
+                            <span class="label">消息类型：</span>
+                            <div class="fl item-ifo">
+                                <div class="o-intelligent-regName">
+                                    <input type="text" id="techTitle" name="techTitle" value="通知" class="text" style="width:570px;height:20px" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                    
+                
+                <div class="item" id="realName">
+                    <div class="item" id="realName">
+                        <span class="label">消息名称：</span>
+                        <div class="fl item-ifo">
+                            <input type="text" id="MessageTitle" name="MessageTitle" value="@Model.MessageDetial.MessageTitle" class="text" style="width:570px;height:20px" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item" id="select-Name">
+                    <span class="label">发送时间：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="SendTime" name="SendTime" value="@Model.SendTime" class="text" style="width:570px;height:20px" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-Name">
+                    <span class="label">消息发送人：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="SendName" name="SendName" value="@Model.MessageDetial.SendName" class="text" style="width:570px;height:20px" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                @{
+                    if (@Model.ReadFlag == 2)
+                    {
+                        <div class="item" id="select-Name">
+                            <span class="label">阅读时间：</span>
+                            <div class="fl item-ifo">
+                                <div class="o-intelligent-regName">
+                                    <input type="text" id="ReadTime" name="ReadTime" value="@Model.ReadTime" class="text" style="width:570px;height:20px" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                
+                
+                <div class="item" id="realName">
+                    <div class="item" id="realName">
+                        <span class="label">消息内容：</span>
+                        <div class="fl item-ifo">
+                            <textarea id="MessageContent" name="MessageContent" style="width:700px;height:300px">@Model.MessageDetial.MessageContent</textarea>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <span class="clr"></span>
+        </div>
+
+        
+    </div>
+</div>

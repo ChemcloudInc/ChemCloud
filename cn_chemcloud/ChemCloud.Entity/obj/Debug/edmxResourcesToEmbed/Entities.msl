@@ -1,0 +1,3216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ChemCloudModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="ChemCloud_AccountDetails">
+      <EntityTypeMapping TypeName="ChemCloud.Model.AccountDetailInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_AccountDetails">
+          <ScalarProperty Name="OrderRefundsDates" ColumnName="OrderRefundsDates" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+          <ScalarProperty Name="ProductActualPaidAmount" ColumnName="ProductActualPaidAmount" />
+          <ScalarProperty Name="FreightAmount" ColumnName="FreightAmount" />
+          <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+          <ScalarProperty Name="RefundCommisAmount" ColumnName="RefundCommisAmount" />
+          <ScalarProperty Name="RefundTotalAmount" ColumnName="RefundTotalAmount" />
+          <ScalarProperty Name="CommissionAmount" ColumnName="CommissionAmount" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_AccountMeta">
+      <EntityTypeMapping TypeName="ChemCloud.Model.AccountMetaInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_AccountMeta">
+          <ScalarProperty Name="ServiceEndTime" ColumnName="ServiceEndTime" />
+          <ScalarProperty Name="ServiceStartTime" ColumnName="ServiceStartTime" />
+          <ScalarProperty Name="MetaValue" ColumnName="MetaValue" />
+          <ScalarProperty Name="MetaKey" ColumnName="MetaKey" />
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_AccountPurchaseAgreement">
+      <EntityTypeMapping TypeName="ChemCloud.Model.AccountPurchaseAgreementInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_AccountPurchaseAgreement">
+          <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="AdvancePayment" ColumnName="AdvancePayment" />
+          <ScalarProperty Name="PurchaseAgreementId" ColumnName="PurchaseAgreementId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Accounts">
+      <EntityTypeMapping TypeName="ChemCloud.Model.AccountInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Accounts">
+          <ScalarProperty Name="ProductActualPaidAmount" ColumnName="ProductActualPaidAmount" />
+          <ScalarProperty Name="PeriodSettlement" ColumnName="PeriodSettlement" />
+          <ScalarProperty Name="AdvancePaymentAmount" ColumnName="AdvancePaymentAmount" />
+          <ScalarProperty Name="RefundCommissionAmount" ColumnName="RefundCommissionAmount" />
+          <ScalarProperty Name="FreightAmount" ColumnName="FreightAmount" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="RefundAmount" ColumnName="RefundAmount" />
+          <ScalarProperty Name="CommissionAmount" ColumnName="CommissionAmount" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="AccountDate" ColumnName="AccountDate" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ActiveMarketService">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ActiveMarketServiceInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ActiveMarketService">
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Agreement">
+      <EntityTypeMapping TypeName="ChemCloud.Model.AgreementInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Agreement">
+          <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
+          <ScalarProperty Name="AgreementContent" ColumnName="AgreementContent" />
+          <ScalarProperty Name="AgreementType" ColumnName="AgreementType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ApplyWithDraw">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ApplyWithDrawInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ApplyWithDraw">
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="OpUser" ColumnName="OpUser" />
+          <ScalarProperty Name="PayNo" ColumnName="PayNo" />
+          <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+          <ScalarProperty Name="ConfirmTime" ColumnName="ConfirmTime" />
+          <ScalarProperty Name="ApplyTime" ColumnName="ApplyTime" />
+          <ScalarProperty Name="ApplyAmount" ColumnName="ApplyAmount" />
+          <ScalarProperty Name="ApplyStatus" ColumnName="ApplyStatus" />
+          <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="MemId" ColumnName="MemId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ArticleCategories">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ArticleCategoryInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ArticleCategories">
+          <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Articles">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ArticleInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Articles">
+          <ScalarProperty Name="ContentEn" ColumnName="ContentEn" />
+          <ScalarProperty Name="TitleEn" ColumnName="TitleEn" />
+          <ScalarProperty Name="IsRelease" ColumnName="IsRelease" />
+          <ScalarProperty Name="Meta_Keywords" ColumnName="Meta_Keywords" />
+          <ScalarProperty Name="Meta_Description" ColumnName="Meta_Description" />
+          <ScalarProperty Name="Meta_Title" ColumnName="Meta_Title" />
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="IconUrl" ColumnName="IconUrl" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Attributes">
+      <EntityTypeMapping TypeName="ChemCloud.Model.AttributeInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Attributes">
+          <ScalarProperty Name="IsMulti" ColumnName="IsMulti" />
+          <ScalarProperty Name="IsMust" ColumnName="IsMust" />
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_AttributeValues">
+      <EntityTypeMapping TypeName="ChemCloud.Model.AttributeValueInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_AttributeValues">
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="AttributeId" ColumnName="AttributeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Banners">
+      <EntityTypeMapping TypeName="ChemCloud.Model.BannerInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Banners">
+          <ScalarProperty Name="UrlType" ColumnName="UrlType" />
+          <ScalarProperty Name="Platform" ColumnName="Platform" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Bonus">
+      <EntityTypeMapping TypeName="ChemCloud.Model.BonusInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Bonus">
+          <ScalarProperty Name="ReceiveHref" ColumnName="ReceiveHref" />
+          <ScalarProperty Name="ReceivePrice" ColumnName="ReceivePrice" />
+          <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+          <ScalarProperty Name="IsInvalid" ColumnName="IsInvalid" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="ReceiveCount" ColumnName="ReceiveCount" />
+          <ScalarProperty Name="RandomAmountEnd" ColumnName="RandomAmountEnd" />
+          <ScalarProperty Name="RandomAmountStart" ColumnName="RandomAmountStart" />
+          <ScalarProperty Name="FixedAmount" ColumnName="FixedAmount" />
+          <ScalarProperty Name="QRPath" ColumnName="QRPath" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="Blessing" ColumnName="Blessing" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="MerchantsName" ColumnName="MerchantsName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Style" ColumnName="Style" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_BonusReceive">
+      <EntityTypeMapping TypeName="ChemCloud.Model.BonusReceiveInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_BonusReceive">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsTransformedDeposit" ColumnName="IsTransformedDeposit" />
+          <ScalarProperty Name="IsShare" ColumnName="IsShare" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ReceiveTime" ColumnName="ReceiveTime" />
+          <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+          <ScalarProperty Name="BonusId" ColumnName="BonusId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Brands">
+      <EntityTypeMapping TypeName="ChemCloud.Model.BrandInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Brands">
+          <ScalarProperty Name="IsRecommend" ColumnName="IsRecommend" />
+          <ScalarProperty Name="Meta_Keywords" ColumnName="Meta_Keywords" />
+          <ScalarProperty Name="Meta_Description" ColumnName="Meta_Description" />
+          <ScalarProperty Name="Meta_Title" ColumnName="Meta_Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RewriteName" ColumnName="RewriteName" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_BrowsingHistory">
+      <EntityTypeMapping TypeName="ChemCloud.Model.BrowsingHistoryInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_BrowsingHistory">
+          <ScalarProperty Name="BrowseTime" ColumnName="BrowseTime" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_BusinessCategories">
+      <EntityTypeMapping TypeName="ChemCloud.Model.BusinessCategoryInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_BusinessCategories">
+          <ScalarProperty Name="CommisRate" ColumnName="CommisRate" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Capital">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CapitalInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Capital">
+          <ScalarProperty Name="ManageId" ColumnName="ManageId" />
+          <ScalarProperty Name="ChargeAmount" ColumnName="ChargeAmount" />
+          <ScalarProperty Name="FreezeAmount" ColumnName="FreezeAmount" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="MemId" ColumnName="MemId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CapitalDetail">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CapitalDetailInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_CapitalDetail">
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="SourceData" ColumnName="SourceData" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+          <ScalarProperty Name="CapitalID" ColumnName="CapitalID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CashDeposit">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CashDepositInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_CashDeposit">
+          <ScalarProperty Name="EnableLabels" ColumnName="EnableLabels" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="TotalBalance" ColumnName="TotalBalance" />
+          <ScalarProperty Name="CurrentBalance" ColumnName="CurrentBalance" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CashDepositDetail">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CashDepositDetailInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_CashDepositDetail">
+          <ScalarProperty Name="RechargeWay" ColumnName="RechargeWay" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Operator" ColumnName="Operator" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+          <ScalarProperty Name="CashDepositId" ColumnName="CashDepositId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Categories">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CategoryInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Categories">
+          <ScalarProperty Name="ENName" ColumnName="ENName" />
+          <ScalarProperty Name="Meta_Keywords" ColumnName="Meta_Keywords" />
+          <ScalarProperty Name="Meta_Description" ColumnName="Meta_Description" />
+          <ScalarProperty Name="Meta_Title" ColumnName="Meta_Title" />
+          <ScalarProperty Name="CommisRate" ColumnName="CommisRate" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="HasChildren" ColumnName="HasChildren" />
+          <ScalarProperty Name="RewriteName" ColumnName="RewriteName" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="Depth" ColumnName="Depth" />
+          <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CategoryCashDeposit">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CategoryCashDepositInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_CategoryCashDeposit">
+          <ScalarProperty Name="EnableNoReasonReturn" ColumnName="EnableNoReasonReturn" />
+          <ScalarProperty Name="NeedPayCashDeposit" ColumnName="NeedPayCashDeposit" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ChargeDetail">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ChargeDetailInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ChargeDetail">
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ChargeStatus" ColumnName="ChargeStatus" />
+          <ScalarProperty Name="ChargeWay" ColumnName="ChargeWay" />
+          <ScalarProperty Name="ChargeAmount" ColumnName="ChargeAmount" />
+          <ScalarProperty Name="ChargeTime" ColumnName="ChargeTime" />
+          <ScalarProperty Name="MemId" ColumnName="MemId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Collocation">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CollocationInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Collocation">
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="ShortDesc" ColumnName="ShortDesc" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CollocationPoruducts">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CollocationPoruductInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_CollocationPoruducts">
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="IsMain" ColumnName="IsMain" />
+          <ScalarProperty Name="ColloId" ColumnName="ColloId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CollocationSkus">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CollocationSkuInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_CollocationSkus">
+          <ScalarProperty Name="SkuPirce" ColumnName="SkuPirce" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ColloProductId" ColumnName="ColloProductId" />
+          <ScalarProperty Name="SkuID" ColumnName="SkuID" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Coupon">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CouponInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Coupon">
+          <ScalarProperty Name="CardLogId" ColumnName="CardLogId" />
+          <ScalarProperty Name="WXAuditStatus" ColumnName="WXAuditStatus" />
+          <ScalarProperty Name="IsSyncWeiXin" ColumnName="IsSyncWeiXin" />
+          <ScalarProperty Name="IntegralCover" ColumnName="IntegralCover" />
+          <ScalarProperty Name="EndIntegralExchange" ColumnName="EndIntegralExchange" />
+          <ScalarProperty Name="NeedIntegral" ColumnName="NeedIntegral" />
+          <ScalarProperty Name="ReceiveType" ColumnName="ReceiveType" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CouponName" ColumnName="CouponName" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="Num" ColumnName="Num" />
+          <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+          <ScalarProperty Name="PerMax" ColumnName="PerMax" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CouponRecord">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CouponRecordInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_CouponRecord">
+          <ScalarProperty Name="WXCodeId" ColumnName="WXCodeId" />
+          <ScalarProperty Name="CounponStatus" ColumnName="CounponStatus" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="UsedTime" ColumnName="UsedTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="CounponTime" ColumnName="CounponTime" />
+          <ScalarProperty Name="CounponSN" ColumnName="CounponSN" />
+          <ScalarProperty Name="CouponId" ColumnName="CouponId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CouponSetting">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CouponSettingInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_CouponSetting">
+          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="CouponID" ColumnName="CouponID" />
+          <ScalarProperty Name="PlatForm" ColumnName="PlatForm" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CustomerServices">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CustomerServiceInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_CustomerServices">
+          <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Tool" ColumnName="Tool" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Favorites">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FavoriteInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Favorites">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FavoriteShops">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FavoriteShopInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_FavoriteShops">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FieldCertification">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FieldCertification">
+        <MappingFragment StoreEntitySet="ChemCloud_FieldCertification">
+          <ScalarProperty Name="RefuseReason" ColumnName="RefuseReason" />
+          <ScalarProperty Name="TelegraphicMoneyOrder" ColumnName="TelegraphicMoneyOrder" />
+          <ScalarProperty Name="ProductDetails" ColumnName="ProductDetails" />
+          <ScalarProperty Name="EnterpriseHonor" ColumnName="EnterpriseHonor" />
+          <ScalarProperty Name="Certification" ColumnName="Certification" />
+          <ScalarProperty Name="AnnualSales" ColumnName="AnnualSales" />
+          <ScalarProperty Name="Certificationcost" ColumnName="Certificationcost" />
+          <ScalarProperty Name="FeedbackDate" ColumnName="FeedbackDate" />
+          <ScalarProperty Name="CertificationDate" ColumnName="CertificationDate" />
+          <ScalarProperty Name="ToAcceptTheDate" ColumnName="ToAcceptTheDate" />
+          <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FloorBrands">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FloorBrandInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_FloorBrands">
+          <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+          <ScalarProperty Name="FloorId" ColumnName="FloorId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FloorCategories">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FloorCategoryInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_FloorCategories">
+          <ScalarProperty Name="Depth" ColumnName="Depth" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="FloorId" ColumnName="FloorId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FloorProducts">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FloorProductInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_FloorProducts">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Tab" ColumnName="Tab" />
+          <ScalarProperty Name="FloorId" ColumnName="FloorId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FloorTablDetails">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FloorTablDetailsInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_FloorTablDetails">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="TabId" ColumnName="TabId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FloorTabls">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FloorTablsInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_FloorTabls">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FloorId" ColumnName="FloorId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FloorTopics">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FloorTopicInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_FloorTopics">
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="TopicName" ColumnName="TopicName" />
+          <ScalarProperty Name="TopicImage" ColumnName="TopicImage" />
+          <ScalarProperty Name="TopicType" ColumnName="TopicType" />
+          <ScalarProperty Name="FloorId" ColumnName="FloorId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FreightAreaContent">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FreightAreaContentInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_FreightAreaContent">
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="AccumulationUnitMoney" ColumnName="AccumulationUnitMoney" />
+          <ScalarProperty Name="AccumulationUnit" ColumnName="AccumulationUnit" />
+          <ScalarProperty Name="FirstUnitMonry" ColumnName="FirstUnitMonry" />
+          <ScalarProperty Name="FirstUnit" ColumnName="FirstUnit" />
+          <ScalarProperty Name="AreaContent" ColumnName="AreaContent" />
+          <ScalarProperty Name="FreightTemplateId" ColumnName="FreightTemplateId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FreightTemplate">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FreightTemplateInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_FreightTemplate">
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="ShippingMethod" ColumnName="ShippingMethod" />
+          <ScalarProperty Name="ValuationMethod" ColumnName="ValuationMethod" />
+          <ScalarProperty Name="IsFree" ColumnName="IsFree" />
+          <ScalarProperty Name="SendTime" ColumnName="SendTime" />
+          <ScalarProperty Name="SourceAddress" ColumnName="SourceAddress" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_GiftOrderItem">
+      <EntityTypeMapping TypeName="ChemCloud.Model.GiftOrderItemInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_GiftOrderItem">
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="GiftValue" ColumnName="GiftValue" />
+          <ScalarProperty Name="GiftName" ColumnName="GiftName" />
+          <ScalarProperty Name="SaleIntegral" ColumnName="SaleIntegral" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="GiftId" ColumnName="GiftId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Gifts">
+      <EntityTypeMapping TypeName="ChemCloud.Model.GiftInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Gifts">
+          <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="GiftValue" ColumnName="GiftValue" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="SalesStatus" ColumnName="SalesStatus" />
+          <ScalarProperty Name="RealSales" ColumnName="RealSales" />
+          <ScalarProperty Name="VirtualSales" ColumnName="VirtualSales" />
+          <ScalarProperty Name="NeedGrade" ColumnName="NeedGrade" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+          <ScalarProperty Name="LimtQuantity" ColumnName="LimtQuantity" />
+          <ScalarProperty Name="NeedIntegral" ColumnName="NeedIntegral" />
+          <ScalarProperty Name="GiftName" ColumnName="GiftName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_GiftsOrder">
+      <EntityTypeMapping TypeName="ChemCloud.Model.GiftOrderInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_GiftsOrder">
+          <ScalarProperty Name="CloseReason" ColumnName="CloseReason" />
+          <ScalarProperty Name="TotalIntegral" ColumnName="TotalIntegral" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+          <ScalarProperty Name="ShipOrderNumber" ColumnName="ShipOrderNumber" />
+          <ScalarProperty Name="ExpressCompanyName" ColumnName="ExpressCompanyName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="RegionFullName" ColumnName="RegionFullName" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="TopRegionId" ColumnName="TopRegionId" />
+          <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+          <ScalarProperty Name="ShipTo" ColumnName="ShipTo" />
+          <ScalarProperty Name="UserRemark" ColumnName="UserRemark" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_HandSlideAds">
+      <EntityTypeMapping TypeName="ChemCloud.Model.HandSlideAdInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_HandSlideAds">
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_HomeCategories">
+      <EntityTypeMapping TypeName="ChemCloud.Model.HomeCategoryInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_HomeCategories">
+          <ScalarProperty Name="Depth" ColumnName="Depth" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="RowId" ColumnName="RowId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_HomeCategoryRows">
+      <EntityTypeMapping TypeName="ChemCloud.Model.HomeCategoryRowInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_HomeCategoryRows">
+          <ScalarProperty Name="Url2" ColumnName="Url2" />
+          <ScalarProperty Name="Image2" ColumnName="Image2" />
+          <ScalarProperty Name="Url1" ColumnName="Url1" />
+          <ScalarProperty Name="Image1" ColumnName="Image1" />
+          <ScalarProperty Name="RowId" ColumnName="RowId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_HomeFloors">
+      <EntityTypeMapping TypeName="ChemCloud.Model.HomeFloorInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_HomeFloors">
+          <ScalarProperty Name="DefaultTabName" ColumnName="DefaultTabName" />
+          <ScalarProperty Name="StyleLevel" ColumnName="StyleLevel" />
+          <ScalarProperty Name="SubName" ColumnName="SubName" />
+          <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="FloorName" ColumnName="FloorName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ImageAds">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ImageAdInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ImageAds">
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_InviteRecord">
+      <EntityTypeMapping TypeName="ChemCloud.Model.InviteRecordInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_InviteRecord">
+          <ScalarProperty Name="RecordTime" ColumnName="RecordTime" />
+          <ScalarProperty Name="RegUserId" ColumnName="RegUserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RegTime" ColumnName="RegTime" />
+          <ScalarProperty Name="RegIntegral" ColumnName="RegIntegral" />
+          <ScalarProperty Name="InviteIntegral" ColumnName="InviteIntegral" />
+          <ScalarProperty Name="RegName" ColumnName="RegName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_InviteRule">
+      <EntityTypeMapping TypeName="ChemCloud.Model.InviteRuleInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_InviteRule">
+          <ScalarProperty Name="ShareRule" ColumnName="ShareRule" />
+          <ScalarProperty Name="ShareIcon" ColumnName="ShareIcon" />
+          <ScalarProperty Name="ShareDesc" ColumnName="ShareDesc" />
+          <ScalarProperty Name="ShareTitle" ColumnName="ShareTitle" />
+          <ScalarProperty Name="RegIntegral" ColumnName="RegIntegral" />
+          <ScalarProperty Name="InviteIntegral" ColumnName="InviteIntegral" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_InvoiceContext">
+      <EntityTypeMapping TypeName="ChemCloud.Model.InvoiceContextInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_InvoiceContext">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_InvoiceTitle">
+      <EntityTypeMapping TypeName="ChemCloud.Model.InvoiceTitleInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_InvoiceTitle">
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_LimitTimeMarket">
+      <EntityTypeMapping TypeName="ChemCloud.Model.LimitTimeMarketInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_LimitTimeMarket">
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="MinPrice" ColumnName="MinPrice" />
+          <ScalarProperty Name="ProductAd" ColumnName="ProductAd" />
+          <ScalarProperty Name="MaxSaleCount" ColumnName="MaxSaleCount" />
+          <ScalarProperty Name="CancelReson" ColumnName="CancelReson" />
+          <ScalarProperty Name="SaleCount" ColumnName="SaleCount" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="RecentMonthPrice" ColumnName="RecentMonthPrice" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="AuditTime" ColumnName="AuditTime" />
+          <ScalarProperty Name="AuditStatus" ColumnName="AuditStatus" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Logs">
+      <EntityTypeMapping TypeName="ChemCloud.Model.LogInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Logs">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="PageUrl" ColumnName="PageUrl" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Managers">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ManagerInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Managers">
+          <ScalarProperty Name="CertificationId" ColumnName="CertificationId" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MargainBill">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MargainBill">
+        <MappingFragment StoreEntitySet="ChemCloud_MargainBill">
+          <ScalarProperty Name="DistributionCycle" ColumnName="DistributionCycle" />
+          <ScalarProperty Name="CoinType" ColumnName="CoinType" />
+          <ScalarProperty Name="DeliverCost" ColumnName="DeliverCost" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="BillStatus" ColumnName="BillStatus" />
+          <ScalarProperty Name="PayMode" ColumnName="PayMode" />
+          <ScalarProperty Name="DeliverAddress" ColumnName="DeliverAddress" />
+          <ScalarProperty Name="DeliverDate" ColumnName="DeliverDate" />
+          <ScalarProperty Name="DeliverType" ColumnName="DeliverType" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MarketServiceRecord">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MarketServiceRecordInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_MarketServiceRecord">
+          <ScalarProperty Name="SettlementFlag" ColumnName="SettlementFlag" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="MarketServiceId" ColumnName="MarketServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MarketSetting">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MarketSettingInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_MarketSetting">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MarketSettingMeta">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MarketSettingMetaInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_MarketSettingMeta">
+          <ScalarProperty Name="MetaValue" ColumnName="MetaValue" />
+          <ScalarProperty Name="MetaKey" ColumnName="MetaKey" />
+          <ScalarProperty Name="MarketId" ColumnName="MarketId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MemberContacts">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MemberContactsInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_MemberContacts">
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="ServiceProvider" ColumnName="ServiceProvider" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MemberGrade">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MemberGrade">
+        <MappingFragment StoreEntitySet="ChemCloud_MemberGrade">
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Integral" ColumnName="Integral" />
+          <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MemberIntegral">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MemberIntegral">
+        <MappingFragment StoreEntitySet="ChemCloud_MemberIntegral">
+          <ScalarProperty Name="AvailableIntegrals" ColumnName="AvailableIntegrals" />
+          <ScalarProperty Name="HistoryIntegrals" ColumnName="HistoryIntegrals" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MemberIntegralExchangeRules">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MemberIntegralExchangeRules">
+        <MappingFragment StoreEntitySet="ChemCloud_MemberIntegralExchangeRules">
+          <ScalarProperty Name="MoneyPerIntegral" ColumnName="MoneyPerIntegral" />
+          <ScalarProperty Name="IntegralPerMoney" ColumnName="IntegralPerMoney" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MemberIntegralRecord">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MemberIntegralRecord">
+        <MappingFragment StoreEntitySet="ChemCloud_MemberIntegralRecord">
+          <ScalarProperty Name="ReMark" ColumnName="ReMark" />
+          <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+          <ScalarProperty Name="Integral" ColumnName="Integral" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MemberIntegralRecordAction">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MemberIntegralRecordAction">
+        <MappingFragment StoreEntitySet="ChemCloud_MemberIntegralRecordAction">
+          <ScalarProperty Name="VirtualItemId" ColumnName="VirtualItemId" />
+          <ScalarProperty Name="VirtualItemTypeId" ColumnName="VirtualItemTypeId" />
+          <ScalarProperty Name="IntegralRecordId" ColumnName="IntegralRecordId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MemberIntegralRule">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MemberIntegralRule">
+        <MappingFragment StoreEntitySet="ChemCloud_MemberIntegralRule">
+          <ScalarProperty Name="Integral" ColumnName="Integral" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MemberOpenIds">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MemberOpenIdInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_MemberOpenIds">
+          <ScalarProperty Name="UnionOpenId" ColumnName="UnionOpenId" />
+          <ScalarProperty Name="UnionId" ColumnName="UnionId" />
+          <ScalarProperty Name="AppIdType" ColumnName="AppIdType" />
+          <ScalarProperty Name="ServiceProvider" ColumnName="ServiceProvider" />
+          <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Members">
+      <EntityTypeMapping TypeName="ChemCloud.Model.UserMemberInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Members">
+          <ScalarProperty Name="BonusPoint" ColumnName="BonusPoint" />
+          <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="InviteUserId" ColumnName="InviteUserId" />
+          <ScalarProperty Name="PayPwdSalt" ColumnName="PayPwdSalt" />
+          <ScalarProperty Name="PayPwd" ColumnName="PayPwd" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ParentSellerId" ColumnName="ParentSellerId" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Nick" ColumnName="Nick" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="Expenditure" ColumnName="Expenditure" />
+          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="QQ" ColumnName="QQ" />
+          <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="TopRegionId" ColumnName="TopRegionId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Menus">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MenuInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Menus">
+          <ScalarProperty Name="UrlType" ColumnName="UrlType" />
+          <ScalarProperty Name="Platform" ColumnName="Platform" />
+          <ScalarProperty Name="FullIdPath" ColumnName="FullIdPath" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="Depth" ColumnName="Depth" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MessageLog">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MessageLog">
+        <MappingFragment StoreEntitySet="ChemCloud_MessageLog">
+          <ScalarProperty Name="SendTime" ColumnName="SendTime" />
+          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MobileHomeProducts">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MobileHomeProductsInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_MobileHomeProducts">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="PlatFormType" ColumnName="PlatFormType" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MobileHomeTopics">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MobileHomeTopicsInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_MobileHomeTopics">
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="Platform" ColumnName="Platform" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ModuleProducts">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ModuleProductInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ModuleProducts">
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OpenIds">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OpenIdsInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_OpenIds">
+          <ScalarProperty Name="IsSubscribe" ColumnName="IsSubscribe" />
+          <ScalarProperty Name="SubscribeTime" ColumnName="SubscribeTime" />
+          <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderComments">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderCommentInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderComments">
+          <ScalarProperty Name="QualityMark" ColumnName="QualityMark" />
+          <ScalarProperty Name="ServiceMark" ColumnName="ServiceMark" />
+          <ScalarProperty Name="DeliveryMark" ColumnName="DeliveryMark" />
+          <ScalarProperty Name="PackMark" ColumnName="PackMark" />
+          <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderComplaints">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderComplaintInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderComplaints">
+          <ScalarProperty Name="UserPhone" ColumnName="UserPhone" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ShopPhone" ColumnName="ShopPhone" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="ComplaintDate" ColumnName="ComplaintDate" />
+          <ScalarProperty Name="SellerReply" ColumnName="SellerReply" />
+          <ScalarProperty Name="ComplaintReason" ColumnName="ComplaintReason" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderItems">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderItemInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderItems">
+          <ScalarProperty Name="SpecLevel" ColumnName="SpecLevel" />
+          <ScalarProperty Name="Purity" ColumnName="Purity" />
+          <ScalarProperty Name="PackingUnit" ColumnName="PackingUnit" />
+          <ScalarProperty Name="IsLimitBuy" ColumnName="IsLimitBuy" />
+          <ScalarProperty Name="EnabledRefundAmount" ColumnName="EnabledRefundAmount" />
+          <ScalarProperty Name="CommisRate" ColumnName="CommisRate" />
+          <ScalarProperty Name="ThumbnailsUrl" ColumnName="ThumbnailsUrl" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="RefundPrice" ColumnName="RefundPrice" />
+          <ScalarProperty Name="RealTotalPrice" ColumnName="RealTotalPrice" />
+          <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+          <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+          <ScalarProperty Name="CostPrice" ColumnName="CostPrice" />
+          <ScalarProperty Name="ReturnQuantity" ColumnName="ReturnQuantity" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="SKU" ColumnName="SKU" />
+          <ScalarProperty Name="SkuId" ColumnName="SkuId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderOperationLogs">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderOperationLogInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderOperationLogs">
+          <ScalarProperty Name="OperateContent" ColumnName="OperateContent" />
+          <ScalarProperty Name="OperateDate" ColumnName="OperateDate" />
+          <ScalarProperty Name="Operator" ColumnName="Operator" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderPay">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderPayInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderPay">
+          <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+          <ScalarProperty Name="PayState" ColumnName="PayState" />
+          <ScalarProperty Name="PayId" ColumnName="PayId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderRefunds">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderRefundInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderRefunds">
+          <ScalarProperty Name="RefundPayType" ColumnName="RefundPayType" />
+          <ScalarProperty Name="RefundPayStatus" ColumnName="RefundPayStatus" />
+          <ScalarProperty Name="SellerConfirmArrivalDate" ColumnName="SellerConfirmArrivalDate" />
+          <ScalarProperty Name="BuyerDeliverDate" ColumnName="BuyerDeliverDate" />
+          <ScalarProperty Name="RefundMode" ColumnName="RefundMode" />
+          <ScalarProperty Name="PayeeAccount" ColumnName="PayeeAccount" />
+          <ScalarProperty Name="Payee" ColumnName="Payee" />
+          <ScalarProperty Name="ShipOrderNumber" ColumnName="ShipOrderNumber" />
+          <ScalarProperty Name="ExpressCompanyName" ColumnName="ExpressCompanyName" />
+          <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
+          <ScalarProperty Name="ManagerRemark" ColumnName="ManagerRemark" />
+          <ScalarProperty Name="ManagerConfirmDate" ColumnName="ManagerConfirmDate" />
+          <ScalarProperty Name="ManagerConfirmStatus" ColumnName="ManagerConfirmStatus" />
+          <ScalarProperty Name="SellerRemark" ColumnName="SellerRemark" />
+          <ScalarProperty Name="SellerAuditDate" ColumnName="SellerAuditDate" />
+          <ScalarProperty Name="SellerAuditStatus" ColumnName="SellerAuditStatus" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+          <ScalarProperty Name="RefundAccount" ColumnName="RefundAccount" />
+          <ScalarProperty Name="ContactCellPhone" ColumnName="ContactCellPhone" />
+          <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="Applicant" ColumnName="Applicant" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ProductAttributes">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductAttributeInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ProductAttributes">
+          <ScalarProperty Name="ValueId" ColumnName="ValueId" />
+          <ScalarProperty Name="AttributeId" ColumnName="AttributeId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ProductComments">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductCommentInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ProductComments">
+          <ScalarProperty Name="SubOrderId" ColumnName="SubOrderId" />
+          <ScalarProperty Name="ReviewMark" ColumnName="ReviewMark" />
+          <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
+          <ScalarProperty Name="ReplyContent" ColumnName="ReplyContent" />
+          <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+          <ScalarProperty Name="ReviewContent" ColumnName="ReviewContent" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ProductConsultations">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductConsultationInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ProductConsultations">
+          <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
+          <ScalarProperty Name="ReplyContent" ColumnName="ReplyContent" />
+          <ScalarProperty Name="ConsultationDate" ColumnName="ConsultationDate" />
+          <ScalarProperty Name="ConsultationContent" ColumnName="ConsultationContent" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ProductDescriptions">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductDescriptionInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ProductDescriptions">
+          <ScalarProperty Name="MobileDescription" ColumnName="MobileDescription" />
+          <ScalarProperty Name="AuditReason" ColumnName="AuditReason" />
+          <ScalarProperty Name="Meta_Keywords" ColumnName="Meta_Keywords" />
+          <ScalarProperty Name="Meta_Description" ColumnName="Meta_Description" />
+          <ScalarProperty Name="Meta_Title" ColumnName="Meta_Title" />
+          <ScalarProperty Name="DescriptiondSuffixId" ColumnName="DescriptiondSuffixId" />
+          <ScalarProperty Name="DescriptionPrefixId" ColumnName="DescriptionPrefixId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ProductDescriptionTemplates">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductDescriptionTemplateInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ProductDescriptionTemplates">
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Products">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Products">
+          <ScalarProperty Name="Pub_CID" ColumnName="Pub_CID" />
+          <ScalarProperty Name="Plat_Code" ColumnName="Plat_Code" />
+          <ScalarProperty Name="STRUCTURE_2D" ColumnName="STRUCTURE_2D" />
+          <ScalarProperty Name="RefuseReason" ColumnName="RefuseReason" />
+          <ScalarProperty Name="NMRSpectrum" ColumnName="NMRSpectrum" />
+          <ScalarProperty Name="MSDS" ColumnName="MSDS" />
+          <ScalarProperty Name="RelatedProducts" ColumnName="RelatedProducts" />
+          <ScalarProperty Name="SyntheticRoute" ColumnName="SyntheticRoute" />
+          <ScalarProperty Name="WGKGermany" ColumnName="WGKGermany" />
+          <ScalarProperty Name="RETCS" ColumnName="RETCS" />
+          <ScalarProperty Name="TransportationNmber" ColumnName="TransportationNmber" />
+          <ScalarProperty Name="RiskCategoryCode" ColumnName="RiskCategoryCode" />
+          <ScalarProperty Name="DangerousMark" ColumnName="DangerousMark" />
+          <ScalarProperty Name="SafetyInstructions" ColumnName="SafetyInstructions" />
+          <ScalarProperty Name="PackagingLevel" ColumnName="PackagingLevel" />
+          <ScalarProperty Name="VapourPressure" ColumnName="VapourPressure" />
+          <ScalarProperty Name="StorageConditions" ColumnName="StorageConditions" />
+          <ScalarProperty Name="RefractiveIndex" ColumnName="RefractiveIndex" />
+          <ScalarProperty Name="FlashPoint" ColumnName="FlashPoint" />
+          <ScalarProperty Name="BoilingPoint" ColumnName="BoilingPoint" />
+          <ScalarProperty Name="FusingPoint" ColumnName="FusingPoint" />
+          <ScalarProperty Name="Density" ColumnName="Density" />
+          <ScalarProperty Name="Shape" ColumnName="Shape" />
+          <ScalarProperty Name="LogP" ColumnName="LogP" />
+          <ScalarProperty Name="PASNo" ColumnName="PASNo" />
+          <ScalarProperty Name="MolecularWeight" ColumnName="MolecularWeight" />
+          <ScalarProperty Name="Ealias" ColumnName="Ealias" />
+          <ScalarProperty Name="Alias" ColumnName="Alias" />
+          <ScalarProperty Name="ISCASNo" ColumnName="ISCASNo" />
+          <ScalarProperty Name="MolecularFormula" ColumnName="MolecularFormula" />
+          <ScalarProperty Name="DangerLevel" ColumnName="DangerLevel" />
+          <ScalarProperty Name="HSCODE" ColumnName="HSCODE" />
+          <ScalarProperty Name="CASNo" ColumnName="CASNo" />
+          <ScalarProperty Name="Purity" ColumnName="Purity" />
+          <ScalarProperty Name="EProductName" ColumnName="EProductName" />
+          <ScalarProperty Name="EditStatus" ColumnName="EditStatus" />
+          <ScalarProperty Name="MeasureUnit" ColumnName="MeasureUnit" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Volume" ColumnName="Volume" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="FreightTemplateId" ColumnName="FreightTemplateId" />
+          <ScalarProperty Name="AuditStatus" ColumnName="AuditStatus" />
+          <ScalarProperty Name="SaleCounts" ColumnName="SaleCounts" />
+          <ScalarProperty Name="VistiCounts" ColumnName="VistiCounts" />
+          <ScalarProperty Name="HasSKU" ColumnName="HasSKU" />
+          <ScalarProperty Name="MinSalePrice" ColumnName="MinSalePrice" />
+          <ScalarProperty Name="MarketPrice" ColumnName="MarketPrice" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+          <ScalarProperty Name="SaleStatus" ColumnName="SaleStatus" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="CategoryPath" ColumnName="CategoryPath" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ProductShopCategories">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductShopCategoryInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ProductShopCategories">
+          <ScalarProperty Name="ShopCategoryId" ColumnName="ShopCategoryId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ProductVistis">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductVistiInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ProductVistis">
+          <ScalarProperty Name="OrderCounts" ColumnName="OrderCounts" />
+          <ScalarProperty Name="SaleAmounts" ColumnName="SaleAmounts" />
+          <ScalarProperty Name="SaleCounts" ColumnName="SaleCounts" />
+          <ScalarProperty Name="VistiCounts" ColumnName="VistiCounts" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_RolePrivileges">
+      <EntityTypeMapping TypeName="ChemCloud.Model.RolePrivilegeInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_RolePrivileges">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Privilege" ColumnName="Privilege" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Roles">
+      <EntityTypeMapping TypeName="ChemCloud.Model.RoleInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Roles">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_SellerSpecificationValues">
+      <EntityTypeMapping TypeName="ChemCloud.Model.SellerSpecificationValueInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_SellerSpecificationValues">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Specification" ColumnName="Specification" />
+          <ScalarProperty Name="ValueId" ColumnName="ValueId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_SensitiveWords">
+      <EntityTypeMapping TypeName="ChemCloud.Model.SensitiveWordsInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_SensitiveWords">
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="SensitiveWord" ColumnName="SensitiveWord" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShippingAddresses">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShippingAddressInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShippingAddresses">
+          <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+          <ScalarProperty Name="IsQuick" ColumnName="IsQuick" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ShipTo" ColumnName="ShipTo" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShopBonus">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopBonusInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShopBonus">
+          <ScalarProperty Name="WXCardState" ColumnName="WXCardState" />
+          <ScalarProperty Name="QRPath" ColumnName="QRPath" />
+          <ScalarProperty Name="ReceiveCount" ColumnName="ReceiveCount" />
+          <ScalarProperty Name="IsInvalid" ColumnName="IsInvalid" />
+          <ScalarProperty Name="CardSubtitle" ColumnName="CardSubtitle" />
+          <ScalarProperty Name="CardColor" ColumnName="CardColor" />
+          <ScalarProperty Name="CardTitle" ColumnName="CardTitle" />
+          <ScalarProperty Name="SynchronizeCard" ColumnName="SynchronizeCard" />
+          <ScalarProperty Name="ShareImg" ColumnName="ShareImg" />
+          <ScalarProperty Name="ShareDetail" ColumnName="ShareDetail" />
+          <ScalarProperty Name="ShareTitle" ColumnName="ShareTitle" />
+          <ScalarProperty Name="BonusDateEnd" ColumnName="BonusDateEnd" />
+          <ScalarProperty Name="BonusDateStart" ColumnName="BonusDateStart" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="GrantPrice" ColumnName="GrantPrice" />
+          <ScalarProperty Name="UsrStatePrice" ColumnName="UsrStatePrice" />
+          <ScalarProperty Name="UseState" ColumnName="UseState" />
+          <ScalarProperty Name="RandomAmountEnd" ColumnName="RandomAmountEnd" />
+          <ScalarProperty Name="RandomAmountStart" ColumnName="RandomAmountStart" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShopBonusGrant">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopBonusGrantInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShopBonusGrant">
+          <ScalarProperty Name="BonusQR" ColumnName="BonusQR" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ShopBonusId" ColumnName="ShopBonusId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShopBonusReceive">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopBonusReceiveInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShopBonusReceive">
+          <ScalarProperty Name="WXHead" ColumnName="WXHead" />
+          <ScalarProperty Name="WXName" ColumnName="WXName" />
+          <ScalarProperty Name="UsedOrderId" ColumnName="UsedOrderId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UsedTime" ColumnName="UsedTime" />
+          <ScalarProperty Name="ReceiveTime" ColumnName="ReceiveTime" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+          <ScalarProperty Name="BonusGrantId" ColumnName="BonusGrantId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShopBrandApplys">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopBrandApplysInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShopBrandApplys">
+          <ScalarProperty Name="ApplyTime" ColumnName="ApplyTime" />
+          <ScalarProperty Name="AuditStatus" ColumnName="AuditStatus" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ApplyMode" ColumnName="ApplyMode" />
+          <ScalarProperty Name="AuthCertificate" ColumnName="AuthCertificate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShopBrands">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopBrandsInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShopBrands">
+          <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShopCategories">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopCategoryInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShopCategories">
+          <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShopGrades">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopGradeInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShopGrades">
+          <ScalarProperty Name="ENName" ColumnName="ENName" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ChargeStandard" ColumnName="ChargeStandard" />
+          <ScalarProperty Name="TemplateLimit" ColumnName="TemplateLimit" />
+          <ScalarProperty Name="ImageLimit" ColumnName="ImageLimit" />
+          <ScalarProperty Name="ProductLimit" ColumnName="ProductLimit" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShopHomeModuleProducts">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopHomeModuleProductInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShopHomeModuleProducts">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="HomeModuleId" ColumnName="HomeModuleId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShopHomeModules">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopHomeModuleInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShopHomeModules">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShoppingCarts">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShoppingCartItemInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShoppingCarts">
+          <ScalarProperty Name="InvoiceContext" ColumnName="InvoiceContext" />
+          <ScalarProperty Name="InvoiceTitle" ColumnName="InvoiceTitle" />
+          <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+          <ScalarProperty Name="CartNo" ColumnName="CartNo" />
+          <ScalarProperty Name="Insurancefee" ColumnName="Insurancefee" />
+          <ScalarProperty Name="PaymentTypeName" ColumnName="PaymentTypeName" />
+          <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+          <ScalarProperty Name="Freight" ColumnName="Freight" />
+          <ScalarProperty Name="ExpressCompanyName" ColumnName="ExpressCompanyName" />
+          <ScalarProperty Name="SpecLevel" ColumnName="SpecLevel" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="CoinType" ColumnName="CoinType" />
+          <ScalarProperty Name="ProductTotalAmount" ColumnName="ProductTotalAmount" />
+          <ScalarProperty Name="Purity" ColumnName="Purity" />
+          <ScalarProperty Name="PackingUnit" ColumnName="PackingUnit" />
+          <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="SkuId" ColumnName="SkuId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Shops">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Shops">
+          <ScalarProperty Name="SortType" ColumnName="SortType" />
+          <ScalarProperty Name="AbaRoutingNumber" ColumnName="AbaRoutingNumber" />
+          <ScalarProperty Name="CertificatePhoto" ColumnName="CertificatePhoto" />
+          <ScalarProperty Name="BeneficiaryBankBranchAddress" ColumnName="BeneficiaryBankBranchAddress" />
+          <ScalarProperty Name="CompanysAddress" ColumnName="CompanysAddress" />
+          <ScalarProperty Name="BeneficiaryAccountNum" ColumnName="BeneficiaryAccountNum" />
+          <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+          <ScalarProperty Name="SWiftBic" ColumnName="SWiftBic" />
+          <ScalarProperty Name="BeneficiaryBankName" ColumnName="BeneficiaryBankName" />
+          <ScalarProperty Name="ISOPhoto" ColumnName="ISOPhoto" />
+          <ScalarProperty Name="FDAPhoto" ColumnName="FDAPhoto" />
+          <ScalarProperty Name="GMPPhoto" ColumnName="GMPPhoto" />
+          <ScalarProperty Name="ChemNumber" ColumnName="ChemNumber" />
+          <ScalarProperty Name="ChemicalsBusinessLicense" ColumnName="ChemicalsBusinessLicense" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="CompanyType" ColumnName="CompanyType" />
+          <ScalarProperty Name="ECompanyAddress" ColumnName="ECompanyAddress" />
+          <ScalarProperty Name="EContactsName" ColumnName="EContactsName" />
+          <ScalarProperty Name="ECompanyName" ColumnName="ECompanyName" />
+          <ScalarProperty Name="CompanyFoundingDate" ColumnName="CompanyFoundingDate" />
+          <ScalarProperty Name="legalPerson" ColumnName="legalPerson" />
+          <ScalarProperty Name="OtherCert" ColumnName="OtherCert" />
+          <ScalarProperty Name="ProductCert" ColumnName="ProductCert" />
+          <ScalarProperty Name="BusinessLicenseCert" ColumnName="BusinessLicenseCert" />
+          <ScalarProperty Name="SenderRegionId" ColumnName="SenderRegionId" />
+          <ScalarProperty Name="Stage" ColumnName="Stage" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="FreeFreight" ColumnName="FreeFreight" />
+          <ScalarProperty Name="Freight" ColumnName="Freight" />
+          <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+          <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
+          <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+          <ScalarProperty Name="PayRemark" ColumnName="PayRemark" />
+          <ScalarProperty Name="PayPhoto" ColumnName="PayPhoto" />
+          <ScalarProperty Name="TaxRegistrationCertificatePhoto" ColumnName="TaxRegistrationCertificatePhoto" />
+          <ScalarProperty Name="TaxpayerId" ColumnName="TaxpayerId" />
+          <ScalarProperty Name="TaxRegistrationCertificate" ColumnName="TaxRegistrationCertificate" />
+          <ScalarProperty Name="BankPhoto" ColumnName="BankPhoto" />
+          <ScalarProperty Name="BankRegionId" ColumnName="BankRegionId" />
+          <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
+          <ScalarProperty Name="BankAccountName" ColumnName="BankAccountName" />
+          <ScalarProperty Name="GeneralTaxpayerPhot" ColumnName="GeneralTaxpayerPhot" />
+          <ScalarProperty Name="OrganizationCodePhoto" ColumnName="OrganizationCodePhoto" />
+          <ScalarProperty Name="OrganizationCode" ColumnName="OrganizationCode" />
+          <ScalarProperty Name="BusinessSphere" ColumnName="BusinessSphere" />
+          <ScalarProperty Name="BusinessLicenceEnd" ColumnName="BusinessLicenceEnd" />
+          <ScalarProperty Name="BusinessLicenceStart" ColumnName="BusinessLicenceStart" />
+          <ScalarProperty Name="BusinessLicenceRegionId" ColumnName="BusinessLicenceRegionId" />
+          <ScalarProperty Name="BusinessLicenceNumberPhoto" ColumnName="BusinessLicenceNumberPhoto" />
+          <ScalarProperty Name="BusinessLicenceNumber" ColumnName="BusinessLicenceNumber" />
+          <ScalarProperty Name="ContactsEmail" ColumnName="ContactsEmail" />
+          <ScalarProperty Name="ContactsPhone" ColumnName="ContactsPhone" />
+          <ScalarProperty Name="ContactsName" ColumnName="ContactsName" />
+          <ScalarProperty Name="CompanyRegisteredCapital" ColumnName="CompanyRegisteredCapital" />
+          <ScalarProperty Name="CompanyEmployeeCount" ColumnName="CompanyEmployeeCount" />
+          <ScalarProperty Name="CompanyPhone" ColumnName="CompanyPhone" />
+          <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+          <ScalarProperty Name="CompanyRegionId" ColumnName="CompanyRegionId" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="RefuseReason" ColumnName="RefuseReason" />
+          <ScalarProperty Name="ShopStatus" ColumnName="ShopStatus" />
+          <ScalarProperty Name="IsSelf" ColumnName="IsSelf" />
+          <ScalarProperty Name="Theme" ColumnName="Theme" />
+          <ScalarProperty Name="SubDomains" ColumnName="SubDomains" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="GradeId" ColumnName="GradeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShopVistis">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShopVistiInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ShopVistis">
+          <ScalarProperty Name="SaleAmounts" ColumnName="SaleAmounts" />
+          <ScalarProperty Name="SaleCounts" ColumnName="SaleCounts" />
+          <ScalarProperty Name="VistiCounts" ColumnName="VistiCounts" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_SiteSettings">
+      <EntityTypeMapping TypeName="ChemCloud.Model.SiteSettingsInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_SiteSettings">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_SKUs">
+      <EntityTypeMapping TypeName="ChemCloud.Model.SKUInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_SKUs">
+          <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+          <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+          <ScalarProperty Name="CostPrice" ColumnName="CostPrice" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Sku" ColumnName="Sku" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_SlideAds">
+      <EntityTypeMapping TypeName="ChemCloud.Model.SlideAdInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_SlideAds">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="DisplaySequence" ColumnName="DisplaySequence" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_SpecificationValues">
+      <EntityTypeMapping TypeName="ChemCloud.Model.SpecificationValueInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_SpecificationValues">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Specification" ColumnName="Specification" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_StatisticOrderComments">
+      <EntityTypeMapping TypeName="ChemCloud.Model.StatisticOrderCommentsInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_StatisticOrderComments">
+          <ScalarProperty Name="CommentValue" ColumnName="CommentValue" />
+          <ScalarProperty Name="CommentKey" ColumnName="CommentKey" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_TopicModules">
+      <EntityTypeMapping TypeName="ChemCloud.Model.TopicModuleInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_TopicModules">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Topics">
+      <EntityTypeMapping TypeName="ChemCloud.Model.TopicInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Topics">
+          <ScalarProperty Name="SelfDefineText" ColumnName="SelfDefineText" />
+          <ScalarProperty Name="IsRecommend" ColumnName="IsRecommend" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="PlatForm" ColumnName="PlatForm" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="FrontCoverImage" ColumnName="FrontCoverImage" />
+          <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
+          <ScalarProperty Name="TopImage" ColumnName="TopImage" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_TypeBrands">
+      <EntityTypeMapping TypeName="ChemCloud.Model.TypeBrandInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_TypeBrands">
+          <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Types">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductTypeInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Types">
+          <ScalarProperty Name="IsSupportVersion" ColumnName="IsSupportVersion" />
+          <ScalarProperty Name="IsSupportSize" ColumnName="IsSupportSize" />
+          <ScalarProperty Name="IsSupportColor" ColumnName="IsSupportColor" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_VShop">
+      <EntityTypeMapping TypeName="ChemCloud.Model.VShopInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_VShop">
+          <ScalarProperty Name="WXLogo" ColumnName="WXLogo" />
+          <ScalarProperty Name="HomePageTitle" ColumnName="HomePageTitle" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="buyNum" ColumnName="buyNum" />
+          <ScalarProperty Name="VisitNum" ColumnName="VisitNum" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_VShopExtend">
+      <EntityTypeMapping TypeName="ChemCloud.Model.VShopExtendInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_VShopExtend">
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="VShopId" ColumnName="VShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_WeiXinBasic">
+      <EntityTypeMapping TypeName="ChemCloud.Model.WeiXinBasicInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_WeiXinBasic">
+          <ScalarProperty Name="AccessToken" ColumnName="AccessToken" />
+          <ScalarProperty Name="AppId" ColumnName="AppId" />
+          <ScalarProperty Name="TicketOutTime" ColumnName="TicketOutTime" />
+          <ScalarProperty Name="Ticket" ColumnName="Ticket" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_WXAccToken">
+      <EntityTypeMapping TypeName="ChemCloud.Model.WXAccTokenInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_WXAccToken">
+          <ScalarProperty Name="TokenOutTime" ColumnName="TokenOutTime" />
+          <ScalarProperty Name="AccessToken" ColumnName="AccessToken" />
+          <ScalarProperty Name="AppId" ColumnName="AppId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_WXCardCodeLog">
+      <EntityTypeMapping TypeName="ChemCloud.Model.WXCardCodeLogInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_WXCardCodeLog">
+          <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+          <ScalarProperty Name="CouponCodeId" ColumnName="CouponCodeId" />
+          <ScalarProperty Name="CouponType" ColumnName="CouponType" />
+          <ScalarProperty Name="UsedTime" ColumnName="UsedTime" />
+          <ScalarProperty Name="CodeStatus" ColumnName="CodeStatus" />
+          <ScalarProperty Name="SendTime" ColumnName="SendTime" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="CardId" ColumnName="CardId" />
+          <ScalarProperty Name="CardLogId" ColumnName="CardLogId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_WXCardLog">
+      <EntityTypeMapping TypeName="ChemCloud.Model.WXCardLogInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_WXCardLog">
+          <ScalarProperty Name="CouponId" ColumnName="CouponId" />
+          <ScalarProperty Name="CouponType" ColumnName="CouponType" />
+          <ScalarProperty Name="AppSecret" ColumnName="AppSecret" />
+          <ScalarProperty Name="AppId" ColumnName="AppId" />
+          <ScalarProperty Name="AuditStatus" ColumnName="AuditStatus" />
+          <ScalarProperty Name="CardColor" ColumnName="CardColor" />
+          <ScalarProperty Name="CardSubTitle" ColumnName="CardSubTitle" />
+          <ScalarProperty Name="CardTitle" ColumnName="CardTitle" />
+          <ScalarProperty Name="CardId" ColumnName="CardId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_WXshop">
+      <EntityTypeMapping TypeName="ChemCloud.Model.WXShopInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_WXshop">
+          <ScalarProperty Name="FollowUrl" ColumnName="FollowUrl" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="AppSecret" ColumnName="AppSecret" />
+          <ScalarProperty Name="AppId" ColumnName="AppId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MargainBillDetail">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MargainBillDetail">
+        <MappingFragment StoreEntitySet="ChemCloud_MargainBillDetail">
+          <ScalarProperty Name="SpecLevel" ColumnName="SpecLevel" />
+          <ScalarProperty Name="CASNo" ColumnName="CASNo" />
+          <ScalarProperty Name="MessageReply" ColumnName="MessageReply" />
+          <ScalarProperty Name="BuyerMessage" ColumnName="BuyerMessage" />
+          <ScalarProperty Name="Bidder" ColumnName="Bidder" />
+          <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+          <ScalarProperty Name="PackingUnit" ColumnName="PackingUnit" />
+          <ScalarProperty Name="Purity" ColumnName="Purity" />
+          <ScalarProperty Name="ShopPirce" ColumnName="ShopPirce" />
+          <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+          <ScalarProperty Name="MarketPrice" ColumnName="MarketPrice" />
+          <ScalarProperty Name="Num" ColumnName="Num" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CAS_MAIN_INFO">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CAS_MAIN_INFO">
+        <MappingFragment StoreEntitySet="ChemCloud_CAS_MAIN_INFO">
+          <ScalarProperty Name="WaiGuanXZ" ColumnName="WaiGuanXZ" />
+          <ScalarProperty Name="RongDian" ColumnName="RongDian" />
+          <ScalarProperty Name="DEN_SIGN" ColumnName="DEN_SIGN" />
+          <ScalarProperty Name="SAFE_DESC" ColumnName="SAFE_DESC" />
+          <ScalarProperty Name="DEN_CODE" ColumnName="DEN_CODE" />
+          <ScalarProperty Name="WGK" ColumnName="WGK" />
+          <ScalarProperty Name="HG_CODE" ColumnName="HG_CODE" />
+          <ScalarProperty Name="LOG_P" ColumnName="LOG_P" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="IS_AUDIT" ColumnName="IS_AUDIT" />
+          <ScalarProperty Name="IS_LOCK" ColumnName="IS_LOCK" />
+          <ScalarProperty Name="AUDIT_DESC" ColumnName="AUDIT_DESC" />
+          <ScalarProperty Name="AUDIT_TIME" ColumnName="AUDIT_TIME" />
+          <ScalarProperty Name="AUDIT_UID" ColumnName="AUDIT_UID" />
+          <ScalarProperty Name="UPDATE_TIME" ColumnName="UPDATE_TIME" />
+          <ScalarProperty Name="UPDATE_UID" ColumnName="UPDATE_UID" />
+          <ScalarProperty Name="IS_UPDATE" ColumnName="IS_UPDATE" />
+          <ScalarProperty Name="DEL_TIME" ColumnName="DEL_TIME" />
+          <ScalarProperty Name="DEL_UID" ColumnName="DEL_UID" />
+          <ScalarProperty Name="IS_DEL" ColumnName="IS_DEL" />
+          <ScalarProperty Name="ADD_AUTHOR" ColumnName="ADD_AUTHOR" />
+          <ScalarProperty Name="ADD_DATE" ColumnName="ADD_DATE" />
+          <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+          <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+          <ScalarProperty Name="EXTERNAL_LINK" ColumnName="EXTERNAL_LINK" />
+          <ScalarProperty Name="EXTERNAL_ID" ColumnName="EXTERNAL_ID" />
+          <ScalarProperty Name="STRUCTURE_2D" ColumnName="STRUCTURE_2D" />
+          <ScalarProperty Name="AVAILABLE_DATE" ColumnName="AVAILABLE_DATE" />
+          <ScalarProperty Name="SOURCE_FROM_LINK" ColumnName="SOURCE_FROM_LINK" />
+          <ScalarProperty Name="SOURCE_FROM" ColumnName="SOURCE_FROM" />
+          <ScalarProperty Name="CAS_CATEGORY" ColumnName="CAS_CATEGORY" />
+          <ScalarProperty Name="VAPOR_PRESSURE" ColumnName="VAPOR_PRESSURE" />
+          <ScalarProperty Name="REFRACTIVE_INDEX" ColumnName="REFRACTIVE_INDEX" />
+          <ScalarProperty Name="FLASH_POINT" ColumnName="FLASH_POINT" />
+          <ScalarProperty Name="BOILING_POINT" ColumnName="BOILING_POINT" />
+          <ScalarProperty Name="DENSITY" ColumnName="DENSITY" />
+          <ScalarProperty Name="PSA" ColumnName="PSA" />
+          <ScalarProperty Name="PRECISE_QUALITY" ColumnName="PRECISE_QUALITY" />
+          <ScalarProperty Name="MOLECULAR_WEIGHT" ColumnName="MOLECULAR_WEIGHT" />
+          <ScalarProperty Name="MOLECULAR_FORMULA" ColumnName="MOLECULAR_FORMULA" />
+          <ScalarProperty Name="ENGLISH_ALIAS" ColumnName="ENGLISH_ALIAS" />
+          <ScalarProperty Name="ENGLISH" ColumnName="ENGLISH" />
+          <ScalarProperty Name="CHINESE_ALIAS" ColumnName="CHINESE_ALIAS" />
+          <ScalarProperty Name="CHINESE" ColumnName="CHINESE" />
+          <ScalarProperty Name="PUB_CID" ColumnName="PUB_CID" />
+          <ScalarProperty Name="PC_SID" ColumnName="PC_SID" />
+          <ScalarProperty Name="CAS_NUMBER" ColumnName="CAS_NUMBER" />
+          <ScalarProperty Name="CAS_NO" ColumnName="CAS_NO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ProductSpec">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductSpec">
+        <MappingFragment StoreEntitySet="ChemCloud_ProductSpec">
+          <ScalarProperty Name="CoinType" ColumnName="CoinType" />
+          <ScalarProperty Name="SpecLevel" ColumnName="SpecLevel" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Purity" ColumnName="Purity" />
+          <ScalarProperty Name="Packaging" ColumnName="Packaging" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_RecFloorImg">
+      <EntityTypeMapping TypeName="ChemCloud.Model.RecFloorImg">
+        <MappingFragment StoreEntitySet="ChemCloud_RecFloorImg">
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="ChildId" ColumnName="ChildId" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_StatisticsMoney">
+      <EntityTypeMapping TypeName="ChemCloud.Model.StatisticsMoney">
+        <MappingFragment StoreEntitySet="ChemCloud_StatisticsMoney">
+          <ScalarProperty Name="BalanceAble" ColumnName="BalanceAble" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="TradingCardNum" ColumnName="TradingCardNum" />
+          <ScalarProperty Name="PayType" ColumnName="PayType" />
+          <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+          <ScalarProperty Name="TradingPrice" ColumnName="TradingPrice" />
+          <ScalarProperty Name="TradingOrderId" ColumnName="TradingOrderId" />
+          <ScalarProperty Name="TradingTime" ColumnName="TradingTime" />
+          <ScalarProperty Name="TradingType" ColumnName="TradingType" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Supplier">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ChemCloud_Supplier">
+        <MappingFragment StoreEntitySet="ChemCloud_Supplier">
+          <ScalarProperty Name="chemicalFormula" ColumnName="chemicalFormula" />
+          <ScalarProperty Name="usuallyShipsWithinDays" ColumnName="usuallyShipsWithinDays" />
+          <ScalarProperty Name="usuallyShipsDaysMin" ColumnName="usuallyShipsDaysMin" />
+          <ScalarProperty Name="supplierShortUrl" ColumnName="supplierShortUrl" />
+          <ScalarProperty Name="supplier" ColumnName="supplier" />
+          <ScalarProperty Name="purity" ColumnName="purity" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="casno" ColumnName="casno" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_SiteMessages">
+      <EntityTypeMapping TypeName="ChemCloud.Model.SiteMessages">
+        <MappingFragment StoreEntitySet="ChemCloud_SiteMessages">
+          <ScalarProperty Name="IsDisplay" ColumnName="IsDisplay" />
+          <ScalarProperty Name="SendName" ColumnName="SendName" />
+          <ScalarProperty Name="ReceType" ColumnName="ReceType" />
+          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+          <ScalarProperty Name="MessageModule" ColumnName="MessageModule" />
+          <ScalarProperty Name="ReadStatus" ColumnName="ReadStatus" />
+          <ScalarProperty Name="ReadTime" ColumnName="ReadTime" />
+          <ScalarProperty Name="SendTime" ColumnName="SendTime" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ChatRelationShip">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ChatRelationShip">
+        <MappingFragment StoreEntitySet="ChemCloud_ChatRelationShip">
+          <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="ReviceUserId" ColumnName="ReviceUserId" />
+          <ScalarProperty Name="SendUserId" ColumnName="SendUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ProductAuthentication">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductAuthentication">
+        <MappingFragment StoreEntitySet="ChemCloud_ProductAuthentication">
+          <ScalarProperty Name="ComAttachment" ColumnName="ComAttachment" />
+          <ScalarProperty Name="ComName" ColumnName="ComName" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="AuthDesc" ColumnName="AuthDesc" />
+          <ScalarProperty Name="AuthTime" ColumnName="AuthTime" />
+          <ScalarProperty Name="AuthAuthor" ColumnName="AuthAuthor" />
+          <ScalarProperty Name="AuthStatus" ColumnName="AuthStatus" />
+          <ScalarProperty Name="ProductAuthDate" ColumnName="ProductAuthDate" />
+          <ScalarProperty Name="ProductDesc" ColumnName="ProductDesc" />
+          <ScalarProperty Name="ProductIMG" ColumnName="ProductIMG" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="ManageId" ColumnName="ManageId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Attention">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Attention">
+        <MappingFragment StoreEntitySet="ChemCloud_Attention">
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ManagersAccount">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ManagersAccount">
+        <MappingFragment StoreEntitySet="ChemCloud_ManagersAccount">
+          <ScalarProperty Name="Daikuan" ColumnName="Daikuan" />
+          <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+          <ScalarProperty Name="Datatime" ColumnName="Datatime" />
+          <ScalarProperty Name="BalanceAvailable" ColumnName="BalanceAvailable" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+          <ScalarProperty Name="Tuikuan" ColumnName="Tuikuan" />
+          <ScalarProperty Name="Huilv" ColumnName="Huilv" />
+          <ScalarProperty Name="Tiquhuobi" ColumnName="Tiquhuobi" />
+          <ScalarProperty Name="Tiqufeiyong" ColumnName="Tiqufeiyong" />
+          <ScalarProperty Name="Tiqu" ColumnName="Tiqu" />
+          <ScalarProperty Name="ZhuanzhangName" ColumnName="ZhuanzhangName" />
+          <ScalarProperty Name="Zhuanzhang" ColumnName="Zhuanzhang" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Country">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CountryInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Country">
+          <ScalarProperty Name="SFCode" ColumnName="SFCode" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="ContryNameEN" ColumnName="ContryNameEN" />
+          <ScalarProperty Name="ContryNameCN" ColumnName="ContryNameCN" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CapitalUserAccount">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CapitalUserAccount">
+        <MappingFragment StoreEntitySet="ChemCloud_CapitalUserAccount">
+          <ScalarProperty Name="userType" ColumnName="userType" />
+          <ScalarProperty Name="CashAccountType" ColumnName="CashAccountType" />
+          <ScalarProperty Name="CashAccount" ColumnName="CashAccount" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_EmailSetting">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ChemCloud_EmailSetting">
+        <MappingFragment StoreEntitySet="ChemCloud_EmailSetting">
+          <ScalarProperty Name="SendMailPassword" ColumnName="SendMailPassword" />
+          <ScalarProperty Name="SendMailId" ColumnName="SendMailId" />
+          <ScalarProperty Name="SmtpServer" ColumnName="SmtpServer" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Chemcloud_ProductLevel">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductLevel">
+        <MappingFragment StoreEntitySet="Chemcloud_ProductLevel">
+          <ScalarProperty Name="LevelNameEN" ColumnName="LevelNameEN" />
+          <ScalarProperty Name="LevelNameCN" ColumnName="LevelNameCN" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderPurchasing">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderPurchasing">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderPurchasing">
+          <ScalarProperty Name="ChemName" ColumnName="ChemName" />
+          <ScalarProperty Name="CASNo" ColumnName="CASNo" />
+          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+          <ScalarProperty Name="Mol" ColumnName="Mol" />
+          <ScalarProperty Name="KuaiDiNo" ColumnName="KuaiDiNo" />
+          <ScalarProperty Name="KuaiDi" ColumnName="KuaiDi" />
+          <ScalarProperty Name="ZhifuImg" ColumnName="ZhifuImg" />
+          <ScalarProperty Name="ReplyContent" ColumnName="ReplyContent" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsLock" ColumnName="IsLock" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ConTelPhone" ColumnName="ConTelPhone" />
+          <ScalarProperty Name="ConWebsite" ColumnName="ConWebsite" />
+          <ScalarProperty Name="ConUserName" ColumnName="ConUserName" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
+          <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
+          <ScalarProperty Name="ProductDesc" ColumnName="ProductDesc" />
+          <ScalarProperty Name="ProductPurity" ColumnName="ProductPurity" />
+          <ScalarProperty Name="ProductCount" ColumnName="ProductCount" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderSynthesis">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderSynthesis">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderSynthesis">
+          <ScalarProperty Name="ChemName" ColumnName="ChemName" />
+          <ScalarProperty Name="CASNo" ColumnName="CASNo" />
+          <ScalarProperty Name="SynthesisCost" ColumnName="SynthesisCost" />
+          <ScalarProperty Name="SynthesisCycle" ColumnName="SynthesisCycle" />
+          <ScalarProperty Name="Mol" ColumnName="Mol" />
+          <ScalarProperty Name="ZhifuImg" ColumnName="ZhifuImg" />
+          <ScalarProperty Name="OperatorMessage" ColumnName="OperatorMessage" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ExpressConpanyName" ColumnName="ExpressConpanyName" />
+          <ScalarProperty Name="ShipOrderNumber" ColumnName="ShipOrderNumber" />
+          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsLock" ColumnName="IsLock" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
+          <ScalarProperty Name="ProductDesc" ColumnName="ProductDesc" />
+          <ScalarProperty Name="ProductPurity" ColumnName="ProductPurity" />
+          <ScalarProperty Name="ConTelPhone" ColumnName="ConTelPhone" />
+          <ScalarProperty Name="ConWebsite" ColumnName="ConWebsite" />
+          <ScalarProperty Name="ConUserName" ColumnName="ConUserName" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="ProductCount" ColumnName="ProductCount" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderExpressQuery">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderExpressQuery">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderExpressQuery">
+          <ScalarProperty Name="ExpressContentEN" ColumnName="ExpressContentEN" />
+          <ScalarProperty Name="ShipStatus" ColumnName="ShipStatus" />
+          <ScalarProperty Name="ExpressContentCN" ColumnName="ExpressContentCN" />
+          <ScalarProperty Name="ShipOrderNumber" ColumnName="ShipOrderNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_COA">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ChemCloud_COA">
+        <MappingFragment StoreEntitySet="ChemCloud_COA">
+          <ScalarProperty Name="LABORATORYMANAGER" ColumnName="LABORATORYMANAGER" />
+          <ScalarProperty Name="DATEOFRELEASE" ColumnName="DATEOFRELEASE" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="SydcosLabBatchNo" ColumnName="SydcosLabBatchNo" />
+          <ScalarProperty Name="ManufacturersBatchNo" ColumnName="ManufacturersBatchNo" />
+          <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+          <ScalarProperty Name="DateofManufacture" ColumnName="DateofManufacture" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="CertificateNumber" ColumnName="CertificateNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_COADetails">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ChemCloud_COADetails">
+        <MappingFragment StoreEntitySet="ChemCloud_COADetails">
+          <ScalarProperty Name="MicroStatus" ColumnName="MicroStatus" />
+          <ScalarProperty Name="Appearanceofsolution" ColumnName="Appearanceofsolution" />
+          <ScalarProperty Name="Chlorides" ColumnName="Chlorides" />
+          <ScalarProperty Name="Sulphates" ColumnName="Sulphates" />
+          <ScalarProperty Name="Iron" ColumnName="Iron" />
+          <ScalarProperty Name="HeavyMetals" ColumnName="HeavyMetals" />
+          <ScalarProperty Name="Arsenic" ColumnName="Arsenic" />
+          <ScalarProperty Name="Calcium" ColumnName="Calcium" />
+          <ScalarProperty Name="Ammonium" ColumnName="Ammonium" />
+          <ScalarProperty Name="Solubility" ColumnName="Solubility" />
+          <ScalarProperty Name="Carbonates" ColumnName="Carbonates" />
+          <ScalarProperty Name="IIdentity" ColumnName="IIdentity" />
+          <ScalarProperty Name="Appearance" ColumnName="Appearance" />
+          <ScalarProperty Name="CertificateNumber" ColumnName="CertificateNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ConfigPayPalAPI">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ConfigPayPalAPI">
+        <MappingFragment StoreEntitySet="ChemCloud_ConfigPayPalAPI">
+          <ScalarProperty Name="PayPalEnvenment" ColumnName="PayPalEnvenment" />
+          <ScalarProperty Name="PayPalSinature" ColumnName="PayPalSinature" />
+          <ScalarProperty Name="PayPalPwd" ColumnName="PayPalPwd" />
+          <ScalarProperty Name="PayPalId" ColumnName="PayPalId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Dictionaries">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ChemCloud_Dictionaries">
+        <MappingFragment StoreEntitySet="ChemCloud_Dictionaries">
+          <ScalarProperty Name="DValue_En" ColumnName="DValue_En" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="DValue" ColumnName="DValue" />
+          <ScalarProperty Name="DKey" ColumnName="DKey" />
+          <ScalarProperty Name="DictionaryTypeId" ColumnName="DictionaryTypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_DictionaryType">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ChemCloud_DictionaryType">
+        <MappingFragment StoreEntitySet="ChemCloud_DictionaryType">
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_FQPayment">
+      <EntityTypeMapping TypeName="ChemCloud.Model.FQPayment">
+        <MappingFragment StoreEntitySet="ChemCloud_FQPayment">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="LeftPrice" ColumnName="LeftPrice" />
+          <ScalarProperty Name="RealPrice" ColumnName="RealPrice" />
+          <ScalarProperty Name="TolPrice" ColumnName="TolPrice" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Orders">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Orders">
+          <ScalarProperty Name="orderAddress" ColumnName="orderAddress" />
+          <ScalarProperty Name="orderRegionFullName" ColumnName="orderRegionFullName" />
+          <ScalarProperty Name="orderRegionId" ColumnName="orderRegionId" />
+          <ScalarProperty Name="IsBehalfShip" ColumnName="IsBehalfShip" />
+          <ScalarProperty Name="BehalfShipNumber" ColumnName="BehalfShipNumber" />
+          <ScalarProperty Name="BehalfShipType" ColumnName="BehalfShipType" />
+          <ScalarProperty Name="Replacedeliveraddress" ColumnName="Replacedeliveraddress" />
+          <ScalarProperty Name="Isreplacedeliver" ColumnName="Isreplacedeliver" />
+          <ScalarProperty Name="Counterfee" ColumnName="Counterfee" />
+          <ScalarProperty Name="Transactionfee" ColumnName="Transactionfee" />
+          <ScalarProperty Name="Insurancefee" ColumnName="Insurancefee" />
+          <ScalarProperty Name="IsInsurance" ColumnName="IsInsurance" />
+          <ScalarProperty Name="CoinType" ColumnName="CoinType" />
+          <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+          <ScalarProperty Name="InvoiceContext" ColumnName="InvoiceContext" />
+          <ScalarProperty Name="IntegralDiscount" ColumnName="IntegralDiscount" />
+          <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+          <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+          <ScalarProperty Name="Platform" ColumnName="Platform" />
+          <ScalarProperty Name="ActiveType" ColumnName="ActiveType" />
+          <ScalarProperty Name="RefundCommisAmount" ColumnName="RefundCommisAmount" />
+          <ScalarProperty Name="CommisTotalAmount" ColumnName="CommisTotalAmount" />
+          <ScalarProperty Name="RefundTotalAmount" ColumnName="RefundTotalAmount" />
+          <ScalarProperty Name="ProductTotalAmount" ColumnName="ProductTotalAmount" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="Tax" ColumnName="Tax" />
+          <ScalarProperty Name="InvoiceTitle" ColumnName="InvoiceTitle" />
+          <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+          <ScalarProperty Name="PayRemark" ColumnName="PayRemark" />
+          <ScalarProperty Name="GatewayOrderId" ColumnName="GatewayOrderId" />
+          <ScalarProperty Name="PaymentTypeGateway" ColumnName="PaymentTypeGateway" />
+          <ScalarProperty Name="PaymentTypeName" ColumnName="PaymentTypeName" />
+          <ScalarProperty Name="IsPrinted" ColumnName="IsPrinted" />
+          <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+          <ScalarProperty Name="ShipOrderNumber" ColumnName="ShipOrderNumber" />
+          <ScalarProperty Name="Freight" ColumnName="Freight" />
+          <ScalarProperty Name="ExpressCompanyName" ColumnName="ExpressCompanyName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="RegionFullName" ColumnName="RegionFullName" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="TopRegionId" ColumnName="TopRegionId" />
+          <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+          <ScalarProperty Name="ShipTo" ColumnName="ShipTo" />
+          <ScalarProperty Name="UserRemark" ColumnName="UserRemark" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="SellerRemark" ColumnName="SellerRemark" />
+          <ScalarProperty Name="SellerAddress" ColumnName="SellerAddress" />
+          <ScalarProperty Name="SellerPhone" ColumnName="SellerPhone" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="CloseReason" ColumnName="CloseReason" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderPayDesc">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderPayDesc">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderPayDesc">
+          <ScalarProperty Name="CoinType" ColumnName="CoinType" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="Isfenqi" ColumnName="Isfenqi" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ReciveTime" ColumnName="ReciveTime" />
+          <ScalarProperty Name="PayTime" ColumnName="PayTime" />
+          <ScalarProperty Name="RealPrice" ColumnName="RealPrice" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_COAList">
+      <EntityTypeMapping TypeName="ChemCloud.Model.COAList">
+        <MappingFragment StoreEntitySet="ChemCloud_COAList">
+          <ScalarProperty Name="CASNo" ColumnName="CASNo" />
+          <ScalarProperty Name="AddUserType" ColumnName="AddUserType" />
+          <ScalarProperty Name="CoANo" ColumnName="CoANo" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Addtime" ColumnName="Addtime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderWithCoa">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ChemCloud_OrderWithCoa">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderWithCoa">
+          <ScalarProperty Name="CoaNo" ColumnName="CoaNo" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_LimitedAmount">
+      <EntityTypeMapping TypeName="ChemCloud.Model.LimitedAmount">
+        <MappingFragment StoreEntitySet="ChemCloud_LimitedAmount">
+          <ScalarProperty Name="CoinType" ColumnName="CoinType" />
+          <ScalarProperty Name="Money" ColumnName="Money" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Organization">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Organization">
+        <MappingFragment StoreEntitySet="ChemCloud_Organization">
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="ParentRoleId" ColumnName="ParentRoleId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_PurchaseRoles">
+      <EntityTypeMapping TypeName="ChemCloud.Model.PurchaseRolesInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_PurchaseRoles">
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="MasterId" ColumnName="MasterId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MessageEnclosure">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MessageEnclosure">
+        <MappingFragment StoreEntitySet="ChemCloud_MessageEnclosure">
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="MsgId" ColumnName="MsgId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MemberDetail">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MemberDetail">
+        <MappingFragment StoreEntitySet="ChemCloud_MemberDetail">
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="CompanyIntroduction" ColumnName="CompanyIntroduction" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Stage" ColumnName="Stage" />
+          <ScalarProperty Name="CompanyProveFile" ColumnName="CompanyProveFile" />
+          <ScalarProperty Name="CompanySign" ColumnName="CompanySign" />
+          <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+          <ScalarProperty Name="CityRegionId" ColumnName="CityRegionId" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Finance_InCome">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Finance_InCome">
+        <MappingFragment StoreEntitySet="ChemCloud_Finance_InCome">
+          <ScalarProperty Name="InCome_Status" ColumnName="InCome_Status" />
+          <ScalarProperty Name="InCome_Type" ColumnName="InCome_Type" />
+          <ScalarProperty Name="InCome_Address" ColumnName="InCome_Address" />
+          <ScalarProperty Name="InCome_OrderNum" ColumnName="InCome_OrderNum" />
+          <ScalarProperty Name="InCome_MoneyType" ColumnName="InCome_MoneyType" />
+          <ScalarProperty Name="InCome_Money" ColumnName="InCome_Money" />
+          <ScalarProperty Name="InCome_EndTime" ColumnName="InCome_EndTime" />
+          <ScalarProperty Name="InCome_StartTime" ColumnName="InCome_StartTime" />
+          <ScalarProperty Name="InCome_UserType" ColumnName="InCome_UserType" />
+          <ScalarProperty Name="InCome_UserId" ColumnName="InCome_UserId" />
+          <ScalarProperty Name="InCome_Number" ColumnName="InCome_Number" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Finance_Payment">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Finance_Payment">
+        <MappingFragment StoreEntitySet="ChemCloud_Finance_Payment">
+          <ScalarProperty Name="PayMent_Type" ColumnName="PayMent_Type" />
+          <ScalarProperty Name="PayMent_Status" ColumnName="PayMent_Status" />
+          <ScalarProperty Name="PayMent_MoneyType" ColumnName="PayMent_MoneyType" />
+          <ScalarProperty Name="PayMent_PayAddress" ColumnName="PayMent_PayAddress" />
+          <ScalarProperty Name="PayMent_SXMoney" ColumnName="PayMent_SXMoney" />
+          <ScalarProperty Name="PayMent_JYMoney" ColumnName="PayMent_JYMoney" />
+          <ScalarProperty Name="PayMent_YFMoney" ColumnName="PayMent_YFMoney" />
+          <ScalarProperty Name="PayMent_BXMoney" ColumnName="PayMent_BXMoney" />
+          <ScalarProperty Name="PayMent_TotalMoney" ColumnName="PayMent_TotalMoney" />
+          <ScalarProperty Name="PayMent_PayMoney" ColumnName="PayMent_PayMoney" />
+          <ScalarProperty Name="PayMent_PayTime" ColumnName="PayMent_PayTime" />
+          <ScalarProperty Name="PayMent_OrderNum" ColumnName="PayMent_OrderNum" />
+          <ScalarProperty Name="PayMent_UserType" ColumnName="PayMent_UserType" />
+          <ScalarProperty Name="PayMent_UserId" ColumnName="PayMent_UserId" />
+          <ScalarProperty Name="PayMent_Number" ColumnName="PayMent_Number" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Finance_Transfer">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Finance_Transfer">
+        <MappingFragment StoreEntitySet="ChemCloud_Finance_Transfer">
+          <ScalarProperty Name="Trans_Status" ColumnName="Trans_Status" />
+          <ScalarProperty Name="Trans_ToUserType" ColumnName="Trans_ToUserType" />
+          <ScalarProperty Name="Trans_ToUserId" ColumnName="Trans_ToUserId" />
+          <ScalarProperty Name="Trans_Address" ColumnName="Trans_Address" />
+          <ScalarProperty Name="Trans_Time" ColumnName="Trans_Time" />
+          <ScalarProperty Name="Trans_MoneyType" ColumnName="Trans_MoneyType" />
+          <ScalarProperty Name="Trans_SXMoney" ColumnName="Trans_SXMoney" />
+          <ScalarProperty Name="Trans_Money" ColumnName="Trans_Money" />
+          <ScalarProperty Name="Trans_UserType" ColumnName="Trans_UserType" />
+          <ScalarProperty Name="Trans_UserId" ColumnName="Trans_UserId" />
+          <ScalarProperty Name="Trans_Number" ColumnName="Trans_Number" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Finance_Wallet">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Finance_Wallet">
+        <MappingFragment StoreEntitySet="ChemCloud_Finance_Wallet">
+          <ScalarProperty Name="Wallet_Status" ColumnName="Wallet_Status" />
+          <ScalarProperty Name="Wallet_PayPassword" ColumnName="Wallet_PayPassword" />
+          <ScalarProperty Name="Wallet_MoneyType" ColumnName="Wallet_MoneyType" />
+          <ScalarProperty Name="Wallet_DoUserId" ColumnName="Wallet_DoUserId" />
+          <ScalarProperty Name="Wallet_DoUserName" ColumnName="Wallet_DoUserName" />
+          <ScalarProperty Name="Wallet_DoIpAddress" ColumnName="Wallet_DoIpAddress" />
+          <ScalarProperty Name="Wallet_DoLastTime" ColumnName="Wallet_DoLastTime" />
+          <ScalarProperty Name="Wallet_UserBankUserName" ColumnName="Wallet_UserBankUserName" />
+          <ScalarProperty Name="Wallet_UserBankAddress" ColumnName="Wallet_UserBankAddress" />
+          <ScalarProperty Name="Wallet_UserBankNumber" ColumnName="Wallet_UserBankNumber" />
+          <ScalarProperty Name="Wallet_UserBankName" ColumnName="Wallet_UserBankName" />
+          <ScalarProperty Name="Wallet_UserLeftMoney" ColumnName="Wallet_UserLeftMoney" />
+          <ScalarProperty Name="Wallet_UserMoneyLock" ColumnName="Wallet_UserMoneyLock" />
+          <ScalarProperty Name="Wallet_UserMoney" ColumnName="Wallet_UserMoney" />
+          <ScalarProperty Name="Wallet_UserType" ColumnName="Wallet_UserType" />
+          <ScalarProperty Name="Wallet_UserId" ColumnName="Wallet_UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MessageDetial">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MessageDetial">
+        <MappingFragment StoreEntitySet="ChemCloud_MessageDetial">
+          <ScalarProperty Name="MessageTitle" ColumnName="MessageTitle" />
+          <ScalarProperty Name="MessageTitleId" ColumnName="MessageTitleId" />
+          <ScalarProperty Name="MsgType" ColumnName="MsgType" />
+          <ScalarProperty Name="SendObj" ColumnName="SendObj" />
+          <ScalarProperty Name="SendTime" ColumnName="SendTime" />
+          <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+          <ScalarProperty Name="LanguageType" ColumnName="LanguageType" />
+          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MessageRevice">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MessageRevice">
+        <MappingFragment StoreEntitySet="ChemCloud_MessageRevice">
+          <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+          <ScalarProperty Name="SendTime" ColumnName="SendTime" />
+          <ScalarProperty Name="VisiableFlag" ColumnName="VisiableFlag" />
+          <ScalarProperty Name="ReadFlag" ColumnName="ReadFlag" />
+          <ScalarProperty Name="ReadTime" ColumnName="ReadTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="MsgId" ColumnName="MsgId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Finance_Recharge">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Finance_Recharge">
+        <MappingFragment StoreEntitySet="ChemCloud_Finance_Recharge">
+          <ScalarProperty Name="Recharge_Status" ColumnName="Recharge_Status" />
+          <ScalarProperty Name="Recharge_Type" ColumnName="Recharge_Type" />
+          <ScalarProperty Name="Recharge_MoneyType" ColumnName="Recharge_MoneyType" />
+          <ScalarProperty Name="Recharge_MoneyLeft" ColumnName="Recharge_MoneyLeft" />
+          <ScalarProperty Name="Recharge_Money" ColumnName="Recharge_Money" />
+          <ScalarProperty Name="Recharge_Address" ColumnName="Recharge_Address" />
+          <ScalarProperty Name="Recharge_Time" ColumnName="Recharge_Time" />
+          <ScalarProperty Name="Recharge_UserType" ColumnName="Recharge_UserType" />
+          <ScalarProperty Name="Recharge_UserId" ColumnName="Recharge_UserId" />
+          <ScalarProperty Name="Recharge_Number" ColumnName="Recharge_Number" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Finance_WithDraw">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Finance_WithDraw">
+        <MappingFragment StoreEntitySet="ChemCloud_Finance_WithDraw">
+          <ScalarProperty Name="Withdraw_shenheTime" ColumnName="Withdraw_shenheTime" />
+          <ScalarProperty Name="Withdraw_shenheDesc" ColumnName="Withdraw_shenheDesc" />
+          <ScalarProperty Name="Withdraw_shenheUname" ColumnName="Withdraw_shenheUname" />
+          <ScalarProperty Name="Withdraw_shenheUid" ColumnName="Withdraw_shenheUid" />
+          <ScalarProperty Name="Withdraw_shenhe" ColumnName="Withdraw_shenhe" />
+          <ScalarProperty Name="Withdraw_Status" ColumnName="Withdraw_Status" />
+          <ScalarProperty Name="Withdraw_Time" ColumnName="Withdraw_Time" />
+          <ScalarProperty Name="Withdraw_BankUserName" ColumnName="Withdraw_BankUserName" />
+          <ScalarProperty Name="Withdraw_BankName" ColumnName="Withdraw_BankName" />
+          <ScalarProperty Name="Withdraw_Account" ColumnName="Withdraw_Account" />
+          <ScalarProperty Name="Withdraw_MoneyType" ColumnName="Withdraw_MoneyType" />
+          <ScalarProperty Name="Withdraw_Money" ColumnName="Withdraw_Money" />
+          <ScalarProperty Name="Withdraw_UserType" ColumnName="Withdraw_UserType" />
+          <ScalarProperty Name="Withdraw_UserId" ColumnName="Withdraw_UserId" />
+          <ScalarProperty Name="Withdraw_Number" ColumnName="Withdraw_Number" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_DHL">
+      <EntityTypeMapping TypeName="ChemCloud.Model.DHLInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_DHL">
+          <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="DocuType" ColumnName="DocuType" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_TH">
+      <EntityTypeMapping TypeName="ChemCloud.Model.TH">
+        <MappingFragment StoreEntitySet="ChemCloud_TH">
+          <ScalarProperty Name="TH_WLDH" ColumnName="TH_WLDH" />
+          <ScalarProperty Name="TH_WLGS" ColumnName="TH_WLGS" />
+          <ScalarProperty Name="TH_Reason" ColumnName="TH_Reason" />
+          <ScalarProperty Name="TH_Status" ColumnName="TH_Status" />
+          <ScalarProperty Name="TH_ToUserType" ColumnName="TH_ToUserType" />
+          <ScalarProperty Name="TH_ToUserName" ColumnName="TH_ToUserName" />
+          <ScalarProperty Name="TH_ToUserId" ColumnName="TH_ToUserId" />
+          <ScalarProperty Name="TH_ProductMoneyType" ColumnName="TH_ProductMoneyType" />
+          <ScalarProperty Name="TH_ProductMoneyReal" ColumnName="TH_ProductMoneyReal" />
+          <ScalarProperty Name="TH_ProductMoney" ColumnName="TH_ProductMoney" />
+          <ScalarProperty Name="TH_ProductCount" ColumnName="TH_ProductCount" />
+          <ScalarProperty Name="TH_ProductName" ColumnName="TH_ProductName" />
+          <ScalarProperty Name="TH_UserType" ColumnName="TH_UserType" />
+          <ScalarProperty Name="TH_UserName" ColumnName="TH_UserName" />
+          <ScalarProperty Name="TH_UserId" ColumnName="TH_UserId" />
+          <ScalarProperty Name="TH_Time" ColumnName="TH_Time" />
+          <ScalarProperty Name="TH_OrderNum" ColumnName="TH_OrderNum" />
+          <ScalarProperty Name="TH_Number" ColumnName="TH_Number" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Finance_Refund">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Finance_Refund">
+        <MappingFragment StoreEntitySet="ChemCloud_Finance_Refund">
+          <ScalarProperty Name="Refund_ToUserName" ColumnName="Refund_ToUserName" />
+          <ScalarProperty Name="Refund_ToUserType" ColumnName="Refund_ToUserType" />
+          <ScalarProperty Name="Refund_ToUserId" ColumnName="Refund_ToUserId" />
+          <ScalarProperty Name="Refund_Status" ColumnName="Refund_Status" />
+          <ScalarProperty Name="Refund_Time" ColumnName="Refund_Time" />
+          <ScalarProperty Name="Refund_Address" ColumnName="Refund_Address" />
+          <ScalarProperty Name="Refund_ISChujing" ColumnName="Refund_ISChujing" />
+          <ScalarProperty Name="Refund_SXMoney" ColumnName="Refund_SXMoney" />
+          <ScalarProperty Name="Refund_MoneyType" ColumnName="Refund_MoneyType" />
+          <ScalarProperty Name="Refund_Money" ColumnName="Refund_Money" />
+          <ScalarProperty Name="Refund_UserName" ColumnName="Refund_UserName" />
+          <ScalarProperty Name="Refund_UserType" ColumnName="Refund_UserType" />
+          <ScalarProperty Name="Refund_UserId" ColumnName="Refund_UserId" />
+          <ScalarProperty Name="Refund_OrderNum" ColumnName="Refund_OrderNum" />
+          <ScalarProperty Name="Refund_Number" ColumnName="Refund_Number" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ApplyAmount">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ApplyAmountInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_ApplyAmount">
+          <ScalarProperty Name="CoinType" ColumnName="CoinType" />
+          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+          <ScalarProperty Name="AuthDate" ColumnName="AuthDate" />
+          <ScalarProperty Name="ApplyStatus" ColumnName="ApplyStatus" />
+          <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="ApplyAmount" ColumnName="ApplyAmount" />
+          <ScalarProperty Name="ApplyUserId" ColumnName="ApplyUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_TechnicalInformation">
+      <EntityTypeMapping TypeName="ChemCloud.Model.TechnicalInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_TechnicalInformation">
+          <ScalarProperty Name="LanguageType" ColumnName="LanguageType" />
+          <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+          <ScalarProperty Name="Auditor" ColumnName="Auditor" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PublishTime" ColumnName="PublishTime" />
+          <ScalarProperty Name="TechContent" ColumnName="TechContent" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Recommend">
+      <EntityTypeMapping TypeName="ChemCloud.Model.RecommendInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Recommend">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Plat_Code" ColumnName="Plat_Code" />
+          <ScalarProperty Name="ActiverId" ColumnName="ActiverId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ActiveTime" ColumnName="ActiveTime" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Structure_2D" ColumnName="Structure_2D" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="CASNO" ColumnName="CASNO" />
+          <ScalarProperty Name="CID" ColumnName="CID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Law">
+      <EntityTypeMapping TypeName="ChemCloud.Model.LawInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Law">
+          <ScalarProperty Name="LanguageType" ColumnName="LanguageType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Auditor" ColumnName="Auditor" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="LawsInfo" ColumnName="LawsInfo" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemColud_Jobs">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Jobs">
+        <MappingFragment StoreEntitySet="ChemColud_Jobs">
+          <ScalarProperty Name="LanguageType" ColumnName="LanguageType" />
+          <ScalarProperty Name="TypeOfCurrency" ColumnName="TypeOfCurrency" />
+          <ScalarProperty Name="CompanyEmail" ColumnName="CompanyEmail" />
+          <ScalarProperty Name="CompanyTel" ColumnName="CompanyTel" />
+          <ScalarProperty Name="WorkPlace" ColumnName="WorkPlace" />
+          <ScalarProperty Name="WorkType" ColumnName="WorkType" />
+          <ScalarProperty Name="PayrollType" ColumnName="PayrollType" />
+          <ScalarProperty Name="PayrolLow" ColumnName="PayrolLow" />
+          <ScalarProperty Name="PayrolHigh" ColumnName="PayrolHigh" />
+          <ScalarProperty Name="Reviewer" ColumnName="Reviewer" />
+          <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="JobContent" ColumnName="JobContent" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Attachment">
+      <EntityTypeMapping TypeName="ChemCloud.Model.AttachmentInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_Attachment">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="AttachmentName" ColumnName="AttachmentName" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_BannersIndex">
+      <EntityTypeMapping TypeName="ChemCloud.Model.BannersIndex">
+        <MappingFragment StoreEntitySet="ChemCloud_BannersIndex">
+          <ScalarProperty Name="LanguageType" ColumnName="LanguageType" />
+          <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+          <ScalarProperty Name="TargetName" ColumnName="TargetName" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="BannerDes" ColumnName="BannerDes" />
+          <ScalarProperty Name="BannerTitle" ColumnName="BannerTitle" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_TransactionRecord">
+      <EntityTypeMapping TypeName="ChemCloud.Model.TransactionRecord">
+        <MappingFragment StoreEntitySet="ChemCloud_TransactionRecord">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsTrue" ColumnName="IsTrue" />
+          <ScalarProperty Name="YearMonth" ColumnName="YearMonth" />
+          <ScalarProperty Name="Y_OrderQuantity" ColumnName="Y_OrderQuantity" />
+          <ScalarProperty Name="Y_CompleteNumber" ColumnName="Y_CompleteNumber" />
+          <ScalarProperty Name="Y_OrderAmount" ColumnName="Y_OrderAmount" />
+          <ScalarProperty Name="Y_CompleteAmount" ColumnName="Y_CompleteAmount" />
+          <ScalarProperty Name="CurveType" ColumnName="CurveType" />
+          <ScalarProperty Name="XName_Eng" ColumnName="XName_Eng" />
+          <ScalarProperty Name="XName_CN" ColumnName="XName_CN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_WhatBusy">
+      <EntityTypeMapping TypeName="ChemCloud.Model.WhatBusy">
+        <MappingFragment StoreEntitySet="ChemCloud_WhatBusy">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+          <ScalarProperty Name="TargetUrl" ColumnName="TargetUrl" />
+          <ScalarProperty Name="BusyType" ColumnName="BusyType" />
+          <ScalarProperty Name="BusyCotent" ColumnName="BusyCotent" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MeetingInformation">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MeetingInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_MeetingInformation">
+          <ScalarProperty Name="LanguageType" ColumnName="LanguageType" />
+          <ScalarProperty Name="ContinueTime" ColumnName="ContinueTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="MeetingContent" ColumnName="MeetingContent" />
+          <ScalarProperty Name="MeetingPlace" ColumnName="MeetingPlace" />
+          <ScalarProperty Name="MeetingTime" ColumnName="MeetingTime" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Shipment">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Shipment">
+        <MappingFragment StoreEntitySet="ChemCloud_Shipment">
+          <ScalarProperty Name="TotalCharges" ColumnName="TotalCharges" />
+          <ScalarProperty Name="RateProviderCode" ColumnName="RateProviderCode" />
+          <ScalarProperty Name="RateProvider" ColumnName="RateProvider" />
+          <ScalarProperty Name="RateName" ColumnName="RateName" />
+          <ScalarProperty Name="GurDeliveryDate" ColumnName="GurDeliveryDate" />
+          <ScalarProperty Name="TotalPackageWeight" ColumnName="TotalPackageWeight" />
+          <ScalarProperty Name="PackageCount" ColumnName="PackageCount" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShipmentAddress">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShipmentAddress">
+        <MappingFragment StoreEntitySet="ChemCloud_ShipmentAddress">
+          <ScalarProperty Name="Line3" ColumnName="Line3" />
+          <ScalarProperty Name="Line2" ColumnName="Line2" />
+          <ScalarProperty Name="Line1" ColumnName="Line1" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+          <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="ShipmentId" ColumnName="ShipmentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ShipmentPackage">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ShipmentPackage">
+        <MappingFragment StoreEntitySet="ChemCloud_ShipmentPackage">
+          <ScalarProperty Name="ShipLinearUnit" ColumnName="ShipLinearUnit" />
+          <ScalarProperty Name="InsuredValue" ColumnName="InsuredValue" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="Length" ColumnName="Length" />
+          <ScalarProperty Name="PackageType" ColumnName="PackageType" />
+          <ScalarProperty Name="Currency" ColumnName="Currency" />
+          <ScalarProperty Name="ShipWeightUnit" ColumnName="ShipWeightUnit" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="ShipmentId" ColumnName="ShipmentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Messages">
+      <EntityTypeMapping TypeName="ChemCloud.Model.Messages">
+        <MappingFragment StoreEntitySet="ChemCloud_Messages">
+          <ScalarProperty Name="ReviceUserName" ColumnName="ReviceUserName" />
+          <ScalarProperty Name="SendUserName" ColumnName="SendUserName" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+          <ScalarProperty Name="SendTime" ColumnName="SendTime" />
+          <ScalarProperty Name="ReviceUserID" ColumnName="ReviceUserID" />
+          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+          <ScalarProperty Name="SendUserId" ColumnName="SendUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_TKImage">
+      <EntityTypeMapping TypeName="ChemCloud.Model.TKImageInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_TKImage">
+          <ScalarProperty Name="TKMessageId" ColumnName="TKMessageId" />
+          <ScalarProperty Name="TKImage" ColumnName="TKImage" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_TKMessage">
+      <EntityTypeMapping TypeName="ChemCloud.Model.TKMessage">
+        <MappingFragment StoreEntitySet="ChemCloud_TKMessage">
+          <ScalarProperty Name="ReturnName" ColumnName="ReturnName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="MessageAttitude" ColumnName="MessageAttitude" />
+          <ScalarProperty Name="MessageDate" ColumnName="MessageDate" />
+          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+          <ScalarProperty Name="TKId" ColumnName="TKId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_CAS">
+      <EntityTypeMapping TypeName="ChemCloud.Model.CASInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_CAS">
+          <ScalarProperty Name="Isolation_Distance" ColumnName="Isolation_Distance" />
+          <ScalarProperty Name="Isolation_Name" ColumnName="Isolation_Name" />
+          <ScalarProperty Name="FDA_Orange_Book_Patent_Drug_Application" ColumnName="FDA_Orange_Book_Patent_Drug_Application" />
+          <ScalarProperty Name="FDA_Orange_Book_Patent_Applicant" ColumnName="FDA_Orange_Book_Patent_Applicant" />
+          <ScalarProperty Name="FDA_Orange_Book_Patent_Expiration" ColumnName="FDA_Orange_Book_Patent_Expiration" />
+          <ScalarProperty Name="FDA_Orange_Book_Patent_ID" ColumnName="FDA_Orange_Book_Patent_ID" />
+          <ScalarProperty Name="FDA_Orange_Book_Patents" ColumnName="FDA_Orange_Book_Patents" />
+          <ScalarProperty Name="NFPA_Reactivity_Rating" ColumnName="NFPA_Reactivity_Rating" />
+          <ScalarProperty Name="RX_Applicant" ColumnName="RX_Applicant" />
+          <ScalarProperty Name="RX_Proprietary_Name" ColumnName="RX_Proprietary_Name" />
+          <ScalarProperty Name="RX_Drug_Ingredient" ColumnName="RX_Drug_Ingredient" />
+          <ScalarProperty Name="Prescription_Drug_Products" ColumnName="Prescription_Drug_Products" />
+          <ScalarProperty Name="Other_Hazardous_Reactions" ColumnName="Other_Hazardous_Reactions" />
+          <ScalarProperty Name="FIFRA_Requirements" ColumnName="FIFRA_Requirements" />
+          <ScalarProperty Name="OTC_Applicant" ColumnName="OTC_Applicant" />
+          <ScalarProperty Name="OTC_Proprietary_Name" ColumnName="OTC_Proprietary_Name" />
+          <ScalarProperty Name="OTC_Drug_Ingredient" ColumnName="OTC_Drug_Ingredient" />
+          <ScalarProperty Name="Over_the_Counter_Drug_Products" ColumnName="Over_the_Counter_Drug_Products" />
+          <ScalarProperty Name="Drug_Warning" ColumnName="Drug_Warning" />
+          <ScalarProperty Name="pH" ColumnName="pH" />
+          <ScalarProperty Name="Dissociation_Constants" ColumnName="Dissociation_Constants" />
+          <ScalarProperty Name="Federal_Drinking_Water_Guidelines" ColumnName="Federal_Drinking_Water_Guidelines" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Isomeric_SMILES" ColumnName="Isomeric_SMILES" />
+          <ScalarProperty Name="Toxic_Combustion_Products" ColumnName="Toxic_Combustion_Products" />
+          <ScalarProperty Name="Other_Safety_Information" ColumnName="Other_Safety_Information" />
+          <ScalarProperty Name="RCRA_Requirements" ColumnName="RCRA_Requirements" />
+          <ScalarProperty Name="TSCA_Requirements" ColumnName="TSCA_Requirements" />
+          <ScalarProperty Name="CERCLA_Reportable_Quantities" ColumnName="CERCLA_Reportable_Quantities" />
+          <ScalarProperty Name="Federal_Drinking_Water_Standards" ColumnName="Federal_Drinking_Water_Standards" />
+          <ScalarProperty Name="DOT_Emergency_Response_Guide" ColumnName="DOT_Emergency_Response_Guide" />
+          <ScalarProperty Name="Emergency_Response" ColumnName="Emergency_Response" />
+          <ScalarProperty Name="UN_Classification" ColumnName="UN_Classification" />
+          <ScalarProperty Name="EC_Classification" ColumnName="EC_Classification" />
+          <ScalarProperty Name="Packaging_and_Labelling" ColumnName="Packaging_and_Labelling" />
+          <ScalarProperty Name="DOT_Label" ColumnName="DOT_Label" />
+          <ScalarProperty Name="DOT_ID_and_Guide" ColumnName="DOT_ID_and_Guide" />
+          <ScalarProperty Name="Shipment_Methods_and_Regulations" ColumnName="Shipment_Methods_and_Regulations" />
+          <ScalarProperty Name="DOT_Emergency_Guidelines" ColumnName="DOT_Emergency_Guidelines" />
+          <ScalarProperty Name="Transport_Information" ColumnName="Transport_Information" />
+          <ScalarProperty Name="Reactivities_and_Incompatibilities" ColumnName="Reactivities_and_Incompatibilities" />
+          <ScalarProperty Name="Reactivity_Alerts" ColumnName="Reactivity_Alerts" />
+          <ScalarProperty Name="Reactive_Group" ColumnName="Reactive_Group" />
+          <ScalarProperty Name="Air_and_Water_Reactions" ColumnName="Air_and_Water_Reactions" />
+          <ScalarProperty Name="Storage_Conditions" ColumnName="Storage_Conditions" />
+          <ScalarProperty Name="Safe_Storage" ColumnName="Safe_Storage" />
+          <ScalarProperty Name="Nonfire_Spill_Response" ColumnName="Nonfire_Spill_Response" />
+          <ScalarProperty Name="Handling_and_Storage" ColumnName="Handling_and_Storage" />
+          <ScalarProperty Name="Other_Preventative_Measures" ColumnName="Other_Preventative_Measures" />
+          <ScalarProperty Name="Cleanup_Methods" ColumnName="Cleanup_Methods" />
+          <ScalarProperty Name="Spillage_Disposal" ColumnName="Spillage_Disposal" />
+          <ScalarProperty Name="Other_Fire_Fighting_Hazards" ColumnName="Other_Fire_Fighting_Hazards" />
+          <ScalarProperty Name="Explosion_Fire_Fighting" ColumnName="Explosion_Fire_Fighting" />
+          <ScalarProperty Name="Fire_Fighting" ColumnName="Fire_Fighting" />
+          <ScalarProperty Name="Fire_Fighting_Measures" ColumnName="Fire_Fighting_Measures" />
+          <ScalarProperty Name="NIOSH_Recommendations" ColumnName="NIOSH_Recommendations" />
+          <ScalarProperty Name="OSHA_Standards" ColumnName="OSHA_Standards" />
+          <ScalarProperty Name="Explosive_Limits_and_Potential" ColumnName="Explosive_Limits_and_Potential" />
+          <ScalarProperty Name="Chemical_Dangers" ColumnName="Chemical_Dangers" />
+          <ScalarProperty Name="Physical_Dangers" ColumnName="Physical_Dangers" />
+          <ScalarProperty Name="NFPA_Health_Rating" ColumnName="NFPA_Health_Rating" />
+          <ScalarProperty Name="NFPA_Fire_Rating" ColumnName="NFPA_Fire_Rating" />
+          <ScalarProperty Name="NFPA_Hazard_Classification" ColumnName="NFPA_Hazard_Classification" />
+          <ScalarProperty Name="Critical_Pressure" ColumnName="Critical_Pressure" />
+          <ScalarProperty Name="Critical_Temperature" ColumnName="Critical_Temperature" />
+          <ScalarProperty Name="Flammability" ColumnName="Flammability" />
+          <ScalarProperty Name="UEL" ColumnName="UEL" />
+          <ScalarProperty Name="LEL" ColumnName="LEL" />
+          <ScalarProperty Name="Safety_and_Hazard_Properties" ColumnName="Safety_and_Hazard_Properties" />
+          <ScalarProperty Name="Fire_Potential" ColumnName="Fire_Potential" />
+          <ScalarProperty Name="Hazards_Summary" ColumnName="Hazards_Summary" />
+          <ScalarProperty Name="Explosion_Hazard" ColumnName="Explosion_Hazard" />
+          <ScalarProperty Name="Fire_Hazard" ColumnName="Fire_Hazard" />
+          <ScalarProperty Name="Health_Hazard" ColumnName="Health_Hazard" />
+          <ScalarProperty Name="GHS_Classification" ColumnName="GHS_Classification" />
+          <ScalarProperty Name="Hazards_Identification" ColumnName="Hazards_Identification" />
+          <ScalarProperty Name="NIOSH_Analytical_Methods" ColumnName="NIOSH_Analytical_Methods" />
+          <ScalarProperty Name="OSHA_Chemical_Sampling" ColumnName="OSHA_Chemical_Sampling" />
+          <ScalarProperty Name="Chemical_Classes" ColumnName="Chemical_Classes" />
+          <ScalarProperty Name="Surface_Tension" ColumnName="Surface_Tension" />
+          <ScalarProperty Name="Heat_of_Vaporization" ColumnName="Heat_of_Vaporization" />
+          <ScalarProperty Name="Heat_of_Combustion" ColumnName="Heat_of_Combustion" />
+          <ScalarProperty Name="Corrosivity" ColumnName="Corrosivity" />
+          <ScalarProperty Name="Viscosity" ColumnName="Viscosity" />
+          <ScalarProperty Name="Decomposition" ColumnName="Decomposition" />
+          <ScalarProperty Name="Auto_Ignition" ColumnName="Auto_Ignition" />
+          <ScalarProperty Name="Stability" ColumnName="Stability" />
+          <ScalarProperty Name="LogS" ColumnName="LogS" />
+          <ScalarProperty Name="Vapor_Pressure" ColumnName="Vapor_Pressure" />
+          <ScalarProperty Name="Vapor_Density" ColumnName="Vapor_Density" />
+          <ScalarProperty Name="Density" ColumnName="Density" />
+          <ScalarProperty Name="Flash_Point" ColumnName="Flash_Point" />
+          <ScalarProperty Name="Taste" ColumnName="Taste" />
+          <ScalarProperty Name="Odor" ColumnName="Odor" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="UN_Number" ColumnName="UN_Number" />
+          <ScalarProperty Name="RTECS_Number" ColumnName="RTECS_Number" />
+          <ScalarProperty Name="ICSC_Number" ColumnName="ICSC_Number" />
+          <ScalarProperty Name="pKa" ColumnName="pKa" />
+          <ScalarProperty Name="Melting_Point" ColumnName="Melting_Point" />
+          <ScalarProperty Name="Boiling_Point" ColumnName="Boiling_Point" />
+          <ScalarProperty Name="Biologic_Line_Notation" ColumnName="Biologic_Line_Notation" />
+          <ScalarProperty Name="Protein_Bound_3_D_Structures" ColumnName="Protein_Bound_3_D_Structures" />
+          <ScalarProperty Name="Crystal_Structure_Data" ColumnName="Crystal_Structure_Data" />
+          <ScalarProperty Name="CCDC_Number" ColumnName="CCDC_Number" />
+          <ScalarProperty Name="Crystal_Structures" ColumnName="Crystal_Structures" />
+          <ScalarProperty Name="Kovats_Retention_Index" ColumnName="Kovats_Retention_Index" />
+          <ScalarProperty Name="Physical_Description" ColumnName="Physical_Description" />
+          <ScalarProperty Name="UNII" ColumnName="UNII" />
+          <ScalarProperty Name="CAS" ColumnName="CAS" />
+          <ScalarProperty Name="MS_MS_Images" ColumnName="MS_MS_Images" />
+          <ScalarProperty Name="MS_MS_Fields" ColumnName="MS_MS_Fields" />
+          <ScalarProperty Name="MS_MS" ColumnName="MS_MS" />
+          <ScalarProperty Name="GC_MS_Images" ColumnName="GC_MS_Images" />
+          <ScalarProperty Name="GC_MS_Fields" ColumnName="GC_MS_Fields" />
+          <ScalarProperty Name="GC_MS" ColumnName="GC_MS" />
+          <ScalarProperty Name="Spectral_Properties" ColumnName="Spectral_Properties" />
+          <ScalarProperty Name="EC_Number" ColumnName="EC_Number" />
+          <ScalarProperty Name="C3D_Status" ColumnName="3D_Status" />
+          <ScalarProperty Name="Classification" ColumnName="Classification" />
+          <ScalarProperty Name="NLM_Curated_PubMed_Citations" ColumnName="NLM_Curated_PubMed_Citations" />
+          <ScalarProperty Name="Depositor_Provided_PubMed_Citations" ColumnName="Depositor_Provided_PubMed_Citations" />
+          <ScalarProperty Name="Populations_at_Special_Risk" ColumnName="Populations_at_Special_Risk" />
+          <ScalarProperty Name="Non_Human_Toxicity_Excerpts" ColumnName="Non_Human_Toxicity_Excerpts" />
+          <ScalarProperty Name="Human_Toxicity_Excerpts" ColumnName="Human_Toxicity_Excerpts" />
+          <ScalarProperty Name="Antidote_and_Emergency_Treatment" ColumnName="Antidote_and_Emergency_Treatment" />
+          <ScalarProperty Name="Interactions" ColumnName="Interactions" />
+          <ScalarProperty Name="Toxicological_Information" ColumnName="Toxicological_Information" />
+          <ScalarProperty Name="Toxicity" ColumnName="Toxicity" />
+          <ScalarProperty Name="Regulatory_Information" ColumnName="Regulatory_Information" />
+          <ScalarProperty Name="Disposal_Methods" ColumnName="Disposal_Methods" />
+          <ScalarProperty Name="Accidental_Release_Measures" ColumnName="Accidental_Release_Measures" />
+          <ScalarProperty Name="Safety_and_Hazards" ColumnName="Safety_and_Hazards" />
+          <ScalarProperty Name="Identification" ColumnName="Identification" />
+          <ScalarProperty Name="Absorption" ColumnName="Absorption" />
+          <ScalarProperty Name="Substances_by_Category" ColumnName="Substances_by_Category" />
+          <ScalarProperty Name="Related_Substances" ColumnName="Related_Substances" />
+          <ScalarProperty Name="Substances" ColumnName="Substances" />
+          <ScalarProperty Name="Related_Compounds" ColumnName="Related_Compounds" />
+          <ScalarProperty Name="Parent_Compound" ColumnName="Parent_Compound" />
+          <ScalarProperty Name="Related_Compounds_with_Annotation" ColumnName="Related_Compounds_with_Annotation" />
+          <ScalarProperty Name="Related_Records" ColumnName="Related_Records" />
+          <ScalarProperty Name="LogP" ColumnName="LogP" />
+          <ScalarProperty Name="Solubility" ColumnName="Solubility" />
+          <ScalarProperty Name="Experimental_Properties" ColumnName="Experimental_Properties" />
+          <ScalarProperty Name="Topological_Polar_Surface_Area" ColumnName="Topological_Polar_Surface_Area" />
+          <ScalarProperty Name="Monoisotopic_Mass" ColumnName="Monoisotopic_Mass" />
+          <ScalarProperty Name="Exact_Mass" ColumnName="Exact_Mass" />
+          <ScalarProperty Name="XLogP3" ColumnName="XLogP3" />
+          <ScalarProperty Name="Molecular_Formula" ColumnName="Molecular_Formula" />
+          <ScalarProperty Name="Molecular_Weight" ColumnName="Molecular_Weight" />
+          <ScalarProperty Name="Computed_Properties" ColumnName="Computed_Properties" />
+          <ScalarProperty Name="Chemical_and_Physical_Properties" ColumnName="Chemical_and_Physical_Properties" />
+          <ScalarProperty Name="Depositor_Supplied_Synonyms" ColumnName="Depositor_Supplied_Synonyms" />
+          <ScalarProperty Name="MeSH_Synonyms" ColumnName="MeSH_Synonyms" />
+          <ScalarProperty Name="Synonyms" ColumnName="Synonyms" />
+          <ScalarProperty Name="Other_Identifiers" ColumnName="Other_Identifiers" />
+          <ScalarProperty Name="Canonical_SMILES" ColumnName="Canonical_SMILES" />
+          <ScalarProperty Name="InChI_Key" ColumnName="InChI_Key" />
+          <ScalarProperty Name="InChI" ColumnName="InChI" />
+          <ScalarProperty Name="IUPAC_Name" ColumnName="IUPAC_Name" />
+          <ScalarProperty Name="Computed_Descriptors" ColumnName="Computed_Descriptors" />
+          <ScalarProperty Name="Record_Description" ColumnName="Record_Description" />
+          <ScalarProperty Name="Record_Title" ColumnName="Record_Title" />
+          <ScalarProperty Name="Names_and_Identifiers" ColumnName="Names_and_Identifiers" />
+          <ScalarProperty Name="C2D_Structure" ColumnName="2D_Structure" />
+          <ScalarProperty Name="SAFE_DESC" ColumnName="SAFE_DESC" />
+          <ScalarProperty Name="HS_CODE" ColumnName="HS_CODE" />
+          <ScalarProperty Name="CHINESE_ALIAS" ColumnName="CHINESE_ALIAS" />
+          <ScalarProperty Name="CHINESE" ColumnName="CHINESE" />
+          <ScalarProperty Name="Pub_CID" ColumnName="Pub_CID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_MessageSetting">
+      <EntityTypeMapping TypeName="ChemCloud.Model.MessageSetting">
+        <MappingFragment StoreEntitySet="ChemCloud_MessageSetting">
+          <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="Languagetype" ColumnName="Languagetype" />
+          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+          <ScalarProperty Name="MessageNameId" ColumnName="MessageNameId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_TK">
+      <EntityTypeMapping TypeName="ChemCloud.Model.TK">
+        <MappingFragment StoreEntitySet="ChemCloud_TK">
+          <ScalarProperty Name="ReasonType" ColumnName="ReasonType" />
+          <ScalarProperty Name="SellerUserId" ColumnName="SellerUserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="TKDate" ColumnName="TKDate" />
+          <ScalarProperty Name="TKType" ColumnName="TKType" />
+          <ScalarProperty Name="TKInstruction" ColumnName="TKInstruction" />
+          <ScalarProperty Name="TKAmont" ColumnName="TKAmont" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="TKResion" ColumnName="TKResion" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_OrderShip">
+      <EntityTypeMapping TypeName="ChemCloud.Model.OrderShip">
+        <MappingFragment StoreEntitySet="ChemCloud_OrderShip">
+          <ScalarProperty Name="Master" ColumnName="Master" />
+          <ScalarProperty Name="LabelImage" ColumnName="LabelImage" />
+          <ScalarProperty Name="TrackNumber" ColumnName="TrackNumber" />
+          <ScalarProperty Name="TrackFormId" ColumnName="TrackFormId" />
+          <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_THImage">
+      <EntityTypeMapping TypeName="ChemCloud.Model.THImageInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_THImage">
+          <ScalarProperty Name="THMessageId" ColumnName="THMessageId" />
+          <ScalarProperty Name="THImage" ColumnName="THImage" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_THMessage">
+      <EntityTypeMapping TypeName="ChemCloud.Model.THMessageInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_THMessage">
+          <ScalarProperty Name="ReturnName" ColumnName="ReturnName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="MessageAttitude" ColumnName="MessageAttitude" />
+          <ScalarProperty Name="MessageDate" ColumnName="MessageDate" />
+          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+          <ScalarProperty Name="THId" ColumnName="THId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_Product_Analysis">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductAnalysis">
+        <MappingFragment StoreEntitySet="ChemCloud_Product_Analysis">
+          <ScalarProperty Name="AnalysisAttachments" ColumnName="AnalysisAttachments" />
+          <ScalarProperty Name="AnalysisStatus" ColumnName="AnalysisStatus" />
+          <ScalarProperty Name="Memberid" ColumnName="Memberid" />
+          <ScalarProperty Name="ServiceCharge" ColumnName="ServiceCharge" />
+          <ScalarProperty Name="ReportFormat" ColumnName="ReportFormat" />
+          <ScalarProperty Name="ReturnSampleAddress" ColumnName="ReturnSampleAddress" />
+          <ScalarProperty Name="ResidualSampleTreatment" ColumnName="ResidualSampleTreatment" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="ProjectAnalysisCycle" ColumnName="ProjectAnalysisCycle" />
+          <ScalarProperty Name="ProjectAnalysisCost" ColumnName="ProjectAnalysisCost" />
+          <ScalarProperty Name="DepthAnalysisCycle" ColumnName="DepthAnalysisCycle" />
+          <ScalarProperty Name="DepthAnalysis" ColumnName="DepthAnalysis" />
+          <ScalarProperty Name="GeneralAnalyCycle" ColumnName="GeneralAnalyCycle" />
+          <ScalarProperty Name="GeneralAnaly" ColumnName="GeneralAnaly" />
+          <ScalarProperty Name="StorageCondition" ColumnName="StorageCondition" />
+          <ScalarProperty Name="DangerItemDescribe" ColumnName="DangerItemDescribe" />
+          <ScalarProperty Name="DangerItem" ColumnName="DangerItem" />
+          <ScalarProperty Name="SampleColor" ColumnName="SampleColor" />
+          <ScalarProperty Name="CharacterItemDescribe" ColumnName="CharacterItemDescribe" />
+          <ScalarProperty Name="CharacterItem" ColumnName="CharacterItem" />
+          <ScalarProperty Name="KnownInformation" ColumnName="KnownInformation" />
+          <ScalarProperty Name="RelatedData" ColumnName="RelatedData" />
+          <ScalarProperty Name="SampleSource" ColumnName="SampleSource" />
+          <ScalarProperty Name="SampleSpecifications" ColumnName="SampleSpecifications" />
+          <ScalarProperty Name="SampleQuantity" ColumnName="SampleQuantity" />
+          <ScalarProperty Name="SampleName" ColumnName="SampleName" />
+          <ScalarProperty Name="ClientAddress" ColumnName="ClientAddress" />
+          <ScalarProperty Name="ClientFax" ColumnName="ClientFax" />
+          <ScalarProperty Name="ClientFixedLine" ColumnName="ClientFixedLine" />
+          <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+          <ScalarProperty Name="ClientMobilePhone" ColumnName="ClientMobilePhone" />
+          <ScalarProperty Name="ClientLinkMan" ColumnName="ClientLinkMan" />
+          <ScalarProperty Name="ReportHeader" ColumnName="ReportHeader" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_ProductsDS">
+      <EntityTypeMapping TypeName="ChemCloud.Model.ProductsDS">
+        <MappingFragment StoreEntitySet="ChemCloud_ProductsDS">
+          <ScalarProperty Name="DSTime" ColumnName="DSTime" />
+          <ScalarProperty Name="DSStatus" ColumnName="DSStatus" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_IWantToBuy">
+      <EntityTypeMapping TypeName="ChemCloud.Model.IWantToBuy">
+        <MappingFragment StoreEntitySet="ChemCloud_IWantToBuy">
+          <ScalarProperty Name="TypeOfCurrency" ColumnName="TypeOfCurrency" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="PurchaseNum" ColumnName="PurchaseNum" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_IWantToSupply">
+      <EntityTypeMapping TypeName="ChemCloud.Model.IWantToSupply">
+        <MappingFragment StoreEntitySet="ChemCloud_IWantToSupply">
+          <ScalarProperty Name="TypeOfCurrency" ColumnName="TypeOfCurrency" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="BidDate" ColumnName="BidDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="LatestDeliveryTime" ColumnName="LatestDeliveryTime" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="IWantToBuyID" ColumnName="IWantToBuyID" />
+          <ScalarProperty Name="PurchaseNum" ColumnName="PurchaseNum" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_orderAddresses">
+      <EntityTypeMapping TypeName="ChemCloud.Model.orderAddressInfo">
+        <MappingFragment StoreEntitySet="ChemCloud_orderAddresses">
+          <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+          <ScalarProperty Name="IsQuick" ColumnName="IsQuick" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ShipTo" ColumnName="ShipTo" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChemCloud_IWantToBuy_Orders">
+      <EntityTypeMapping TypeName="ChemCloud.Model.IWantToBuy_Orders">
+        <MappingFragment StoreEntitySet="ChemCloud_IWantToBuy_Orders">
+          <ScalarProperty Name="LogisticsDes" ColumnName="LogisticsDes" />
+          <ScalarProperty Name="LogisticsType" ColumnName="LogisticsType" />
+          <ScalarProperty Name="LogisticsNum" ColumnName="LogisticsNum" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="IWantToSupplyID" ColumnName="IWantToSupplyID" />
+          <ScalarProperty Name="PurchaseNum" ColumnName="PurchaseNum" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

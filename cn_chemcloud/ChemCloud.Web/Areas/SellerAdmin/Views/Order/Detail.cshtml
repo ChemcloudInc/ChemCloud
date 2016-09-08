@@ -1,0 +1,485 @@
+﻿@using ChemCloud.Core;
+@model ChemCloud.Model.OrderInfo
+
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/Region.js"></script>
+<script src="~/Scripts/RegionBind.js"></script>
+<style>
+    .table-hd {
+        border-bottom: 2px solid #3480eb;
+    }
+
+    .order-info {
+        border: 2px solid #ccc;
+        padding: 0 15px 15px;
+        background: #fff;
+        border-radius: 10px;
+    }
+
+        .order-info p {
+            line-height: 20px;
+        }
+</style>
+<div class="container" style="padding-top:21px;">
+    <ul class="nav nav-tabs-custom clearfix">
+
+
+
+        @if (!string.IsNullOrEmpty(Request.QueryString["updatePrice"]))
+        {
+            <li class="active"><a>改价</a></li>
+        }
+        else
+        {
+            <li class="active"><a>查看</a></li>
+        }
+        <li><a href="/selleradmin/order/Management">返回所有订单</a></li>
+    </ul>
+
+    <h3 class="table-hd">产品清单</h3>
+    <table id="tbOrderItems" class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align:center;">产品</th>
+                <th style="text-align:center;">包装规格</th>
+                <th style="text-align:center;">等级</th>
+                <th style="text-align:center;">纯度</th>
+                <th style="text-align:center;">数量</th>
+                <th style="text-align:center;">金额</th>
+                <th style="text-align:center;">货币</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderItem in Model.OrderItemInfo)
+            {
+                <tr class="product" id="@orderItem.Id">
+                    <td style="text-align:center;">
+                        @*<img width="50" height="50" title="" src="https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=@orderItem.Pub_CID&t=l" />*@
+                        @orderItem.ProductName
+                    </td>
+                    <td style="text-align:center;">@orderItem.PackingUnit</td>
+                    <td style="text-align:center;">@orderItem.SpecLevel</td>
+                    <td style="text-align:center;">@orderItem.Purity</td>
+                    <td style="text-align:center;">@orderItem.Quantity</td>
+                    <td class="ftx-04" style="text-align:center;">
+                        @if (Model.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.WaitPay)
+                        { <input class="SalePrice" value="@orderItem.SalePrice.ToString("F2")" style="width:80px; text-align:center;" /> }
+                        else
+                        {  <input class="SalePrice" value="@orderItem.SalePrice.ToString("F2")" style="width:80px; text-align:center;" disabled="disabled" />}
+
+                    </td>
+                    <td class="ftx-04" style="text-align:center;">@Model.CoinTypeName</td>
+                </tr>
+            }
+            <tr>
+                <td align="right" colspan="7">
+                    <b style="margin-right:30px;">
+                        产品总金额：<span class="ftx-04">
+                            <span id="spanproductamount">
+                                @Model.ProductTotalAmount.ToString("F2")
+                            </span>&nbsp;@Model.CoinTypeName
+                        </span>
+                    </b>
+
+                    <input type="hidden" id="hdorderid" value="@Model.Id" />
+                    <input type="hidden" id="hdInsurancefee" value="@Model.Insurancefee.ToString("F2")" />
+                    <input type="hidden" id="hdTransactionfee" value="@Model.Transactionfee.ToString("F2")" />
+                    <input type="hidden" id="hdCounterfee" value="@Model.Counterfee.ToString("F2")" />
+                    <input type="hidden" id="hdFreight" value="@Model.Freight.ToString("F2")" />
+
+                    @if (Model.Insurancefee.ToString("F2") != "0.00")
+                    {
+                        <span>保险费：</span>
+                        <span class="ftx-04" style="margin-right: 27px;">@Model.Insurancefee.ToString("F2")&nbsp;@Model.CoinTypeName</span>
+                    }
+                    @if (Model.Transactionfee.ToString("F2") != "0.00")
+                    {
+                        <span>交易费：</span>
+                        <span class="ftx-04">@Model.Transactionfee.ToString("F2")&nbsp;@Model.CoinTypeName</span>
+                    }
+                    @if (Model.Counterfee.ToString("F2") != "0.00")
+                    {
+                        <span> 手续费：</span>
+                        <span class="ftx-04">@Model.Counterfee.ToString("F2")&nbsp;@Model.CoinTypeName</span>
+                    }
+                    运费：
+                    @if (Model.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.WaitPay && (bool)ViewBag.UpdatePrice == true)
+                    {
+                        <input class="ftx-04" type="text" class="text-order no-m" id="freight" value="@Model.Freight.ToString("F2")" />
+                        <span class=" btn btn-warning btn-xs" id="updateFreight" itemid="@Model.Id">确认改价</span>
+                    }
+                    else
+                    {
+                        <span class="ftx-04"> @Model.Freight.ToString("F2")</span>
+                    }
+                    <b>实付金额：<span class="ftx-04"><span id="spantotalamount">@Model.OrderTotalAmount.ToString("F2")</span>&nbsp;@Model.CoinTypeName</span></b>
+
+                    @if (Model.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.WaitPay)
+                    {  <input type="button" value="提交修改" id="saveprice" style="background-color:#3498db;border-color:#3498db;color:#ffffff;" />}
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h3 class="table-hd">
+        订单信息
+        @if (Model.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.WaitPay || Model.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.WaitDelivery)
+        {
+            <a class="order-info-resive" href="javascript:void(0)">修改</a>
+        }
+    </h3>
+    <p style="margin: 15px 0px -2px 30px;"><img src="~/Areas/SellerAdmin/Content/Icon/jiantou.png" /></p>
+    <div class="order-info">
+        <div class="caption">
+            <p>订 单 号：@Model.Id</p>
+            <p>下单时间：@Model.OrderDate.ToString("yyyy-MM-dd HH:mm:ss")</p>
+            <p class="ftx-04">
+                @if (Model.IsBehalfShip == "1" && string.IsNullOrEmpty(Model.BehalfShipNumber))
+                {
+                    <span>订单状态：代发货未处理</span>
+                }
+                else
+                {
+                    <span>订单状态：@Model.OrderStatus.ToDescription()</span>
+                    if ((int)Model.OrderStatus == 4)
+                    {
+                        <span>Model.CloseReason</span>
+                    }
+                }
+
+            </p>
+            <p>下单会员：@Model.UserName</p>
+        </div>
+        <div class="caption">
+            <p>收 货 人：<span id="spShipTo">@Model.ShipTo</span></p>
+            <p>地    址：@Model.RegionFullName <span id="spAddress">@Model.Address</span></p>
+            <input type="hidden" id="hidRegionIdPath" />
+            <input type="hidden" id="hidTopRegionId" value="@Model.TopRegionId" />
+            <input type="hidden" id="hidRegionId" value="@Model.RegionId" />
+            <input type="hidden" id="hidCityId" value="0" />
+            <p>手机 #：<span id="spCellPhone">@Model.CellPhone</span></p>
+            @*<p>买家备注：@Model.UserRemark</p>*@
+        </div>
+        <div class="caption">
+            <p>支付方式：  @Model.PaymentTypeName @Model.PayRemark</p>
+            @if (Model.PayDate != null && Model.OrderStatus != ChemCloud.Model.OrderInfo.OrderOperateStatus.WaitPay)
+            {
+                if (@Model.OrderTotalAmount == 0)
+                {
+                    <p>支付方式： <span>积分支付</span></p>
+                }
+                else if (string.IsNullOrEmpty(Model.PaymentTypeName))
+                {
+                    <p>支付方式：平台确认收款  【备注：@{@Model.PayRemark}】<<<</p>
+                }
+            }
+            @if (!string.IsNullOrEmpty(Model.ExpressCompanyName))
+            {
+                <p>物流公司：@Model.ShowExpressCompanyName</p>
+            }
+            @if (!string.IsNullOrEmpty(Model.ShipOrderNumber))
+            {
+                <p>快递单号：@Model.ShipOrderNumber</p>
+            }
+        </div>
+
+        @if (Model.IsBehalfShip == "1")
+        {
+            <div class="caption">
+                <p class="ftx-04">发货方式：平台代发</p>
+                <p class="ftx-04">代发地址：@Model.Replacedeliveraddress</p>
+            </div>
+        }
+        else
+        {
+            <div class="caption">
+                <p class="ftx-04">发货方式：自发</p>
+            </div>
+        }
+        <div class="caption">
+            <p>发票信息</p>
+
+            @if (Model.InvoiceType != ChemCloud.Model.InvoiceType.None)
+            {
+                <ul>
+                    <li>发票类型：@Model.InvoiceType.ToDescription()</li>
+                    <li>名称：@Model.InvoiceTitle</li>
+                    @if (Model.InvoiceType == ChemCloud.Model.InvoiceType.SpecialTicket)
+                    {
+                        <li>纳税人识别号：@Model.InvoiceContext</li>
+                        <li>电话：@Model.SellerPhone</li>
+                        <li>开户行及账号：@Model.SellerRemark</li>
+                        <li>地址：@Model.SellerAddress</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <ul>
+                    <li>不需要开发票</li>
+                </ul>
+            }
+        </div>
+
+        <div class="caption">
+            <p>COA报告</p>
+
+            @if (!string.IsNullOrEmpty(ViewBag.COA))
+            {
+                <ul>
+                    <li><a href="@ViewBag.COA" target="_blank">点击查看</a></li>
+                </ul>
+            }
+            else
+            {
+                <ul>
+                    <li>无ＣＯＡ报告</li>
+                </ul>
+            }
+        </div>
+
+    </div>
+
+    <h3 class="table-hd">物流跟踪</h3>
+    <table class="table table-bordered" id="tbExpressData"></table>
+
+    <h3 class="table-hd">操作历史</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>操作者</th>
+                <th>时间</th>
+                <th>描述</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderOperationLog in Model.OrderOperationLogInfo)
+            {
+                <tr>
+                    <td>@orderOperationLog.Operator</td>
+                    <td>@orderOperationLog.OperateDate</td>
+                    <td>@orderOperationLog.OperateContent</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+<script type="text/javascript">
+    var isPosting=false;
+    $(function () {
+
+        var expressCompanyName="@Model.ExpressCompanyName";
+        var shipOrderNumber="@Model.ShipOrderNumber" ;
+
+        if(expressCompanyName!=""&&shipOrderNumber!="")
+        {
+            $.post('../GetExpressData', { expressCompanyName:expressCompanyName, shipOrderNumber:shipOrderNumber}, function (result) {
+                var html="";
+                if(result!=null){
+                    var objdata = result.ExpressContentCN;
+                    var obj = jQuery.parseJSON(objdata);
+
+                    var data = obj;
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<tr><td>' + data[i].time + '</td>\
+                             <td>' + data[i].context + '</td>';
+                        html += '</tr>';
+                    }
+                }
+                if (html == "") {
+                    html += '<tr><td colspan="3">该单号暂无物流进展，请稍后再试，或检查公司和单号是否有误。</td></tr>';
+                }
+                $("#tbExpressData").html(html);
+            });
+        }else{
+            $("#tbExpressData").html("<tr><td colspan='3'>该单号暂无物流进展，请稍后再试，或检查公司和单号是否有误。</td></tr>");
+        }
+
+        // 物流信息
+
+
+        $('.btn-xs.ss').click(function () {
+            //$(this).fadeOut(200);
+            var itemid = $(this).attr("itemid");
+            var discountAmount = $("#inputDiscount" + itemid).val();
+            if ($("#updateWay").val() == 2)
+                discountAmount = -discountAmount;
+            if(isNaN(discountAmount)||discountAmount.length==0)
+            {
+                $.dialog.errorTips("请输入正确金额！");
+                return false;
+            }
+            if ($("#updateWay").val() == 1 && isNaN($(this).parent().next().html() < discountAmount))
+                $.dialog.errorTips("减价金额不能大于实付金额！");
+            var url='@Url.Action("UpdateItemDiscountAmount")';
+            var loading = showLoading();
+            if(isPosting) return;
+            isPosting=true;
+            $.post(url, { orderItemId: itemid, discountAmount: discountAmount }, function (result) {
+                loading.close();
+                isPosting=false;
+                if (result.success) {
+                    $.dialog.succeedTips("改价成功！",function(){location.href = location.href;});
+                    // location.href = "./@Model.Id/?updatePrice="+true;
+
+                }
+                else
+                    $.dialog.errorTips("操作失败"+result.msg);
+            });
+        });
+
+        /*改价*/
+        $("#saveprice").click(function(){
+            var loading = showLoading();
+            var jsonbill = "";
+            jsonbill += "{\"orderid\":\""+$("#hdorderid").val()+"\",\"totalproductamount\":\""+$("#spanproductamount").html()+"\",";
+            jsonbill += "\"_orderpriceitem\":[";
+            $(".product").each(function () {
+                jsonbill += "{";
+                jsonbill += "\"orderitemid\":\"" + $(this).attr('id') + "\",";
+                jsonbill += "\"price\":\"" +Number( $(this).children('td').eq(5).children('input').val()).toFixed(2) + "\"";
+                jsonbill += "},";
+            });
+            jsonbill = jsonbill.substring(0, jsonbill.length - 1);
+            jsonbill += "]}";
+            var url='@Url.Action("Updateorderprice")';
+            $.post(url, { strjson: jsonbill }, function (result) {
+                loading.close();
+                if (result.success) {
+                    $.dialog.succeedTips("改价成功！" );
+                }
+                else
+                    $.dialog.errorTips("操作失败"+result.msg);
+            });
+        });
+
+        $("#updateFreight").click(function () {
+            var frieght = $("#freight").val();
+            if(frieght<0)
+                $.dialog.errorTips("运费金额不能为负！");
+            var loading = showLoading();
+            $.post('@Url.Action("UpdateOrderFrieght")', { orderId: @Model.Id, frieght: frieght }, function (result) {
+                loading.close();
+                if (result.success) {
+                    $.dialog.succeedTips("改价成功！",function(){location.href = location.href;});
+
+                }
+                else
+                    $.dialog.errorTips("操作失败" + result.msg);
+            });
+        });
+        $.post('@Url.Action("GetRegionIdPath")', { regionId: "@Model.RegionId" }, function (result) {
+            $("#hidRegionIdPath").val(result);
+        });
+
+        // 修改收货地址
+        $('.order-info-resive').click(function () {
+            $.dialog({
+                title: '修改收货地址',
+                lock: true,
+                id: 'orderInfoResive',
+                content: ['<div class="dialog-form">',
+                    '<div class="form-group">',
+                        '<label class="label-inline" for="">收货人</label>',
+                        '<input class="form-control input-sm" type="text" id="txtShopTo" value="' + $("#spShipTo").html() + '">',
+                    '</div>',
+                    '<div class="form-group" id="regionAddr">',
+                        '<label class="label-inline" for="">地址</label>',
+                        '<select id="region1" class="form-control input-sm select-sort"><option></option></select>',
+                        '<select id="region2" class="form-control input-sm select-sort"><option></option></select>',
+                        '<select id="region3" class="form-control input-sm select-sort"><option></option></select>',
+                        '<br/>',
+                        '<input class="form-control input-sm input-only-line" type="text" id="txtAddress" value="' + $("#spAddress").html() + '">',
+                    '</div>',
+                    '<div class="form-group">',
+                        '<label class="label-inline" for="">手机 #</label>',
+                        '<input class="form-control input-sm" type="text" id="txtCellPhone" value="' + $("#spCellPhone").html() + '">',
+                    '</div>',
+
+                '</div>'].join(''),
+                padding: '20px 10px',
+                button: [
+               {
+                   name: '确认修改',
+                   callback: function () {
+                       if (isSelectAddr($('#region1'),$('#region2'),$('#region3'))){
+                           UpdateAddress();
+                       }
+                       else{
+                           $('#regionAddr').css({ border: '1px solid #f60' });
+                           return false
+                       }
+                   },
+                   focus: true
+               }]
+            });
+            setProvince($('#region1'), $('#region2'), $('#region3'));
+            InitRegion($('#region1'), $('#region2'), $('#region3'),$('#hidRegionIdPath').val());
+            /*
+            $('#region1,#region2,#region3').himallLinkage({
+                url: '../getRegion',
+                enableDefaultItem: true,
+                defaultItemsText: '全部',
+                defaultSelectedValues: $("#hidRegionIdPath").val().split(','),
+                onChange: function (level, value, text) {
+                    if (level == 0)
+                    {$("#hidTopRegionId").val(value);
+                        $('#hidCityId').val('0');
+                        $("#hidRegionId").val('0');
+                    }
+                    if (level==1)
+                    {
+                        $('#hidCityId').val(value);
+                        $("#hidRegionId").val('0');
+                    }
+                    if (level == 2)
+                        $("#hidRegionId").val(value);
+                }
+            });*/
+        });
+
+        /*修改订单总价*/
+        $(".SalePrice").live("blur",function(){
+            var price=$.trim($(this).val());
+            var testprice = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/;
+            if (!testprice.test(price)) {
+                $.dialog.errorTips('价格必须为数字！');
+                return false;
+            }
+            var productprice=0;
+            $(".product").each(function(){
+
+                var ppp=$.trim($(this).children("td").eq(5).children("input").val());
+
+                productprice=productprice+Number(ppp);
+            });
+
+            $("#spanproductamount").html(productprice.toFixed(2));
+
+            $("#spantotalamount").html((Number(productprice)+Number($("#hdInsurancefee").val())
+                +Number($("#hdTransactionfee").val())
+                +Number($("#hdCounterfee").val())
+                +Number($("#hdFreight").val())).toFixed(2));
+
+        });
+    });
+
+    function UpdateAddress() {
+        var loading = showLoading();
+        $.post('../UpdateAddress', {
+            orderId: "@Model.Id", shipTo: $("#txtShopTo").val(), cellPhone: $("#txtCellPhone").val(),
+            topRegionId: $("#hidTopRegionId").val(), regionId: $("#region3").val()=='0'?$('#region2').val():$("#region3").val(), address: $("#txtAddress").val()
+        }, function (result) {
+            loading.close();
+            if (result.success) {
+                $.dialog.succeedTips("操作成功！",function(){window.location.reload();});
+            }
+            else
+                $.dialog.errorTips("操作失败");
+        });
+    }
+</script>

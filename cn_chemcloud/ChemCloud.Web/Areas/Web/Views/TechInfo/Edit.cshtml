@@ -1,0 +1,132 @@
+﻿@using ChemCloud.Core;
+@model ChemCloud.Model.TechnicalInfo
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "编辑技术资料";
+}
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script src="~/Areas/Web/Scripts/EditTechInfo.js"></script>
+<script>
+    
+</script>
+<div class="box1 lh24">
+    <div class="title bot-border" style="margin-top:20px;">
+        <h3 class="title_txt cur">技术资料明细</h3>
+        <h3><a style="margin-top: 9px;margin-left: 35px;display: inline-block;" href="./Management">技术资料列表</a></h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            <div class="form">
+                <div class="item" id="select-regName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>标题：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techTitle" name="techTitle" value="@Model.Title"  class="text" style="width:570px;height:20px">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item" id="select-Name">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>作者：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techAuthor" name="techAuthor" value="@Model.Author" class="text" style="width:570px;height:20px">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-upName">
+                    <span class="label">联系电话:</span>
+                    <div class="fl">
+                        <input type="text" id="techTel" name="techTel" class="text" value="@Model.Tel" style="width:570px;height:20px">
+                    </div>
+                </div>
+                <div class="item" id="select-upName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>邮箱：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techEmail" name="techEmail" class="text" value="@Model.Email" style="width:570px;height:20px">
+                            @*<i class="i-name"></i>*@
+                            <label id="techEmail_info" style="display:none;" class="focus">请输入邮箱</label>
+                            <label id="techEmail_error" style="display:none; color:red" class="error">请输入邮箱</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="realName">
+                    <span class="label">语言版本：</span>
+                    <div class="o-intelligent-regName">
+                        <div class="fl item-ifo">
+                            <select id="LanguageType" style="width:600px;height:30px"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="realName">
+                    <div class="item" id="realName">
+                        <span class="label">技术资料内容：</span>
+                        <div class="fl item-ifo">
+                            <textarea id="techContent" name="techContent" style="width:600px;height:400px">@Model.TechContent</textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="Id" value="@Model.Id" />
+                <input type="hidden" id="Language" value="@Model.LanguageType" />
+                          
+                <div class="item">
+                    <div class="fl" style="padding-left:100px;">
+                        <input type="button" id="Save" class="btn-5" style="cursor:pointer" value="保存修改">
+                        @if (@ViewBag.attachmentCount == 0)
+                        {
+                            <input type="button" id="NewUploadFile" class="btn-5" onclick="NewUploadFile()" value="添加附件">
+                        }
+                        @if (@ViewBag.attachmentCount != 0)
+                        {
+                            @*var parentId = 0;
+                            var attachmentName = 0;
+                            var type = "edit";
+                            var link_href = "/TechInfo/Detail";
+                            <a href=@link_href class="btn-5">编辑附件</a>*@
+                            <input type="button" onclick="NewUploadFile()" class="btn-5" value="编辑附件">
+                        }
+                    </div>
+                </div>
+            </div>
+            <span class="clr"></span>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+<script>
+
+    function NewUploadFile() {
+        art.dialog({
+            id: 'testID',
+            content: '确定需要上传附件吗?',
+            button: [
+                {
+                    name: '确定',
+                    callback: function () {
+                        var parentId = $("#Id").val();
+                        var attachmentName = $("#techTitle").val();
+                        var type = "add";
+                        window.location.href = "/TechInfo/EditUploadfile?parentId=" + parentId + '&attachmentName=' + attachmentName + '&type=' + type;
+                    }
+                },
+                {
+                    name: '取消',
+                    callback: function () {
+                        location.href = './Management';
+                    }
+                }
+            ]
+        });
+
+    }
+
+</script>
+
+

@@ -1,0 +1,591 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/onlinetalk/css/chat.css" rel="stylesheet" />
+    <script src="~/Content/onlinetalk/js/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/onlinetalk/js/chat.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+    <script type="text/javascript">
+        $(function () {
+            $(".content").css("height", document.documentElement.clientHeight);
+            getUser(true);
+            setInterval("interval()", 10000);
+        })
+
+        var interval = function () {
+            getChat();
+            getUser(false);
+
+        }
+
+        var getUser = function (flag) {
+            $.post('/chat/GetUser', {}, function (result) {
+                if (result != "") {
+                    html = "";
+                    var isuse = true;
+                    for (var i = 0; i < result.length; i++) {
+                        if ($(".choosed").text() == result[i].UserName) {
+                            html += " <li class='choosed'><a href='javascript:;' class='chat03_name' id='firstCheck' onclick='chat(" + result[i].UserId + ",this)'>" + result[i].UserName + "</a>";
+                            isuse = false;
+                        }
+                        if (isuse) {
+                            if (i == 0) {
+                                html += " <li ><a href='javascript:;' class='chat03_name' id='firstCheck' onclick='chat(" + result[i].UserId + ",this," + flag + ")'>" + result[i].UserName + "</a>";
+                            } else {
+                                html += " <li ><a href='javascript:;' class='chat03_name'  onclick='chat(" + result[i].UserId + ",this,false)'>" + result[i].UserName + "</a>";
+                            }
+                        }
+                        if (result[i].State == 2) {
+                            html += "<img src='/Areas/Web/Images/hongdian.png' /></li>";
+                        } else {
+                            html += "<span class='close_btn'  onclick='closethis(" + result[i].UserId + ")'></span></li>";
+                        }
+                        isuse = true;
+                    }
+                    $("#Groups").html(html);
+
+                    $(".chat03_content li").mouseover(function () {
+                        $(this).addClass("hover").siblings().removeClass("hover")
+                    }).mouseout(function () {
+                        $(this).removeClass("hover").siblings().removeClass("hover")
+                    })
+                    if (flag) {
+                        $("#firstCheck").click();
+                    }
+                } else {
+                    $("#Groups").html("");
+                }
+            });
+
+        }
+
+        var chat = function (id, bc, flag) {
+            var b = $(bc).index() + 1;
+            bc = $(bc).parent();
+            $(bc).addClass("choosed").siblings().removeClass("choosed");
+            a = b, d = $(bc).find(".chat03_name").text(), $("#talk-to").text($(bc).children(".chat03_name").text()), $(".mes" + b).show().siblings().hide();
+            $("#SendId").val(id);
+            $.post('/chat/UpdateUserState', { SendUserId: id, state: 1 }, function (result) {
+                if (result) {
+                    if (flag) {
+                        GetStepChat();
+                    } else {
+                        getUser(false);
+                        GetStepChat();
+                        pagenum = 1;
+                    }
+                }
+            })
+        }
+
+        function ConvertJSONDateToJSDateObject(JSONDateString) {
+            var date = new Date(parseInt(JSONDateString.replace("/Date(", "").replace(")/", ""), 10));
+            return date.getFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getDate() + "&nbsp;" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        }
+
+        var closethis = function (id) {
+            $.post('/chat/UpdateUserState', { SendUserId: id, state: -1 }, function (result) {
+                if (result) {
+                    getUser();
+                }
+            })
+        }
+        var pagenum = 1;
+        var pagecount = 0;
+        var lastpage = function () {
+            if (pagenum - 1 <= 0) {
+                alert("已经是第一页");
+            } else {
+                pagenum = pagenum - 1;
+                gethistory();
+            }
+        }
+
+        var nextpage = function () {
+            if (pagenum + 1 > pagecount) {
+                alert("已经是最后一页");
+            } else {
+                pagenum = pagenum + 1;
+                gethistory();
+            }
+
+        }
+
+        var endpage = function () {
+            pagenum = pagecount;
+            gethistory();
+        }
+
+        var indexpage = function () {
+            pagenum = 1;
+            gethistory();
+        }
+        var gethistory = function () {
+            $.post('/chat/GetPageCount', { SendUserId: $("#SendId").val() }, function (result) {
+                if (result.success) {
+                    pagecount = result.pagecount;
+                }
+            });
+            $("#chathistory").css("display", "block");
+            $("#ChatContent").css("display", "none");
+            $.post('/chat/List', { SendUserId: $("#SendId").val(), pagenum: pagenum }, function (result) {
+                if (result.success) {
+                    var html = "";
+                    html += '<div class="page"><a href="javascript:void(0)" onclick="indexpage()">首页</a><a  href="javascript:void(0)" onclick="lastpage()">上一页</a><a href="javascript:void(0)" onclick="nextpage()">下一页</a><a  href="javascript:void(0)" onclick="endpage()">末页</a></div>';
+                    for (var i = result.messages.length - 1; i >= 0 ; i--) {
+                        if (result.messages[i].SendUserId == $("#SendId").val()) {
+                            html += " <div class='message clearfix'><div class='wrap-text'><span class='clearfix h5'>" + $("#talk-to").html() + "</span><span>" + ConvertJSONDateToJSDateObject(result.messages[i].SendTime) + "</span><div>" + result.messages[i].MessageContent + "</div></div><div class='wrap-ri'><div clsss='clearfix'></div></div><div style='clear:both;'></div></div>";
+                        }
+                        else {
+                            html += " <div class='message clearfix'><div class='wrap-text'><span class='clearfix h5'>我</span><span>" + ConvertJSONDateToJSDateObject(result.messages[i].SendTime) + "</span><div>" + result.messages[i].MessageContent + "</div></div><div class='wrap-ri'><div clsss='clearfix'></div></div><div style='clear:both;'></div></div>";
+                        }
+                    }
+
+                    $("#chathistory").html(html);
+                }
+            });
+        }
+
+        var getnow = function () {
+            $("#chathistory").css("display", "none");
+            $("#ChatContent").css("display", "block");
+        }
+
+        var GetStepChat = function () {
+            $("#chathistory").css("display", "none");
+            $("#ChatContent").css("display", "block");
+            $.post('/chat/GetStepChat', { SendUserId: $("#SendId").val() }, function (result) {
+                if (result != "") {
+                    var html = "";
+                    for (var i = result.length - 1; i >= 0 ; i--) {
+                        if (result[i].SendUserId == $("#SendId").val()) {
+                            html += " <div class='message clearfix'><div class='wrap-text'><span class='clearfix h5'>" + $("#talk-to").html() + "</span><span>" + ConvertJSONDateToJSDateObject(result[i].SendTime) + "</span><div>" + result[i].MessageContent + "</div></div><div class='wrap-ri'><div clsss='clearfix'></div></div><div style='clear:both;'></div></div>";
+                        }
+                        else {
+                            html += " <div class='message clearfix'><div class='wrap-text'><span class='clearfix h5'>我</span><span>" + ConvertJSONDateToJSDateObject(result[i].SendTime) + "</span><div>" + result[i].MessageContent + "</div></div><div class='wrap-ri'><div clsss='clearfix'></div></div><div style='clear:both;'></div></div>";
+                        }
+                    }
+                    $("#ChatContent").html(html);
+                    $.post("/chat/UpdateMessageState", { SendUserId: $("#SendId").val() }, function (result) { });
+                    document.getElementById('ChatContent').scrollTop = document.getElementById('ChatContent').scrollHeight;
+                } else {
+                    $("#ChatContent").html("");
+                }
+            });
+
+        }
+
+
+
+        var getChat = function () {
+            $.post('/chat/GetChat', { SendUserId: $("#SendId").val() }, function (result) {
+                if (result != "") {
+                    var html = "";
+                    for (var i = 0; i < result.length; i++) {
+                        html += " <div class='message clearfix'><div class='wrap-text'><span class='clearfix h5'>" + $("#talk-to").html() + "</span><span>" + ConvertJSONDateToJSDateObject(result[i].SendTime) + "</span><div>" + result[i].MessageContent + "</div></div><div class='wrap-ri'><div clsss='clearfix'></div></div><div style='clear:both;'></div></div>";
+                    }
+                    $("#ChatContent").append(html);
+                    document.getElementById('ChatContent').scrollTop = document.getElementById('ChatContent').scrollHeight;
+                }
+            });
+            $.post("/chat/UpdateMessageState", { SendUserId: $("#SendId").val() }, function (result) { })
+        }
+
+        var Send = function () {
+            $.post('/Chat/SendChat', { ReviceUserId: $("#SendId").val(), content: $("#textarea").val() }, function (result) {
+                if (result) {
+                    var date = new Date();
+                    html = " <div class='message clearfix'><div class='wrap-text'><span class='clearfix h5'>我</span><span>" + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "&nbsp;" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "</span><div>" + $("#textarea").val() + "</div></div><div class='wrap-ri'><div clsss='clearfix'></div></div><div style='clear:both;'></div></div>";
+                    $("#ChatContent").append(html);
+                    $("#textarea").val("");
+                    document.getElementById('ChatContent').scrollTop = document.getElementById('ChatContent').scrollHeight;
+                }
+            })
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="chatBox">
+            <div class="chatLeft">
+                <div class="chat01">
+                    <div class="chat01_title">
+                        <ul class="talkTo">
+                            <li><a href="javascript:;" id="talk-to" onclick="getnow()"></a><input id="SendId" type="hidden" /></li>
+                            <li><a href="javascript:;" id="history" onclick="gethistory()">聊天记录</a></li>
+                        </ul>
+                    </div>
+                    <div class="chat01_content" id="ChatContent">
+                    </div>
+                    <div class="chat01_content" id="chathistory" style="display:none;">
+                        <div>
+                            <a href="javascript:void(0)" onclick="indexpage()">首页</a>
+                            <a href="javascript:void(0)" onclick="lastpage()">上一页</a>
+                            <a href="javascript:void(0)" onclick="nextpage()">下一页</a>
+                            <a href="javascript:void(0)" onclick="endpage()">末页</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat02">
+                    <div class="chat02_title">
+                        <a class="chat02_title_btn ctb01" href="javascript:;" style="display:none;"></a>
+
+                        <div class="wl_faces_box" style="display:none;">
+                            <div class="wl_faces_content">
+                                <div class="title">
+                                    <ul>
+                                        <li class="title_name">常用表情</li>
+                                        <li class="wl_faces_close"><span>&nbsp;</span></li>
+                                    </ul>
+                                </div>
+                                <div class="wl_faces_main">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_01.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_02.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_03.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_04.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_05.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_06.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_07.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_08.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_09.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_10.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_11.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_12.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_13.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_14.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_15.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_16.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_17.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_18.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_19.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_20.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_21.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_22.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_23.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_24.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_25.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_26.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_27.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_28.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_29.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_30.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_31.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_32.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_33.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_34.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_35.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_36.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_37.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_38.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_39.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_40.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_41.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_42.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_43.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_44.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_45.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_46.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_47.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_48.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_49.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_50.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_51.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_52.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_53.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_54.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_55.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_56.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_57.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_58.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_59.gif" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <img src="~/Content/onlinetalk/img/emo_60.gif" />
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="wlf_icon">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat02_content">
+                        <textarea id="textarea"></textarea>
+                    </div>
+                    <div class="chat02_bar">
+                        <ul>
+                            <li style="right: 5px; top: 5px;">
+                                <a href="javascript:;">
+                                    <img onclick="Send()" src="~/Content/onlinetalk/img/send_btn.jpg" style="height:24px">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="chatRight">
+                <div class="chat03">
+                    <div class="chat03_title">
+                        <label class="chat03_title_t">
+                            成员列表
+                        </label>
+                    </div>
+                    <div class="chat03_content">
+                        <ul style="padding:0px;" id="Groups"></ul>
+                    </div>
+                </div>
+            </div>
+            <div style="clear: both;">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

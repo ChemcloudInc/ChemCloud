@@ -1,0 +1,10 @@
+
+
+
+ 记录时间：2016-09-07 11:30:06,744 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：ISiteSettingService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.ISiteSettingService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 d:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51

@@ -1,0 +1,43 @@
+﻿@using System.Collections
+@{
+    //Layout = "~/Areas/Web/Views/Shared/_SimpeHeadAndFoot.cshtml";
+    ViewBag.Title = "更多服务";
+}
+@{ var memberInfo = ViewBag.Member as ChemCloud.Model.UserMemberInfo;}
+<link href="~/Content/inner-custom.css" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+
+<div class="container" style="padding:0">
+    @if (memberInfo != null)
+    {
+        <input type="hidden" id="hidusertype" value="@memberInfo.UserType" />
+        <input type="hidden" id="hidusername" value="@memberInfo.UserName" />
+    }
+    else
+    {
+        <input type="hidden" id="hidusertype" value="" />
+        <input type="hidden" id="hidusername" value="" />
+    }
+
+   <div class="more">
+       <ul class="more_ul">
+           @*<li class="bg_1"><a href="#"><h2>我要采购</h2></a></li>
+           <li class="bg_2"><a href="javascript:void(0)" id="sellerme"><h2>我要销售</h2></a></li>
+           <li class="bg_3"><a href="#"><h2>特价商品</h2></a></li>
+           <li class="bg_4"><a href="#"><h2>大宗商品</h2></a></li>
+           <li class="bg_5"><a href="/Search/ManagementWeb"><h2>知识产权</h2></a></li>
+           <li class="bg_6"><a href="/JobsWeb/JobsWeb"><h2>人才市场</h2></a></li>*@
+           <li class="bg_7"><a href="/ProductAnalysis/ProductAnalysis"><h2>分析鉴定</h2></a></li>
+           <li class="bg_8"><a href="/SiteService/CustomsClearanceAndTax"><h2>通关结税</h2></a></li>
+           <li class="bg_9"><a href="/SiteService/RegionalAndOverseasStorag"><h2>海外仓储</h2></a></li>
+           <li class="bg_12"><a href="/SiteService/OnBehalfOf"><h2>跨境物流</h2></a></li>
+           <li class="bg_10"><a href="/TechInfo/ManagementWeb"><h2>技术交易</h2></a></li>
+           <li class="bg_11"><a href="/OtherOrder/CustomizedOrder"><h2>定制合成</h2></a></li>
+           
+           <li class="bg_13"><a href="/SiteService/FieldCertification"><h2>产品质量保证</h2></a></li>
+           <li class="bg_14"><a href="/SiteService/ProductCertification"><h2>企业诚信认证</h2></a></li>
+           <li class="bg_6"><a href="/MeetingInfo/ManagementWeb"><h2>会议中心</h2></a></li>
+           <li class="bg_5"><a href="/OtherOrder/AgentPurchasing"><h2>代理采购</h2></a></li>
+       </ul>
+   </div>
+</div>

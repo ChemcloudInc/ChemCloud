@@ -1,0 +1,132 @@
+﻿@model ChemCloud.Model.ChemCloud_Dictionaries
+<style>
+    .table > tbody > tr > td{
+        border-bottom: 1px dashed #f4f4f4;
+        border-top: 0;
+        width: 12%;
+    }
+</style>
+<div class="container">
+    <input type="hidden" id="hdId" value="@Model.Id" />
+    <ul class="nav nav-tabs-custom clearfix">
+        <li><a href="/Admin/Dictionary/DictionaryTypeList">字典类型管理</a></li>
+        <li class="active"><a href="/Admin/Dictionary/DictionariesList">字典管理</a></li>
+      
+    </ul>
+    <div class="form-horizontal">
+
+        <input type="hidden" id="hdDictionaryTypeId" value="@Model.DictionaryTypeId" />
+
+        <table class="table table-bordered table-striped" style="width:1010px">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>字典编号：</td>
+                    <td>
+                        <label class="checkbox-inline parent-check">@Model.Id</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>DKey：</td>
+                    <td>
+                        <input class="form-control input-sm" style="width:200px;" value="@Model.DKey" id="txtDKey" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>DValue：</td>
+                    <td>
+                        <input class="form-control input-sm" style="width:200px;" value="@Model.DValue" id="txtDValue" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>英文名/English Name：</td>
+                    <td>
+                        <input class="form-control input-sm" style="width:200px;" value="@Model.DValue_En" id="txtDValue_En" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注：</td>
+                    <td>
+                        <input class="form-control input-sm" style="width:200px;" value="@Model.Remarks" id="txtRemarks" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>字典类型：</td>
+                    <td>
+                        @{
+                            <select class="form-control input-ssm" id="selectDictionaryType">
+                                <option value="0">请选择...</option>
+                                @if ((List<ChemCloud.Model.ChemCloud_DictionaryType>)ViewBag.typelist != null)
+                                {
+                                    foreach (ChemCloud.Model.ChemCloud_DictionaryType item in (List<ChemCloud.Model.ChemCloud_DictionaryType>)ViewBag.typelist)
+                                    {
+                                <option value="@item.Id">@item.TypeName</option>
+                                    }
+                                }
+                            </select>
+                        }
+                    </td>
+                </tr>
+
+               
+            </tbody>
+        </table>
+    </div>
+    <div class="mt20">
+        <button type="button" onclick="submitDictionaryType()" class="btn btn-primary statusBtn">保 存</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function submitDictionaryType() {
+        var id = $.trim($("#hdId").val());
+
+        var DictionaryTypeId = $.trim($("#selectDictionaryType").val());
+        if (DictionaryTypeId == "0") {
+            $.dialog.tips("请选择字典类别！");
+            return false;
+        }
+        var DKey = $.trim($("#txtDKey").val());
+        if (DKey == "") {
+            $.dialog.tips("请填写Key！");
+            return false;
+        }
+        var DValue = $.trim($("#txtDValue").val());
+        if (DValue == "") {
+            $.dialog.tips("请填写Value！");
+            return false;
+        }
+
+        var DValue_En = $.trim($("#txtDValue_En").val());
+        if (DValue_En == "") {
+            $.dialog.tips("请填写英文名！");
+            return false;
+        }
+
+        var Remarks = $.trim($("#txtRemarks").val());
+
+        var loading = showLoading();
+        $.post("DictionaryEditSave", { Id: id, DictionaryTypeId: DictionaryTypeId, DKey: DKey, DValue: DValue, DValue_En: DValue_En, Remarks: Remarks }, function (result) {
+            loading.close();
+            if (result.success) {
+                $.dialog.tips("修改成功！");
+                location.href = "/Admin/Dictionary/DictionariesList";
+            }
+            else
+                $.dialog.errorTips("修改失败！");
+        });
+    }
+
+    $(function () {
+        var hdDictionaryTypeId = $.trim($("#hdDictionaryTypeId").val());
+
+        if (hdDictionaryTypeId != "") {
+            $("#selectDictionaryType").val(hdDictionaryTypeId);
+        }
+    });
+</script>

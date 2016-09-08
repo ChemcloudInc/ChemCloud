@@ -1,0 +1,86 @@
+﻿@using ChemCloud.Core;
+@model ChemCloud.Model.RecommendInfo
+@{
+    ViewBag.Title = "Edit";
+}
+<script src="~/Scripts/jquery.nicescroll.min.js"></script>
+<script src="~/Scripts/jquery.nicescroll.plus.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Scripts/artDialog.iframeTools.js"></script>
+<script type="text/javascript">
+    $(function () {
+        
+        $("#Save").click(function () {
+            var loading = showLoading();
+            $.post('UpdateRecommendInfo', { id: $("#Id").val(), price: $("#price").val() }, function (result) {
+                if (result.success) {
+                    loading.close();
+                    $.dialog.succeedTips("修改成功！");
+                    setTimeout(3000);
+
+                }
+                else {
+                    loading.close();
+                    $.dialog.errorTips("修改失败");
+                    setTimeout(3000);
+                }
+                location.href = "./Management";
+            });
+        });
+    });
+</script>
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>推荐商品配置</strong>
+        <li class="active"><a>编辑热卖商品</a></li>
+        <li><a href="./Management">热卖商品列表</a></li>
+    </ul>
+    <form class="form-horizontal" role="form">
+        <div id="recommendDiv">
+            <h3 class="table-hd">热卖商品配置</h3>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">平台货号：</label>
+                <div class="col-sm-4">
+                    <input type="text" id="platcode" name="platcode" class="form-control input-sm" value="@Model.Plat_Code" disabled="disabled">
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">CASNO.：</label>
+                <div class="col-sm-4">
+                    <input type="text" id="CASNO" name="CASNO" class="form-control input-sm" disabled="disabled" value="@Model.CASNO">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">名称:</label>
+                <div class="col-sm-4">
+                    <input type="text" id="productName" name="productName" class="form-control input-sm" disabled="disabled" value="@Model.ProductName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">供应商名称:</label>
+                <div class="col-sm-4">
+                    <input type="text" id="gysname" name="gysname" class="form-control input-sm" disabled="disabled" value="@Model.UserName">
+                </div>
+            </div>
+            <input type="hidden" id="Structure_2D" name="Structure_2D" class="form-control input-sm" value="@Model.Structure_2D">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">价格:</label>
+                <div class="col-sm-4">
+                    <input type="text" id="price" name="price" class="form-control input-sm" value="@Model.Price">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="button" id="Save" class="btn btn-primary" value="保存">
+            </div>
+        </div>
+        <input type="hidden" id="Id" value="@Model.Id" />
+    </form>
+
+</div>

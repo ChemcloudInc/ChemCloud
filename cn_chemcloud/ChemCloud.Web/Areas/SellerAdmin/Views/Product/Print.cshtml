@@ -1,0 +1,232 @@
+﻿@model ChemCloud.Model.ProductInfo
+@{
+    ViewBag.Title = "申请鉴定表";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>申请鉴定表</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <!--media=print 这个属性可以在打印时有效-->
+    <style media="print">
+        table {
+            font-size:11px;
+        }
+        .Noprint {
+            display: none;
+        }
+
+        .PageNext {
+            page-break-after: always;
+        }
+
+        * {
+            font-size: 14px;
+        }
+
+        #from_table {
+            border: 1px solid #ccc;
+            margin: auto 0;
+        }
+
+            #from_table tr td {
+                min-height: 35px;
+                line-height: 35px;
+            }
+
+        .width250 {
+            width: 162px;
+        }
+    </style>
+    <style type="text/css">
+        .wrap {
+            width: 100%;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            display: block;
+            font: normal 0.9rem/1.5 'microsoft yahei';
+            overflow: hidden;
+        }
+    </style>
+    <script src="~/Scripts/jquery-1.4.2.min.js"></script>
+</head>
+<body>
+    <center class="Noprint">
+        <p>
+            <input value="打印" type="button" id="btnPrint" />
+            <input type=button name=button_fh value="关闭" onclick="javascript:window.close();">
+            <br />
+        </p>
+    </center>
+    <div class="wrap" id="printContent">
+       
+        <h3 class="table-hd" style="text-align:center">申请鉴定表<br>（货物运输条件鉴定书/货物危险性鉴定书)<br /></h3>
+        <table id="from_table" width="700" border="1" cellpadding="0" cellspacing="0" align="center">
+            <tr>
+                <td class="width250">货物生产厂家*</td>
+                <td colspan="5">@ViewBag.shopName</td>
+            </tr>
+            <tr>
+                <td>申请鉴定单位*</td>
+                <td colspan="5">@ViewBag.shopName</td>
+            </tr>
+            <tr>
+                <td>货物名称*</td>
+                <td colspan="5">@Model.ProductName</td>
+            </tr>
+            <tr>
+                <td>货物别名</td>
+                <td colspan="5">@Model.Alias</td>
+            </tr>
+            <tr>
+                <td>货物英文名*</td>
+                <td colspan="5">@Model.EProductName</td>
+            </tr>
+            <tr>
+                <td rowspan="4">检测项目*</td>
+                <td colspan="5">运输方式*：(货物运输条件鉴定书)</td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <table border="0" style="width:100%;">
+                        <tr><td>空运<input type="checkbox" name="" value="空运" /></td><td>海运<input type="checkbox" name="" value="海运" /></td></tr>
+                        <tr><td>铁路<input type="checkbox" name="" value="铁路" /></td><td>公路<input type="checkbox" name="" value="公路" /></td></tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">一种运输方式￥500，两种运输方式￥800，三种运输方式￥1000，四种运输方式￥1200（不含加急费用）</td>
+            </tr>
+            <tr>
+                <td colspan="5">货物危险性鉴定书（用于安监局备案是否为危险品）<input type="checkbox" /></td>
+            </tr>
+            <tr>
+                <td>完成时间*</td>
+                <td colspan="5">
+                    <table border="0" style="width:100%">
+                        <tr><td>2个工作日<input type="radio" name="1" /></td><td>1个工作日后<input type="radio" name="2" /></td><td>6-24小时<input type="radio" name="3" /></td></tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>分子式及结构式*</td>
+                <td colspan="2">@Model.MolecularFormula</td>
+                <td colspan="3"><img width="175" height="50" src="a_clip_image002.jpg" style="border:0"></td>
+            </tr>
+            <tr>
+                <td>货物主要成份、含量（及CAS号）*</td>
+                <td colspan="5">@Model.CASNo</td>
+            </tr>
+            <tr>
+                <td>货物次要成份、含量</td>
+                <td colspan="5"><input type="text" id="content" style="width:100%;height:35px;border:0"></td>
+            </tr>
+            <tr>
+                <td>毒性数据（大、小鼠口服LD50）</td>
+                <td colspan="5"><input type="text" id="poisonousness" style="width:100%;height:35px;border:0"></td>
+            </tr>
+            <tr>
+                <td>主要危险性</td>
+                <td colspan="5">@Model.DangerousMark</td>
+            </tr>
+            <tr>
+                <td>货物用途</td>
+                <td colspan="5"><input type="text" id="productUsage" style="width:100%;height:35px;border:0"></td>
+            </tr>
+            <tr>
+                <td>样品总重量（磁性检测 必填）</td>
+                <td width="58" style="width:60px;"><input type="text" id="totalweight" style="width:100%;height:60px;border:0"></td>
+                <td width="80" style="width:80px;">样品数量（磁性检测 必填）</td>
+                <td width="61" style="width:60px;"><input type="text" id="sampleQty" style="width:100%;height:60px;border:0"></td>
+                <td width="82" style="width:80px;">样品外观（磁性检测 必填）</td>
+                <td width="243">
+                    <table border="0" style="width:100%;">
+                        <tr><td><input type="radio" name="5" />箱</td></tr>
+                        <tr><td><input type="radio" name="6" />托</td></tr>
+                        <tr><td style="padding-left:73px"><input type="radio" name="7" />其它___________</td></tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>联系人*:@ViewBag.userName </td>
+                <td colspan="5" rowspan="5">申请鉴定单位（公章）*<u>___________盖章___________</u></td>
+            </tr>
+            <tr>
+                <td>联系电话*：@ViewBag.tel </td>
+            </tr>
+            <tr>
+                <td>传真：@ViewBag.fax</td>
+            </tr>
+            <tr>
+                <td>手机*：@ViewBag.phone</td>
+            </tr>
+            <tr>
+                <td>电子信箱*:@ViewBag.email</td>
+            </tr>
+            <tr>
+                <td>地址：</td>
+                <td colspan="5">@ViewBag.address</td>
+            </tr>
+            <tr>
+                <td>代理公司：</td>
+                <td colspan="5"><input type="text" style="width:100%;height:35px;border:0"></td>
+            </tr>
+            <tr>
+                <td>代理公司联系人：</td>
+                <td colspan="2"><input type="text" style="width:100%;height:35px;border:0"></td>
+                <td colspan="2">代理公司联系电话：</td>
+                <td><input type="text" style="width:100%;height:35px"></td>
+            </tr>
+            <tr>
+                <td>代理公司传真： </td>
+                <td colspan="2"><input type="text" style="width:100%;height:35px;border:0"></td>
+                <td colspan="2">代理公司电子信箱： </td>
+                <td><input type="text" style="width:100%;height:35px;border:0"></td>
+            </tr>
+            <tr>
+                <td colspan="6"><p>委托说明：</p><input type="text" style="width:100%;height:35px;border:0"></td>
+            </tr>
+        </table>
+        *为必填项目
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    (function ($) {
+        var printAreaCount = 0;
+        $.fn.printArea = function () {
+            var ele = $(this);
+            var idPrefix = "printArea_";
+            removePrintArea(idPrefix + printAreaCount);
+            printAreaCount++;
+            var iframeId = idPrefix + printAreaCount;
+            var iframeStyle = 'position:absolute;width:0px;height:0px;left:-500px;top:-500px;';
+            iframe = document.createElement('IFRAME');
+            $(iframe).attr({
+                style: iframeStyle,
+                id: iframeId
+            });
+            document.body.appendChild(iframe);
+            var doc = iframe.contentWindow.document;
+            doc.write($("#printContent").html());
+            doc.close();
+            var frameWindow = iframe.contentWindow;
+            frameWindow.close();
+            frameWindow.focus();
+            frameWindow.print();
+            $(".header-footer-checkbox").removeAttr("checked");
+        }
+        var removePrintArea = function (id) {
+            $("iframe#" + id).remove();
+        };
+    })(jQuery);
+
+    $(function () {
+        $("#btnPrint").click(function () { $("#printContent").printArea(); });
+    });
+</script>

@@ -1,0 +1,184 @@
+﻿@{
+    Layout = null;
+}
+@model IEnumerable<ChemCloud.Web.Areas.Web.Models.OAuthInfo>
+
+<title>欢迎登录</title>
+<link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+
+<style type="text/css">
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    body {
+        background-image: url(/Content/onlinetalk/img/chatbck.png);
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-color: #3e89d8;
+        font-size: 12px;
+        font-family: "微软雅黑";
+        overflow-y: scroll;
+    }
+
+    p, ul, .name, .pwd, dd, h1, h2, h3, form, input, select, textarea {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-family: "微软雅黑";
+        line-height: 150%;
+    }
+
+    ul, li {
+        list-style: none;
+    }
+
+    div, p {
+        word-wrap: break-word;
+    }
+
+    img {
+        border: none;
+    }
+
+    input, button, select, textarea {
+        outline: none;
+    }
+    /*logo*/
+    #Logo {
+        width: 514px;
+        height: 343px;
+        margin: 0 auto;
+        margin-top: 12%;
+        background: url(/Areas/Web/Content/loginimg/LogoCon.png);
+    }
+
+        #Logo .text {
+            padding: 100px 0 0 140px;
+        }
+
+            #Logo .text span {
+                color: #fff;
+                font-size: 20px;
+                font-family: myFont;
+                font-weight: 600;
+            }
+
+        #Logo .form {
+            width: 498px;
+            height: 186px;
+            margin: 20px 8px 8px 8px;
+        }
+
+            #Logo .form .form_box {
+                width: 466px;
+                height: 122px;
+                background-color: #FFF;
+                padding: 13px 0px 0px 32px;
+            }
+
+                #Logo .form .form_box p {
+                    width: 442px;
+                    height: 34px;
+                    line-height: 34px;
+                    border-bottom: 1px solid #e5e5e5;
+                }
+
+                    #Logo .form .form_box p img {
+                        margin: 0px 13px -2px 0px;
+                    }
+
+                    #Logo .form .form_box p input {
+                        width: 410px;
+                        height: 34px;
+                    }
+
+                    #Logo .form .form_box p.che {
+                        height: 50px;
+                        line-height: 50px;
+                        border-bottom: none;
+                        color: #828282;
+                    }
+
+                        #Logo .form .form_box p.che .reg {
+                            color: #3498cf;
+                        }
+
+                        #Logo .form .form_box p.che .forget {
+                            color: #333;
+                            text-decoration: none;
+                        }
+
+                        #Logo .form .form_box p.che input {
+                            width: 15px;
+                            height: 14px;
+                            margin-bottom: -2px; /*background: #fff url(../img/checkbox.png);-webkit-appearance: none; vertical-align: middle;*/
+                        }
+
+            #Logo .form .form_submit {
+                height: 41px;
+                margin: 10px auto;
+                background-image: url(/Areas/Web/Content/loginimg/submit.png);
+                border-radius: 6px;
+            }
+
+                #Logo .form .form_submit a {
+                    display: block;
+                    height: 41px;
+                    width: 498px;
+                }
+
+    .error {
+        /*width: 302px;
+        padding: 2px 0 2px 3px;
+        border: 1px solid #ffbdbf;*/
+        color: #e6393d;
+        /*background: #ffebec;*/
+        float: none;
+        line-height: 16px;
+        height: 19px;
+        font-weight: bolder;
+    }
+</style>
+
+<body>
+    <div id="Logo">
+        <div class="text"><span>&nbsp;&nbsp;</span></div>
+        <form class="form" name="form1" method="post" action="">
+            <div class="form_box">
+                <p><img src="~/Areas/Web/Content/loginimg/1.png" /><input type="text" name="user" id="loginname" placeholder="用&nbsp;&nbsp;&nbsp;户&nbsp;&nbsp;&nbsp;&nbsp;名"></p>
+                <p><img src="~/Areas/Web/Content/loginimg/2.png" /><input type="password" name="pwd" id="password" placeholder="密&nbsp;&nbsp;&nbsp;码"></p>
+                <p class="che">
+                    <input id="checkbox1" type="checkbox" value="记住密码" style="vertical-align:text-top;margin-top:2px;">记住密码
+                    <a href="javascript: void(0);" style="margin-left:1.5em;" onclick="register()" class="reg">账号注册</a>
+                    <a href="/findpassword" class="forget" style="margin-left:1.5em;">忘记密码</a>
+                    <span id="checkCode_error" class="error" style="margin-left:1.5em;"></span>
+                </p>
+            </div>
+            <div class="form_submit">
+                <div style="height:40px;cursor:pointer" id="submit_login"></div>
+            </div>
+        </form>
+    </div>
+</body>
+
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.cookie.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Areas/Web/Scripts/login.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        if (location.href.length > location.href.lastIndexOf('/') + 6) {
+            location.href = "/login";
+        }
+    });
+    /*注册*/
+    function register() {
+        top.location.href = "/register/RegisterAgreement";
+    }
+</script>

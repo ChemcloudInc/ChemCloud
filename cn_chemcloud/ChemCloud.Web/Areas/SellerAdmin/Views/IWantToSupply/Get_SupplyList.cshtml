@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+}
+
+<link href="~/Areas/Web/Content/SearchListPager.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+
+@*<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+    <script src="~/Scripts/ueditor/ueditor.all.min.js"></script>*@
+<script src="~/Scripts/datetimeCustom.js"></script>
+<script src="~/Areas/SellerAdmin/Scripts/IWantToBuyUser_Supply.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/JqueryHelper_Ver.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/pageGroup.js"></script>
+<style>
+    td:last-child span { cursor: pointer; }
+    .start_datetime { line-height: 26px; height: 26px; width: 70px; border: 1px solid #e4e4e4; display: inline-block; margin: 7px 5px 7px 5px; padding: 0 3px; font-family: 'microsoft yahei'; color: #666; border-radius: 2px; }
+    .input_supply { line-height: 26px; height: 26px; width: 70px; border: 1px solid #e4e4e4; display: inline-block; margin: 7px 0px 7px 0px; padding: 0 3px; font-family: 'microsoft yahei'; color: #666; border-radius: 2px; }
+    .search-area .label1 { width: 70px; }
+    .search-area .label2 { width: 70px; }
+    .search-area .search_keyword { width: 390px; line-height: 26px; height: 26px;border: 1px solid #e4e4e4; display: inline-block; margin: 7px 5px 7px 5px; padding: 0 3px; font-family: 'microsoft yahei'; color: #666; border-radius: 2px;}
+    .search-area .search_address { width: 390px; line-height: 26px; height: 26px; border: 1px solid #e4e4e4; display: inline-block; margin: 7px 5px 7px 5px; padding: 0 3px; font-family: 'microsoft yahei'; color: #666; border-radius: 2px;}
+
+    .span_wytb_lan { padding: 1px 10px; font-size: 12px; line-height:30px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #2289ce; }
+    .span_wytb_lan1 { padding: 0px 10px; font-size: 12px;line-height:30px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: rgb(66, 133, 244); }
+    .span_wytb_lan2 { padding: 1px 10px; font-size: 12px;line-height:30px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #065793; }
+
+    .span_wytb_hui { padding: 1px 10px; font-size: 12px;line-height:30px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #CCC; }
+    .span_wytb_hui1 { padding: 0px 10px; font-size: 12px;line-height:30px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #666; }
+    .span_wytb_hui2 { padding: 1px 10px; font-size: 12px;line-height:30px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #555; }
+
+</style>
+<div class="box1 lh24">
+    <div class="title">
+        <span class="title_txt cur">我要采购——竞价列表</span>
+    </div>
+    <div class="search-area">
+        <label class="label1">产品名称：</label><input type="hidden" id="IWantTobBuy" value="@Model.Model.Id" />
+        <input class="search_keyword" id="txt_ProductName" type="text" placeholder="产品名称" disabled="disabled" value="@Model.Model.ProductName" />
+        <label class="label1">收货地址：</label>
+        <input class="search_address" id="txt_Address" type="text" placeholder="收货地址" disabled="disabled" value="@Model.Model.Address" /><br />
+        <label class="label2">单价：</label>
+        <input class="input_supply" id="txt_UnitPrice" type="text" placeholder="单价" disabled="disabled" value="@Model.Model.UnitPrice (@Model.Model.TypeOfCurrency)" />
+        <label class="label2">总价：</label>
+        <input class="input_supply" id="txt_TotalPrice" type="text" placeholder="总价" disabled="disabled" value="@Model.Model.TotalPrice (@Model.Model.TypeOfCurrency)"  />
+        <label class="label2">数量：</label>
+        <input class="input_supply" id="txt_Quantry" type="text" placeholder="数量" disabled="disabled" value="@Model.Model.Quantity" />
+        <label class="label1">基本单位：</label>
+        <input class="input_supply" id="txt_Unit" type="text" placeholder="基本单位" disabled="disabled" value="@Model.Model.Unit" />
+        <label class="label1">发布日期：</label>
+        <input id="inputStartDate1" class="start_datetime" type="text" disabled="disabled" value="@Model.Model.CreateDate"/>
+        <label class="label1">交付日期：</label>
+        <input id="inputStartDate2" class=" start_datetime" type="text" disabled="disabled" value="@Model.Model.DeliveryDate"/>
+    </div>
+    <div class="div_list">
+        <table class="tb-list">
+            <colgroup>
+                <col width="5%" />
+                <col width="15%" />
+                <col width="7%" />
+                <col width="7%" />
+                <col width="7%" />
+                <col width="5%" />
+                <col width="13%" />
+                <col width="13%" />
+                <col width="10%" />
+                <col width="18%" />
+            </colgroup>
+            <thead>
+                <tr class="tr" style="background-color:#e6e6e6;">
+                    <th style="background-color:#e6e6e6;">序号</th>
+                    <th style="background-color:#e6e6e6;">采购编号</th>
+                    <th style="background-color:#e6e6e6;">竞价单价</th>
+                    <th style="background-color:#e6e6e6;">竞价总价</th>
+                    <th style="background-color:#e6e6e6;">单位</th>
+                    <th style="background-color:#e6e6e6;">数量</th>
+                    <th style="background-color:#e6e6e6;">交付日期</th>
+                    <th style="background-color:#e6e6e6;">提交日期</th>
+                    <th style="background-color:#e6e6e6;">竞价状态</th>
+                    <th style="background-color:#e6e6e6;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-list"></tbody>
+        </table>
+        <!-------------------------------------------分页----------------------------------------------------------------->
+        <div id="pageGro1">
+            <div id="pageGro">
+                <div id="preSpanBtn">上一页</div>
+                <div class="pageList">
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+                <div id="nextSpanBtn">下一页</div>
+            </div>
+        </div>
+        <!-------------------------------------------END 分页----------------------------------------------------------------->
+
+
+    </div>
+</div>
+
+

@@ -1,0 +1,86 @@
+﻿@using ChemCloud.Model;
+@using ChemCloud.Web.Areas.SellerAdmin.Models;
+
+@model IEnumerable<ChemCloud_COA>
+@{
+    ViewBag.Title = ViewBag.keywords + "COA报告搜索";
+}
+<script src="~/Areas/Web/Scripts/jquery.pagination.js"></script>
+<link href="~/Areas/Web/Content/pagination.css" rel="stylesheet" />
+<script src="~/Areas/Web/Scripts/searchcoa.js"></script>
+
+<input type="hidden" value="@ViewBag.keywords" id="hdkeywords" />
+
+<div class="w main">
+    @if (true)
+    {
+        <div class="crumb">全部结果&nbsp;&gt;&nbsp;<strong>"@ViewBag.keywords"</strong></div>
+        <div class="left">
+            <div class="m" id="refilter">
+                <div class="mt">
+                    <h2>所有类目</h2>
+                </div>
+                <div class="mc">
+
+                    <div class="item fore hover">
+                        <h3>
+                            <b></b>
+                            <a class="curr">无机化学品</a>
+                        </h3>
+                        <ul>
+                            <li class="curr">
+                                <a>增溶剂</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item fore hover">
+                        <h3>
+                            <b></b>
+                            <a class="curr">催化剂及助剂</a>
+                        </h3>
+                        <ul>
+                            <li class="curr">
+                                <a>燃料及颜料</a>
+                            </li>
+                            <li class="curr">
+                                <a>增溶剂</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-extra">
+            <div class="clr"></div>
+            <div class="m" id="select">
+                <div class="mt">
+                    <h1>@ViewBag.keywords &nbsp;&nbsp;<strong>COA报告筛选</strong></h1>
+                    <div class="total">
+                        <span>(共<strong id="res_count"></strong>个COA报告)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clr"></div>
+
+            <div class="m psearch prebuy plist-n7 no-preview" id="plist">
+                <ul class="list-h cl"></ul>
+            </div>
+
+            <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
+        </div>
+        <span class="clr"></span>
+    }
+    else
+    {
+        <div class="w main">
+            <div class="notice-search">
+                <span class="ns-icon"></span>
+                <div class="ns-content">
+                    <span>抱歉，没有找到与“<em>@(ViewBag.keywords + (string.IsNullOrWhiteSpace(ViewBag.exp_keywords) ? "" : "_" + ViewBag.exp_keywords))</em>”相关的COA报告</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+ 

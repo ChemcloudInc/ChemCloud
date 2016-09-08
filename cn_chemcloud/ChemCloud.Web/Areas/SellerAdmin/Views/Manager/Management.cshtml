@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "供应商管理员管理";
+}
+@*<style>
+.col-sm-10 {
+    margin-left: 60px;
+    }
+    .checkbox-list li {
+        border:0px;
+    }
+</style>*@
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Areas/SellerAdmin/Scripts/managerManagement.js"></script>
+<div class="container" style="padding-top:20px">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>供应商帐号管理</strong>
+        <li class="active"><a>子帐号列表</a></li>
+        <li class="add-manager"><a>添加子帐号</a></li>
+        <em class="primary-btn">
+            <span class="glyphicon glyphicon-question-sign"></span>
+            <div class="primary">
+                <h3>温馨提示：</h3>
+                <span>*</span><p>管理供应商子账号，可调整管理员所属的权限组</p>
+            </div>
+        </em>
+    </ul>
+    <table class="table" id="list">
+        <div class="tabel-operate" id="batchOperate">
+            <button type="button" class="btn btn-default btn-ssm" onclick="BatchDelete()">批量删除</button>
+        </div>
+    </table>
+</div>
+<div class="dialog-form" id="addManagerform" style="display:none">
+    <div class="form-group" id="UserNameDiv">
+        <label class="label-inline" for="" style="color:red">用户名</label>
+        <label id="name-prefix"></label>
+        <input class="form-control input-sm" type="text" id="UserName" name="regName"  autocomplete="off"
+               onpaste="return false;" value="用户名" onfocus="    if (this.value == '用户名') this.value = ''; this.style.color = '#333'"
+               onblur="if (this.value == '') { this.value = '用户名'; this.style.color = '#999999' }" style="color: rgb(153, 153, 153);">
+        <label id="regName_info" style="display:none;"class="focus">请输入用户名</label>
+        <label id="regName_error" style="display:none;color:red" class="error">用户名不能为空</label>
+    </div>
+    <div class="form-group">
+        <label class="label-inline" for="" style="color:red">邮箱</label>
+        <input class="form-control input-sm" type="text" id="Email" name="regName" autocomplete="off"
+               onpaste="return false;" value="邮箱" onfocus="if(this.value=='邮箱') this.value='';this.style.color='#333'"
+               onblur="if (this.value == '') { this.value = '邮箱'; this.style.color = '#999999' }" style="color: rgb(153, 153, 153);">
+        <label id="regEmail_info" style="display:none;" class="focus">请输入您常用的电子邮箱</label>
+        <label id="regEmail_error" style="display:none;color:red" class="error">请输入邮箱帐号</label>
+    </div>
+    <div class="form-group" id="div1">
+        <label class="label-inline" for="" style="color:red">密码</label>
+        <input class="form-control input-sm" type="password" id="PassWord" name="PassWord">
+        <label id="pwd_info" class="focus" style="display:none;"><span>6-20位字符，可使用字母、数字或符号的组合,，不建议使用纯字母、纯数字、纯符号</span></label>
+        <label id="pwd_error" class="focus" style="display:none;color:red"><span>密码长度只能在6-20位字符之间</span></label>
+    </div>
+    <div class="form-group" id="div2">
+        <label class="label-inline" for="" style="color:red">确认密码</label>
+        <input class="form-control input-sm" type="password" id="confirmPassWord" name="confirmPassWord">
+        <label id="pwdRepeat_info" class="focus" style="display:none;"><span>6-20位字符，可使用字母、数字或符号的组合,，不建议使用纯字母、纯数字、纯符号</span></label>
+        <label id="pwdRepeat_error" class="focus" style="display:none;color:red"><span>两次输入的密码不一致</span></label>
+    </div>
+    <div class="form-group">
+        <label class="label-inline" for="" style="color:red">姓名</label>
+        <input class="form-control input-sm" type="text" id="realName" name="realName">
+    </div>
+    <div class="form-group">
+        <label class="label-inline" for="">备注</label>
+        <textarea class="form-control input-sm input-half" id="reMark" name="reMark" rows="5"></textarea>
+    </div>
+    <div class="form-group" id="roleGroupDiv">
+        <label class="label-inline" for="">权限组</label>
+        <select class="form-control input-sm" id="RoleId" name="RoleId"></select>
+    </div>
+    <input class="form-control input-sm" type="text" id="userId" name="userId" style="display:none" value="@ViewBag.UserId">
+    <input class="form-control input-sm" type="text" id="shopId" name="userId" style="display:none" value="@ViewBag.ShopId">
+</div>
+<script>
+    var mainUserName = '@ViewBag.MainUserName';
+    var userId= '@ViewBag.UserId';
+</script>

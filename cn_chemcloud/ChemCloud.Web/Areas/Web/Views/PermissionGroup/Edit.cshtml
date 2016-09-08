@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "新增角色组";
+}
+@using ChemCloud.Core;
+<script src="~/Areas/Web/Scripts/RoleEdit.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<style>
+    .f1 {
+        margin-left: 100px;
+    }
+</style>
+<div class="box1 lh24">
+    <div class="title bot-border">
+        <ul class="nav nav-tabs-custom clearfix">
+            <li>@Html.ActionLink("组织架构", "Management", new { area = "web" })</li>
+            <li class="active"><h3 class="title_txt cur" style="height: 38px;"><a style="color:#3498DB">编辑角色组</a></h3></li>
+        </ul>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            @*<form id="personRegForm" role="form" method="post">*@
+            @*<input type="hidden" name="regType" id="regType" value="person">
+                <input type="hidden" name="uuid" id="uuid" value="9e4da8d0-1b3e-45c7-b3bd-928fd09f3f97">*@
+            <div class="form">
+                <div class="item" id="select-regName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>角色组名：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="regName" name="regName" class="text" tabindex="1"
+                                   value="@ViewBag.RoleName">
+                            <i class="i-name"></i>
+                            <label id="regName_succeed" class="blank"></label>
+                            <label id="regName_info" style="display:none;" class="focus">请输入角色组名</label>
+                            <label id="regName_error" style="display:none; color:red" class="error">请输入角色组名</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="limitedAmount">
+                    @foreach (ChemCloud.Model.LimitedAmount item in ViewBag.Limited as List<ChemCloud.Model.LimitedAmount>)
+                    {
+                        
+                        <div class="item" id="limitedAmounts">
+                            <span class="label">限制金额：</span>
+                            <div class="fl item-ifo" style="height:30px;">
+                                <div class="o-intelligent-regName">
+                                    <input type="hidden" value="@item.Id" id="hidden_@item.Id" name="LimitedId" />
+                                    <input type="hidden" value="@item.RoleId" id="hidden_@item.RoleId" name="LimitedRoleId" />
+                                    <input type="text" id="limitedAmount_@item.CoinType" maxlength="9" name="limitedAmount" class="text" value="@item.Money"><span>@item.CoinTypeName</span>
+                                    <input type="hidden" value="@item.CoinType" id="hidden_@item.CoinType" name="cointype" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            <input type="hidden" value="@ViewBag.userId" id="UserId" />
+            <input type="hidden" value="@ViewBag.Name" id="UserName" />
+            <input type="hidden" value="@ViewBag.parentId" id="parentId" />
+            <input type="hidden" value="@ViewBag.Id" id="roleId" />
+            <div class="item">
+                <span class="label">&nbsp;</span>
+                @*<input type="hidden" id="introducer" name="introducer" value="@ViewBag.Introducer" />*@
+                <div class="fl">
+                    <input type="button" class="btn-5" id="EditPermission" style="cursor:pointer"
+                           value="保存">
+                </div>
+            </div>
+        </div>
+        <span class="clr"></span>
+        @*</form>*@
+    </div>
+</div>

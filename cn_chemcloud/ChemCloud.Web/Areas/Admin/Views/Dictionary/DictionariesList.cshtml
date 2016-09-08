@@ -1,0 +1,263 @@
+﻿@model List<ChemCloud.Model.ChemCloud_DictionaryType>
+@{
+    ViewBag.Title = "字典管理";
+}
+<style>
+    .col-sm-10 {
+        margin-left: 60px;
+    }
+
+    .btnoperation-style {
+        color: white;
+        background-color: #3498DB;
+        padding: 3px 20px;
+        font-size: 12px;
+        line-height: 1.5;
+        border: 1px solid transparent;
+    }
+    .dialog-form .label-inline, .dialog-form .upload-img .control-label {
+        padding: 0;
+        margin: 0;
+        width: 150px;
+        text-align: right;
+        margin-right: 20px;
+        font-size: 14px;
+        display: inline-block;
+    }
+</style>
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li><a href="/Admin/Dictionary/DictionaryTypeList">字典类型管理</a></li>
+        <li class="active"><a>字典管理</a></li>
+    </ul>
+    <div style="margin-top:10px; text-align:right;">
+
+        <label>字典类型：</label>
+
+        <select class="form-control input-ssm" id="select_type_forwhere">
+            @if (Model != null)
+            {
+                foreach (ChemCloud.Model.ChemCloud_DictionaryType item in Model)
+                {
+                    <option value="@item.Id">@item.TypeName</option>
+                }
+            }
+        </select>
+
+        <input type="button" value="添加" class="add-manager btnoperation-style" style="margin-right:10px;" />
+    </div>
+    <table class="table" id="list" style="margin-top:8px;">
+        <div class="tabel-operate" id="batchOperate">
+            <button type="button" class="btn btn-default btn-ssm" onclick="BatchDelete()">批量删除</button>
+        </div>
+    </table>
+</div>
+
+<div class="dialog-form" id="addManagerform" style="display:none">
+    <div class="form-group">
+        <label class="label-inline" for="">Key：</label>
+        <input class="form-control input-sm" type="text" id="txtDKey" name="Key">
+    </div>
+
+    <div class="form-group">
+        <label class="label-inline" for="">Value：</label>
+        <input class="form-control input-sm" type="text" id="txtDValue" name="Value">
+    </div>
+
+    <div class="form-group">
+        <label class="label-inline" for="">英文名/English Name：</label>
+        <input class="form-control input-sm" type="text" id="txtDValue_En" name="Value">
+    </div>
+
+    <div class="form-group">
+        <label class="label-inline" for="">备注：</label>
+        <input class="form-control input-sm" type="text" id="txtRemarks" name="Value">
+    </div>
+
+    <div class="form-group">
+        <label class="label-inline" for="">字典类型：</label>
+
+        <select class="form-control input-ssm" id="selectDictionaryType">
+            <option value="0">请选择...</option>
+            @if (Model != null)
+            {
+                foreach (ChemCloud.Model.ChemCloud_DictionaryType item in Model)
+                {
+            <option value="@item.Id">@item.TypeName</option>
+                }
+            }
+        </select>
+    </div>
+
+
+</div>
+
+
+<script>
+    $(function () {
+        //查询
+        query($("#select_type_forwhere").val());
+        //弹出添加记录页面
+        $('.add-manager').click(function () {
+            LoadAddBox();
+        });
+
+        $("#select_type_forwhere").change(function () {
+            query($("#select_type_forwhere").val());
+        });
+    })
+
+    //删除单挑记录
+    function Delete(id) {
+        $.dialog.confirm('确定删除该条记录吗？', function () {
+            var loading = showLoading();
+            $.post("./DeleteDictionary", { id: id }, function (data) {
+                if (data.success) {
+                    $.dialog.tips("删除成功!"); query(); loading.close();
+                } else {
+                    $.dialog.tips("删除失败!"); loading.close();
+                }
+            });
+        });
+    }
+
+    //批量删除
+    function BatchDelete() {
+        var selectedRows = $("#list").hiMallDatagrid("getSelections");
+        var selectids = new Array();
+        for (var i = 0; i < selectedRows.length; i++) {
+            selectids.push(selectedRows[i].Id);
+        }
+        if (selectedRows.length == 0) {
+            $.dialog.errorTips("你没有选择任何选项！");
+        }
+        else {
+            $.dialog.confirm('确定删除选择的记录？', function () {
+                var loading = showLoading();
+                $.post("./BatchDeleteDictionary", { ids: selectids.join(',') }, function (data) {
+                    if (data.success) {
+                        $.dialog.tips("删除成功!"); query($("#select_type_forwhere").val()); loading.close();
+                    } else {
+                        $.dialog.tips("删除失败!"); loading.close();
+                    }
+                });
+            });
+        }
+    }
+
+    //查询方法
+    function query(typeid) {
+        $("#list").hiMallDatagrid({
+            url: './DictionariesPageModelList',
+            nowrap: false,
+            rownumbers: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            border: false,
+            fit: true,
+            fitColumns: true,
+            pagination: true,
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { 'typeid': typeid },
+            toolbar: /*"#goods-datagrid-toolbar",*/'',
+            operationButtons: "#batchOperate",
+            columns:
+            [[
+                { checkbox: true, width: 39 },
+                { field: "Id", hidden: true },
+                { field: "DKey", title: 'Key' },
+                { field: "DValue", title: 'Value' },
+                { field: "DValue_En", title: '英文名' },
+                { field: "TypeName", title: '字典类型名称' },
+                { field: "Remarks", title: '备注' },
+                {
+                    field: "operation", operation: true, title: "操作",
+                    formatter: function (value, row, index) {
+                        var html = ["<span class=\"btn-a\">"];
+                        html.push("<a href='./DictionariesEdit?Id=" + row.Id + "'>修改</a>");
+                        if (row.RoleId != 0) {
+                            html.push("<a onclick=\"Delete('" + row.Id + "');\">删除</a>");
+                        }
+                        html.push("</span>");
+                        return html.join("");
+                    }
+                }
+            ]]
+        });
+    }
+
+    //弹出框
+    function LoadAddBox() {
+        $.dialog({
+            title: '添加字典',
+            id: 'addManager',
+            width: '700px',
+            content: document.getElementById("addManagerform"),
+            lock: true,
+            okVal: '确认添加',
+            init: function () {
+                $("#typename").focus();
+            },
+            ok: function () {
+                var DictionaryTypeId = $.trim($("#selectDictionaryType").val());
+                if (DictionaryTypeId == "0") {
+                    $.dialog.tips("请选择字典类别！");
+                    return false;
+                }
+                var DKey = $.trim($("#txtDKey").val());
+                if (DKey == "") {
+                    $.dialog.tips("请填写Key！");
+                    return false;
+                }
+                var DValue = $.trim($("#txtDValue").val());
+                if (DValue == "") {
+                    $.dialog.tips("请填写Value！");
+                    return false;
+                }
+
+                var DValue_En = $.trim($("#txtDValue_En").val());
+                if (DValue_En == "") {
+                    $.dialog.tips("请填写英文名！");
+                    return false;
+                }
+
+                var Remarks = $.trim($("#txtRemarks").val());
+
+                AddManage(DictionaryTypeId, DKey, DValue, DValue_En, Remarks);
+            }
+        });
+    }
+
+    //添加方法
+    function AddManage(DictionaryTypeId, DKey, DValue, DValue_En, Remarks) {
+        var loading = showLoading();
+        $.ajax({
+            type: 'post',
+            url: 'DictionaryAddFuc',
+            cache: false,
+            async: true,
+            data: {
+                DictionaryTypeId: DictionaryTypeId, DKey: DKey, DValue: DValue, DValue_En: DValue_En, Remarks: Remarks
+            },
+            dataType: "json",
+            success: function (data) {
+                loading.close();
+                if (data.success) {
+                    $.dialog.tips("添加成功！");
+                    $("#addManagerform input").val("");
+                    setTimeout(3000);
+                    location.href = "/Admin/Dictionary/DictionariesList";
+                }
+                else {
+                    $.dialog.errorTips("添加失败！");
+                    setTimeout(3000);
+                }
+            }
+        });
+    }
+
+</script>

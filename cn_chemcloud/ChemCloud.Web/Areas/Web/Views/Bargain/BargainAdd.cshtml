@@ -1,0 +1,392 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "议价";
+}
+@model IEnumerable<ChemCloud.Model.ShippingAddressInfo>
+
+<link href="~/Areas/Web/Content/bargain.css" rel="stylesheet" />
+
+@*<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>*@
+<style>
+    .stop_1 {
+        width: 100%;
+        text-align: start;
+        margin-top: 10px;
+        font-size: 18px;
+        border-bottom: 1px solid #ccc;
+        line-height: 30px;
+        text-indent: 2em;
+        background: url(/Areas/Web/Images/first.png) no-repeat;
+        background-position: 1% 50%;
+    }
+
+    .stop_2 {
+        width: 100%;
+        text-align: start;
+        margin-top: 10px;
+        font-size: 18px;
+        border-bottom: 1px solid #ccc;
+        line-height: 30px;
+        text-indent: 2em;
+        background: url(/Areas/Web/Images/second.png) no-repeat;
+        background-position: 1% 50%;
+    }
+
+    .text {
+        margin-left: 0;
+    }
+</style>
+<div class="box1 lh24">
+
+    <input type="hidden" id="hdbillno" value="@ViewBag.billno" />
+    <input type="hidden" id="hdproductid" value="@ViewBag.model.Id" />
+    <input type="hidden" id="hdCASNo" value="@ViewBag.model.CASNo" />
+
+    <input type="hidden" id="hdshopid" value="@ViewBag.model.ShopId" />
+    <input type="hidden" id="hdmarketprice" value="@ViewBag.model.MarketPrice" />
+    <input type="hidden" id="userId" value="@ViewBag.userId" />
+    <h3 style="color: #fff; line-height: 40px; font-size: 16px; background: #8cabbf; display: inline-block; padding: 0 20px; border-radius: 10px 10px 0px 0px; ">
+        供应商：<span id="shopname">@ViewBag.model.ShopName</span>
+        <input type="button" class="btn-margain"
+               style="width: 82px;height: 25px;font-size: 12px;display:none;" status="receShop" id="Attention" value="关注供应商" />
+    </h3>
+    <div class="border-box" style="margin-top: 0.1em; padding-bottom: 0.2em; border: 2px solid #dae1e6;">
+
+
+        @*<input type="button" value="关注" style="height:20px;" id="Attention" />*@
+        <ul class="ulproduct" style="background: #dae1e6;">
+            <li style="float: none; text-indent: 1em; color: #343434; ">产品名称：<span id="productname">@ViewBag.model.ProductName</span></li>
+        </ul>
+        <style>
+            .tabledesc tr th {
+                background: #3498DB;
+                color: #fff;
+            }
+
+            .tabledesc #border_lja {
+                border-bottom: 1px dotted #dae1e6;
+            }
+
+                .tabledesc #border_lja:last-child {
+                    border-bottom: none;
+                }
+        </style>
+        <p class="stop_1">
+            产品列表
+            @*<img src="/images/first_step.jpg" alt="Alternate Text" style="width:300px;"/>*@
+        </p>
+        <table class="tabledesc" id="tabledesc" style="margin-top:1em;" border="0" width="100%" align="center">
+            @if (ViewBag.ProductSpec.Count > 0)
+            {
+                <tr style="line-height:35px;font-size:15px;">
+                    <th>包装</th>
+                    <th>等级</th>
+                    <th>纯度</th>
+                    <th>价格</th>
+                    @*<th>操作</th>*@
+                </tr>
+                foreach (var spec in @ViewBag.ProductSpec)
+                {
+                    <tr id="border_lja">
+                        <td>@spec.Packaging</td>
+                        <td>@spec.SpecLevel</td>
+                        <td>@spec.Purity</td>
+                        <td><span style="text-indent:10px" class="price">@spec.Price</span>@spec.CoinTypeName</td>
+                        @*<td><input class="checkbox" name="checkboxlist" type="checkbox" id="@spec.Id" style="margin-top:9px;" /></td>*@
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+
+    <div class="border-box" style="margin-top:4px; padding-bottom: 1em; border: 2px solid #dae1e6;">
+        <p class="stop_1">
+            询盘产品
+        </p>
+        <style>
+            .table_productinfo tr {
+                line-height: 38px;
+            }
+        </style>
+        <table style="width:50%;" class="table_productinfo">
+            <tr><td style="width:10%;text-align:right;">产品数量：</td><td style="width:40%;"><input type="text" id="productnum" class="text" maxlength="10" /></td></tr>
+            <tr><td style="width:10%;text-align:right;">包装规格：</td><td><input type="text" id="packingunit" class="text" maxlength="10" /></td></tr>
+            <tr><td style="width:10%;text-align:right;">等&nbsp;&nbsp;&nbsp;&nbsp;级：</td><td><input type="text" id="speclevel" class="text" maxlength="10" /></td></tr>
+            <tr><td style="width:10%;text-align:right;">纯&nbsp;&nbsp;&nbsp;&nbsp;度：</td><td><input type="text" id="purity" class="text" maxlength="10" /></td></tr>
+            <tr><td style="width:10%;text-align:right;">价&nbsp;&nbsp;&nbsp;&nbsp;格：</td><td><input type="text" id="prodcutprice" class="text" maxlength="10" /></td></tr>
+            <tr><td style="width:10%;text-align:right;">货币类型：</td><td><input type="text" id="prodcutcointypename" class="text" maxlength="10" value="@ViewBag.cointype" /></td></tr>
+        </table>
+    </div>
+    <div class="border-box" style="margin-top: 1em; border: 2px solid #dae1e6;">
+        <p class="stop_2">
+            询盘内容
+            @*<img src="/images/second_step.jpg" alt="Alternate Text" style="width:300px;" />*@
+        </p>
+        <table id="table_margain">
+            <tr>
+                <td>物流配送方式：</td>
+                <td>
+                    <select id="distributiontype" class="selectbox">
+                        <option value="EMS">EMS</option>
+                        <option value="UPS">UPS</option>
+                        <option value="FedEx">FedEx</option>
+                        <option value="DHL">DHL</option>
+                        <option value="TNT">TNT</option>
+                    </select>
+                </td>
+                <td>支付方式：</td>
+                <td>
+                    <select id="paymode" class="selectbox">
+                        <option value="余额支付">余额支付</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="支付宝">支付宝</option>
+                        <option value="微信支付">微信支付</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                @*<td>物流配送费用：</td>
+                    <td><input type="text" id="distributioncost" class="text" maxlength="10" /></td>*@
+
+                <td>配货周期：</td>
+                <td><input type="text" id="txtDistributionCycle" class="text" maxlength="10" placeholder="如：3天、1周" /></td>
+
+                <td>发货时间：</td>
+                <td><input id="deliverydate" class="form-control input-ssm start_datetime text" type="text"></td>
+            </tr>
+
+            <tr>
+                <td>收货地址：</td>
+                <td colspan="3">
+                    @*<input type="text" id="deliveryaddress" class="text" />*@
+                    <select id="deliveryaddress" class="selectbox" style="width:350px;">
+                        @foreach (var m in Model)
+                        {
+                            <option value="@m.Id">@m.RegionFullName>@m.Address</option>
+                        }
+                    </select>
+                    <a style="width:82px;height: 25px;font-size: 12px;"
+                       href="/UserAddress/Index?fromorder=1"
+                       id="btneditdeliveryaddress">编辑收货地址</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>留言：</td>
+                <td colspan="3">
+                    <input type="text" id="BuyerMessage" class="text" style="width:350px;" maxlength="500" />
+                </td>
+            </tr>
+        </table>
+
+        <input type="button" class="btn-margain" id="submitmargain" style="cursor:pointer; margin-left: 100px;margin-bottom: 20px;" value="提交询盘">
+    </div>
+</div>
+<script>
+    $(function () {
+        if ($("#deliveryaddress").val() == null) {
+
+            self.setInterval(function () {
+                $.post('/Bargain/GetAddress', function (data) {
+                    if (data.success) {
+                        var htmls = "";
+                        $.each($.parseJSON(data.msg), function (i, item) {
+                            htmls = htmls + "<option value='" + item.Id + "'>" + item.RegionFullName + ">" + item.Address + "</option>";
+                        });
+                        $("#deliveryaddress").html(htmls);
+                    }
+                });
+            }, 2000);
+        }
+
+        //选择日期
+        $("#deliverydate").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        //添加关注
+        $("#Attention").click(function () {
+            var supplierId = $("#hdshopid").val(); //供应商
+            var ProductId = $("#hdproductid").val();
+            //产品编码
+            var userId = $("#userId").val();
+            var loading = showLoading();
+            $.post('AddAttention', { "UserId": userId, "ShopId": supplierId, "ProductId": ProductId },
+                function (data) {
+
+                    if (data.success) {
+                        $.dialog.succeedTips("关注成功！");
+                        setTimeout(5000);
+                        loading.close();
+                    }
+                    else {
+                        $.dialog.errorTips("您已经关注过这个供应商的该产品！");
+                        setTimeout(5000);
+                        loading.close();
+                    }
+                });
+        });
+        //提交议价单
+        $("#submitmargain").click(function () {
+            var billno = $("#hdbillno").val()//议价单编号
+            var shopid = $("#hdshopid").val(); //供应商
+            var distributiontype = $("#distributiontype").val();//物流配送方式
+
+            //var distributioncost = $.trim($("#distributioncost").val());//物流配送费用
+            var distributioncost = "0";//物流配送费用
+            var txtDistributionCycle = $.trim($("#txtDistributionCycle").val());//配货周期
+
+            var deliverydate = $("#deliverydate").val(); //发货时间
+            var deliveryaddress = $.trim($("#deliveryaddress").val()); //地址
+            var paymode = $("#paymode").val();//支付方式
+            var productid = $("#hdproductid").val(); //产品编码
+            var productname = $.trim($("#productname").html());//产品名称
+            var productnum = $.trim($("#productnum").val());//产品的名称
+            var marketprice = $.trim($("#hdmarketprice").val()); //产品的市场价格
+            var prodcutprice = $.trim($("#prodcutprice").val()); //产品的期望价格
+            var packingunit = $.trim($("#packingunit").val());//产品的数量
+            var purity = $.trim($("#purity").val());//纯度
+            var speclevel = $.trim($("#speclevel").val());//等级
+            var prodcutcointypename = $.trim($("#prodcutcointypename").val()); //产品的货币名称
+            var BuyerMessage = $.trim($("#BuyerMessage").val()); //买家留言
+            var cointype = "";
+            var CASNo = $.trim($("#hdCASNo").val());
+
+            if (productnum == "" || productnum == null) {
+                $.dialog.errorTips("产品数量不能为空！");
+                return false;
+            }
+            var reg = /^\+?[1-9][0-9]*$/;
+            if (!reg.test(productnum)) {
+                $.dialog.errorTips('产品数量必须为正整数！');
+                return false;
+            }
+            if (prodcutcointypename == "CNY" || prodcutcointypename == "人民币") {
+                cointype = 1;
+            }
+            if (prodcutcointypename == "USD" || prodcutcointypename == "美元") {
+                cointype = 2;
+            }
+            if (packingunit == "" || packingunit == null) {
+                $.dialog.errorTips("产品包装不能为空！");
+                return false;
+            }
+            if (speclevel == "" || speclevel == null) {
+                $.dialog.errorTips("产品等级不能为空！");
+                return false;
+            }
+
+            if (purity == "" || purity == null) {
+                $.dialog.errorTips("产品纯度不能为空！");
+                return false;
+            }
+            if (prodcutprice == "" || prodcutprice == null) {
+                $.dialog.errorTips("产品价格不能为空！");
+                return false;
+            }
+
+            var regprodcutprice = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/;
+            if (!regprodcutprice.test(prodcutprice)) {
+                $.dialog.errorTips('产品价格必须为数字！');
+                return false;
+            }
+
+
+            if (deliverydate == "" || deliverydate == null) {
+                $.dialog.errorTips("您还未设置发货时间！");
+                return false;
+            }
+            if (deliveryaddress == "请选择收货地址" || deliveryaddress == null) {
+                $.dialog.errorTips("您还未设置收货地址！");
+                return false;
+            }
+            var jsonbill = "";
+            jsonbill += "{";
+            jsonbill += "\"BillNo\":\"" + billno + "\",";
+            jsonbill += "\"ShopId\":\"" + shopid + "\",";
+            jsonbill += "\"DeliverType\":\"" + distributiontype + "\",";
+            jsonbill += "\"DeliverCost\":\"" + distributioncost + "\",";
+            jsonbill += "\"DeliverDate\":\"" + deliverydate + "\",";
+            jsonbill += "\"DeliverAddress\":\"" + deliveryaddress + "\",";
+            jsonbill += "\"PayMode\":\"" + paymode + "\",";
+            jsonbill += "\"DistributionCycle\":\"" + txtDistributionCycle + "\",";
+            jsonbill += "\"_MargainBillDetail\":[";
+            jsonbill += "{";
+            jsonbill += "\"BillNo\":\"" + billno + "\",";
+            jsonbill += "\"ProductId\":\"" + productid + "\",";
+            jsonbill += "\"ProductName\":\"" + productname + "\",";
+            jsonbill += "\"Num\":\"" + productnum + "\",";
+            jsonbill += "\"MarketPrice\":\"" + marketprice + "\",";
+            jsonbill += "\"PurchasePrice\":\"" + prodcutprice + "\",";
+            jsonbill += "\"PackingUnit\":\"" + packingunit + "\",";
+            jsonbill += "\"SpecLevel\":\"" + speclevel + "\",";
+            jsonbill += "\"BuyerMessage\":\"" + BuyerMessage + "\",";
+            jsonbill += "\"CASNo\":\"" + CASNo + "\",";
+            jsonbill += "\"CoinType\":\"" + cointype + "\",";
+            jsonbill += "\"Purity\":\"" + purity + "\"";
+            jsonbill += "},";
+            jsonbill = jsonbill.substring(0, jsonbill.length - 1);
+            jsonbill += "]}";
+
+            var loading = showLoading();
+            $.post('/Bargain/AddBargaion', { json: jsonbill },
+                function (data) {
+                    if (data.success) {
+                        loading.close();
+                        $.dialog.succeedTips("添加成功！", function () {
+                            showLoading();
+                            
+                            top.location.href = "/UserCenter?c=3";
+                        }, 3);
+                    }
+                    else {
+                        $.dialog.errorTips("添加失败！");
+                    }
+                });
+        });
+
+        //勾选议价
+        $(".checkbox").live("click", function () {
+
+            $(':checkbox[name=checkboxlist]').each(function () {
+                $(this).click(function () {
+                    if ($(this).attr('checked')) {
+                        $(':checkbox[name=checkboxlist]').removeAttr('checked');
+                        $(this).attr('checked', 'checked');
+                    }
+                });
+            });
+
+            if ($(this).attr('checked') == "checked") {
+                $("#productnum").val("1");
+
+                var packingunit = $(this).parent('td').parent('tr').children('td').eq(0).html();
+                $("#packingunit").val(packingunit);
+
+                var speclevel = $(this).parent('td').parent('tr').children('td').eq(1).html();
+                $("#speclevel").val(speclevel);
+
+                var purity = $(this).parent('td').parent('tr').children('td').eq(2).html();
+                $("#purity").val(purity);
+
+                var prodcutprice = $(this).parent('td').parent('tr').children('td').eq(3).find('.price').html();
+                $("#prodcutprice").val(prodcutprice);
+
+                var prodcutcointypename = "CNY";
+                $("#prodcutcointypename").val(prodcutcointypename);
+            } else {
+                $("#productnum").val("");
+                $("#packingunit").val("");
+                $("#speclevel").val("");
+                $("#purity").val("");
+                $("#prodcutprice").val("");
+                $("#prodcutcointypename").val("");
+            }
+        });
+    });
+
+</script>

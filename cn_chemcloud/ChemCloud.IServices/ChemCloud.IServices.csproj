@@ -1,0 +1,573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <ProjectGuid>{31825B09-0897-47E3-8D3C-48E9CA13291B}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>ChemCloud.IServices</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ChemCloud</RootNamespace>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>false</DebugSymbols>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Senparc.Weixin">
+      <HintPath>..\DLL\Senparc.Weixin.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP">
+      <HintPath>..\DLL\Senparc.Weixin.MP.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ICASInfo.cs" />
+    <Compile Include="IIWantToBuyService.cs" />
+    <Compile Include="IorderAddressService.cs" />
+    <Compile Include="IProductAnalysisService.cs" />
+    <Compile Include="IProductDescriptionsService.cs" />
+    <Compile Include="IProductsDSService.cs" />
+    <Compile Include="IShipmentService.cs" />
+    <Compile Include="IApplyAmountService.cs" />
+    <Compile Include="IAttentionService.cs" />
+    <Compile Include="IBannersIndexService.cs" />
+    <Compile Include="ICapitalUserAccountService.cs" />
+    <Compile Include="ICAS_MAIN_INFOService.cs" />
+    <Compile Include="ICertification.cs" />
+    <Compile Include="IChatRelationShipService.cs" />
+    <Compile Include="IChemCloud_DictionariesService.cs" />
+    <Compile Include="IChemCloud_DictionaryTypeService.cs" />
+    <Compile Include="IChemCloud_OrderWithCoaService.cs" />
+    <Compile Include="ICOAListService.cs" />
+    <Compile Include="ICOAService.cs" />
+    <Compile Include="IConfigPayPalAPIService.cs" />
+    <Compile Include="ICountryServices.cs" />
+    <Compile Include="IEmailSettingService.cs" />
+    <Compile Include="IFinance_InComeService.cs" />
+    <Compile Include="IFinance_PaymentService.cs" />
+    <Compile Include="IFinance_RechargeService.cs" />
+    <Compile Include="IFinance_RefundService.cs" />
+    <Compile Include="IFinance_TransferService.cs" />
+    <Compile Include="IFinance_WalletService.cs" />
+    <Compile Include="IFinance_WithDrawService.cs" />
+    <Compile Include="IFloorProductService.cs" />
+    <Compile Include="IFQPaymentService.cs" />
+    <Compile Include="IJobsService.cs" />
+    <Compile Include="ILawInfoService.cs" />
+    <Compile Include="IManagersAccountService.cs" />
+    <Compile Include="IMargainBillService.cs" />
+    <Compile Include="IMeetInfoService.cs" />
+    <Compile Include="IMemberDetailService.cs" />
+    <Compile Include="IMessageDetialService.cs" />
+    <Compile Include="IMessageSettingService.cs" />
+    <Compile Include="IMessagesService.cs" />
+    <Compile Include="IOrderExpressQueryService.cs" />
+    <Compile Include="IOrderPayDescService.cs" />
+    <Compile Include="IOrderPurchasingService.cs" />
+    <Compile Include="IOrderSynthesisService.cs" />
+    <Compile Include="IOrganizationService.cs" />
+    <Compile Include="IPermissionGroupService.cs" />
+    <Compile Include="IProductAuthenticationService.cs" />
+    <Compile Include="IProductLevelService.cs" />
+    <Compile Include="IRecFloorImgService.cs" />
+    <Compile Include="IRecommendInfoService.cs" />
+    <Compile Include="ISiteMessageService.cs" />
+    <Compile Include="ISiteMessagesService.cs" />
+    <Compile Include="IStatisticsMoneyService.cs" />
+    <Compile Include="ITechnicalInfoService.cs" />
+    <Compile Include="ITHService.cs" />
+    <Compile Include="ITKService.cs" />
+    <Compile Include="IWhatBusyService.cs" />
+    <Compile Include="ITransactionRecordService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IComplaintService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="CacheKeyCollection.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\AttachmentInfoQuery.cs" />
+    <Compile Include="QueryModel\BannerIndexQuery.cs" />
+    <Compile Include="QueryModel\CASInfoQuery.cs" />
+    <Compile Include="QueryModel\IWantToBuyQuery.cs" />
+    <Compile Include="QueryModel\IWantToBuy_OrdersQuery.cs" />
+    <Compile Include="QueryModel\IWantToSupplyQuery.cs" />
+    <Compile Include="QueryModel\PlatProductQuery.cs" />
+    <Compile Include="QueryModel\ProductsDSQuery.cs" />
+    <Compile Include="QueryModel\QueryCommon.cs" />
+    <Compile Include="QueryModel\JobsQuery.cs" />
+    <Compile Include="QueryModel\AttentionQuery.cs" />
+    <Compile Include="QueryModel\BargainBillQuery.cs" />
+    <Compile Include="QueryModel\BargainQuery.cs" />
+    <Compile Include="QueryModel\CAS_MAIN_INFOQuery.cs" />
+    <Compile Include="QueryModel\COAListQuery.cs" />
+    <Compile Include="QueryModel\DHLInfoQuery.cs" />
+    <Compile Include="QueryModel\FieldCertificationQuery.cs" />
+    <Compile Include="QueryModel\Finance_InComeQuery.cs" />
+    <Compile Include="QueryModel\Finance_PaymentQuery.cs" />
+    <Compile Include="QueryModel\Finance_RechargeQuery.cs" />
+    <Compile Include="QueryModel\Finance_RefundQuery.cs" />
+    <Compile Include="QueryModel\Finance_TransferQuery.cs" />
+    <Compile Include="QueryModel\Finance_WalletQuery.cs" />
+    <Compile Include="QueryModel\Finance_WithDrawQuery.cs" />
+    <Compile Include="QueryModel\FQPaymentQuery.cs" />
+    <Compile Include="QueryModel\IntegralQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IBonusService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ICollocationService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IOrderService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ICouponService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\IntegralRecordQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ILimitTimeBuyService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IProductService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMarketService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IShopService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IShopBonusService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\InviteRecordQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ISiteSettingService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMemberCapitalService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IPrivilegesService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ICashDepositsService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMemberGradeService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ITopicService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IConversionMemberIntegralBase.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ICustomerService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMemberIntegralConversionFactoryService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ITypeService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IAccountService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMemberIntegralService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IPoiService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IFloorService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMemberPromotionService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IShopCategoryService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMobileHomeProductsService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IFreightTemplateService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMobileHomeTopicService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IShakeAroundService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="INavigationService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMemberInviteService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IShopHomeModuleService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IGiftsOrderService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IGiftService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ISensitiveWordService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ISystemAgreementService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IRegionService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\LawInfoQuery.cs" />
+    <Compile Include="QueryModel\LimitTimeQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMessageService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IOperationLogService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IArticleCategoryService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\ManagersAccountQuery.cs" />
+    <Compile Include="QueryModel\MeetingInfoQuery.cs" />
+    <Compile Include="QueryModel\MemberDetailQuery.cs" />
+    <Compile Include="QueryModel\MessageDetialQuery.cs" />
+    <Compile Include="QueryModel\MessageReviceQuery.cs" />
+    <Compile Include="QueryModel\MessageSettingQuery.cs" />
+    <Compile Include="QueryModel\MessagesQuery.cs" />
+    <Compile Include="QueryModel\OrderPurchasingQuery.cs" />
+    <Compile Include="QueryModel\OrderSynthesisQuery.cs" />
+    <Compile Include="QueryModel\ProductAuthenticationQuery.cs" />
+    <Compile Include="QueryModel\ProductLevelQuery.cs" />
+    <Compile Include="QueryModel\RecommendInfoQuery.cs" />
+    <Compile Include="QueryModel\SellerProductQuery.cs" />
+    <Compile Include="QueryModel\ShipmentQuery.cs" />
+    <Compile Include="QueryModel\CreateShipQuery.cs" />
+    <Compile Include="QueryModel\ShipmentQueryAdv.cs" />
+    <Compile Include="QueryModel\SiteMessageQuery.cs" />
+    <Compile Include="QueryModel\SiteMessagesQuery.cs" />
+    <Compile Include="QueryModel\StatisticsQuery.cs" />
+    <Compile Include="QueryModel\TechnicalInfoQuery.cs" />
+    <Compile Include="QueryModel\THQuery.cs" />
+    <Compile Include="QueryModel\TKQuery.cs" />
+    <Compile Include="QueryModel\WhatQuery.cs" />
+    <Compile Include="QueryModel\TransactionRecordQuery.cs" />
+    <Compile Include="ShipmentViewModel.cs" />
+    <Compile Include="SpecialCategory.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IArticleService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IHomeCategoryService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IVShopService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IShippingAddressService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IWeixinMenuService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ISlideAdsService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ICartService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IStatisticsService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IManagerService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\GiftQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IExpressService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IMemberService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IRefundService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ICommentService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IWXCardService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ITradeCommentService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IWXApiService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IProductDescriptionTemplateService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\ApplyWithDrawQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IConsultationService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\Quotation.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="IBrandService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\ChargeQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ICategoryService.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\MarketBoughtQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\CapitalDetailQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\AccountQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\CapitalQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\TopicQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\QueryBase.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\OperationLogQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\CashDepositDetailQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\VshopQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\ManagerQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\CashDepositQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\CollocationQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\CouponQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\MemberQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\CouponRecordQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\OrderCommentQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\GiftsOrderQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\ComplaintQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\RefundQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\OrderQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\ProductQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\ProductSearch.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\CommentQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\ConsultationQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\QueryBase_T, Tout_.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\SellerQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\SensitiveWordQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryModel\ShopQuery.cs">
+      <AutoGen>false</AutoGen>
+      <DesignTimeSharedInput>false</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChemCloud.Core\ChemCloud.Core.csproj">
+      <Project>{5007c583-f3c7-4323-a7ad-0b6bbaa1b3cf}</Project>
+      <Name>ChemCloud.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChemCloud.Model\ChemCloud.Model.csproj">
+      <Project>{493bad11-a977-4516-9297-f5fd28c4f5e4}</Project>
+      <Name>ChemCloud.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChemColud.Shipping\ChemColud.Shipping.csproj">
+      <Project>{03f3fc36-1e54-4192-bad9-1bd2236cf3f9}</Project>
+      <Name>ChemColud.Shipping</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

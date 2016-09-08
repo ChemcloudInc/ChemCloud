@@ -1,0 +1,349 @@
+﻿@using ChemCloud.Model.Common;
+
+@{
+    Result_List<Result_BannersIndex> bannerList = (Result_List<Result_BannersIndex>)ViewBag.Banners;
+    Result_List<OrderSynthesis_Index> dynamicTrading = (Result_List<OrderSynthesis_Index>)ViewBag.DynamicTrading;
+    Result_List<ProductInfoSpec> latestPrice = (Result_List<ProductInfoSpec>)ViewBag.LatestPrice;
+    Result_List<Result_WhatBusy> whatBusyList = (Result_List<Result_WhatBusy>)ViewBag.WhatBusyList;
+
+    /*热销*/
+    Result_List<OrderSynthesis_Index> HotSelling = (Result_List<OrderSynthesis_Index>)ViewBag.HotSelling;
+
+}
+@using ChemCloud.Model
+@{
+    ViewBag.Title = ViewBag.Title;
+}
+
+
+
+@section Style{
+    <link href="~/Areas/Web/Content/style.css" rel="stylesheet" />
+}
+@section Script
+{
+    <script src="~/Areas/Web/Scripts/userInfo.js"></script>
+    @*<script type="text/javascript" src="~/Areas/Web/Scripts/jquery.animate.js"></script>*@
+}
+<!--[if lte IE 8]>
+    <script src="~/Areas/Web/Scripts/js_web/excanvas.js"></script>
+<![endif]-->
+<style>
+    .tabbtn li img {
+        display: block;
+        float: left;
+        margin: 12px 10px 0px 10px;
+    }
+
+    #list_lh {
+        height: 316px;
+    }
+
+    .sublist {
+        border: 1px solid rgb(11, 110, 180);
+        height: 318px;
+        width: 346px;
+    }
+
+        .sublist .list_lh li p {
+            height: 24px;
+            line-height: 24px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 330px;
+            text-overflow: ellipsis;
+        }
+
+    .footer_1, #footLink, #footer_2 {
+    }
+
+    .footer_1 {
+        margin-top: 339px;
+    }
+</style>
+<script>
+    var imgfade = function (a) {
+        $(a).fadeTo(100, 0.60);
+    }
+
+    var exfade = function (a) {
+        $(".recimgss").css("opacity", 1);
+    }
+
+    var imgexfade = function (a) {
+        $(".serimg").css("opacity", 1);
+    }
+
+    var imgexfade1 = function (a) {
+        $(".our_home").css("opacity", 1);
+    }
+
+    function opennewpage(url) {
+        window.open(url, "_blank")
+    }
+</script>
+
+<!-- banner-->
+<div class="content content_ban">
+
+    @*左侧导航菜单*@
+    <div class="content_fl">
+        <ul>
+
+            <a href="/ProductAnalysis/ProductAnalysis" target="_blank">
+                <li class="active1">
+                </li>
+            </a>
+
+            <!-- 跨境物流-->
+            <a href="/SiteService/OnBehalfOf" target="_blank">
+
+                <li class="active2">
+                </li>
+            </a>
+
+            <!--通关结税-->
+            <a href="/SiteService/CustomsClearanceAndTax" target="_blank">
+
+                <li class="active3">
+                </li>
+            </a>
+
+            <!--海外仓储-->
+            <a href="/SiteService/RegionalAndOverseasStorag" target="_blank">
+
+                <li class="active4">
+                </li>
+            </a>
+        </ul>
+    </div>
+
+    @*banner滚动图片展示*@
+    <div class="content_flashImg">
+        <!-- Banner开始 -->
+        <ul class="con">
+            @foreach (var item in bannerList.List)
+            {
+                <li style="background:url(@item.BannerDes) center ;cursor:pointer"
+                    targeturl="@item.Url" onclick="bannerClick(this)">
+                </li>
+            }
+        </ul>
+        <!-- Banner结束 -->
+        <ul class="but">
+            <li class="current"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    @*右侧导航菜单*@
+    <div class="content_fl_2">
+        <ul>
+
+            <!--技术交易!-->
+            <a href="/TechInfo/ManagementWeb" target="_blank">
+                <li class="active1">
+                </li>
+            </a>
+
+            <!--定制合成!-->
+            <a href="/OtherOrder/CustomizedOrder" target="_blank">
+                <li class="active2">
+                </li>
+            </a>
+
+            <!--企业诚信认证!-->
+            <a href="/SiteService/FieldCertification" target="_blank">
+                <li class="active3">
+                </li>
+            </a>
+
+            <!--产品质量认证!-->
+            <a href="/SiteService/ProductCertification" target="_blank">
+                <li class="active4">
+                </li>
+            </a>
+        </ul>
+    </div>
+</div>
+
+@*运营信息*@
+<div style="width:100%;margin-top:10px;">
+    <div id="chen" style="background:#f2f2f2;">
+        <ul class="chen_fl">
+            <a>
+                <img src="/Areas/Web/images/img/chen_1.png" />昨日成交
+                @if (ViewBag.FirstAmount > 0)
+                {
+                    <span>@ViewBag.FirstAmount</span><span>亿</span>
+                }
+                <span>@ViewBag.SecondAmount</span><span>万元</span>
+            </a>|
+            <a>
+                <img src="/Areas/Web/images/img/chen_2.png" />累计成交
+                @if (ViewBag.leijiFirstAmount > 0)
+                {
+                    <span>@ViewBag.leijiFirstAmount</span><span>亿</span>
+                }
+                <span>@ViewBag.leijiSecondAmount</span><span>万元</span>
+            </a>|
+            <a>
+                <img src="/Areas/Web/images/img/chen_3.png" />运营时间
+                <span>@ViewBag.OperationDays</span><span>天</span>
+            </a>
+        </ul>
+        <p class="chen_fr">
+            <a href="http://47.90.8.156:9100/album/yybg.pdf" target="_blank">查看运营报告</a>
+        </p>
+    </div>
+</div>
+
+@*优质供应商*@
+<div>
+    <div class="content content_main">
+        <div class="content_left">
+            <h2 class="h2_index">优质供应商</h2>
+            <div style="clear:both"></div>
+            <div>
+                @*<a class="img_liu" href="#"><img src="~/Areas/Web/Images/img/1.png" /></a>
+                    <a class="img_liu" href="#"><img src="~/Areas/Web/Images/img/1.png" /></a>
+                    <a class="img_liu" href="#"><img src="~/Areas/Web/Images/img/1.png" /></a>
+                    <a class="img_liu" href="#"><img src="~/Areas/Web/Images/img/1.png" /></a>*@
+                @foreach (RecFloorImg item in (List<RecFloorImg>)ViewBag.rfiList)
+                {
+                    <p class="ad_logo_con">
+                        <a href="@item.URL" target="_blank" style="float:left;" title="@item.Tag">
+                            <img src="@item.ImageUrl" />
+                        </a>
+                    </p>
+                }
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="content_right" style="float: right;width: 526px;">
+            <div>
+                <h2 class="h2_index" style="border-bottom:4px solid rgb(0,162,232)">热门求购</h2>
+                <div class="bcon">
+                    <div class="title_baon"><span style="margin-right: 260px;margin-left: 10px;">产品名称</span><span style="margin-right: 64px;">数量</span><span>时间</span></div>
+                    <div class="list_lh">
+                        <style>
+                            #jiaoyi li p a:hover {
+                                text-decoration: none;
+                                font-weight: 400;
+                            }
+                        </style>
+                        <ul id="jiaoyi">
+                            @foreach (var item in dynamicTrading.List)
+                            {
+                                <li>
+                                    <p>
+                                        <a style="width:315px">@item.ProductName </a>
+                                        <a style="margin-left: 16px;width: 84px;color:#ccc"> @item.ProductCount (@item.PackingUnit)</a>
+                                        <a class="a_blue" style="color:#ccc">@item.OrderTime.ToLongDateString().ToString()</a>
+                                    </p>
+
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="h2_index" style="border-bottom:4px solid rgb(255,0,3)">热销产品</h2>
+                <div class="bcon">
+                    <div class="title_baon"><span style="margin-right: 308px;margin-left: 10px;">产品名称</span><span>月累计交易量</span></div>
+                    <div class="list_lh">
+                        <style>
+                            #jiaoyi li p a:hover {
+                                text-decoration: none;
+                                font-weight: 400;
+                            }
+                        </style>
+                        <ul id="jiaoyi">
+                            @*@foreach (var item in dynamicTrading.List)
+                                {
+                                    <li>
+                                        <p>
+                                            <a style="width:360px">@item.ProductName</a>
+                                            <em style="float: none;text-align: center;margin-left: 20px;width: 122px;">
+                                                @item.Status
+                                            </em>
+                                        </p>
+                                    </li>
+                                }*@
+
+                            @foreach (var item in HotSelling.List)
+                            {
+                                <li>
+                                    <p>
+                                        <a style="width:360px">@item.ProductName</a>
+                                        <em style="float: none;text-align: center;margin-left: 20px;width: 122px;">
+                                            @item.SellNum
+                                        </em>
+                                    </p>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*/*banner滚动*/*@
+@*<script type="text/javascript" src="~/Areas/Web/Scripts/jquery.but.js"></script>*@
+<script type="text/javascript">
+    var index = 0;
+    var playCount = null;
+    $(".but li").hover(function () {
+        clearInterval(playCount);
+        $(this).addClass("current").siblings().removeClass("current");
+        index = $(this).index();
+        $(".con li").eq(index).fadeIn().siblings().fadeOut();
+    }).mouseout(function () {
+        auto_play();
+    });
+    $('.con li').hover(function () {
+        clearInterval(playCount);
+        $(this).addClass("current").siblings().removeClass("current");
+        index = $(this).index();
+        $(".con li").eq(index).fadeIn().siblings().fadeOut();
+    }).mouseout(function () {
+        auto_play();
+    });
+
+    function auto_play() {
+        playCount = setInterval(function () {
+            index++;
+            if (index > 3) { index = 0; }
+            $(".but li").eq(index).addClass("current").siblings().removeClass("current");
+            $(".con li").eq(index).fadeIn().siblings().fadeOut();
+        }, 4000);
+    };
+    auto_play();
+</script>
+
+@*/*字幕滚动*/*@
+<script type="text/javascript" src="~/Areas/Web/Scripts/scroll.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.list_lh li:even').addClass('lieven');
+    })
+    $(function () {
+        $("div.list_lh").myScroll({
+            speed: 40, //数值越大，速度越慢
+            rowHeight: 44 //li的高度
+        });
+    });
+</script>
+
+
+
+
+
+
+

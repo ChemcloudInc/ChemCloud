@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "订单支付结果";
+}
+<script type="text/javascript">
+    $(function () {
+        var orderid = getUrlParam("orderid");
+        var price = getUrlParam("price");
+        var type = getUrlParam("type");
+        if (type == "webcz") {
+            //前台充值
+            $.ajax({
+                type: 'post',
+                url: 'UpChargeOrderStatus',
+                async: false,
+                data: { "orderIds": orderid },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Successful) {
+                        //添加个人财务日志
+                        $.ajax({
+                            type: 'post',
+                            url: 'AddStatisticsMoney',
+                            async: false,
+                            dataType: 'json',
+                            data: { "TradingType": 2, "TradingPrice": parseFloat(price), "OrderNum": orderid, "PayType": 1 },
+                            success: function (result) {
+                                if (result.Successful == true) {
+                                    //添加个人财务变化
+                                    $.ajax({
+                                        type: 'post',
+                                        url: 'Account',
+                                        async: false,
+                                        dataType: 'json',
+                                        data: { "Price": parseFloat(price), "Type": "add" },
+                                        success: function (result1) {
+                                            if (result1.Successful == true) {
+                                                $.dialog.succeedTips("您已完成充值！");
+                                                location.href = '/userCenter';
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        if (type == "webzf") {
+            $.ajax({
+                type: 'post',
+                url: 'UpOrderStatus',
+                async: false,
+                data: { "orderIds": orderid },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Successful) {
+                        //订单状态修改成已完成  添加个人财务日志
+                        $.ajax({
+                            type: 'post',
+                            url: 'AddStatisticsMoney',
+                            async: false,
+                            dataType: 'json',
+                            data: { "TradingType": 0, "TradingPrice": parseFloat(price), "OrderNum": orderid, "PayType": 1 },
+                            success: function (result) {
+                                if (result.Successful == true) {
+                                    $.dialog.succeedTips("您已完成支付！");
+                                    location.href = '/userCenter?url=/userorder?orderids=' + orderid + '&tar=userorder';
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        if (type == "sadmincz") {
+            $.ajax({
+                type: 'post',
+                url: 'UpChargeOrderStatus',
+                async: false,
+                data: { "orderIds": orderid },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Successful) {
+                        //添加个人财务日志
+                        $.ajax({
+                            type: 'post',
+                            url: 'AddStatisticsMoneyLog',
+                            async: false,
+                            dataType: 'json',
+                            data: { "TradingType": 2, "TradingPrice": parseFloat(price), "OrderNum": orderid, "PayType": 1 },
+                            success: function (result) {
+                                if (result.Successful == true) {
+                                    $.dialog.succeedTips("您已完成充值！");
+                                    location.href = '/SellerAdmin';
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    };
+</script>

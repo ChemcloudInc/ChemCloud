@@ -1,0 +1,113 @@
+﻿@using System.Collections
+@{
+    ViewBag.Title = "人才市场";
+}
+
+<!--本页-->
+
+<link href="~/Areas/Web/Content/JobWeb.css" rel="stylesheet" />
+<link href="~/Areas/Web/Content/SearchListPager.css" rel="stylesheet" />
+@*<script src="~/Areas/Web/Scripts/js_web/left_nav.js"></script>*@
+<script src="~/Areas/Web/Scripts/js_web/JobsWeb.js" type="text/javascript"></script>
+<script src="~/Areas/Web/Scripts/js_web/pageGroup.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/JqueryHelper_Ver.js"></script>
+<div class="main">
+
+    <div class="div_search1">
+        <div class="div_search">
+            <label>职位名称：</label>
+            <input id="input_keyword" type="text" />
+            <label>商家类型：</label>
+            <select id="selectUserType_Web" style="width:85px;">
+                @*发布者类型（1：平台管理员？；2：供应商；3：采购商；）*@
+                <option value="0">所有</option>
+                @*<option value="1">平台</option>*@
+                <option value="2">供应商</option>
+                <option value="3">采购商</option>
+            </select>
+            <label>薪资范围：</label>
+            <input id="payrolLow" type="text" class="webInputPayrol" placeholder="最低薪资" /><label>-</label><input id="payrolHigh" type="text" placeholder="最高薪资" class="webInputPayrol" />
+            <label>工作类型：</label>
+            <select id="webSlectWorkType">
+                <option value="0">全职</option>
+                <option value="1">兼职</option>
+                <option value="2">外包</option>
+                <option value="3">所有</option>
+            </select>
+            @*<select id="selectLanguage_Web">
+                <option value="0">所有</option>
+                <option value="1">中文</option>
+                <option value="2">英文</option>
+            </select>*@
+            <button id="btn_Search"  style="cursor:pointer">搜索</button>
+
+        </div>
+    </div>
+    <style>
+        .li_xiala {
+            cursor:pointer;
+        }
+    </style>
+    <div class="div_jobs_list">
+        <div class="recruit">
+            <div id="div_content">
+                <table id="table_list">
+                    <thead id="thead_list">
+                        <tr>
+                            <td class="li_jobTitle">职位名称</td>
+                            <td class="li_userId">公司名称</td>
+                            <td class="li_payrolHighLow">薪资待遇</td>
+                            <td class="li_workType">职位类型</td>
+                            <td class="li_createDate">发布日期</td>
+                            <td class="li_xiala"></td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_list"></tbody>
+                </table>
+            </div>
+        </div>
+        <script>
+            function onMore(id) {
+                console.log(id);
+                var id_ = "#detailed" + id;
+                if ($(id_).css("display") == 'block') {
+                    $(id_).css("display", "none");
+                    $(id_).parent().parent().css("display", "none");
+                } else {
+                    $(id_).css("display", "block");
+                    $(id_).parent().parent().css("display", "table-row");
+                }
+            }
+            $(function () {
+
+            })
+        </script>
+        <!-------------------------------------------分页----------------------------------------------------------------->
+        <div id="pageGro1">
+            <div id="pageGro" style="float: left;margin-top: 10px;">
+                <div id="preSpanBtn">上一页</div>
+                <div class="pageList">
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+                <div id="nextSpanBtn">下一页</div>
+            </div>
+            <div style ="float: left;margin-top: 10px;">
+                <ul>
+                    <li style="line-height: 23px; text-align:center; border:1px solid #808080; padding:0px 10px;">共：<span id="span_allCount"></span> 条记录</li>
+                </ul>
+            </div>
+        </div>
+        <!-------------------------------------------END 分页----------------------------------------------------------------->
+
+    </div>
+
+
+</div>
+
+

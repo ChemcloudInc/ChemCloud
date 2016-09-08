@@ -1,0 +1,29 @@
+﻿ 
+@model IEnumerable<ChemCloud.Web.Models.MessageViewModel>
+   @{
+       Layout = null;
+   }
+@foreach (var item in Model)
+{
+    if (item.SendPrimary == 1)
+    {
+      
+    <div class="alert alert-danger text-right" style="background-color:#adf4b5;border-color:#7dd687">
+        <strong>@item.SendUserName</strong><span>@item.MessageContent</span>
+    </div>
+
+    }
+    else
+    {
+        <div class="alert alert-info">
+
+            <strong>@item.SendUserName</strong><span>@item.MessageContent</span>
+</div>
+
+
+    }
+}
+
+
+
+

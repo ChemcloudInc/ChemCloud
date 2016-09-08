@@ -1,0 +1,232 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "订单打印明细";
+}
+@model ChemCloud.Model.OrderInfo
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>订单打印明细</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <!--media=print 这个属性可以在打印时有效-->
+    <style media="print">
+        .Noprint {
+            display: none;
+        }
+
+        .PageNext {
+            page-break-after: always;
+        }
+    </style>
+    <style type="text/css">
+        .ftx-04 {
+            color: #ff6600;
+        }
+
+        .wrap {
+            width: 100%;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            display: block;
+            font: normal 0.9rem/1.5 'microsoft yahei';
+            overflow: hidden;
+        }
+
+        .table_order {
+            width: 90%;
+            margin: 0 auto;
+            height: auto;
+            border-collapse: collapse;
+            border: solid 1px #808080;
+            margin-top: 10px;
+        }
+
+            .table_order tr {
+                height: 36px;
+            }
+
+                .table_order tr td {
+                    border: solid 1px #808080;
+                }
+
+                    .table_order tr td:nth-child(2n+0) {
+                        text-align: left;
+                    }
+
+                    .table_order tr td:nth-child(1) {
+                        text-align: right;
+                    }
+
+                    .table_order tr td:nth-child(3) {
+                        text-align: right;
+                    }
+
+        .table_orderdetail {
+            width: 100%;
+            margin: 0 auto;
+            height: auto;
+            border-collapse: collapse;
+            border: solid 1px #808080;
+        }
+
+            .table_orderdetail tr {
+                height: 26px;
+            }
+
+                .table_orderdetail tr td {
+                    border: solid 1px #808080;
+                }
+
+        table_orderdetail tr:nth-child(1) {
+            font-weight: bolder;
+        }
+
+        td {
+            text-align: center !important;
+        }
+    </style>
+</head>
+<body>
+    <center class="Noprint">
+        <p>
+            <input value="打印" type="button" id="btnPrint" />
+            <input type=button name=button_fh value="关闭" onclick="javascript:window.close();">
+            <br />
+        </p>
+    </center>
+
+    <div class="wrap" id="printContent">
+
+        <table class="table_order" border="1" cellpadding="0" cellspacing="0" style="width: 65%;margin:0 auto;">
+            <tr>
+                <td colspan="4" style="height:55px;"><img src="@ViewBag.CodePath" /></td>
+
+            </tr>
+            <tr>
+                <td>订单号：</td>
+                <td>@Model.Id</td>
+                <td>下单日期：</td>
+                <td>@Model.OrderDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+            </tr>
+            <tr>
+                <td>下单人：</td>
+                <td colspan="3">@Model.UserName</td>
+            </tr>
+            <tr>
+                <td>收货人：</td>
+                <td>@Model.ShipTo</td>
+                <td>手机号码：</td>
+                <td>@Model.CellPhone</td>
+            </tr>
+            <tr>
+                <td>收货人地址：</td>
+                <td colspan="3">@Model.RegionFullName <span id="spAddress">@Model.Address</span></td>
+            </tr>
+            <tr>
+                <td>支付方式：</td>
+                <td>@Model.PaymentTypeName</td>
+                <td>物流公司：</td>
+                <td>@Model.ExpressCompanyName</td>
+            </tr>
+
+            <tr>
+                <td colspan="4" style="text-align:center;">
+                    <b>产品清单</b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div style="width:100%; min-height:390px; max-width:100%; margin:0;padding:0;">
+                        <table class="table_orderdetail" border="1" cellpadding="0" cellspacing="0" style="width:100%;  margin:0;padding:0;">
+                            <tr>
+                                <td style="text-align:center; width:30%;">产品</td>
+                                <td style="text-align:center; width:15%;">包装规格</td>
+                                <td style="text-align:center; width:15%;">等级</td>
+                                <td style="text-align:center; width:10%;">纯度</td>
+                                <td style="text-align:center; width:10%;">数量</td>
+                                <td style="text-align:center; width:25%;">金额</td>
+                            </tr>
+
+                            @foreach (var orderItem in Model.OrderItemInfo)
+                            {
+                                <tr>
+                                    <td style="text-align:center;">
+                                        @orderItem.CASNo@orderItem.ProductName
+                                    </td>
+                                    <td style="text-align:center;">@orderItem.PackingUnit</td>
+                                    <td style="text-align:center;">@orderItem.SpecLevel</td>
+                                    <td style="text-align:center;">@orderItem.Purity</td>
+                                    <td style="text-align:center;">@orderItem.Quantity</td>
+                                    <td style="text-align:center;">@orderItem.SalePrice.ToString("F2") @Model.CoinTypeName</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="4" style="text-align:right!important;">
+                    <b>产品总金额：<span class="ftx-04">@Model.ProductTotalAmount.ToString("F2")&nbsp;@Model.CoinTypeName</span></b>
+                    <span>保险费：</span>
+                    <span class="ftx-04">@Model.Insurancefee.ToString("F2")&nbsp;@Model.CoinTypeName</span>
+                    <b>实付金额：<span class="ftx-04">@Model.OrderTotalAmount.ToString("F2")&nbsp;@Model.CoinTypeName</span></b>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</body>
+</html>
+
+
+<script src="~/Scripts/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+    (function ($) {
+        var printAreaCount = 0;
+        $.fn.printArea = function () {
+            var ele = $(this);
+            var idPrefix = "printArea_";
+            removePrintArea(idPrefix + printAreaCount);
+            printAreaCount++;
+            var iframeId = idPrefix + printAreaCount;
+            var iframeStyle = 'position:absolute;width:0px;height:0px;left:-500px;top:-500px;';
+            iframe = document.createElement('IFRAME');
+            $(iframe).attr({
+                style: iframeStyle,
+                id: iframeId
+            });
+            document.body.appendChild(iframe);
+            var doc = iframe.contentWindow.document;
+            $(document).find("link").filter(function () {
+                return $(this).attr("rel").toLowerCase() == "stylesheet";
+            }).each(
+                    function () {
+                        doc.write('<link type="text/css" rel="stylesheet" href="'
+                                + $(this).attr("href") + '" >');
+                    });
+            doc.write('<div class="' + $(ele).attr("class") + '">' + $(ele).html()
+                    + '</div>');
+            doc.close();
+            var frameWindow = iframe.contentWindow;
+            frameWindow.close();
+            frameWindow.focus();
+            frameWindow.print();
+            $(".header-footer-checkbox").removeAttr("checked");
+        }
+        var removePrintArea = function (id) {
+            $("iframe#" + id).remove();
+        };
+    })(jQuery);
+
+    $(function () {
+        $("#btnPrint").click(function () { $("#printContent").printArea(); });
+    });
+</script>
+
+
+

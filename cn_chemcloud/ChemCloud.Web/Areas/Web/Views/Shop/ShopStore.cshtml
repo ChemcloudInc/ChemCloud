@@ -1,0 +1,773 @@
+﻿@model ChemCloud.Web.Areas.Web.Models.ShopStore
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>供应商</title>
+    <style>
+        .content_info {
+            width: 100%; /*1190px;*/
+            overflow: hidden;
+            margin: 0 auto;
+            font-size: 14px;
+        }
+
+        .main_info {
+            margin-top: 40px;
+            width: 100%; /*1188px;*/
+            padding-left: 30px;
+            /*float: right;*/
+            margin-right: 100px;
+            border: 1px solid #fff;
+            background: rgb(229,229,229);
+        }
+
+        .che_bian_lan {
+            width: 1188px;
+            float: left;
+            border: 1px solid #000;
+        }
+
+        .che_header {
+            background: rgb(242, 242, 242) none repeat scroll 0% 0%;
+            height: 30px;
+            line-height: 30px;
+            text-indent: 1em;
+        }
+
+        .chediv_img {
+            width: 200px;
+            height: 154px;
+            text-align: center;
+            vertical-align: middle;
+            display: table-cell;
+            border-right: 1px solid #ccc;
+        }
+
+            .chediv_img img {
+                max-width: 140px;
+                max-height: 140px;
+                border: 1px solid rgb(204, 204, 204);
+            }
+
+        .blue_che {
+            color: rgb(11,110,180);
+        }
+
+        .hang_che {
+            margin-left: 10px;
+            height: 26px;
+            line-height: 26px;
+        }
+
+        .main_header {
+            background: #C5C9D0; /*rgb(242, 242, 242) none repeat scroll 0% 0%;*/
+            border-top: 1px solid blue;
+            height: 40px;
+            font-family: 黑体;
+            font-size: 20px;
+            line-height: 40px;
+            text-indent: 1em;
+        }
+
+        .main_ul {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 20px;
+        }
+
+            .main_ul li {
+                margin-left: 16px;
+                float: left;
+                height: 300px;
+                list-style: none;
+                border: 1px solid #ccc;
+                padding: 0 8px;
+                margin-top: 20px;
+            }
+
+                .main_ul li:nth-child(4n) {
+                    /*margin-right:20px;*/
+                }
+
+        .blue_hang {
+            height: 30px;
+            line-height: 30px;
+            color: rgb(11, 110, 180);
+        }
+
+        .paice_huang {
+            color: #e4393c;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .main_a_img {
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+            .main_a_img img {
+                max-width: 200px;
+                max-height: 200px;
+            }
+
+        .che_info {
+            float: left;
+            width: 280px;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .shop-score {
+            float: right;
+            height: 194px;
+            border-left: 1px solid #e3e4e4;
+            color: #5E5E5E;
+            font: 12px Arial, Helvetica, sans-serif;
+            /*font-size: 14px;*/
+            padding-right: 100px;
+            margin: 10px 20px 0 0;
+        }
+
+            .shop-score li {
+                width: 100%;
+                line-height: 34px;
+                margin-left: 20px;
+            }
+
+                .shop-score li p {
+                    background-color: #fff;
+                    height: 6px;
+                    display: inline-block;
+                    width: 100px;
+                    vertical-align: middle;
+                    margin-right: 10px;
+                }
+
+                    .shop-score li p i {
+                        display: block;
+                        background-color: #3498DB;
+                        height: 6px;
+                    }
+
+                    .shop-score li p.s1 i {
+                        width: 10%;
+                    }
+
+                    .shop-score li p.s2 i {
+                        width: 20%;
+                    }
+
+                    .shop-score li p.s3 i {
+                        width: 30%;
+                    }
+
+                    .shop-score li p.s4 i {
+                        width: 40%;
+                    }
+
+                    .shop-score li p.s5 i {
+                        width: 50%;
+                    }
+
+                    .shop-score li p.s6 i {
+                        width: 60%;
+                    }
+
+                    .shop-score li p.s7 i {
+                        width: 70%;
+                    }
+
+                    .shop-score li p.s8 i {
+                        width: 80%;
+                    }
+
+                    .shop-score li p.s9 i {
+                        width: 90%;
+                    }
+
+                    .shop-score li p.s10 i {
+                        width: 100%;
+                    }
+
+                .shop-score li span {
+                    width: 110px;
+                    display: inline-block;
+                }
+
+        .cheng_ming {
+            font-size: 18px;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .xiang_ingo {
+            display: inline-block;
+            width: 60px;
+            background: rgb(11, 110, 180) none repeat scroll 0% 0%;
+            color: rgb(255, 255, 255);
+            border-radius: 4px;
+            text-align: center;
+            float: right;
+        }
+
+        #plist.prebuy .list-h li {
+            position: relative;
+            width: 232.5px;
+            height: 334px;
+            padding: 0;
+            border: 1px solid #ccc;
+            margin-left: 2px;
+        }
+
+            #plist.prebuy .list-h li:hover {
+                border: 1px solid rgb(52,152,219);
+            }
+
+        #plist, #plist .list-h {
+            position: relative;
+            overflow: visible;
+            z-index: 2;
+            margin-top: 20px;
+        }
+        /*------------------------*/
+        .smart-gray {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0px;
+            vertical-align: middle;
+            width: 100%;
+            background: #F8F8F8;
+            padding: 30px 30px 0px 30px;
+            font: 12px Arial, Helvetica, sans-serif;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            box-shadow: 2px 4px 6px #ccc; /*边框加阴影*/
+        }
+
+            .smart-gray h1 {
+                font: 30px "Trebuchet MS", Arial, Helvetica, sans-serif;
+                padding: 20px 0px 20px 40px;
+                display: block;
+                margin: -30px -30px 10px -30px;
+                color: #5E5E5E;
+                background: #F8F8F8; /*#E9E9E9*/
+                text-shadow: 1px 1px 1px #949494;
+                border-radius: 5px 5px 0px 0px;
+                -webkit-border-radius: 5px 5px 0px 0px;
+                -moz-border-radius: 5px 5px 0px 0px;
+                border-bottom: 1px solid #E9E9E9;
+            }
+
+        .table-photo {
+            width: 95%;
+            height: 130px;
+            border-radius: 5px;
+            background-color: #FFF; /*#eee8e8;*/
+            opacity: 50;
+        }
+
+            .table-photo tr td {
+                padding: 10px;
+                background-color: #FFF; /*#eee8e8;*/
+            }
+
+        .sub-span {
+            display: block;
+            font-size: 20px;
+            text-shadow: 0px 0px 0px #949494;
+            color: #ccc;
+        }
+
+        .smart-gray label {
+            display: block;
+            margin: 0px 0px 5px 50px;
+            width: 100%;
+        }
+
+            .smart-gray label > span {
+                float: left;
+                margin-top: 10px;
+                color: #5E5E5E;
+                width: 10%;
+            }
+
+        .smart-gray img {
+            position: relative;
+            border-radius: 5px;
+            width: 110px;
+            padding: 0px;
+            height: 110px;
+        }
+
+        .smart-gray input[type="text"], .smart-gray input[type="email"], .smart-gray textarea, .smart-gray select {
+            color: #555;
+            height: 30px;
+            line-height: 15px;
+            position: relative;
+            width: 35%;
+            padding: 2px;
+            margin-top: 2px;
+            border: 1px solid #E5E5E5;
+            background: #FBFBFB;
+            outline: 0;
+            -webkit-box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
+            box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
+            font: normal 11px/11px Arial, Helvetica, sans-serif;
+        }
+
+        .smart-gray .button {
+            background-color: #9DC45F;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-border-radius: 5px;
+            border: none;
+            padding: 10px 25px 10px 25px;
+            color: #FFF;
+            text-shadow: 1px 1px 1px #949494;
+        }
+
+            .smart-gray .button:hover {
+                background-color: #80A24A;
+            }
+
+        .jg_price {
+            border: 1px solid rgb(204, 204, 204);
+            width: 100px;
+            margin: 0px auto;
+            color: rgb(228, 57, 60);
+        }
+
+        #plist.plist-n7 .list-h .p-price {
+            font-size: 12px;
+            margin-bottom: 7px;
+            color: #999;
+            clear: left;
+            text-align: center;
+        }
+
+        #plist.plist-n7 .list-h .name_price {
+            width: 140px;
+            margin: -12px auto 3px 44px;
+            float: left;
+            clear: both;
+            text-align: center;
+            border-radius: 4px;
+            background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+            -moz-border-top-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            border-image: none;
+            border-width: 1px 1px 0px;
+            border-style: solid solid none;
+            border-color: rgb(204, 204, 204);
+            color: rgb(51, 51, 51);
+            font-size: 14px;
+            height: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content_info">
+        <input type="hidden" id="shopId" value="@Model.ShopId" />
+        <form action="" method="post" class="smart-gray ">
+            <h1>
+                <table class="table">
+                    <tr>
+                        <td style="padding-right:15px;">
+                            @{
+
+                                if (Model.ShopLogo == null || Model.ShopLogo == "")
+                                {
+                                    <img src="/Areas/Web/Images/ShopLogo.png" style="width:50px;height:50px;border-radius:10%">
+                                }
+                                else
+                                {
+                                    <img src="@Model.ShopLogo" style="width:50px;height:50px;border-radius:10%">
+                                }
+                            }
+
+                        </td>
+                        <td>
+
+                            @if (Model.ShopName == null || Model.ShopName == "")
+                            {
+                                <span>店铺名</span>
+                            }
+                            else
+                            {
+                                @Model.ShopName
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="border-bottom:1px solid rgb(220,154,157)"></div>
+                        </td>
+                        <td>
+
+                            <span class="sub-span">One you need,all we support</span>
+                            <div style="border-bottom: 1px solid rgb(220, 154, 157); float: right; margin-top: -12px; margin-right: -840px; width: 874px;"></div>
+                        </td>
+                    </tr>
+                </table>
+            </h1>
+            <ul class="shop-score">
+                <li><span>产品与描述相符</span><p class="s3"><i style="width:100%"></i></p><em>@Model.ProductAndDescription</em></li>
+                <li><span>服务态度</span><p class="s3"><i style="width:80%"></i></p><em>@Model.SellerServiceAttitude</em></li>
+                <li><span>发货速度</span><p class="s9"><i style="width:60%"></i></p><em>@Model.SellerDeliverySpeed</em></li>
+                <li><span>包装质量</span><p class="s9"><i style="width:80%"></i></p><em>@Model.PackingQuality</em></li>
+                <li><span>开户银行</span><em>@Model.BankName</em></li>
+                <li><span>银行账户</span><em>@Model.BankAccountNumber</em></li>
+            </ul>
+            <label>
+                <span>供应商账号：</span>
+                <input id="name" type="text" name="name" value="@Model.ShopAccount" disabled />
+            </label>
+            <label>
+                <span>供应商名称：</span>
+                <input id="name" type="text" name="name" value="@Model.ShopName" disabled />
+            </label>
+            <label>
+                <span>公司类型：</span>
+                <input id="name" type="text" name="name" value="@Model.ShopGradeName" disabled />
+            </label>
+            <label>
+                <span>所在地区 ：</span>
+                <input id="email" type="text" name="email" value="@Model.CompanyAddress" disabled />
+            </label>
+            <label>
+                <span>注册时间 ：</span>
+                <input id="address" type="text" value="@Model.CompanyFoundingDate" disabled />
+            </label>
+            <label>
+                <span>传真 ：</span>
+                <input id="tel" type="text" value="@Model.Fax" disabled />
+            </label>
+            <label>
+                <span>联系电话 ：</span>
+                <input id="tel" type="text" value="@Model.ContactsPhone" disabled />
+            </label>
+            <label>
+                <span>电子邮箱 ：</span>
+                <input id="email" type="email" name="email" value="@Model.ContactsEmail" disabled />
+            </label>
+            <label>
+                <span>公司官网 ：</span>
+                <input id="tel" type="text" value="@Model.URL" disabled />
+            </label>
+
+            <table class="table-photo" style="margin-top:20px;padding:5px;text-align:center;margin:20px 0px 20px 0px;">
+                @*<tr>
+                        <td>
+                            @{
+
+                                if (@Model.GMPPhoto != null && @Model.GMPPhoto != "")
+                                {
+                                    <a href="@Model.GMPPhoto"><span>产品生产质量管理规范证书</span></a>
+                                }
+                                else
+                                {
+                                    <span>产品生产质量管理规范证书</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+
+                                if (@Model.FDAPhoto != null && @Model.FDAPhoto != "")
+                                {
+                                    <a href="@Model.FDAPhoto"><span>食品和药物管理局认证证书 </span></a>
+                                }
+                                else
+                                {
+                                    <span>食品和药物管理局认证证书</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+
+                                if (@Model.ISOPhoto != null && @Model.ISOPhoto != "")
+                                {
+                                    <a href="@Model.ISOPhoto"><span>ISO认证证书</span></a>
+                                }
+                                else
+                                {
+                                    <span>ISO认证证书</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+
+                                if (@Model.OrganizationCodePhoto != null && @Model.OrganizationCodePhoto != "")
+                                {
+                                    <a href="@Model.OrganizationCodePhoto"><span>组织机构代码证</span></a>
+                                }
+                                else
+                                {
+                                    <span>组织机构代码证</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+
+                                if (@Model.TaxRegistrationCertificatePhoto != null && @Model.TaxRegistrationCertificatePhoto != "")
+                                {
+                                    <a href="@Model.TaxRegistrationCertificatePhoto"><span>税务登记证</span></a>
+                                }
+                                else
+                                {
+                                    <span>税务登记证</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+
+                                if (@Model.BusinessLicenceNumberPhoto != null && @Model.BusinessLicenceNumberPhoto != "")
+                                {
+                                    <a href="@Model.BusinessLicenceNumberPhoto"><span>营业执照副本 </span></a>
+                                }
+                                else
+                                {
+                                    <span>营业执照副本</span>
+                                }
+                            }
+                        </td>
+                    </tr>*@
+                <tr>
+                    <td>
+                        @{
+
+                            if (@Model.GMPPhoto != null && @Model.GMPPhoto != "")
+                            {
+                                <a href="@Model.GMPPhoto"><img src="/Areas/Web/Images/GMP.png" style="width:190px;height:190px;" /></a>
+                            }
+                            else
+                            {
+                                <img src="/Areas/Web/Images/NOPhotoGMP.png" style="width:190px;height:190px;" />
+                            }
+                        }
+
+                    </td>
+                    <td>
+                        @{
+
+                            if (@Model.GMPPhoto != null && @Model.GMPPhoto != "")
+                            {
+                                <a href="@Model.FDAPhoto"><img src="/Areas/Web/Images/FDA.png" style="width:190px;height:190px;" /></a>
+                            }
+                            else
+                            {
+                                <img src="/Areas/Web/Images/NOPhotoFDA.png" style="width:190px;height:190px;" />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+
+                            if (@Model.GMPPhoto != null && @Model.GMPPhoto != "")
+                            {
+                                <a href="@Model.ISOPhoto"><img src="/Areas/Web/Images/ISO.png" style="width:190px;height:190px;" /></a>
+                            }
+                            else
+                            {
+                                <img src="/Areas/Web/Images/NOPhotoISO.png" style="width:190px;height:190px;" />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+
+                            if (@Model.GMPPhoto != null && @Model.GMPPhoto != "")
+                            {
+                                <a href="@Model.OrganizationCodePhoto"><img src="/Areas/Web/Images/UnitCode.png" style="width:190px;height:190px;" /></a>
+                            }
+                            else
+                            {
+                                <img src="/Areas/Web/Images/NOPhotoUnitCode.png" style="width:190px;height:190px;" />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+
+                            if (@Model.GMPPhoto != null && @Model.GMPPhoto != "")
+                            {
+                                <a href="@Model.TaxRegistrationCertificatePhoto"><img src="/Areas/Web/Images/TAX.png" style="width:190px;height:190px;" /></a>
+                            }
+                            else
+                            {
+                                <img src="/Areas/Web/Images/NOPhotoTAX.png" style="width:190px;height:190px;" />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+
+                            if (@Model.GMPPhoto != null && @Model.GMPPhoto != "")
+                            {
+                                <a href="@Model.BusinessLicenceNumberPhoto"><img src="/Areas/Web/Images/Lencense.png" style="width:190px;height:190px;" /></a>
+                            }
+                            else
+                            {
+                                <img src="/Areas/Web/Images/NOPhotoLencense.png" style="width:190px;height:190px;" />
+                            }
+                        }
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="main_info">
+            <div class="main_header">
+                <img src="/Areas/Web/Images/111.png"></img>&nbsp;&nbsp;全部商品<span>(共<strong id="res_count"></strong>个产品)</span>
+            </div>
+            <div class="m psearch prebuy plist-n7 no-preview" id="plist">
+                <ul class="list-h cl"></ul>
+            </div>
+
+            <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        var totalcount = 0;
+        var maxcount = 0;
+        var pagesize = 10;
+        var pageno = 1;
+
+        var shopId = $("#shopId").val();
+
+        //查询数量
+        $.ajax({
+            type: 'post',
+            url: '/Shop/SearchResultCount',
+            data: {
+                "shopId": shopId
+            },
+            dataType: "json",
+            success: function (data) {
+                $("#res_count").html(data);
+                totalcount = parseInt(data);
+                maxcount = totalcount / 10;
+            }
+        });
+
+        QueryResult(shopId);
+
+        $(window).scroll(function () {
+            // 当滚动到最底部以上500像素时， 加载新的查询结果
+            if ($(document).height() - $(this).scrollTop() - $(this).height() < 500) {
+                if (pageno < maxcount) {
+                    pageno = pageno + 1;
+                    QueryResult(shopId);
+                    $(".list-h li").lazyload();
+                    return false;
+                }
+            }
+        });
+
+        function showLoading1(msg, delay) {
+            /// <param name="msg" type="String">待显示的文本,非必填</param>
+            /// <param name="delay" type="Int">延时显示的毫秒数，默认100毫秒显示,非必填</param>
+            if (!delay)
+                delay = 100;
+            var loading = $('<div class="ajax-loading" style="display:none"><table height="100%" width="100%"><tr><td align="center"><p>' + (msg ? msg : '') + '</p></td></tr></table></div>');
+            loading.appendTo('body');
+            var s = setTimeout(function () {
+                if ($(".ajax-loading").length > 0) {
+                    loading.show();
+                    $('.container,.login-box').addClass('blur');
+                }
+            }, delay);
+            return {
+                close: function () {
+                    clearTimeout(s);
+                    loading.remove();
+                    $('.container,.login-box').removeClass('blur');
+                }
+            }
+
+        }
+
+        function valueReplace(v) {
+            if (v.indexOf("\"") != -1) {
+                v = v.toString().replace(new RegExp('(["\"])', 'g'), "\\\"");
+            }
+            else if (v.indexOf("\\") != -1)
+                v = v.toString().replace(new RegExp("([\\\\])", 'g'), "\\\\");
+            return v;
+        }
+        function QueryResult(shopId) {
+            var loading = showLoading1();
+            $.ajax({
+                type: 'post',
+                url: '/Shop/SearchResult',
+                data: {
+                    "shopId": shopId,
+                    "pagesize": pagesize,
+                    "pageno": pageno
+                },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    var html = "";
+                    if (data == "") {
+                        html += "<span>很抱歉，没有找到与相关的产品。</span>";
+                    } else {
+                        //data = data.replace("\'", "\\'");
+                        var json = JSON.parse(data);
+                        if (json != null && json != undefined) {
+                            $.each(json.ds, function (i, item) {
+                                if (item.CAS == null || item.CAS == "0") {
+                                    item.CAS = "";
+                                }
+                                var oMOLECULAR_FORMULA = "";
+                                if (item.Molecular_Formula == null) {
+                                    item.Molecular_Formula = "";
+                                    oMOLECULAR_FORMULA = item.Molecular_Formula;
+                                }
+                                item.Molecular_Formula = item.Molecular_Formula.replace(/(\d+)/g, "<sub>$1</sub>");
+                                html += "<li>";
+                                html += "   <div class=\"lh-wrap\" style='width:232px;padding:0;background: rgb(235, 239, 243);padding:0'>";
+                                if (item.Pub_CID == "" || item.Pub_CID == null) {
+                                    html += "        <div class=\"p-img\"><a alt=\"" + item.Record_Title + ";" + oMOLECULAR_FORMULA + "\" title=\"" + item.Record_Title + ";" + oMOLECULAR_FORMULA + "\" target=\"_blank\" href=\"/Search/Search_Product_Shops?id=" + item.Pub_CID + "\" ><img class=\"lazyload\" src=\" /Areas/Web/Images/imgsrv.png\" data-url=\" /Areas/Web/Images/imgsrv.png\" ></a></div>";
+                                }
+                                else {
+                                    html += "        <div class=\"p-img\"><a alt=\"" + item.Record_Title + ";" + oMOLECULAR_FORMULA + "\" title=\"" + item.Record_Title + ";" + oMOLECULAR_FORMULA + "\" target=\"_blank\" href=\"/Search/Search_Product_Shops?id=" + item.Pub_CID + "\" ><img class=\"lazyload\" src=\"https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=" + item.Pub_CID + "&t=l\" data-url=\"https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=" + item.Pub_CID + "&t=l\" onerror=\"javascript:this.src='/Areas/Web/Images/imgsrv.png'\"></a></div>";
+                                }
+                                html += "        <div style='background:#fff;min-height: 92px;'><div class='p-price name_price' >" + (!item.ProductName == '' ? item.ProductName : item.EproductName) + "</div>";
+                                if (item.CasNo != "") {
+                                    html += "        <div class='p-price cas_price'>CAS#：" + item.CasNo + "</div>";
+                                }
+                                //html += "        <div class='p-price nd_price'>纯度：" + item.Purity + "</div>";
+                                //html += "        <div class='p-price jg_price' style='color:#e4393c'> 价格：" + item.Price + "</div>";
+                                html += "</div></div>";
+                                html += "</li>";
+                            });
+                        }
+
+                    }
+                    $(".list-h").append(html);
+                    loading.close();
+                }
+            });
+        }
+    });
+
+</script>
+<script type="text/javascript" src="~/Areas/Web/Scripts/jquery.lazyload.min.js"></script>

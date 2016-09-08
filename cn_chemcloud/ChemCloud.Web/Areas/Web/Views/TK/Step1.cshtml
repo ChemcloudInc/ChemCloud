@@ -1,0 +1,63 @@
+﻿
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "个人信息";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>退款退货</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <style>
+        #Refund {
+            margin-left: 276px;
+            margin-top: 20px;
+            background: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="Refund">
+        <div class="border_wai">
+            <ul class="liucheng">
+                <li id="liuchengs"><img src="~/images/liucheng01.png" alt=""></li>
+                <li id="liuchenga"><img src="/images/arrow_001.png" alt=""></li>
+                <li id="liuchengs"><img src="/images/liucheng0002.png" alt=""></li>
+                <li id="liuchenga"><img src="/images/arrow_001.png" alt=""></li>
+                <li id="liuchengs"><img src="/images/liucheng0003.png" alt=""></li>
+                <li id="liuchenga"><img src="/images/arrow_001.png" alt=""></li>
+                <li id="liuchengs"><img src="/images/liucheng0004.png" alt=""></li>
+            </ul>
+            <div class="Refund_1"><a href="Step2?type=thtk&orderNo=@ViewBag.orderNo">退货退款</a></div>
+            <div class="Refund_2"><a href="Step2?type=tk&orderNo=@ViewBag.orderNo">仅退款</a></div>
+        </div>
+        <div class="border_wai" style="margin-top:20px">
+            <h3 class="h3_gui">服务介绍</h3>
+            <div class="gui_zhe">
+                <h4 class="h4_gui">1.仅退款</h4>
+                <div class="div_gui">
+                    <p>
+                        申请条件：若您未收到货，或已收到货且与卖家达成一致不退货仅退款时，请选择“仅退款”选项。
+                    </p>
+                    <p>
+                        退款流程：1.申请退款>2.卖家同意退款申请>3.退款成功
+                    </p>
+                </div>
+                <h4 class="h4_gui">2.退货退款</h4>
+                <div class="div_gui">
+                    <p>
+                        申请条件：若为商品问题，或者不想要了且与卖家达成一致，请选择退货退款选项，退货后请保留物流底单。
+                    </p>
+                    <p>
+                        退货流程：1.申请退货>2.卖家发送退货地址给买家>3.买家退货并填写退货物流信息>4.卖家确认收货，退款成功
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

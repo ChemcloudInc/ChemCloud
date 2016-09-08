@@ -1,0 +1,127 @@
+﻿
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script>    var val = "@Request.QueryString["status"]";</script>
+<script src="~/Areas/SellerAdmin/Scripts/productManagement.js"></script>
+<style>
+    .title {
+        background-color: #e6e6e6;
+        border-bottom: 1px solid #e4e4e4;
+        float: left;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+        .title .title_txt.cur, .title .title_txt.curr {
+            color: #333;
+            border-bottom: 2px solid #3498DB;
+            margin-bottom: -1px;
+            line-height: 44px;
+            display: inline-block;
+            padding: 0 10px;
+        }
+</style>
+<div class="container" style="padding-top:20px">
+    <div class="title" style="padding-left:15px;">
+        <a class="title_txt cur" style="color:#000;font-size:14px;text-decoration:none;">产品列表</a>
+        <a class="title_txt" style="color:#000;font-size:14px;text-decoration:none;" href="/SellerAdmin/Product/SpecialOfferList">特价产品</a>
+    </div>
+    <div>
+        <form class="custom-inline">
+            <div class="form-group" filter normal audit saleoff>
+                <label class="label-inline" for="">产品名称</label>
+                <input class="form-control input-ssm" type="text" id="searchBox">
+            </div>           
+            <div class="form-group" filter normal>
+                <label class="label-inline" for="" style="width:54px">产品货号</label>
+                <input class="form-control input-ssm" type="text" id="productId">
+            </div>
+            @*<div class="form-group" filter normall>
+                    <label class="label-inline" for="">产品分类</label>
+                    <select id="category1" class="form-control input-ssm">
+                        <option>分类</option>
+                    </select>
+                </div>
+                <div class="form-group" filter normall>
+                    <label class="label-inline" for="">二级分类</label>
+                    <select id="category2" class="form-control input-ssm">
+                        <option>分类</option>
+                    </select>
+                </div>*@
+            <div class="form-group" filter normal>
+                <label class="label-inline" for="">CAS#</label>
+                <input class="form-control input-ssm" type="text" id="brandBox" autocomplete="off" style="display :none ;">
+
+                <input class="form-control input-ssm" type="text" id="txtCASNo" autocomplete="off">
+            </div>
+            @*<div class="form-group" filter normal>
+                    <label class="label-inline" for="">开始日期</label>
+                    <input class="form-control input-ssm start_datetime" type="text">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </div>
+                <div class="form-group" filter normal>
+                    <label class="label-inline" for="">结束日期</label>
+                    <input class="form-control input-ssm end_datetime" type="text">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </div>*@
+            <div class="form-group" filter audit>
+                <label class="label-inline" for="">产品状态</label>
+                @*<input class="form-control input-ssm end_datetime" type="">*@
+                <select class="form-control input-ssm" id="productStatus">
+                    <option selected="selected" value="5">全部</option>
+                    <option value="1">上架</option>
+                    <option value="2">下架</option>
+                </select>
+                @*<i class="glyphicon glyphicon-calendar"></i>*@
+            </div>
+            <div class="form-group" filter normal>
+                <label class="label-inline" for="" >英文名称</label>
+                <input class="form-control input-ssm" type="text" id="engname">
+            </div>
+            <div class="submit" normal style="margin-top: 15px; float: right; margin-right: 34px; position: relative;">
+                <button type="button" class="btn btn-primary btn-sm" id="searchButton" style="width: 100px;">搜 索</button>
+            </div>
+        </form>
+    </div>
+    <table id="list" class="table"></table>
+    <div class="tabel-operate" id="saleOff">
+        <a class="btn btn-danger btn-ssm newa" id="batchDelete">批量删除</a>
+        <a class="btn btn-danger btn-ssm newa" id="batchSaleOff">批量下架</a>
+        <a class="btn btn-danger btn-ssm newa" id="batchOnSale">批量上架</a>
+        @*  <a class="btn btn-danger btn-ssm newa" id="batchOnSale">批量申请产品认证</a>*@
+        @* <a class="btn btn-default btn-ssm" id="associateTemplate">关联版式</a>*@
+
+        @*<button type="button" class="btn btn-primary btn-sm" id="batchDelete">批量删除</button>
+            <button type="button" class="btn btn-primary btn-sm" id="batchSaleOff">批量下架</button>
+            <button type="button" class="btn btn-primary btn-sm" id="batchOnSale">批量上架</button>
+            <button type="button" class="btn btn-primary btn-sm" id="batchOnSale">批量申请产品认证</button>
+            <button type="button" class="btn btn-primary btn-sm" id="productApply">打印产品报检申请</button>*@
+    </div>
+</div>
+
+<div style="display:none" id="publish">
+    <wb:publish action="publish" id="wb_publisher"></wb:publish>
+</div>
+<div class="form-group" id="weixinQrCode" style="display:none">
+    <img id="QrCode" />
+</div>
+<script>
+    function showQrCode(imgSrc) {
+        $.dialog({
+            title: '二维码',
+            lock: true,
+            id: 'weixinQrCode',
+            content: $("#weixinQrCode").html(),
+            padding: '10px',
+            init: function () {
+                $("#QrCode").attr('src', imgSrc)
+            }
+        });
+    }
+    var AuditOnOff = '@ViewBag.AuditOnOff';
+</script>

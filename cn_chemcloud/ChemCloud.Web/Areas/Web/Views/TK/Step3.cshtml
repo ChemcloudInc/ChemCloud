@@ -1,0 +1,263 @@
+﻿@using ChemCloud.Web.Areas.Web.Models;
+@using ChemCloud.Model;
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "个人信息";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>退款申请</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <style>
+        #Refund {
+            width: 1210px;
+            position: relative;
+            padding: 24px 0 30px 280px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+            #Refund .right_input {
+               
+                width: 890px;
+            }
+
+            #Refund .left_img {
+                margin-top: 20px;
+            }
+
+            #Refund .myname {
+                font-size: 14px;
+            }
+
+            #Refund .Refund_border .siader h3 {
+                height: 45px;
+                line-height: 45px;
+            }
+
+        .Refund_border {
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="Refund">
+        @*type=1退款中*@
+        @if (ViewBag.type == 5)
+        {
+            <div class="Refund_border" style="width:1004px; margin-top:60px;">
+                <div class="main_liu">
+                    <div class="header_liu">
+                        <h3 style="font-weight:bold;margin-top: 18px;">退款信息</h3>
+                        <span class="header_xi"></span>
+                    </div>
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_text">退款状态：</span>
+                        </div>
+                        <span style="color:red;" id="spanstatus"></span>
+                    </div>
+                    <div class="Refund_form">
+                        <div class="form_hang">
+                            <div class="lable">
+                                <span class="lable_text">退款原因：</span>
+                            </div>
+                            <select name="" id="Reson" style="width:300px;">
+                                <option value="0">收到的产品与采购产品不一致</option>
+                                <option value="1">产品无法使用</option>
+                                <option value="2">其它原因</option>
+                            </select>
+
+                        </div>
+                        <div class="form_hang">
+                            <div class="lable">
+                                <span class="lable_text">退款金额：</span>
+                            </div>
+                            <input type="text" id="Amont" value="" disabled="disabled">
+                            <span>元</span>
+                            <span>(最多 </span>
+                            <span style="color:red;">@ViewBag.max</span>
+                            <span class="more"></span>
+                            <span>元)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="siader">
+                    <h3>订单信息</h3>
+                    <div class="border_sia">
+                        <div class="line_height_sia">
+                            <span class="guding">采购商：</span>
+                            <span>@ViewBag.UserName</span>
+                        </div>
+                        <div class="line_height_sia">
+                            <span class="guding">供应商：</span>
+                            <span>@ViewBag.ShopName</span>
+                        </div>
+                        <div class="line_height_sia">
+                            <span>订单编号：</span>
+                            <span class="blud_span">@ViewBag.OrderNo</span>
+                        </div>
+                        <div class="line_height_sia">
+                            <span class="guding">订单金额：</span>
+                            <span class="hong_span">@ViewBag.total</span>
+                            <span>元</span>
+                        </div>
+                        <div class="line_height_sia">
+                            <span class="guding">运 费：</span>
+                            <span class="hong_span">@ViewBag.yunfei</span>
+                            <span>元</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="border_wai">
+                <ul class="border_wai_ul">
+                    <li style="font-weight:bolder;font-size:16px;">退款状态：<span style="color:red;" id="spanstatus"></span></li>
+                    <li>如果卖家同意，平台审核10分钟后完成退款。</li>
+                    <li>如果卖家拒绝，联系平台。</li>
+                </ul>
+                <div class="button_start">
+                    <span class="margin_right">您还可以：</span>
+                    <a href="step2?orderno=@ViewBag.OrderNo" class="">继续发言</a>
+                    <span>|</span>
+                    <a href="" onclick="Cancle(@ViewBag.OrderNo,6)">取消申请</a>
+                    @*<span>|</span>
+                        <a href="" onclick="Cancle(@ViewBag.OrderNo,2)">申请仲裁</a>*@
+                </div>
+            </div>
+        }
+        <div class="border_wai" style="overflow-y: auto;margin-top: 50px;min-height: 626px;max-height: 626px;">
+            <h3 class="h3_gui"><span class="title_header">留言板</span></h3>
+            @if (ViewBag.tkmms != null)
+            {
+                foreach (TKMessageModel item in ViewBag.tkmms as List<TKMessageModel>)
+                {
+                    <div class="liuyan_div">
+                        <div class="left_img">
+                            <div class="img_tou">
+                                @*<img src="~/images/2.jpg" alt="">*@
+                                @{
+                    long userid = item.UserId;/*chemcloud_members id*/
+                    UserMemberInfo _UserMemberInfo = ChemCloud.Web.Framework.ServiceHelper.Create<ChemCloud.IServices.IMemberService>().GetMember(userid);
+                    if (_UserMemberInfo != null)
+                    {
+                        if (_UserMemberInfo.UserType == 3)
+                        {
+                            MemberDetail md = ChemCloud.Web.Framework.ServiceHelper.Create<ChemCloud.IServices.IMemberDetailService>().GetMemberDetailByUid(_UserMemberInfo.Id);
+                            if (md != null && !string.IsNullOrEmpty(md.CompanySign))
+                            {
+                                <img src="@md.CompanySign" alt="">
+                            }
+                            else
+                            {
+                                <img src="~/images/2.jpg" alt="">;
+                            }
+                        }
+                        else if (_UserMemberInfo.UserType == 2)
+                        {
+                            //ShopInfo shop = ServiceHelper.Create<IShopService>().GetShop(base.CurrentSellerManager.ShopId, false);
+                            ManagerInfo _ManagerInfo = ChemCloud.Web.Framework.ServiceHelper.Create<ChemCloud.IServices.IManagerService>().GetManagerInfoByUserName(_UserMemberInfo.UserName);
+                            if (_ManagerInfo != null)
+                            {
+                                long shopid = _ManagerInfo.ShopId;
+                                ShopInfo _ShopInfo = ChemCloud.Web.Framework.ServiceHelper.Create<ChemCloud.IServices.IShopService>().GetShop(shopid);
+                                if (_ShopInfo != null && _ShopInfo.Logo != null)
+                                {
+                                    <img src="@_ShopInfo.Logo" alt="">;
+                                }
+                                else
+                                {
+                                    <img src="~/images/2.jpg" alt="">;
+                                }
+                            }
+                            else
+                            {
+                                <img src="~/images/2.jpg" alt="">;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <img src="~/images/2.jpg" alt="">;
+                    }
+                                }
+                            </div>
+                            <div class="myname" title=@item.ReturnName>@item.ReturnName</div>
+                        </div>
+                        <div class="right_input">
+                            <div class="right_text">@item.MessageContent<span class="time_span">@item.MessageDate.ToString("yyyy-MM-dd HH:mm:ss")</span></div>
+                            @foreach (TKImageInfo item1 in @item.tkis)
+                            {
+                                <div class="image_tu">
+                                    <div class="left_img_tu">
+                                        <img src="@item1.TKImage" alt="ChemCloud">
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+    <input type="hidden" id="hdOrderNo" value="@ViewBag.OrderNo" />
+    <input type="hidden" id="hdtype" value="@ViewBag.type" />
+    <input type="hidden" id="hdReasonType" value="@ViewBag.ReasonType" />
+    <input type="hidden" id="hdTKAmont" value="@ViewBag.TKAmont" />
+    <input type="hidden" id="hdTKInstruction" value="@ViewBag.TKInstruction" />
+    <script>
+        $(function () {
+            var type = $("#hdtype").val(); /*状态*/
+
+            switch (type) {
+                case "1": type = "退款中"; break;
+                case "2": type = "仲裁中"; break;
+                case "3": type = "同意退款"; break;
+                case "4": type = "拒绝退款"; break;
+                case "5": type = "已完成"; break;
+                case "6": type = "已取消"; break;
+            };
+            $("#spanstatus").html(type);
+
+            var ReasonType = $("#hdReasonType").val();/*原因*/
+            $("#Reson").val(ReasonType);
+            $("#Reson").attr("disabled", "disabled");
+
+            var tkamont = $("#hdTKAmont").val();/*金额*/
+            $("#Amont").val(tkamont);
+            $("#Amont").attr("disabled", "disabled");
+
+            var TKInstruction = $("#hdTKInstruction").val();/*留言*/
+            $("#Introduce").val(TKInstruction);
+            $("#Introduce").attr("disabled", "disabled");
+        });
+
+
+
+        var Cancle = function (id, type) {
+            if ($("#hdtype").val() == "1") {
+                $.post("ChangeType", { id: id, type: type }, function (d) {
+                    if (d.success) {
+                        $.dialog.succeedTips("操作成功！");
+                        location.href = "/TK/Management";
+                    }
+                    else {
+                        $.dialog.succeedTips("操作失败！");
+                    }
+                });
+            } else {
+                $.dialog.succeedTips("只有退款中的订单才可以取消！");
+            }
+        }
+    </script>
+</body>
+</html>

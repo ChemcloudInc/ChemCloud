@@ -1,0 +1,5 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\bin\Release\WxPayAPI.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\bin\Release\WxPayAPI.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\bin\Release\LitJson.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\obj\Release\WxPayAPI.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\obj\Release\WxPayAPI.pdb

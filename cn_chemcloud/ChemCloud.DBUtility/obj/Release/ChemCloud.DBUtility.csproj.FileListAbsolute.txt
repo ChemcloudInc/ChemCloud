@@ -1,0 +1,4 @@
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\bin\Release\ChemCloud.DBUtility.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\bin\Release\ChemCloud.DBUtility.pdb
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\obj\Release\ChemCloud.DBUtility.dll
+D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\obj\Release\ChemCloud.DBUtility.pdb

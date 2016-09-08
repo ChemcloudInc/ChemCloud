@@ -1,0 +1,167 @@
+﻿@model ChemCloud.Web.Models.ShopModel
+
+@using System.Collections
+
+@{
+    ViewBag.Title = "Management";
+}
+
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+
+<script type="text/javascript">
+
+    /*删除*/
+    function deleteShopEvent(id) {
+        $.dialog.confirm('确定删除该用户吗？', function () {
+            var loading = showLoading();
+            ajaxRequest({
+                type: 'POST',
+                url: './DeleteShop',
+                cache: false,
+                param: { Id: id },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success == true) {
+                        $.dialog.tips('删除成功.'); Query(); loading.close();
+                    }
+                },
+                error: function (data) { $.dialog.tips('删除失败,请稍候尝试.'); loading.close(); }
+            });
+        });
+    }
+
+    /*批量删除*/
+    function BatchDelete() {
+        var selectedRows = $("#list").hiMallDatagrid("getSelections");
+        var selectids = new Array();
+
+        for (var i = 0; i < selectedRows.length; i++) {
+            selectids.push(selectedRows[i].Id);
+        }
+        if (selectedRows.length == 0) {
+            $.dialog.tips("你没有选择任何选项！");
+        }
+        else {
+            $.dialog.confirm('确定删除选择的用户吗？', function () {
+                var loading = showLoading();
+                $.post("./BatchDelete", { ids: selectids.join(',') }, function (data) { $.dialog.tips(data.msg); query(); loading.close(); });
+            });
+        }
+    }
+
+
+    /*查询*/
+    function Query() {
+        var shopName = $("#shopName").val();
+        var shopStatus = $("#shopStatus").val();
+        $("#shopDatagrid").hiMallDatagrid({
+            url: "./List",
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { "companyName": shopName, "shopStatus": shopStatus, type: $("#type").val() },
+            toolbar: "#shopToolBar",
+            columns:
+            [[
+                { checkbox: true, width: 39 },
+                { field: "Id", title: "Id", hidden: true },
+                { field: "IsSelf", title: "IsSelf", hidden: true },
+                {
+                    field: "CompanyName", title: "供应商名称", align: 'center', halign: 'center', width: 560, formatter: function (value, row, index) {
+                        var id = row.Id.toString();
+                        var html = "";
+                        if (row.Status != '被拒绝') {
+                            html = row.CompanyName;
+                        }
+                        else {
+                            html = row.CompanyName;
+                        }
+                        return '<a href="./Details?id=' + row.Id + '" style="cursor:pointer;color:blue;">' + html + '</a>';
+                    }
+                },
+
+                { field: "Status", title: "状态", width: 140 },
+                {
+                    field: "operation", operation: true, title: "操作",
+                    formatter: function (value, row, index) {
+                        var id = row.Id.toString();
+                        var html = ['<span class="btn-a">'];
+
+                        //if (row.Disabled == 0) {
+                        //    html.push('<a onclick="ActiveUser(' + id + ')">激活</a>');
+                        //} else {
+                        //    html.push('<a style="color:#ccc;" onclick="javascript:void(0);">激活</a>');
+                        //}
+
+                        if (row.Status == '待审核') {
+                            html.push('<a href="./Auditing?id=' + id + '">审核</a>');
+                        } else {
+                            html.push('<a href="./Details?id=' + id + '">查看</a>');
+                            if (row.Status != '被拒绝') {
+                                html.push('<a href="./Edit?id=' + id + '">编辑</a>');
+                            }
+                        }
+                        html.push('<a onclick="deleteShopEvent(' + id + ');">删除</a>');
+                        html.push("</span>");
+                        return html.join("");
+                    }
+                }
+            ]]
+        });
+
+    };
+
+    /*初始方法*/
+    $(function () {
+        Query();
+        $("#searchBtn").click(function (e) {
+            Query();
+            searchClose(e);
+        });
+    });
+
+    function ActiveUser(id) {
+        var loading = showLoading();
+        ajaxRequest({
+            type: 'POST',
+            url: './ActiveUser',
+            cache: false,
+            param: { Id: id },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success == true) {
+                    $.dialog.tips('激活成功.'); Query(); loading.close();
+                }
+            },
+            error: function (data) { $.dialog.tips('激活失败,请稍候尝试.'); loading.close(); }
+        });
+    }
+</script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>供应商管理</a></li>
+    </ul>
+    <div id="shopToolBar">
+        <div class="search-box only-line">
+            <form class="custom-inline" role="form">
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width : 78px ">供应商名称</label>
+                    <input class="form-control input-ssm" type="text" id="shopName">
+                </div>
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width : 78px ">状态</label>
+                    @Html.DropDownListFor(s => s.Status, ((IEnumerable<SelectListItem>)ViewBag.Status),
+                    new { @class = "form-control input-ssm", id = "shopStatus" })
+                </div>
+                <input type="button" class="btn btn-primary btn-sm" id="searchBtn" value="搜 索">
+
+                <button type="button" id="searchBtn" class="btn btn-primary btn-sm" onclick="BatchDelete()">批量删除</button>
+            </form>
+        </div>
+    </div>
+    <table class="table mt20" id="shopDatagrid"></table>
+    <input type="hidden" value="@ViewBag.Type" id="type" />
+</div>

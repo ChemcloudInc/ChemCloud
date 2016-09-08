@@ -1,0 +1,135 @@
+﻿@charset "utf-8";
+/* CSS Document */
+*, a, li, img, input { margin: 0; padding: 0; list-style: none; text-decoration: none; border: none; }
+h1, h2, h3, h4, h5, h6 { font-weight: normal; }
+body { font-family: "微软雅黑"; background-color: #fff; }
+.orange { color: orange; }
+.clear { clear: both; }
+.inner { width: 1000px; margin: 0px auto; }
+/*main*/
+
+.main { padding: 0px 0px; }
+
+.div_search1 { width: 100%; background-color: #065793; }
+.div_search { width: 1150px; margin: 0px auto; padding: 8px 0px 8px 0px; }
+    .div_search label { color: #fff; margin: 0px 10px; }
+    .div_search input { height: 25px; padding-left: 5px; background-color: #f4f4f4; }
+    .div_search select { height: 25px; padding-left: 5px; background-color: #f4f4f4; }
+    .div_search #selectUserType_Web { height: 25px; width: 80px; padding: 0px 10px; background-color: #f4f4f4; }
+        .div_search #selectUserType_Web option { height: 25px; line-height: 25px; text-align: center; }
+    .div_search button { padding: 4px 15px; background-color: #f4f4f4; height: 25px; }
+    .div_search #input_keyword { width: 250px; }
+
+.div_jobs_list { width: 1150px; margin: 0px auto; overflow: hidden; }
+#ul_jobs_list { overflow: hidden; }
+    #ul_jobs_list li { padding: 10px 20px 10px 20px; border-bottom: 1px solid #CCC; }
+    #ul_jobs_list table { width: 98%; }
+    #ul_jobs_list li .tr_time { height: 30px; }
+    #ul_jobs_list li a { color: #2289ce; font-weight: bold; font-size: 14px; cursor: pointer; }
+    #ul_jobs_list li .label_MemberName { font-weight: bold; font-size: 14px; float: right; cursor: pointer; color: #2289ce; }
+    #ul_jobs_list li .label_title { float: left; }
+    #ul_jobs_list li .label_title1 { }
+    #ul_jobs_list li .label_EndDate { float: left; }
+
+#pageGro1 .pageList ul li { display: inline-block; cursor: pointer; padding: 0 5px; }
+#pageGro2 .pageList ul li { display: inline-block; cursor: pointer; padding: 0 5px; }
+#pageGro3 .pageList ul li { display: inline-block; cursor: pointer; padding: 0 5px; }
+#preSpanBtn1, #nextSpanBtn1, .pageList { display: inline-block; cursor: pointer; padding: 0 5px; }
+#preSpanBtn2, #nextSpanBtn2, .pageList { display: inline-block; cursor: pointer; padding: 0 5px; }
+#preSpanBtn3, #nextSpanBtn3, .pageList { display: inline-block; cursor: pointer; padding: 0 5px; }
+    .pageList .on { /*border-bottom:1px solid*/ color: #2289ce; }
+
+#ul_jobs_list1 { overflow: hidden; }
+    #ul_jobs_list1 li { padding: 10px 20px 10px 20px; border-bottom: 1px solid #CCC; }
+    #ul_jobs_list1 table { width: 98%; }
+    #ul_jobs_list1 li .tr_time { height: 30px; }
+    #ul_jobs_list1 li a { color: #2289ce; font-weight: bold; font-size: 14px; cursor: pointer; }
+    #ul_jobs_list1 li .label_MemberName { font-weight: bold; font-size: 14px; float: right; cursor: pointer; color: #2289ce; }
+    #ul_jobs_list1 li .label_title { float: left; }
+    #ul_jobs_list1 li .label_EndDate { float: left; }
+
+
+.aui_content { margin-top: 0px; height: 100%; overflow: auto; }
+
+
+/* 我要采购：采购商 */
+.div_IWantToBy { width: 1160px; margin: 10px auto; overflow: hidden; }
+.div_IWantToBy_Left { width: 850px; padding: 10px 0px; float: left; }
+
+#table_list { width: 100%; }
+#thead_list { width: 100%; border: 1px solid #CCC; }
+#tbody_list { width: 100%; }
+
+#thead_list tr td { font-size: 14px; font-weight: bold; color: #333333; height: 30px; text-align: center; line-height: 30px; background-color: #F7F7F7; }
+#tbody_list tr td { height: 30px; line-height: 30px; border-bottom: 1px dashed #ddd; }
+#tbody_list tr .li_xiala { width: 3%; text-align: right; padding: 0px 20px; }
+    #tbody_list tr .li_xiala .xiala { display: inline-block; border: 1px solid #2196ff; padding: 5px; text-align: center; }
+
+.li_productname { text-align: left; padding-left: 20px; }
+.li_quantity { text-align: center; }
+.li_unitprice { text-align: center; }
+.li_unit { text-align: center; }
+.li_totalprice { text-align: center; }
+.li_createDate { text-align: center; }
+.li_latestDate { text-align: center; }
+.li_status { text-align: center; }
+
+.tr_detail { display: none; width: 100%; }
+    .tr_detail td { }
+.detailed { display: none; padding: 10px 20px; }
+
+.webInputPayrol { width: 60px; }
+#webSlectWorkType { width: 60px; height: 26px; border: 1px solid #CCC; padding: 0px; }
+#selectUserType_Web { width: 80px; height: 26px; border: 1px solid #CCC; }
+#selectLanguage_Web { width: 60px; height: 26px; border: 1px solid #CCC; }
+
+
+/*提交表单*/
+#table_Form { width: 500px; margin: 0px auto; }
+    #table_Form thead tr td { padding: 10px; text-align: center; font-size: 20px; font-weight: bold; }
+    #table_Form tbody tr td { padding: 3px 10px; }
+        #table_Form tbody tr td input { height: 24px; border-radius: 4px; padding: 0px 5px; border: 1px solid #CCC; }
+        #table_Form tbody tr td textarea { border-radius: 4px; padding: 5px 5px; border: 1px solid #CCC; }
+
+/*我要采购：供应商*/
+#table_Supplier { width: 100%; }
+#table_Supplier_thead_list tr td { padding: 10px; text-align: center; font-size: 14px; }
+#table_Supplier_tbody_list tr td { padding: 5px 10px; }
+
+/*我要采购：供应商*/
+#table_LoginOut { width: 100%; }
+#table_LoginOut_thead_list tr td { padding: 10px; text-align: center; font-size: 14px; }
+#table_LoginOut_tbody_list tr td { padding: 5px 10px; }
+
+.talbeSupplyList {  width:100%;}
+.tr_toubiaohead {background-color:#ccc; text-align:center; height:25px; }
+.tr_toubiaolist {text-align:center; }
+.tr_toubiaolist td{ padding:2px 0px; }
+
+.span_wytb { padding: 2px 10px; font-size: 12px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #CCC; }
+.span_wytb_lan { padding: 2px 10px; font-size: 12px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #2289ce; }
+.span_wytb_lan1 { padding: 0px 10px; font-size: 12px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: rgb(66, 133, 244); }
+.span_wytb_lan2 { padding: 2px 10px; font-size: 12px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #065793; }
+
+.span_wytb_hui { padding: 3px 10px; font-size: 12px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #CCC; }
+.span_wytb_hui1 { padding: 0px 10px; font-size: 12px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #666; }
+.span_wytb_hui2 { padding: 3px 10px; font-size: 12px; cursor: pointer; border-radius: 3px; text-align: center; color: #fff; background-color: #555; }
+
+.input_toubiao { width: 90px; border: 1px solid #CCC; height: 20px; text-align:center; }
+.input_name_100 { width: 100px; }
+.input_name_140 { width: 125px; }
+.input_name_200 { width: 200px; }
+.input_name_300 { width: 350px; }
+.input_name_400 { width: 400px; }
+.input_name_500 { width: 500px; }
+.toubiao { background-color: #eee; }
+
+.select_300 { width: 360px; height: 24px; border-radius: 4px; padding: 0px 5px; color: #666; font-family: "微软雅黑"; border: 1px solid #CCC; }
+    .select_300 option { width: 330px; height: 24px; padding: 0px 5px; color: #666; font-family: "微软雅黑"; }
+
+#span_IWantToBuy { width: 80px; padding: 5px 0px; font-size: 14px; cursor: pointer; border-radius: 5px; text-align: center; color: #fff; background-color: rgb(66, 133, 244); }
+
+
+.div_IWantToBy_Right { width: 300px; float: right; overflow: hidden; }
+.div_IWantToBy_Right_1 { font-size: 16px; text-align: center; border: 1px solid #CCC; padding: 6px 0px; background-color: #F7F7F7; }
+.div_IWantToBy_Right_2 { line-height: 24px; font-size: 14px; padding: 10px 10px; text-indent:2em; }

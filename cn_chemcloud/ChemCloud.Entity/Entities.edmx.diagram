@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9cd12d4554e3478488d1af9adc6a5059" Name="ChemCloud v2.1" ZoomLevel="63" ShowGrid="true" >
+        <EntityTypeShape EntityType="ChemCloud.Model.AccountDetailInfo" Width="2.375" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.AccountMetaInfo" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.AccountPurchaseAgreementInfo" Width="1.5" PointX="3" PointY="5.625" />
+        <EntityTypeShape EntityType="ChemCloud.Model.AccountInfo" Width="2.25" PointX="0.5" PointY="1.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ActiveMarketServiceInfo" Width="1.5" PointX="10.75" PointY="1" />
+        <EntityTypeShape EntityType="ChemCloud.Model.AgreementInfo" Width="1.5" PointX="12.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ApplyWithDrawInfo" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ArticleCategoryInfo" Width="2" PointX="5.75" PointY="12.625" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ArticleInfo" Width="1.5" PointX="8.5" PointY="12" />
+        <EntityTypeShape EntityType="ChemCloud.Model.AttributeInfo" Width="2.25" PointX="3.875" PointY="38.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.AttributeValueInfo" Width="2.875" PointX="4.625" PointY="42.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.BannerInfo" Width="1.5" PointX="10.75" PointY="13.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.BonusInfo" Width="3" PointX="16.125" PointY="17.5" />
+        <EntityTypeShape EntityType="ChemCloud.Model.BonusReceiveInfo" Width="3.125" PointX="21.75" PointY="27.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.BrandInfo" Width="2.125" PointX="0.5" PointY="32.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.BrowsingHistoryInfo" Width="1.5" PointX="20.875" PointY="39.625" />
+        <EntityTypeShape EntityType="ChemCloud.Model.BusinessCategoryInfo" Width="1.5" PointX="0.625" PointY="49.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CapitalInfo" Width="1.5" PointX="0.75" PointY="12.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CapitalDetailInfo" Width="1.5" PointX="3" PointY="12" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CashDepositInfo" Width="1.5" PointX="8.25" PointY="68.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CashDepositDetailInfo" Width="3.375" PointX="13" PointY="70" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CategoryInfo" Width="3.25" PointX="2.625" PointY="46.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CategoryCashDepositInfo" Width="1.875" PointX="1.875" PointY="43.625" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ChargeDetailInfo" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CollocationInfo" Width="1.5" PointX="10.125" PointY="39" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CollocationPoruductInfo" Width="2.75" PointX="13.5" PointY="42.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CollocationSkuInfo" Width="2.125" PointX="12.875" PointY="37.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CouponInfo" Width="3.5" PointX="7.875" PointY="90.5" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CouponRecordInfo" Width="3.625" PointX="15" PointY="74" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CouponSettingInfo" Width="2.5" PointX="10.5" PointY="96.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CustomerServiceInfo" Width="1.5" PointX="14.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FavoriteInfo" Width="2" PointX="10.5" PointY="47.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FavoriteShopInfo" Width="1.5" PointX="22.75" PointY="44.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FieldCertification" Width="1.5" PointX="2.75" PointY="15.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FloorBrandInfo" Width="2.75" PointX="19.25" PointY="43.5" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FloorCategoryInfo" Width="2.25" PointX="0.5" PointY="52.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FloorProductInfo" Width="2" PointX="10.5" PointY="51" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FloorTablDetailsInfo" Width="3.25" PointX="17.75" PointY="47.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FloorTablsInfo" Width="3.25" PointX="19.75" PointY="62.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FloorTopicInfo" Width="2.75" PointX="14.25" PointY="66.625" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FreightAreaContentInfo" Width="3.375" PointX="4" PointY="23" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FreightTemplateInfo" Width="3" PointX="3.875" PointY="26.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.GiftOrderItemInfo" Width="1.5" PointX="12.375" PointY="4.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.GiftInfo" Width="1.5" PointX="4.75" PointY="15.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.GiftOrderInfo" Width="1.5" PointX="9.875" PointY="4.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.HandSlideAdInfo" Width="1.5" PointX="15.375" PointY="5" />
+        <EntityTypeShape EntityType="ChemCloud.Model.HomeCategoryInfo" Width="2.625" PointX="0.5" PointY="71.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.HomeCategoryRowInfo" Width="2.25" PointX="15" PointY="12.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.HomeFloorInfo" Width="3.125" PointX="11.5" PointY="59.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ImageAdInfo" Width="1.5" PointX="6.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.InviteRecordInfo" Width="2.625" PointX="18.125" PointY="64.625" />
+        <EntityTypeShape EntityType="ChemCloud.Model.InviteRuleInfo" Width="1.5" PointX="16.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.InvoiceContextInfo" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.InvoiceTitleInfo" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.LimitTimeMarketInfo" Width="2.75" PointX="17.5" PointY="3.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.LogInfo" Width="1.5" PointX="17.75" PointY="12.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ManagerInfo" Width="1.5" PointX="6.75" PointY="19.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MargainBill" Width="1.5" PointX="19.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MarketServiceRecordInfo" Width="2.25" PointX="13" PointY="0.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MarketSettingInfo" Width="2.75" PointX="4.5" PointY="9" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MarketSettingMetaInfo" Width="2.75" PointX="8" PointY="8.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MemberContactsInfo" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MemberGrade" Width="1.5" PointX="0.75" PointY="20.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MemberIntegral" Width="1.5" PointX="17.25" PointY="30.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MemberIntegralExchangeRules" Width="1.5" PointX="2.75" PointY="20.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MemberIntegralRecord" Width="2.25" PointX="16.5" PointY="58" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MemberIntegralRecordAction" Width="2.375" PointX="20.625" PointY="58.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MemberIntegralRule" Width="1.5" PointX="20.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MemberOpenIdInfo" Width="3.375" PointX="16" PointY="54.5" />
+        <EntityTypeShape EntityType="ChemCloud.Model.UserMemberInfo" Width="3.75" PointX="15.75" PointY="26.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MenuInfo" Width="1.5" PointX="3.375" PointY="73.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MessageLog" Width="1.5" PointX="2.875" PointY="58" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MobileHomeProductsInfo" Width="3" PointX="10.5" PointY="87.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MobileHomeTopicsInfo" Width="3.25" PointX="11.25" PointY="73" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ModuleProductInfo" Width="2.875" PointX="13.25" PointY="51.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OpenIdsInfo" Width="1.5" PointX="20.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderCommentInfo" Width="2.625" PointX="8" PointY="21.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderComplaintInfo" Width="2.875" PointX="9.125" PointY="25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderItemInfo" Width="2.5" PointX="12.875" PointY="29.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderOperationLogInfo" Width="2.5" PointX="9.625" PointY="16.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderPayInfo" Width="1.5" PointX="21.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderRefundInfo" Width="2.125" PointX="12.875" PointY="12.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductAttributeInfo" Width="3.125" PointX="6.5" PointY="35.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductCommentInfo" Width="3.125" PointX="13.5" PointY="47" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductConsultationInfo" Width="3" PointX="10.5" PointY="54.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductDescriptionInfo" Width="2.625" PointX="10.5" PointY="79.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductDescriptionTemplateInfo" Width="2.875" PointX="21.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductInfo" Width="2.375" PointX="8.25" PointY="41.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductShopCategoryInfo" Width="2.75" PointX="16.5" PointY="42.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductVistiInfo" Width="2.75" PointX="10.5" PointY="76.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.RolePrivilegeInfo" Width="1.5" PointX="8" PointY="6" />
+        <EntityTypeShape EntityType="ChemCloud.Model.RoleInfo" Width="2.25" PointX="5" PointY="5.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.SellerSpecificationValueInfo" Width="2.625" PointX="5.25" PointY="31.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.SensitiveWordsInfo" Width="1.5" PointX="21.75" PointY="12.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShippingAddressInfo" Width="4" PointX="16.5" PointY="24" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopBonusInfo" Width="3.125" PointX="13.125" PointY="20.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopBonusGrantInfo" Width="3.625" PointX="19.25" PointY="27.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopBonusReceiveInfo" Width="3.5" PointX="18.5" PointY="34.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopBrandApplysInfo" Width="2.5" PointX="24.625" PointY="51.625" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopBrandsInfo" Width="3.5" PointX="19.25" PointY="49.875" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopCategoryInfo" Width="3.125" PointX="12.875" PointY="55.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopGradeInfo" Width="3.375" PointX="0.5" PointY="60.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopHomeModuleProductInfo" Width="2.75" PointX="16.5" PointY="51.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopHomeModuleInfo" Width="2.875" PointX="14.25" PointY="63.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShoppingCartItemInfo" Width="2.75" PointX="8.875" PointY="44.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopInfo" Width="2.625" PointX="28.375" PointY="56" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShopVistiInfo" Width="2.25" PointX="21.75" PointY="15.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.SiteSettingsInfo" Width="3.625" PointX="21.75" PointY="18.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.SKUInfo" Width="1.5" PointX="10.5" PointY="83.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.SlideAdInfo" Width="1.5" PointX="21.75" PointY="21.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.SpecificationValueInfo" Width="2" PointX="2.875" PointY="32.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.StatisticOrderCommentsInfo" Width="1.5" PointX="3.75" PointY="55.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.TopicModuleInfo" Width="1.5" PointX="11.25" PointY="65.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.TopicInfo" Width="1.5" PointX="9" PointY="64.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.TypeBrandInfo" Width="1.5" PointX="3.625" PointY="35.375" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductTypeInfo" Width="2.5" PointX="0.5" PointY="38.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.VShopInfo" Width="1.5" PointX="8.25" PointY="99.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.VShopExtendInfo" Width="3.125" PointX="10.5" PointY="100" />
+        <EntityTypeShape EntityType="ChemCloud.Model.WeiXinBasicInfo" Width="1.5" PointX="22.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.WXAccTokenInfo" Width="1.5" PointX="22.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.WXCardCodeLogInfo" Width="2" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="ChemCloud.Model.WXCardLogInfo" Width="1.875" PointX="5.75" PointY="1" />
+        <EntityTypeShape EntityType="ChemCloud.Model.WXShopInfo" Width="1.5" PointX="23.75" PointY="0.75" />
+        <AssociationConnector Association="ChemCloud.Model.FK_SpecificationValue_SellerSpecificationValue" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_accountdetails_ibfk_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_accountpurchaseagreement_ibfk_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_WXLog_CardLogId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ArticleCategory_Article" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Attribute_AttributeValue" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Attribute_ProductAttribute" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Type_Attribute" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="ChemCloud.Model.FK_Reference_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_UserId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Brand_FloorBrand" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Brand_TypeBrand" />
+        <AssociationConnector Association="ChemCloud.Model.FK_BrandId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ShopBrandId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_BrowsingHistory_ChemCloud_BrowsingHistory" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_BrowsingHistory_ChemCloud_Products" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Category_BusinessCategory" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Reference_ChemCloud_CapitalDetail" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_CashDeposit_ChemCloud_Shops" />
+        <AssociationConnector Association="ChemCloud.Model.FK_KF_ChemCloud_CashDeposit_CashDepositDetail" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Category_FloorCategory" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Category_HomeCategory" />
+        <AssociationConnector Association="ChemCloud.Model.FK_CategoryId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_CategoriesObligation_Categories" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Type_Category" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Collocation_CollPoruducts" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ColloProuducts_Skus" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_CollPoruducts" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_coupon_ibfk_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_couponrecord_ibfk_2" />
+        <AssociationConnector Association="ChemCloud.Model.fk_ChemCloud_CouponSetting" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_couponrecord_ibfk_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Member_Favorite" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_Favorite" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_FavoriteShops_ChemCloud_Shops" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Member_FavoriteShop" />
+        <AssociationConnector Association="ChemCloud.Model.FK_HomeFloor_FloorBrand" />
+        <AssociationConnector Association="ChemCloud.Model.FK_HomeFloor_FloorCategory" />
+        <AssociationConnector Association="ChemCloud.Model.FK_HomeFloor_FloorProduct" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_FloorProduct" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ProductIdFK" />
+        <AssociationConnector Association="ChemCloud.Model.FK_TabIdFK" />
+        <AssociationConnector Association="ChemCloud.Model.FK_FloorIdFK" />
+        <AssociationConnector Association="ChemCloud.Model.FK_HomeFloor_FloorTopic" />
+        <AssociationConnector Association="ChemCloud.Model.FK_freighttemplate_freightareacontent" />
+        <AssociationConnector Association="ChemCloud.Model.fk_products_freighttemplate" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Gitem_OrderId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_InviteMember" />
+        <AssociationConnector Association="ChemCloud.Model.FK_MarketSettingMeta_ToSetting" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Member_MemberIntegral" />
+        <AssociationConnector Association="ChemCloud.Model.FK_memberintegralrecord_ibfk_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_memberintegralrecordaction_ibfk_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Member_MemberOpenId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Member_ShippingAddress" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Member_ShoppingCart" />
+        <AssociationConnector Association="ChemCloud.Model.FK_productcomments_ibfk_4" />
+        <AssociationConnector Association="ChemCloud.Model.FK_useUserID" />
+        <AssociationConnector Association="ChemCloud.Model.FK_zzzUserID" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Me__ShopI__489AC854" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Me_ShopI__4D5F7D71" />
+        <AssociationConnector Association="ChemCloud.Model.FK_MobileHomeProducts_Products" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Mo__Topic__02C769E9" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_ModuleProduct" />
+        <AssociationConnector Association="ChemCloud.Model.FK_TopicModule_ModuleProduct" />
+        <AssociationConnector Association="ChemCloud.Model.FK_OrderItem_OrderRefund" />
+        <AssociationConnector Association="ChemCloud.Model.FK_productcomments_ibfk_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_ProductAttribute" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_ProductComment" />
+        <AssociationConnector Association="ChemCloud.Model.FK_productcomments_ibfk_3" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_ProductConsultation" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_ProductDescription" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_ProductShopCategory" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_ProductVisti" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_ShopHomeModuleProduct" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_ShoppingCart" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Product_Sku" />
+        <AssociationConnector Association="ChemCloud.Model.FK_SHOPID1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ShopCategory_ProductShopCategory" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Role_RolePrivilege" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ShopBonusId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_zzzShopId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_BonusGrantId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ShopApplysId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ShopId" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ShopGrade_Shop" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ShopHomeModule_ShopHomeModuleProduct" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_statisticordercomments_ibfk_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_vshop_ibfk_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Type_SpecificationValue" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Topic_TopicModule" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Type_TypeBrand" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_vshopextend_ibfk_1" />
+        <AssociationConnector Association="ChemCloud.Model.FK_MarketServiceRecord_ActiveMarketService" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MargainBillDetail" Width="4.625" PointX="24.375" PointY="21.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CAS_MAIN_INFO" Width="1.5" PointX="25.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductSpec" Width="3" PointX="26.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.RecFloorImg" Width="3.125" PointX="25.25" PointY="26.5" />
+        <EntityTypeShape EntityType="ChemCloud.Model.StatisticsMoney" Width="1.5" PointX="28.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.SiteMessages" Width="2.5" PointX="0.75" PointY="23.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ChatRelationShip" Width="2.75" PointX="0.75" PointY="27.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductAuthentication" Width="1.5" PointX="29.375" PointY="26.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Attention" Width="1.5" PointX="8.375" PointY="29.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ManagersAccount" Width="1.5" PointX="30.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CountryInfo" Width="1.5" PointX="30.375" PointY="10.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CapitalUserAccount" Width="1.5" PointX="30.375" PointY="16.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ChemCloud_EmailSetting" Width="1.5" PointX="30.375" PointY="19.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductLevel" Width="1.5" PointX="30.375" PointY="22.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderPurchasing" Width="1.5" PointX="31.375" PointY="25.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderExpressQuery" Width="1.5" PointX="28.375" PointY="13.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ChemCloud_COA" Width="1.5" PointX="31.375" PointY="5.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ChemCloud_COADetails" Width="1.5" PointX="28.375" PointY="31.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ConfigPayPalAPI" Width="1.5" PointX="30.375" PointY="13.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ChemCloud_Dictionaries" Width="1.5" PointX="19.375" PointY="31.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ChemCloud_DictionaryType" Width="1.5" PointX="25.375" PointY="30.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.FQPayment" Width="6.5" PointX="30.375" PointY="31.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderInfo" PointX="0.75" PointY="20.125" Width="5.375" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Order_OrderComment" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Order_OrderComplaint" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Order_OrderItem" />
+        <AssociationConnector Association="ChemCloud.Model.FK_Order_OrderOperationLog" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CoAReports" Width="1.5" PointX="32.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderPayDesc" Width="1.5" PointX="32.375" PointY="9.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.COAList" Width="1.5" PointX="8.375" PointY="32.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ChemCloud_OrderWithCoa" Width="1.5" PointX="21.375" PointY="31.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.LimitedAmount" Width="2" PointX="32.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Organization" Width="1.5" PointX="32.375" PointY="13.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.PurchaseRolesInfo" Width="1.5" PointX="32.375" PointY="20.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MessageEnclosure" Width="1.5" PointX="33.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MemberDetail" Width="1.5" PointX="23.375" PointY="33.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Finance_InCome" Width="1.5" PointX="25.375" PointY="33.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Finance_Payment" Width="1.5" PointX="34.375" PointY="9.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Finance_Transfer" Width="1.5" PointX="35.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Finance_Wallet" Width="1.5" PointX="30.375" PointY="35.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MessageDetial" Width="1.5" PointX="34.375" PointY="20" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MessageRevice" Width="1.5" PointX="36.625" PointY="20" />
+        <AssociationConnector Association="ChemCloud.Model.FK_ChemCloud_MessageRevice_ChemCloud_MessageDetial" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Finance_Recharge" Width="1.5" PointX="35.375" PointY="5.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Finance_WithDraw" Width="1.5" PointX="33.375" PointY="23.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.DHLInfo" Width="1.5" PointX="35.375" PointY="23.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.TH" Width="1.5" PointX="32.375" PointY="35.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Finance_Refund" Width="1.5" PointX="34.375" PointY="14.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ApplyAmountInfo" Width="1.5" PointX="35.375" PointY="27.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MeetingInfo" Width="1.5" PointX="36.375" PointY="9.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.TechnicalInfo" Width="1.5" PointX="38.5" PointY="12.125" />
+        <EntityTypeShape EntityType="ChemCloud.Model.RecommendInfo" Width="1.5" PointX="27.375" PointY="36.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.LawInfo" Width="1.5" PointX="36.375" PointY="35.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Jobs" Width="1.5" PointX="39.375" PointY="0.5" />
+        <EntityTypeShape EntityType="ChemCloud.Model.AttachmentInfo" Width="1.5" PointX="36.375" PointY="16.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.BannersIndex" Width="1.5" PointX="37.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.TransactionRecord" Width="1.5" PointX="37.375" PointY="24.25" />
+        <EntityTypeShape EntityType="ChemCloud.Model.WhatBusy" Width="1.5" PointX="37.375" PointY="28.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Shipment" Width="1.5" PointX="23.375" PointY="37.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShipmentAddress" Width="1.5" PointX="16.375" PointY="38.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ShipmentPackage" Width="1.5" PointX="38.375" PointY="32.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.Messages" Width="1.5" PointX="38.375" PointY="8.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.CASInfo" Width="1.5" PointX="38.375" PointY="36.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.MessageSetting" Width="1.5" PointX="25.375" PointY="14.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.TK" Width="1.5" PointX="26.375" PointY="17.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.OrderShip" Width="1.5" PointX="38.375" PointY="16.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.THImageInfo" Width="2.5" PointX="7.375" PointY="38.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.THMessageInfo" Width="2.875" PointX="39.375" PointY="20.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductAnalysis" Width="3" PointX="34.375" PointY="39.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.ProductsDS" Width="4.125" PointX="39.375" PointY="24.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.IWantToBuy" Width="1.5" PointX="40.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.IWantToBuy_Orders" Width="1.5" PointX="39.375" PointY="28.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.IWantToSupply" Width="1.5" PointX="29.375" PointY="40.75" />
+        <EntityTypeShape EntityType="ChemCloud.Model.orderAddressInfo" Width="1.5" PointX="40.375" PointY="16.75" />
+      </Diagram>
+      <Diagram DiagramId="b4fe2c632a254b8493a550838d10f84d" Name="Diagram1" />
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

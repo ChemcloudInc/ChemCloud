@@ -1,0 +1,2133 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "下单";
+    
+}
+@model IEnumerable<ChemCloud.Model.ShippingAddressInfo>
+
+<link href="~/Areas/Web/Content/bargain.css" rel="stylesheet" />
+
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<style>
+    .ulproduct li {
+        width: 100%;
+    }
+
+    .tabledesc tr {
+        height: 3.3em;
+    }
+
+        .tabledesc tr th {
+            background: #3498DB;
+            color: #fff;
+            font-size: 16px;
+            height: 40px;
+        }
+
+    .tabledesc #border_lja {
+        border-bottom: 1px dotted #dae1e6;
+    }
+
+        .tabledesc #border_lja:last-child {
+            border-bottom: none;
+        }
+
+    .stop_1 {
+        width: 100%;
+        text-align: start;
+        margin-top: 10px;
+        font-size: 18px;
+        border-bottom: 1px solid #ccc;
+        line-height: 30px;
+        text-indent: 2em;
+        background: url(/Areas/Web/Images/first.png) no-repeat;
+        background-position: 1% 50%;
+    }
+
+    .stop_2 {
+        width: 100%;
+        text-align: start;
+        margin-top: 10px;
+        font-size: 18px;
+        border-bottom: 1px solid #ccc;
+        line-height: 30px;
+        text-indent: 2em;
+        background: url(/Areas/Web/Images/second.png) no-repeat;
+        background-position: 1% 50%;
+    }
+
+    .utalk li {
+        width: 120px;
+    }
+
+    .feiyong {
+        display: none;
+    }
+
+    .youbian {
+        margin-right: 5px;
+    }
+
+    .dizhi {
+        margin-right: 5px;
+    }
+</style>
+
+
+/*begin*/
+<style type="text/css">
+    .xiadan {
+        width: 1000px;
+        margin: 0 auto;
+        margin-top: -20px;
+        background: #fff;
+        margin-left: 3px;
+        width: 98.5%;
+    }
+
+    .xiadan_a {
+        width: 120px;
+        cursor: pointer;
+        text-align: center;
+        color: #fff;
+        line-height: 40px;
+        font-size: 16px;
+        background: #8cabbf;
+        display: inline-block;
+        padding: 0 20px;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    .border-box {
+        margin-top: -0.9em;
+        padding-bottom: 0.2em;
+        border: 2px solid #dae1e6;
+        min-height: 19em;
+    }
+
+    .ulproduct {
+        background: #dae1e6;
+    }
+
+        .ulproduct li {
+            float: left;
+            width: 200px;
+            margin-left: 3px;
+            line-height: 3em;
+        }
+
+    .stop_1 {
+        width: 100%;
+        text-align: start;
+        margin-top: 10px;
+        font-size: 26px;
+        font-weight: 900;
+        border-bottom: 1px solid #ccc;
+        line-height: 30px;
+        text-indent: 2em;
+        background: url(../img/first.png) no-repeat;
+        background-position: 1% 50%;
+    }
+
+    .btn-margain {
+        width: 156px;
+        height: 36px;
+        color: white;
+        font-family: "微软雅黑";
+        font-size: 16px;
+        font-weight: 800;
+        overflow: hidden;
+        background-color: #3498DB;
+        border: none 0;
+        margin-top: 20px;
+        float: right;
+        margin-right: 14px;
+    }
+
+    .text {
+        width: 140px;
+        margin-left: 4px;
+        height: 16px;
+        padding: 5px 25px 5px 5px;
+        border: 1px solid #cccccc;
+        float: none;
+        font-size: 14px;
+        font-family: arial, "宋体";
+        color: #999;
+    }
+
+
+    .tabledesc {
+        border: 0px solid #808080;
+        border-collapse: collapse;
+        margin-top: 3em;
+        margin-top: 1em;
+    }
+
+        .tabledesc tr {
+            height: 1.3em;
+        }
+
+            .tabledesc tr td {
+                width: 5em;
+                text-align: center;
+            }
+
+    .ulproduct li {
+        width: 100%;
+        margin-top: -18px;
+        list-style: none;
+    }
+
+    .tabledesc tr {
+        height: 3.3em;
+    }
+
+        .tabledesc tr th {
+            background: #3498DB;
+            color: #fff;
+            font-size: 16px;
+            height: 40px;
+        }
+
+    .tabledesc #border_lja {
+        border-bottom: 1px dotted #dae1e6;
+    }
+
+        .tabledesc #border_lja:last-child {
+            border-bottom: none;
+        }
+
+    .steptwo {
+        float: left;
+        width: 32%;
+        margin: 0 9px 0 0;
+        border: 2px solid #dae1e6;
+        min-height: 24em;
+    }
+
+    .stop_2 {
+        width: 100%;
+        text-align: start;
+        margin-top: 10px;
+        font-size: 26px;
+        font-weight: 900;
+        border-bottom: 1px solid #ccc;
+        line-height: 30px;
+        text-indent: 2em;
+        background: url(../img/second.png) no-repeat;
+        background-position: 6% 50%;
+    }
+
+    .table_margain {
+        margin: 0 auto;
+        border: 0px solid #808080;
+        border-collapse: collapse;
+        margin-bottom: 1em;
+    }
+
+        .table_margain tr {
+            height: 3em;
+        }
+
+            .table_margain tr td:first-child {
+                height: 3em;
+                text-align: right;
+            }
+
+    .selectbox {
+        width: 172px;
+        height: 28px;
+        margin-left: 4px;
+        padding: 5px 25px 5px 5px;
+        border: 1px solid #cccccc;
+    }
+</style>
+/*end*/
+
+<div class="box1 lh24">
+
+    <input type="hidden" id="hdbillno" value="@ViewBag.billno" />
+    <input type="hidden" id="hdproductid" value="@ViewBag.model.Id" />
+
+    <input type="hidden" id="hdCASNo" value="@ViewBag.model.Pub_CID" />
+
+    <input type="hidden" id="hdshopid" value="@ViewBag.model.ShopId" />
+    <input type="hidden" id="hdmarketprice" value="@ViewBag.model.MarketPrice" />
+    <input type="hidden" id="hdInsurancefeeMaxValue" value="@ViewBag.InsurancefeeMaxValue" />
+
+    <input type="hidden" id="shipmentObj" />
+    <h3 class="xiadan_a" id="tabFedOrder" style="width: 120px;  margin-bottom: 20px; margin-left: 3px;cursor:pointer; text-align: center; color: #fff; line-height: 40px; font-size: 16px; background: #8cabbf; display: inline-block; padding: 0 20px; border-radius: 10px 10px 0px 0px; ">
+        下单
+    </h3>
+    <h3 class="feiyong_a" id="tabFedCost" style="width: 120px;cursor:pointer;    margin-top: -20px; text-align: center; color: #fff; line-height: 40px; font-size: 16px; background: #8cabbf; display:none ; padding: 0 20px; border-radius: 10px 10px 0px 0px; ">
+        费用计算
+    </h3>
+
+    <div class="xiadan">
+        @*<div id="stepone" class="border-box" style="margin-top: 0.1em; padding-bottom: 0.2em; border: 2px solid #dae1e6; min-height:30em;">*@
+        <ul class="ulproduct" style="background: #dae1e6;">
+            <li style="float: none; text-indent: 1em; color: #343434;font-size:16px ">供应商：<span id="shopname" style="margin-right:20px">@ViewBag.model.ShopName</span>&nbsp;产品名称：<span id="productname">@ViewBag.model.ProductName</span></li>
+        </ul>
+        <p class="stop_1">
+            选择产品
+            @*<img src="/images/first_step.jpg" alt="Alternate Text" style="width:300px;"/>*@
+        </p>
+        <table class="tabledesc" id="tabledesc" style="margin-top:0em; width:100%;" border="0" cellpadding="3" cellspacing="1" align="center">
+            @if (ViewBag.ProductSpec.Count > 0)
+            {
+                <tr style="line-height:41px;">
+                    <th>包装</th>
+                    <th>等级</th>
+                    <th>纯度</th>
+                    <th>价格<span style="text-indent:10px">货币</span></th>
+                    <th>数量</th>
+                    <th>小计</th>
+                </tr>
+                foreach (var spec in @ViewBag.ProductSpec)
+                {
+                    <tr style="line-height:38px;" class="productlisttr">
+                        <td>@spec.Packaging</td>
+                        <td>@spec.SpecLevel</td>
+                        <td>@spec.Purity</td>
+                        <td><span class="price">@spec.Price</span>&nbsp;@spec.CoinTypeName</td>
+                        <td>
+                            <span class="reduce" style="font-weight:bolder;cursor:pointer;">-</span>&nbsp;
+                            <input class="pnum" value="0" style="width:50px;border:1px solid #ccc;text-align:center;" />&nbsp;
+                            <span class="plus" style="font-weight:bolder;cursor:pointer;">+</span>
+                        </td>
+                        <td><span class="totalprice">0</span></td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <p style="margin-top:0.1em; ">
+            <input type="button" class="btn-margain" style="cursor:pointer;width: 150px;margin-right: 0;" value="加入购物车" id="addtocart" />
+            <input type="button" class="btn-margain" style="cursor:pointer;width: 150px;" value="继续采购" id="continuepurchasing" />
+            <input type="hidden" id="hdiseditshippingaddress" value="@ViewBag.iseditshippingaddress" />
+        </p>
+        @*</div>*@
+
+
+        <div style="width:1000px;margin:0 auto;">
+            <div class="steptwo" id="border-box_1" style="margin-top: 5.6em; border: 2px solid #dae1e6;background:#fff">
+                <p class="stop_2">物流运费</p>
+                <table class="table_margain" style="margin-top:20px;">
+                    <tr>
+                        <td style="display:inline-block;width:86px;line-height:40px;">物流配送方式：</td>
+                        <td>
+                            <select class="selectbox" id="freighttype">
+                                <option value="">请选择</option>
+                                <option value="EMS">EMS</option>
+                                <option value="UPS">UPS</option>
+                                <option value="FedEx">FedEx</option>
+                                <option value="DHL">DHL</option>
+                                <option value="TNT">TNT</option>
+                                <option value="SF">SF</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>物流配送费用：</td>
+                        <td>
+                            <input type="text" class="text" id="txtfreight" value="0.00" />
+
+                        </td>
+                    </tr>
+                </table>
+                <p style="margin-top:0.1em; ">
+                    <input type="button" class="btn-margain yuenFei" style="cursor:pointer;margin-right:30px" id="btnShipDetail" value="运费明细">
+                </p>
+            </div>
+
+
+            <div class="steptwo" id="border-box_2" style="margin-top: 1em; border: 2px solid #dae1e6;background: #fff;">
+                <p class="stop_3">开票信息<input type="checkbox" id="cbinvoice" style="margin-left:10px" /></p>
+                <table class="table_margain" style="margin-top:20px;">
+                    <tr >
+                        <td style="color:red;">*&nbsp;发票类型：</td>
+                        <td>
+                            <select class="selectbox" disabled="disabled" id="invoicetype">
+                                <option value="1">平台发票</option>
+                                <option value="2">普通发票</option>
+                                <option value="3">专票</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="invoicetr">
+                        <td style="color:#red;">*&nbsp;名称：</td>
+                        <td>
+                            <input type="text" class="text" disabled="disabled" id="txtinvoicename" />
+                        </td>
+                    </tr>
+                    <tr class="invoicetr">
+                        <td>纳税人识别号：</td>
+                        <td>
+                            <input type="text" class="text invoicetr" id="txttaxpayeridentificationnumber" />
+                        </td>
+                    </tr>
+                    <tr class="invoicetr">
+                        <td>电话：</td>
+                        <td>
+                            <input type="text" class="text invoicetr" id="txtcallnumber" />
+                        </td>
+                    </tr>
+                    <tr class="invoicetr">
+                        <td>开户行及账号：</td>
+                        <td>
+                            <input type="text" class="text invoicetr" id="txtbankaccount" />
+                        </td>
+                    </tr>
+                    <tr class="invoicetr">
+                        <td>账单地址：</td>
+                        <td>
+
+                            <select id="incoiceaddress" class="selectbox"  style="width:200px;">
+                                @*invoicetr 不可选属性*@
+                                @foreach (var mor in ViewBag.orderAddressInfo)
+                                {
+                                    if (mor.IsDefault)
+                                    {
+                                        <option value="@mor.Id" selected>@mor.RegionFullName>@mor.Address</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@mor.Id">@mor.RegionFullName>@mor.Address</option>
+                                    }
+                                }
+                            </select>
+
+
+                            <a style="width:82px;height: 25px;font-size: 12px;"
+                               href="/orderAddress/Index?fromorder=1"
+                               id="btneditdeliveryaddress">编辑</a>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+
+            <div class="steptwo" id="border-box_3" style="margin-top: 1em; border: 2px solid #dae1e6;background: #fff;position:relative">
+                <p class="stop_4">收货信息</p>
+                <table class="table_margain" style="margin-top:20px;">
+                    <tr>
+                        <td>收货地址：</td>
+                        <td>
+                            <select id="deliveryaddress" class="selectbox" style="width:200px;">
+                                @foreach (var m in Model)
+                                {
+                                    if(m.IsDefault){
+                                        <option value="@m.Id" selected>@m.RegionFullName>@m.Address</option>
+                                    }
+                                    else {
+                                        <option value="@m.Id">@m.RegionFullName>@m.Address</option>
+                                    }
+                                }
+                            </select>
+
+
+                            <a style="width:82px;height: 25px;font-size: 12px;"
+                               href="/UserAddress/Index?fromorder=1"
+                               id="btneditdeliveryaddress">编辑</a>
+
+                        </td>
+                    </tr>
+                </table>
+                <p style="float:right;float:right;margin-right:40px;">
+                    <input type="checkbox" id="cbinsurance" /> <span>保险金额:</span><span class="insurancefee">0.00</span> <span>CNY</span>
+                </p>
+                <span style="position:absolute;     top: 107.3%;left: 0%;font-weight: bolder; color:red;font-size: 16px;line-height: 40px;margin-right:10px">订单总结额：<span class="orderamount" style="float:right;">0.00</span> </span>
+            </div>
+            <div id="fot">
+                <p style="margin-top:0.1em; ">
+                    <input type="button" class="btn-margain" id="submitmargain" style="cursor:pointer;position:relative;margin-right: 10px;" value="提交订单">
+
+                </p>
+            </div>
+
+
+            <div id="steptwo" class="border-box" style="margin-top: 1em; border: 2px solid #dae1e6; display:none">
+                <p class="stop_2">
+                    第二步
+                    @*<img src="/images/second_step.jpg" alt="Alternate Text" style="width:300px;" />*@
+                </p>
+                <table id="table_margain">
+                    <tr>
+                        <td>物流配送方式：</td>
+                        <td>
+                            <select id="distributiontype" class="selectbox">
+                                <option value="EMS">EMS</option>
+                                <option value="UPS">UPS</option>
+                                <option value="FedEx">FedEx</option>
+                                <option value="DHL">DHL</option>
+                                <option value="TNT">TNT</option>
+                            </select>
+                        </td>
+                        <td>物流配送费用：</td>
+                        <td>
+                            <input type="text" id="distributioncost" class="text" />
+                            <span class="feiyong_a" style="width:82px;height: 25px;font-size: 12px;display:none;cursor:pointer"
+                                  id="btnCalcCost">计算费用</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>发货时间：</td>
+                        <td><input id="deliverydate" class="form-control input-ssm start_datetime text" type="text"></td>
+
+                        <td>
+                            <input type="checkbox" id="IsInsurance" checked="checked" />
+                            保险金额：
+                        </td>
+                        <td>
+                            <input type="text" id="Insurancefee" disabled="disabled" class="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>发票类型：</td>
+                        <td colspan="3" style="text-align:left;">
+                            <select id="select_InvoiceType" class="selectbox">
+                                @foreach (var item in Enum.GetValues(typeof(ChemCloud.Model.InvoiceType)))
+                                {
+                                    if (((ChemCloud.Model.InvoiceType)item).ToString() == "None")
+                                    {
+                                        <option value="@((int)item)">不需要发票</option>
+                                    }
+                                    if (((ChemCloud.Model.InvoiceType)item).ToString() == "VATInvoice")
+                                    {
+                                        <option value="@((int)item)">增值税发票</option>
+                                    }
+                                    if (((ChemCloud.Model.InvoiceType)item).ToString() == "OrdinaryInvoices")
+                                    {
+                                        <option value="@((int)item)">普通发票</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr id="trinvoice">
+                        <td>发票抬头：</td>
+                        <td><input type="text" id="txtInvoiceTitle" class="text" /></td>
+                        <td style="text-align:right;">账单地址：</td>
+                        <td><input type="text" id="InvoiceContext" class="text" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>地址：</td>
+                        <td colspan="3">
+                            @*<input type="text" id="deliveryaddress" class="text" />*@
+                            <select id="deliveryaddress" class="selectbox" style="width:350px;">
+                                @foreach (var m in Model)
+                                {
+                                    <option value="@m.Id">@m.RegionFullName>@m.Address</option>
+                                }
+                            </select>
+
+                        </td>
+                    </tr>
+                </table>
+
+                <input type="button" class="btn-margain" id="submitmargain" style="cursor:pointer" value="提交订单">
+                <div style="clear:both; width:100%; height:20px;"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="feiyong" style="background:#fff;margin-top:-20px">
+        <div>
+            <style>
+                .baseTitle {
+                    width: 100%;
+                    text-align: start;
+                    margin-top: 10px;
+                    font-size: 18px;
+                    border-bottom: 1px solid #ccc;
+                    line-height: 30px;
+                    text-indent: 1em;
+                }
+
+                .stop_1 {
+                    width: 100%;
+                    text-align: start;
+                    margin-top: 10px;
+                    font-size: 18px;
+                    border-bottom: 1px solid #ccc;
+                    line-height: 30px;
+                    text-indent: 2em;
+                    background: url(/Areas/Web/Images/step01.png) no-repeat;
+                    background-position: 1% 50%;
+                }
+
+                .stop_2 {
+                    width: 100%;
+                    text-align: start;
+                    margin-top: 10px;
+                    font-size: 18px;
+                    border-bottom: 1px solid #ccc;
+                    line-height: 30px;
+                    text-indent: 2em;
+                    background: url(/Areas/Web/Images/step02.png) no-repeat;
+                    background-position: 1% 50%;
+                }
+
+                .stop_3 {
+                    width: 100%;
+                    text-align: start;
+                    margin-top: 10px;
+                    font-size: 18px;
+                    font-weight: 600;
+                    border-bottom: 1px solid #ccc;
+                    line-height: 30px;
+                    text-indent: 2em;
+                    background: url(/Areas/Web/Images/step03.png) no-repeat;
+                    background-position: 1% 50%;
+                }
+
+                .stop_4 {
+                    width: 100%;
+                    text-align: start;
+                    margin-top: 10px;
+                    font-size: 18px;
+                    font-weight: 600;
+                    border-bottom: 1px solid #ccc;
+                    line-height: 30px;
+                    text-indent: 2em;
+                    background: url(/Areas/Web/Images/step04.png) no-repeat;
+                    background-position: 1% 50%;
+                }
+
+                .textcolspan {
+                    width: 556px;
+                    height: 16px;
+                    padding: 5px 25px 5px 5px;
+                    border: 1px solid #cccccc;
+                    float: none;
+                    font-size: 14px;
+                    font-family: arial, "宋体";
+                    color: #999;
+                }
+
+                .selectbox {
+                    width: 172px;
+                    height: 28px;
+                    padding: 5px 25px 5px 5px;
+                    border: 1px solid #cccccc;
+                    float: none;
+                    font-size: 13px;
+                    font-family: arial, "宋体";
+                    color: #999;
+                }
+
+                .selectbox1 {
+                    width: 100px;
+                    height: 28px;
+                    padding: 5px 25px 5px 5px;
+                    border: 1px solid #cccccc;
+                    float: none;
+                    font-size: 13px;
+                    font-family: arial, "宋体";
+                    color: #999;
+                }
+
+                .table_margain {
+                    border: 0px solid #808080;
+                    border-collapse: collapse;
+                    margin-bottom: 1em;
+                }
+
+                    .table_margain tr {
+                        height: 3em;
+                    }
+
+                /*.table_margain tr td:nth-child(1) {
+                        width: 100px;
+                        text-align: right;
+                    }
+
+                     .table_margain tr td:nth-child(2) {
+                        width: 280px;
+                        text-align: left;
+                    }*/
+
+                .tdLabel {
+                    width: 100px;
+                    text-align: right;
+                }
+
+                .tdControl {
+                    width: 280px;
+                    text-align: left;
+                }
+
+                sup {
+                    color: rgb(240,72,60);
+                }
+
+                .si_mu {
+                    background: url(/Areas/Web/Images/first.png) no-repeat;
+                    background-position: 1% 50%;
+                    text-indent: 2em;
+                }
+
+                .si_mu_2 {
+                    text-indent: 2em;
+                    background: url(/Areas/Web/Images/second.png) no-repeat;
+                    background-position: 1% 50%;
+                }
+
+                .si_mu_3 {
+                    text-indent: 2em;
+                    background: url(/Areas/Web/Images/lja_sb.png) no-repeat;
+                    background-position: 1% 50%;
+                }
+            </style>
+
+            @*<div class="border-box" style="margin-top: 1em; border: 2px solid #dae1e6;">
+                    <p class="baseTitle">
+                        基本信息
+                    </p>
+                     <table id="table_base"></table>
+                </div>*@
+            <div class="border-box" style="    margin-top: 0px; border: 2px solid #dae1e6;">
+                <p class="baseTitle si_mu">
+                    托运始发地/目的地
+                </p>
+                <table id="table_orgin" class="table_margain">
+                    <tr>
+                        <td colspan="6" style="width:100%"><h2 style="padding-bottom: 3px;text-align:left; border-bottom:1px solid rgb(12,110,180); margin: 10px 0 5px 0;color: rgb(12,110,180);">&nbsp;&nbsp;始发地</h2></td>
+                    </tr>
+                    <tr>
+                        <td class="tdLabel"><sup style="">*</sup>国家/地点：</td>
+                        <td>
+                            <select name="origCountry" id="origCountry" disabled="disabled" class="selectbox">
+                                <option value="US" selected="selected">United States</option>
+                                <option value="AF">Afghanistan</option>
+                                <option value="AL">Albania</option>
+                                <option value="DZ">Algeria</option>
+                                <option value="AS">American Samoa</option>
+                                <option value="AD">Andorra</option>
+                                <option value="AO">Angola</option>
+                                <option value="AI">Anguilla</option>
+                                <option value="AG">Antigua/Barbuda</option>
+                                <option value="AR">Argentina</option>
+                                <option value="AM">Armenia</option>
+                                <option value="AW">Aruba</option>
+                                <option value="AU">Australia</option>
+                                <option value="AT">Austria</option>
+                                <option value="AZ">Azerbaijan</option>
+                                <option value="BS">Bahamas</option>
+                                <option value="BH">Bahrain</option>
+                                <option value="BD">Bangladesh</option>
+                                <option value="BB">Barbados</option>
+                                <option value="BY">Belarus</option>
+                                <option value="BE">Belgium</option>
+                                <option value="BZ">Belize</option>
+                                <option value="BJ">Benin</option>
+                                <option value="BM">Bermuda</option>
+                                <option value="BT">Bhutan</option>
+                                <option value="BO">Bolivia</option>
+                                <option value="BA">Bosnia-Herzegovina</option>
+                                <option value="BW">Botswana</option>
+                                <option value="BR">Brazil</option>
+                                <option value="VG">British Virgin Islands</option>
+                                <option value="BN">Brunei</option>
+                                <option value="BG">Bulgaria</option>
+                                <option value="BF">Burkina Faso</option>
+                                <option value="BI">Burundi</option>
+                                <option value="KH">Cambodia</option>
+                                <option value="CM">Cameroon</option>
+                                <option value="CA">Canada</option>
+                                <option value="CV">Cape Verde</option>
+                                <option value="BQ">Caribbean Netherlands</option>
+                                <option value="KY">Cayman Islands</option>
+                                <option value="TD">Chad</option>
+                                <option value="CL">Chile</option>
+                                <option value="CN">China</option>
+                                <option value="CO">Colombia</option>
+                                <option value="CG">Congo Brazzaville</option>
+                                <option value="CD">Congo Democratic Rep. of</option>
+                                <option value="CK">Cook Islands</option>
+                                <option value="CR">Costa Rica</option>
+                                <option value="HR">Croatia</option>
+                                <option value="CW">Curacao</option>
+                                <option value="CY">Cyprus</option>
+                                <option value="CZ">Czech Republic</option>
+                                <option value="DK">Denmark</option>
+                                <option value="DJ">Djibouti</option>
+                                <option value="DM">Dominica</option>
+                                <option value="DO">Dominican Republic</option>
+                                <option value="TL">East Timor</option>
+                                <option value="EC">Ecuador</option>
+                                <option value="EG">Egypt</option>
+                                <option value="SV">El Salvador</option>
+                                <option value="GQ">Equatorial Guinea</option>
+                                <option value="ER">Eritrea</option>
+                                <option value="EE">Estonia</option>
+                                <option value="ET">Ethiopia</option>
+                                <option value="FO">Faeroe Islands</option>
+                                <option value="FJ">Fiji</option>
+                                <option value="FI">Finland</option>
+                                <option value="FR">France</option>
+                                <option value="GF">French Guiana</option>
+                                <option value="PF">French Polynesia</option>
+                                <option value="GA">Gabon</option>
+                                <option value="GM">Gambia</option>
+                                <option value="GE">Georgia</option>
+                                <option value="DE">Germany</option>
+                                <option value="GH">Ghana</option>
+                                <option value="GI">Gibraltar</option>
+                                <option value="GR">Greece</option>
+                                <option value="GL">Greenland</option>
+                                <option value="GD">Grenada</option>
+                                <option value="GP">Guadeloupe</option>
+                                <option value="GU">Guam</option>
+                                <option value="GT">Guatemala</option>
+                                <option value="GN">Guinea</option>
+                                <option value="GY">Guyana</option>
+                                <option value="HT">Haiti</option>
+                                <option value="HN">Honduras</option>
+                                <option value="HK">Hong Kong</option>
+                                <option value="HU">Hungary</option>
+                                <option value="IS">Iceland</option>
+                                <option value="IN">India</option>
+                                <option value="ID">Indonesia</option>
+                                <option value="IQ">Iraq</option>
+                                <option value="IE">Ireland</option>
+                                <option value="IL">Israel</option>
+                                <option value="IT">Italy</option>
+                                <option value="CI">Ivory Coast</option>
+                                <option value="JM">Jamaica</option>
+                                <option value="JP">Japan</option>
+                                <option value="JO">Jordan</option>
+                                <option value="KZ">Kazakhstan</option>
+                                <option value="KE">Kenya</option>
+                                <option value="KW">Kuwait</option>
+                                <option value="KG">Kyrgyzstan</option>
+                                <option value="LA">Laos</option>
+                                <option value="LV">Latvia</option>
+                                <option value="LB">Lebanon</option>
+                                <option value="LS">Lesotho</option>
+                                <option value="LR">Liberia</option>
+                                <option value="LY">Libya</option>
+                                <option value="LI">Liechtenstein</option>
+                                <option value="LT">Lithuania</option>
+                                <option value="LU">Luxembourg</option>
+                                <option value="MO">Macau</option>
+                                <option value="MK">Macedonia</option>
+                                <option value="MG">Madagascar</option>
+                                <option value="MW">Malawi</option>
+                                <option value="MY">Malaysia</option>
+                                <option value="MV">Maldives</option>
+                                <option value="ML">Mali</option>
+                                <option value="MT">Malta</option>
+                                <option value="MH">Marshall Islands</option>
+                                <option value="MQ">Martinique</option>
+                                <option value="MR">Mauritania</option>
+                                <option value="MU">Mauritius</option>
+                                <option value="MX">Mexico</option>
+                                <option value="FM">Micronesia</option>
+                                <option value="MD">Moldova</option>
+                                <option value="MC">Monaco</option>
+                                <option value="MN">Mongolia</option>
+                                <option value="ME">Montenegro</option>
+                                <option value="MS">Montserrat</option>
+                                <option value="MA">Morocco</option>
+                                <option value="MZ">Mozambique</option>
+                                <option value="NA">Namibia</option>
+                                <option value="NP">Nepal</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="NC">New Caledonia</option>
+                                <option value="NZ">New Zealand</option>
+                                <option value="NI">Nicaragua</option>
+                                <option value="NE">Niger</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="NO">Norway</option>
+                                <option value="OM">Oman</option>
+                                <option value="PK">Pakistan</option>
+                                <option value="PW">Palau</option>
+                                <option value="PS">Palestine Autonomous</option>
+                                <option value="PA">Panama</option>
+                                <option value="PG">Papua New Guinea</option>
+                                <option value="PY">Paraguay</option>
+                                <option value="PE">Peru</option>
+                                <option value="PH">Philippines</option>
+                                <option value="PL">Poland</option>
+                                <option value="PT">Portugal</option>
+                                <option value="PR">Puerto Rico</option>
+                                <option value="QA">Qatar</option>
+                                <option value="RE">Reunion</option>
+                                <option value="RO">Romania</option>
+                                <option value="RU">Russian Federation</option>
+                                <option value="RW">Rwanda</option>
+                                <option value="MF">Saint Martin</option>
+                                <option value="MP">Saipan</option>
+                                <option value="WS">Samoa</option>
+                                <option value="SA">Saudi Arabia</option>
+                                <option value="SN">Senegal</option>
+                                <option value="RS">Serbia</option>
+                                <option value="SC">Seychelles</option>
+                                <option value="SG">Singapore</option>
+                                <option value="SX">Sint Maarten</option>
+                                <option value="SK">Slovak Republic</option>
+                                <option value="SI">Slovenia</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="KR">South Korea</option>
+                                <option value="ES">Spain</option>
+                                <option value="LK">Sri Lanka</option>
+                                <option value="KN">St. Kitts/Nevis</option>
+                                <option value="LC">St. Lucia</option>
+                                <option value="VC">St. Vincent</option>
+                                <option value="SR">Suriname</option>
+                                <option value="SZ">Swaziland</option>
+                                <option value="SE">Sweden</option>
+                                <option value="CH">Switzerland</option>
+                                <option value="SY">Syria</option>
+                                <option value="TW">Taiwan</option>
+                                <option value="TZ">Tanzania</option>
+                                <option value="TH">Thailand</option>
+                                <option value="TG">Togo</option>
+                                <option value="TO">Tonga</option>
+                                <option value="TT">Trinidad/Tobago</option>
+                                <option value="TN">Tunisia</option>
+                                <option value="TR">Turkey</option>
+                                <option value="TM">Turkmenistan</option>
+                                <option value="TC">Turks &amp; Caicos Islands</option>
+                                <option value="VI">U.S. Virgin Islands</option>
+                                <option value="UG">Uganda</option>
+                                <option value="UA">Ukraine</option>
+                                <option value="AE">United Arab Emirates</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="UY">Uruguay</option>
+                                <option value="UZ">Uzbekistan</option>
+                                <option value="VU">Vanuatu</option>
+                                <option value="VE">Venezuela</option>
+                                <option value="VN">Vietnam</option>
+                                <option value="WF">Wallis &amp; Futuna</option>
+                                <option value="YE">Yemen</option>
+                                <option value="ZM">Zambia</option>
+                                <option value="ZW">Zimbabwe</option>
+                            </select>
+                        </td>
+                        <td class="tdLabel"><sup style="">*</sup>城市：</td>
+                        <td><input type="text" id="origCity" class="text" disabled="disabled" /></td>
+                        <td class="tdLabel"><sup style="">*</sup>邮编：</td>
+                        <td>
+                            <input type="text" id="origPostCode" class="text youbian" disabled="disabled" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdLabel"><div class="dizhi">地址：</div></td>
+                        <td colspan="3"><input type="text" id="origAddress" style="margin-left:4px;" class="textcolspan" disabled="disabled" /></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="6"><h2 style="padding-bottom: 3px; text-align:left;border-bottom: 1px solid rgb(12,110,180); margin: 10px 0 5px 0;color:rgb(12,110,180)">&nbsp;&nbsp;目的地</h2></td>
+                    </tr>
+                    <tr>
+                        <td class="tdLabel"><sup style="">*</sup>国家/地点：</td>
+                        <td>
+                            <select name="destCountry" id="destCountry" class="selectbox" disabled="disabled">
+                                <option value="US" selected="selected">United States</option>
+                                <option value="AF">Afghanistan</option>
+                                <option value="AL">Albania</option>
+                                <option value="DZ">Algeria</option>
+                                <option value="AS">American Samoa</option>
+                                <option value="AD">Andorra</option>
+                                <option value="AO">Angola</option>
+                                <option value="AI">Anguilla</option>
+                                <option value="AG">Antigua/Barbuda</option>
+                                <option value="AR">Argentina</option>
+                                <option value="AM">Armenia</option>
+                                <option value="AW">Aruba</option>
+                                <option value="AU">Australia</option>
+                                <option value="AT">Austria</option>
+                                <option value="AZ">Azerbaijan</option>
+                                <option value="BS">Bahamas</option>
+                                <option value="BH">Bahrain</option>
+                                <option value="BD">Bangladesh</option>
+                                <option value="BB">Barbados</option>
+                                <option value="BY">Belarus</option>
+                                <option value="BE">Belgium</option>
+                                <option value="BZ">Belize</option>
+                                <option value="BJ">Benin</option>
+                                <option value="BM">Bermuda</option>
+                                <option value="BT">Bhutan</option>
+                                <option value="BO">Bolivia</option>
+                                <option value="BA">Bosnia-Herzegovina</option>
+                                <option value="BW">Botswana</option>
+                                <option value="BR">Brazil</option>
+                                <option value="VG">British Virgin Islands</option>
+                                <option value="BN">Brunei</option>
+                                <option value="BG">Bulgaria</option>
+                                <option value="BF">Burkina Faso</option>
+                                <option value="BI">Burundi</option>
+                                <option value="KH">Cambodia</option>
+                                <option value="CM">Cameroon</option>
+                                <option value="CA">Canada</option>
+                                <option value="CV">Cape Verde</option>
+                                <option value="BQ">Caribbean Netherlands</option>
+                                <option value="KY">Cayman Islands</option>
+                                <option value="TD">Chad</option>
+                                <option value="CL">Chile</option>
+                                <option value="CN">China</option>
+                                <option value="CO">Colombia</option>
+                                <option value="CG">Congo Brazzaville</option>
+                                <option value="CD">Congo Democratic Rep. of</option>
+                                <option value="CK">Cook Islands</option>
+                                <option value="CR">Costa Rica</option>
+                                <option value="HR">Croatia</option>
+                                <option value="CW">Curacao</option>
+                                <option value="CY">Cyprus</option>
+                                <option value="CZ">Czech Republic</option>
+                                <option value="DK">Denmark</option>
+                                <option value="DJ">Djibouti</option>
+                                <option value="DM">Dominica</option>
+                                <option value="DO">Dominican Republic</option>
+                                <option value="TL">East Timor</option>
+                                <option value="EC">Ecuador</option>
+                                <option value="EG">Egypt</option>
+                                <option value="SV">El Salvador</option>
+                                <option value="GQ">Equatorial Guinea</option>
+                                <option value="ER">Eritrea</option>
+                                <option value="EE">Estonia</option>
+                                <option value="ET">Ethiopia</option>
+                                <option value="FO">Faeroe Islands</option>
+                                <option value="FJ">Fiji</option>
+                                <option value="FI">Finland</option>
+                                <option value="FR">France</option>
+                                <option value="GF">French Guiana</option>
+                                <option value="PF">French Polynesia</option>
+                                <option value="GA">Gabon</option>
+                                <option value="GM">Gambia</option>
+                                <option value="GE">Georgia</option>
+                                <option value="DE">Germany</option>
+                                <option value="GH">Ghana</option>
+                                <option value="GI">Gibraltar</option>
+                                <option value="GR">Greece</option>
+                                <option value="GL">Greenland</option>
+                                <option value="GD">Grenada</option>un
+                                <option value="GP">Guadeloupe</option>
+                                <option value="GU">Guam</option>
+                                <option value="GT">Guatemala</option>
+                                <option value="GN">Guinea</option>
+                                <option value="GY">Guyana</option>
+                                <option value="HT">Haiti</option>
+                                <option value="HN">Honduras</option>
+                                <option value="HK">Hong Kong</option>
+                                <option value="HU">Hungary</option>
+                                <option value="IS">Iceland</option>
+                                <option value="IN">India</option>
+                                <option value="ID">Indonesia</option>
+                                <option value="IQ">Iraq</option>
+                                <option value="IE">Ireland</option>
+                                <option value="IL">Israel</option>
+                                <option value="IT">Italy</option>
+                                <option value="CI">Ivory Coast</option>
+                                <option value="JM">Jamaica</option>
+                                <option value="JP">Japan</option>
+                                <option value="JO">Jordan</option>
+                                <option value="KZ">Kazakhstan</option>
+                                <option value="KE">Kenya</option>
+                                <option value="KW">Kuwait</option>
+                                <option value="KG">Kyrgyzstan</option>
+                                <option value="LA">Laos</option>
+                                <option value="LV">Latvia</option>
+                                <option value="LB">Lebanon</option>
+                                <option value="LS">Lesotho</option>
+                                <option value="LR">Liberia</option>
+                                <option value="LY">Libya</option>
+                                <option value="LI">Liechtenstein</option>
+                                <option value="LT">Lithuania</option>
+                                <option value="LU">Luxembourg</option>
+                                <option value="MO">Macau</option>
+                                <option value="MK">Macedonia</option>
+                                <option value="MG">Madagascar</option>
+                                <option value="MW">Malawi</option>
+                                <option value="MY">Malaysia</option>
+                                <option value="MV">Maldives</option>
+                                <option value="ML">Mali</option>
+                                <option value="MT">Malta</option>
+                                <option value="MH">Marshall Islands</option>
+                                <option value="MQ">Martinique</option>
+                                <option value="MR">Mauritania</option>
+                                <option value="MU">Mauritius</option>
+                                <option value="MX">Mexico</option>
+                                <option value="FM">Micronesia</option>
+                                <option value="MD">Moldova</option>
+                                <option value="MC">Monaco</option>
+                                <option value="MN">Mongolia</option>
+                                <option value="ME">Montenegro</option>
+                                <option value="MS">Montserrat</option>
+                                <option value="MA">Morocco</option>
+                                <option value="MZ">Mozambique</option>
+                                <option value="NA">Namibia</option>
+                                <option value="NP">Nepal</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="NC">New Caledonia</option>
+                                <option value="NZ">New Zealand</option>
+                                <option value="NI">Nicaragua</option>
+                                <option value="NE">Niger</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="NO">Norway</option>
+                                <option value="OM">Oman</option>
+                                <option value="PK">Pakistan</option>
+                                <option value="PW">Palau</option>
+                                <option value="PS">Palestine Autonomous</option>
+                                <option value="PA">Panama</option>
+                                <option value="PG">Papua New Guinea</option>
+                                <option value="PY">Paraguay</option>
+                                <option value="PE">Peru</option>
+                                <option value="PH">Philippines</option>
+                                <option value="PL">Poland</option>
+                                <option value="PT">Portugal</option>
+                                <option value="PR">Puerto Rico</option>
+                                <option value="QA">Qatar</option>
+                                <option value="RE">Reunion</option>
+                                <option value="RO">Romania</option>
+                                <option value="RU">Russian Federation</option>
+                                <option value="RW">Rwanda</option>
+                                <option value="MF">Saint Martin</option>
+                                <option value="MP">Saipan</option>
+                                <option value="WS">Samoa</option>
+                                <option value="SA">Saudi Arabia</option>
+                                <option value="SN">Senegal</option>
+                                <option value="RS">Serbia</option>
+                                <option value="SC">Seychelles</option>
+                                <option value="SG">Singapore</option>
+                                <option value="SX">Sint Maarten</option>
+                                <option value="SK">Slovak Republic</option>
+                                <option value="SI">Slovenia</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="KR">South Korea</option>
+                                <option value="ES">Spain</option>
+                                <option value="LK">Sri Lanka</option>
+                                <option value="KN">St. Kitts/Nevis</option>
+                                <option value="LC">St. Lucia</option>
+                                <option value="VC">St. Vincent</option>
+                                <option value="SR">Suriname</option>
+                                <option value="SZ">Swaziland</option>
+                                <option value="SE">Sweden</option>
+                                <option value="CH">Switzerland</option>
+                                <option value="SY">Syria</option>
+                                <option value="TW">Taiwan</option>
+                                <option value="TZ">Tanzania</option>
+                                <option value="TH">Thailand</option>
+                                <option value="TG">Togo</option>
+                                <option value="TO">Tonga</option>
+                                <option value="TT">Trinidad/Tobago</option>
+                                <option value="TN">Tunisia</option>
+                                <option value="TR">Turkey</option>
+                                <option value="TM">Turkmenistan</option>
+                                <option value="TC">Turks &amp; Caicos Islands</option>
+                                <option value="VI">U.S. Virgin Islands</option>
+                                <option value="UG">Uganda</option>
+                                <option value="UA">Ukraine</option>
+                                <option value="AE">United Arab Emirates</option>
+                                <option value="GB">United Kingdom</option>
+
+                                <option value="UY">Uruguay</option>
+                                <option value="UZ">Uzbekistan</option>
+                                <option value="VU">Vanuatu</option>
+                                <option value="VE">Venezuela</option>
+                                <option value="VN">Vietnam</option>
+                                <option value="WF">Wallis &amp; Futuna</option>
+                                <option value="YE">Yemen</option>
+                                <option value="ZM">Zambia</option>
+                                <option value="ZW">Zimbabwe</option>
+                            </select>
+                        </td>
+                        <td class="tdLabel"><sup style="">*</sup>城市：</td>
+                        <td><input type="text" id="destCity" class="text" disabled="disabled" /></td>
+                        <td class="tdLabel"><sup style="">*</sup>邮编：</td>
+                        <td>
+                            <input type="text" id="destPostCode" class="text youbian" disabled="disabled" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdLabel"><div class="dizhi">地址：</div></td>
+                        <td colspan="3"><input type="text" style="margin-left:4px;" id="destAddress" class="textcolspan" disabled="disabled" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"><h2 style="padding-bottom: 3px;text-align:left; border-bottom: 1px solid rgb(11,110,180); margin: 10px 0 5px 0;color:rgb(11,110,180)">&nbsp;&nbsp;附加信息</h2></td>
+                    </tr>
+                    <tr>
+                        <td class="tdLabel"><sup>*</sup>包裹数量：</td>
+                        <td><input type="text" id="packageNum" class="text" disabled="disabled" /></td>
+
+
+                    </tr>
+                    <tr>
+                        <td class="tdLabel"><sup>*</sup>重量：</td>
+                        <td colspan="5">
+                            <input type="text" id="packageWeight" class="text" disabled="disabled" />
+                            <select name="weightUnit" id="weightUnit" class="selectbox1" disabled="disabled">
+                                <option value="LB">磅</option>
+                                <option value="KG">公斤</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="border-box" style="margin-top: 1em; border: 2px solid #dae1e6;">
+                <p class="baseTitle si_mu_2">
+                    包裹和货件详细信息
+                </p>
+                <table class="tabledesc" id="tablepackgedesc" style="margin-top:1em;" border="0" cellpadding="3" cellspacing="1" width="100%" align="center">
+                    <thead>
+                        <tr>
+                            <th>*数量</th>
+                            <th>*重量(每件包裹)</th>
+                            <th>*包裹类型</th>
+                            <th>尺寸(每件包裹)</th>
+                            <th>托运申报价值(每件包裹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablepackage_body">
+                        @*<tr>
+                                        <td>
+                                            <input type="text" id="pkgItemNum1" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="pkgItemWeight1" />
+                                            <select name="pgkItemWeightUnit1" id="pgkItemWeightUnit1">
+
+                                                <option value="KG">公斤</option>
+                                                <option value="LB">磅</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="pkgItemType1" id="pkgItemType1Id">
+                                                <option value="0" selected="selected">选择</option>
+                                                <option value="6">FedEx Envelope</option>
+                                                <option value="2"> FedEx Pak</option>
+                                                <option value="13">FedEx Small Box</option>
+                                                <option value="23">FedEx Medium Box</option>
+                                                <option value="33">FedEx Large Box</option>
+                                                <option value="43">FedEx Extra Large Box</option>
+                                                <option value="4">FedEx Tube</option>
+                                                <option value="5">FedEx 10kg Box</option>
+                                                <option value="25">FedEx 25kg Box</option>
+                                                <option value="1">自备包装</option>
+                                            </select>
+                                        </td>
+                                        <td id="pkgSizeContent" style="display:none">
+                                            <table width="200px" cellspacing="0" cellpadding="0" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td align="left" nowrap="nowrap">
+                                                            <span>L</span>
+                                                            <br />
+                                                            <input type="text" name="pkgLength" maxlength="3" id="pkgLength" style="width: 32px;font-size: 11px">
+
+                                                        </td>
+                                                        <td>
+                                                            <span>W</span>
+                                                            <br />
+                                                            <input type="text" name="pgkWidth" maxlength="3" id="pgkWidth" style="width: 32px;font-size: 11px">
+                                                        </td>
+                                                        <td>
+                                                            <span>H</span>
+                                                            <br />
+                                                            <input type="text" name="pgkHeight" maxlength="3" id="pgkHeight" style="width: 32px;font-size: 11px">
+                                                        </td>
+                                                        <td>
+                                                            <span>单位</span>
+                                                            <select name="dimUnit" class="contentsmall">
+                                                                <option value="IN">英寸</option>
+                                                                <option value="CM" selected="selected">厘米</option>
+                                                            </select>
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="pkgItemdeclareValue1" />
+                                            @*<select name="pkgdeclareTypeId" id="pkgdeclareTypeId">
+                                <option value="CNY" selected="selected">Chinese Renminbi（人民币)</option>
+                                <option value="USD">US Dollars（美元)</option>
+                            </select>
+                                        </td>
+                                    </tr>*@
+                    </tbody>
+
+                </table>
+
+            </div>
+            <div class="border-box" style="margin-top: 1em; border: 2px solid #dae1e6;">
+                <p class="baseTitle si_mu_3">
+                    费率和运送时间
+                </p>
+                <table class="tabledesc" id="tableratedesc" style="margin-top:1em;" border="0" cellpadding="3" cellspacing="1" width="100%" align="center">
+                    <thead>
+                        <tr>
+                            <th>选择</th>
+                            <th>送递日期/时间</th>
+                            <th>服务</th>
+                            <th>费率</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableratedesc_body"></tbody>
+
+                </table>
+            </div>
+
+            <input type="button" class="btn-margain xiadan_a" id="subFedCost" style="cursor: pointer; width: 90px; float: right; border-radius: 0; line-height: 34px;" value="完成">
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    /*正则验证价格*/
+    var regprice = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/;
+    /*正则验证数量*/
+    var regnum = /^\+?[1-9][0-9]*$/;
+
+    $(function () {
+        $(".yuenFei").click(function () {
+
+            var distributiontype = $("#freighttype").val();
+
+            if (distributiontype != "FedEx" && distributiontype != "SF") {
+                $.dialog.tips("不存在相应物流信息!");
+                return;
+            }
+            var shipObj = $("#shipmentObj").val();
+            if (shipObj == null || shipObj == "") {
+                $.dialog.tips("不存在相应物流信息!");
+                return;
+            }
+            //$('.xiadan_a').css("display", "none");
+            $('.feiyong_a').css("display", "inline-block");
+            $('.feiyong').css("display", "block");
+            $('.xiadan').css("display", "none");
+
+            //显示费用详细
+            displayShipDetail();
+        })
+        /*数量加减 begin*/
+        $(".reduce").live("click", function () {
+            var $input = $(this).parent('td').find('input');
+            if (Number($input.val()) == 0) { return false; }
+            $input.val(Number(Number($input.val()) - 1));
+
+            var $price = $(this).parent('td').prev().find('.price');
+            var $num = $(this).parent('td').find('.pnum').val();
+            var $totalprice = $(this).parent('td').next().find('.totalprice');
+            $totalprice.html((Number($price.html()) * Number($num)).toFixed(2));
+
+            var freight = 0;
+            if ($.trim($("#txtfreight").val()) != "") { freight = $.trim($("#txtfreight").val()); }
+            var pamount = 0;
+            $(".totalprice").each(function () {
+
+                pamount = pamount + Number($(this).html());
+            });
+            $(".insurancefee").html(Number(pamount * Number($("#hdInsurancefeeMaxValue").val()) * 0.01).toFixed(2));
+            var insurancefee = 0;
+            if ($("#cbinsurance").attr("checked") == "checked") { insurancefee = $.trim($(".insurancefee").html()); }
+            $(".orderamount").html((Number(freight) + Number(pamount) + Number(insurancefee)).toFixed(2));
+
+            //加载费用
+            costCalc();
+        });
+        $(".plus").live("click", function () {
+            var $input = $(this).parent('td').find('input');
+            $input.val(Number(Number($input.val()) + 1));
+
+            var $price = $(this).parent('td').prev().find('.price');
+            var $num = $(this).parent('td').find('.pnum').val();
+
+            var $totalprice = $(this).parent('td').next().find('.totalprice');
+            $totalprice.html((Number($price.html()) * Number($num)).toFixed(2));
+
+
+            var freight = 0;
+            if ($.trim($("#txtfreight").val()) != "") { freight = $.trim($("#txtfreight").val()); }
+            var pamount = 0;
+            $(".totalprice").each(function () {
+
+                pamount = pamount + Number($(this).html());
+            });
+            $(".insurancefee").html(Number(pamount * Number($("#hdInsurancefeeMaxValue").val()) * 0.01).toFixed(2));
+            var insurancefee = 0;
+            if ($("#cbinsurance").attr("checked") == "checked") { insurancefee = $.trim($(".insurancefee").html()); }
+            $(".orderamount").html((Number(freight) + Number(pamount) + Number(insurancefee)).toFixed(2));
+
+            //加载费用
+            costCalc();
+
+        });
+
+        $(".pnum").live("blur", function () {
+            var num = $(this).val();
+            if (!regnum.test(num)) {
+                $.dialog.errorTips('产品数量必须为正整数！');
+                $(this).val(0)
+                return false;
+            }
+            var $price = $(this).parent('td').prev().find('.price');
+            var $totalprice = $(this).parent('td').next().find('.totalprice');
+            $totalprice.html((Number($price.html()) * Number(num)).toFixed(2));
+
+            var freight = 0;
+            if ($.trim($("#txtfreight").val()) != "") { freight = $.trim($("#txtfreight").val()); }
+            var pamount = 0;
+            $(".totalprice").each(function () {
+
+                pamount = pamount + Number($(this).html());
+            });
+            $(".insurancefee").html(Number(pamount * Number($("#hdInsurancefeeMaxValue").val()) * 0.01).toFixed(2));
+            var insurancefee = 0;
+            if ($("#cbinsurance").attr("checked") == "checked") { insurancefee = $.trim($(".insurancefee").html()); }
+            $(".orderamount").html((Number(freight) + Number(pamount) + Number(insurancefee)).toFixed(2));
+        });
+
+        /*数量加减 end*/
+
+
+        /*下一步*/
+        $("#nextoperate").click(function () {
+            var ischeck = 0;
+            $("[name=checkboxlist]:checkbox").each(function () {
+                if ($(this).is(":checked")) {
+                    var $num = $(this).parent('td').prev().find('input');
+                    if (Number($num.val()) > 0) { ischeck = 1; }
+                }
+            });
+            if (ischeck == 0) {
+                $.dialog.errorTips('请选择产品！'); return false;
+            }
+            if ($("#hdiseditshippingaddress").val() == "0") { $.dialog.errorTips('您还未添加收货地址，请前往设置！'); return false; };
+
+            /*计算保险费*/
+            var sumpirce = 0;
+            $("[name=checkboxlist]:checkbox").each(function () {
+                if ($(this).is(":checked")) {
+                    var $num = $(this).parent('td').prev().prev().find('.price');
+
+                    sumpirce = sumpirce + Number($num.html());
+                }
+            });
+            var InsurancefeeMaxValue = $("#hdInsurancefeeMaxValue").val() * sumpirce * 0.01;
+            $("#Insurancefee").val(InsurancefeeMaxValue.toFixed(2));
+
+            $("#stepone").css("display", "none"); $("#steptwo").css("display", "block");
+        });
+
+
+        $(".feiyong_a").click(function () {
+            $(".xiadan").css("display", "none");
+            $(".feiyong").css("display", "block");
+        });
+
+        $(".xiadan_a").click(function () {
+            $(".feiyong").css("display", "none");
+            $(".xiadan").css("display", "block");
+        })
+
+        if ($("#deliveryaddress").val() == null) {
+            self.setInterval(function () {
+                $.post('/Bargain/GetAddress', function (data) {
+                    if (data.success) {
+                        var htmls = "";
+                        $.each($.parseJSON(data.msg), function (i, item) {
+                            htmls = htmls + "<option value='" + item.Id + "'>" + item.RegionFullName + ">" + item.Address + "</option>";
+                        });
+                        $("#deliveryaddress").html(htmls);
+                    }
+                });
+            }, 2000);
+        }
+
+        //FedEx物流费
+        $("#freighttype").change(function () {
+            var value = $(this).children('option:selected').val();
+            var b = document.getElementById("btnCalcCost");
+            if (value != null) {
+                if (value == "FedEx"||value=="SF") {
+                    costCalc();
+                }
+                else {
+                    $("#shipmentObj").attr("value", null);
+                    $("#txtfreight").attr("value", 0);
+                }
+            }
+        });
+
+
+        //选择日期
+        $("#deliverydate").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+
+        $("#cbinvoice").change(function () {
+            if ($(this).attr("checked") == "checked") {
+                $("#invoicetype").removeAttr("disabled");
+                $("#txtinvoicename").removeAttr("disabled"); 
+                $("#incoiceaddress").removeAttr("disabled");
+            }
+            else {
+                $("#invoicetype").attr("disabled", "disabled");
+                $("#txtinvoicename").attr("disabled", "disabled");
+                $("#incoiceaddress").attr("disabled", "disabled");
+            }
+        });
+
+        /*提交定单*/
+        $("#submitmargain").click(function () {
+
+            if ($(".productlisttr").length == 0) { $.dialog.errorTips("无可下单产品！"); return false; }
+            var istrue = 0;
+            $(".productlisttr").each(function () {
+                productnum = $(this).children('td').eq(4).find('input').val();
+                if (Number(productnum) > 0) {
+                    istrue = 1;
+                }
+            });
+            if (istrue == 0) { $.dialog.errorTips("请选择产品！"); return false; }
+
+            /*发票信息*/
+            var InvoiceType = "0", InvoiceTitle = "", InvoiceContext = "", SellerPhone = "", SellerRemark = "", SellerAddress = "";
+            if ($("#cbinvoice").attr("checked") == "checked") {
+                if ($.trim($("#txtinvoicename").val()) == "") {
+                    $.dialog.errorTips('请填写发票名称！');
+                    return false;
+                }
+                InvoiceType = $("#invoicetype").val();//发票类型
+                InvoiceTitle = $.trim($("#txtinvoicename").val());//名称
+                InvoiceContext = $.trim($("#txttaxpayeridentificationnumber").val());//纳税人识别号
+                SellerPhone = $.trim($("#txtcallnumber").val())//电话
+                SellerRemark = $.trim($("#txtbankaccount").val())//开户行及账号
+                SellerAddress = $("#incoiceaddress").find("option:selected").text()//地址
+            }
+
+
+            /*保险费*/
+            var IsInsurance = "0";
+            var Insurancefee = "0";
+            if ($("#cbinsurance").attr("checked") == "checked") {
+                IsInsurance = "1";
+                Insurancefee = $.trim($(".insurancefee").html());
+            }
+
+
+            var billno = $("#hdbillno").val()/*定单编号*/
+            var shopid = $("#hdshopid").val(); //供应商
+
+
+            var distributiontype = $("#freighttype").val();//物流配送方式
+            var distributioncost = $.trim($("#txtfreight").val());//物流配送费用
+            var regionid = $("#deliveryaddress").val(); //地址Id
+            var deliveryaddress = $("#deliveryaddress").find("option:selected").text();
+
+            var deliverydate = "2016-06-20"; //发货时间
+
+
+            /*支付方式 ,支付方式最终由支付成功后确定*/
+            var paymode = "--";
+            var productid = $("#hdproductid").val();
+            var productname = $("#productname").html();
+
+            var productnum = "";
+            var marketprice = ""; //单价
+            var prodcutprice = "";//小计
+            var packingunit = "";
+            var purity = "";
+            var speclevel = "";
+
+            var prodcutcointypename = "CNY";
+
+            var shipment = $("#shipmentObj").val();//物流相关
+
+
+            if (distributiontype == "" || distributiontype == null) {
+                $.dialog.errorTips("您还未选择写物流配送方式！");
+                return false;
+            }
+
+            var cointype = 1;
+            if (distributioncost == "" || distributioncost == null) {
+                $.dialog.errorTips("您还未填写物流配送费用！");
+                return false;
+            }
+            if (!regprice.test(distributioncost)) {
+                $.dialog.errorTips('物流配送费用必须为数字！');
+                return false;
+            }
+
+            if (deliveryaddress == "请选择收货地址" || deliveryaddress == null) {
+                $.dialog.errorTips("您还未设置收货地址！");
+                return false;
+            }
+
+            var jsonbill = "";
+            jsonbill += "{";
+            jsonbill += "\"BillNo\":\"" + billno + "\",";
+            jsonbill += "\"ShopId\":\"" + shopid + "\",";
+            jsonbill += "\"DeliverType\":\"" + distributiontype + "\",";
+            jsonbill += "\"DeliverCost\":\"" + distributioncost + "\",";
+            jsonbill += "\"DeliverDate\":\"" + deliverydate + "\",";
+            jsonbill += "\"RegionId\":\"" + regionid + "\",";
+            jsonbill += "\"DeliverAddress\":\"" + deliveryaddress + "\",";
+            jsonbill += "\"PayMode\":\"" + paymode + "\",";
+            jsonbill += "\"IsInsurance\":\"" + IsInsurance + "\",";
+            jsonbill += "\"Insurancefee\":\"" + Insurancefee + "\",";
+            jsonbill += "\"InvoiceType\":\"" + InvoiceType + "\",";
+            jsonbill += "\"InvoiceTitle\":\"" + InvoiceTitle + "\",";
+            jsonbill += "\"InvoiceContext\":\"" + InvoiceContext + "\",";
+            jsonbill += "\"SellerPhone\":\"" + SellerPhone + "\",";
+            jsonbill += "\"SellerRemark\":\"" + SellerRemark + "\",";
+            jsonbill += "\"SellerAddress\":\"" + SellerAddress + "\",";
+            jsonbill += "\"_MargainBillDetail\":[";
+            $(".productlisttr").each(function () {
+                productnum = $(this).children('td').eq(4).find('input').val();
+                marketprice = $(this).children('td').eq(3).find('.price').html();
+                prodcutprice = $(this).children('td').eq(5).find('.totalprice').html();
+                packingunit = $(this).children('td').eq(0).html();
+                purity = $(this).children('td').eq(2).html();
+                speclevel = $(this).children('td').eq(1).html();
+                if (Number(productnum) > 0) {
+                    jsonbill += "{";
+                    jsonbill += "\"BillNo\":\"" + billno + "\",";
+                    jsonbill += "\"ProductId\":\"" + productid + "\",";
+                    jsonbill += "\"ProductName\":\"" + productname + "\",";
+                    jsonbill += "\"Num\":\"" + productnum + "\",";
+                    jsonbill += "\"MarketPrice\":\"" + marketprice + "\",";
+                    jsonbill += "\"PurchasePrice\":\"" + prodcutprice + "\",";
+                    jsonbill += "\"CoinType\":\"" + cointype + "\",";
+                    jsonbill += "\"PackingUnit\":\"" + packingunit + "\",";
+                    jsonbill += "\"SpecLevel\":\"" + speclevel + "\",";
+                    jsonbill += "\"Purity\":\"" + purity + "\"";
+                    jsonbill += "},";
+                }
+            });
+
+            jsonbill = jsonbill.substring(0, jsonbill.length - 1);
+            jsonbill += "]}";
+
+            var jsonModel = {
+                "Bill": jsonbill,
+                "Ship": shipment
+            };
+
+            jsonModel = JSON.stringify(jsonModel);
+            $.dialog.confirm('确定提交订单？', function () {
+                var loading = showLoading();
+                $.post('/Bargain/SubmitOrderFun', { json: jsonModel },
+                    function (data) {
+                        loading.close();
+                        if (data.success) {
+                            $.dialog.succeedTips("订单提交成功！", function () {
+                                showLoading();
+                                location.href = "/UserOrder/Index";
+                            }, 3);
+                        }
+                        else {
+                            $.dialog.errorTips("订单提交失败！");
+                        }
+                    });
+            });
+        });
+
+        //勾选议价
+        $(".checkbox[name=checkboxlist]").live("click", function () {
+            $(':checkbox[name=checkboxlist]').each(function () {
+                $(this).click(function () {
+                    if ($(this).attr('checked')) {
+                        $(':checkbox[name=checkboxlist]').removeAttr('checked');
+                        $(this).attr('checked', 'checked');
+                    }
+                });
+            });
+        });
+
+        //加入购物车
+        $("#addtocart").click(function () {
+            if ($(".productlisttr").length == 0) { $.dialog.errorTips("无可下单产品！"); return false; }
+            var istrue = 0;
+            $(".productlisttr").each(function () {
+                productnum = $(this).children('td').eq(4).find('input').val();
+                if (Number(productnum) > 0) {
+                    istrue = 1;
+                }
+            });
+            if (istrue == 0) { $.dialog.errorTips("请选择产品！"); return false; }
+
+            var productid = $("#hdproductid").val(); /*产品编码*/
+            var productname = $("#productname").html();
+            var prodcutcointypename = "CNY";/*货币*/
+            var shopid = $("#hdshopid").val(); /*供应商*/
+
+            var productnum = "";
+            var marketprice = "";
+            var prodcutprice = "";
+            var packingunit = "";
+            var purity = "";
+            var speclevel = "";
+
+            var jsoncart = "";
+            jsoncart += "{";
+            jsoncart += "\"shopid\":\"" + shopid + "\",";
+            jsoncart += "\"productid\":\"" + productid + "\",";
+            jsoncart += "\"cartproductlist\":[";
+            $(".productlisttr").each(function () {
+                productnum = $(this).children('td').eq(4).find('input').val();
+                marketprice = $(this).children('td').eq(3).find('.price').html();
+                prodcutprice = $(this).children('td').eq(5).find('.totalprice').html();
+                packingunit = $(this).children('td').eq(0).html();
+                purity = $(this).children('td').eq(2).html();
+                speclevel = $(this).children('td').eq(1).html();
+                if (Number(productnum) > 0) {
+                    jsoncart += "{";
+                    jsoncart += "\"ProductId\":\"" + productid + "\",";
+                    jsoncart += "\"ProductName\":\"" + productname + "\",";
+                    jsoncart += "\"Num\":\"" + productnum + "\",";
+                    jsoncart += "\"PurchasePrice\":\"" + prodcutprice + "\",";
+                    jsoncart += "\"CoinType\":\"" + prodcutcointypename + "\",";
+                    jsoncart += "\"PackingUnit\":\"" + packingunit + "\",";
+                    jsoncart += "\"SpecLevel\":\"" + speclevel + "\",";
+                    jsoncart += "\"Purity\":\"" + purity + "\"";
+                    jsoncart += "},";
+                }
+            });
+            jsoncart = jsoncart.substring(0, jsoncart.length - 1);
+            jsoncart += "]}";
+
+
+            var loading = showLoading();
+            $.ajax({
+                type: 'POST', url: "/cart/addtocart",
+                data: { json: jsoncart },
+                dataType: 'json',
+                success: function (data) {
+                    loading.close();
+                    if (data.success == true) {
+                        /*刷新购物车数量*/
+                        $.post('/cart/GetCartProducts', {}, function (cart) {
+                            var products = cart.products;
+                            var count = cart.totalCount;
+                            $('#shopping-amount,#right_cart em').html(count);
+                        });
+                        $.dialog.succeedTips('加入购物车成功');
+                    } else {
+                        loading.close();
+                        $.dialog.errorTips('加入购物车失败');
+                    }
+                },
+                error: function (e) {
+                    loading.close();
+                    $.dialog.errorTips('加入购物车失败');
+                }
+            });
+        });
+
+        /*费用计算相关*/
+        $("#btnCalcCost").click(function () {
+
+            var tabFed = document.getElementById("tabFedCost");
+            var tabOrder = document.getElementById("tabFedOrder");
+            if (tabFed != null) {
+                tabFed.style.display = "inline-block";
+            }
+            if (tabOrder != null) {
+                tabOrder.style.display = "inline-block";
+            }
+        });
+
+        /*选择日期*/
+        $("#shipdate").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+
+
+        $("#packageNum").blur(function () {
+            var a = document.getElementById("packageNum");
+            var b = document.getElementById("rowpackagesindentical");
+            if (a != null && b != null) {
+                if (parseInt(a.value) > 1) {
+                    b.style.display = "";
+                } else {
+                    b.style.display = "none";
+                }
+            }
+
+
+        });
+
+        $("#packageNum").keyup(function (event) {
+            var c = "*" + event.keyCode + "*";
+            var b = "*9*16*17*18*19*20*27*33*34*35*36*37*38*39*40*45*46*112*113*114*115*116*117*118*119*120*121*122*123";
+            var a = b.indexOf(c);
+            if (a == -1) {
+                this.value = this.value.replace(/([^0-9\.])/g, "");
+            }
+        });
+
+        $("#packageWeight").keyup(function (event) {
+            var c = "*" + event.keyCode + "*";
+            var b = "*9*16*17*18*19*20*27*33*34*35*36*37*38*39*40*45*46*112*113*114*115*116*117*118*119*120*121*122*123";
+            var a = b.indexOf(c);
+            if (a == -1) {
+                this.value = this.value.replace(/([^0-9\.])/g, "");
+            }
+        });
+
+
+        $("#pkgItemNum1").keyup(function (event) {
+            var c = "*" + event.keyCode + "*";
+            var b = "*9*16*17*18*19*20*27*33*34*35*36*37*38*39*40*45*46*112*113*114*115*116*117*118*119*120*121*122*123";
+            var a = b.indexOf(c);
+            if (a == -1) {
+                this.value = this.value.replace(/([^0-9\.])/g, "");
+            }
+        });
+
+        $("#pkgItemWeight1").keyup(function (event) {
+            var c = "*" + event.keyCode + "*";
+            var b = "*9*16*17*18*19*20*27*33*34*35*36*37*38*39*40*45*46*112*113*114*115*116*117*118*119*120*121*122*123";
+            var a = b.indexOf(c);
+            if (a == -1) {
+                this.value = this.value.replace(/([^0-9\.])/g, "");
+            }
+        });
+
+        //计算费用
+        function costCalc() {
+
+            var distributiontype = $("#freighttype").val();
+            if (distributiontype != "FedEx" && distributiontype != "SF") {
+                return;
+            }
+            var shopid = $("#hdshopid").val();
+            var OrigId = $("#incoiceaddress").find("option:selected").val();//地址ID
+            var OrigAddress = $("#incoiceaddress").find("option:selected").text();//地址
+            var DestId = $("#deliveryaddress").find("option:selected").val();//地址ID
+            var DestAddress = $("#deliveryaddress").find("option:selected").text();
+            $("#shipmentObj").val("");
+            var Packages = "";
+            Packages += "[";
+            $(".productlisttr").each(function () {
+                productnum = $(this).children('td').eq(4).find('input').val();
+                marketprice = $(this).children('td').eq(3).find('.price').html();
+                prodcutprice = $(this).children('td').eq(5).find('.totalprice').html();
+                packingunit = $(this).children('td').eq(0).html();
+                purity = $(this).children('td').eq(2).html();
+                speclevel = $(this).children('td').eq(1).html();
+                if (Number(productnum) > 0) {
+                    Packages += "{";
+                    Packages += "\"Num\":\"" + productnum + "\",";
+
+                    Packages += "\"PackingUnit\":\"" + packingunit + "\"";
+                    Packages += "},";
+                }
+            });
+            Packages = Packages.substring(0, Packages.length - 1);
+            Packages += "]";
+
+
+            var pkg = null;
+            if (Packages.length > 1) {
+                pkg = JSON.parse(Packages);
+            }
+
+            if (pkg == null || pkg.length <= 0) {
+                $("#txtfreight").attr("value", 0);
+                $('#txtfreight').trigger("blur");
+                return false;
+            }
+            //if (OrigId == "" || OrigId == null) {
+            //    $.dialog.errorTips("无法计算物流费用,供应商地址不能为空！");
+            //    return false;
+            //}
+
+            //if (DestId == "" || DestId == null) {
+            //    $.dialog.errorTips("无法计算物流费用,采购商地址不能为空！");
+            //    return false;
+            //}
+
+            var shipdata = {
+                "OrigId": OrigId, "OrigAddress": OrigAddress, "DestId": DestId, "DestAddress": DestAddress,
+                "ShopId": shopid, "ShipType": distributiontype,
+                "PackagesList": pkg,
+                "FedexKey": "", "FedexPassword": "", "FedexAccountNumber": "", "FedexMeterNumber": "", "CoinType": ""
+            };
+            shipdata = JSON.stringify(shipdata);
+
+            
+            var loading = showLoading();
+            $.ajax({
+                type: 'POST',
+                url: "/Shipment/CalcPrice",
+                contentType: "application/json; charset=utf-8",
+                data: shipdata,
+                dataType: "json",
+                success: function (data) {
+                    loading.close();
+
+                    $("#shipmentObj").val(JSON.stringify(data));
+
+                    if (data != null) {
+                        if (data.RateValue != null) {
+                            var tmpValue = parseFloat(data.RateValue.TotalCharges);
+                            $("#txtfreight").attr("value", tmpValue);
+                            $('#txtfreight').trigger("blur");
+                        }
+                        else {
+                            $("#txtfreight").attr("value", 0);
+                            $('#txtfreight').trigger("blur");
+                        }
+                    }
+
+                },
+                error: function (e) {
+                    $.dialog.errorTips('物流配送费用计算失败');
+                }
+            });
+
+        }
+
+
+
+        $("#deliveryaddress").change(function () {
+            //计算物流费用
+            costCalc();
+        });
+
+
+        //显示物流详细
+        function displayShipDetail() {
+            var shipStr = $("#shipmentObj").val();
+            var shipObj = JSON.parse(shipStr);
+
+            var orgCountryCode = shipObj.OriginAddress.CountryCode
+
+            $("#origCountry option").removeAttr("selected");
+
+            //Set option with value 2 as selected
+            // $("#origCountry option[value=orgCountryCode]").attr("selected", "selected");
+            $("#origCountry").attr('value', orgCountryCode);
+
+            $("#origCity").attr("value", shipObj.OriginAddress.City);
+            $("#origPostCode").attr("value", shipObj.OriginAddress.PostalCode);
+            $("#origAddress").attr("value", shipObj.OriginAddress.Line1);
+
+            $("#destCountry option").removeAttr("selected");
+
+            var destCountryCode = shipObj.DestinationAddress.CountryCode
+
+            //Set option with value 2 as selected
+            //$("#destCountry option[value=destCountryCode]").attr("selected", "selected");
+
+            $("#destCountry").attr("value", destCountryCode);
+
+            $("#destCity").attr("value", shipObj.DestinationAddress.City);
+            $("#destPostCode").attr("value", shipObj.DestinationAddress.PostalCode);
+            $("#destAddress").attr("value", shipObj.DestinationAddress.Line1);
+
+            $("#packageNum").attr("value", shipObj.PackageCount);
+            $("#packageWeight").attr("value", shipObj.TotalPackageWeight);
+
+
+
+            $("#weightUnit option").removeAttr("selected");
+
+            $("#weightUnit option[value=KG]").attr("selected", "selected");
+
+            //加载包裹
+            loadPackageGrid(shipObj.Packages);
+
+            //加载费率
+            loadGrid(shipObj.Rates);
+        }
+
+        //加载包裹grid
+        function loadPackageGrid(data) {
+            var tbody = $("#tablepackage_body");
+            var trList = "";
+            for (var i = 0; i < data.length; i++) {
+                trList += "<tr ><td> " + data[i].PackageCount
+                            + "</td><td>" + data[i].Weight
+                            + "</td><td>" + data[i].PackageType
+                            + "</td><td>" + "<span>L</span>" + "&nbsp;" + data[i].Length + "&nbsp;"
+                            + "<span>W</span>" + "&nbsp;" + data[i].Width + "&nbsp;"
+                             + "<span>H</span>" + "&nbsp;" + data[i].Height + "&nbsp;"
+                             //+ "<span>单位</span>" + "&nbsp;" + data[i].ShipLinearUnit
+
+                            + "</td><td>" + data[i].InsuredValue
+                            + "</td></tr>";
+            }
+            tbody.html(trList);
+        }
+
+        //加载服务
+        function loadGrid(data) {
+            var tbody = $("#tableratedesc_body");
+            var trList = "";
+            for (var i = 0; i < data.length; i++) {
+                trList += "<tr ><td> <input class='checkbox' name='shipmentRate' type='checkbox' id=" + data[i].ProviderCode + "style='margin-top:9px;' />"
+                            + "</td><td>" + data[i].GurDeliveryDate
+                            + "</td><td>" + data[i].Name
+                            + "</td><td>" + data[i].TotalCharges
+                            + "</td></tr>";
+            }
+            tbody.html(trList);
+        }
+
+        $(".checkbox[name=shipmentRate]").live("click", function () {
+
+            $(':checkbox[name=shipmentRate]').each(function () {
+                $(this).click(function () {
+                    if ($(this).attr('checked')) {
+                        $(':checkbox[name=shipmentRate]').removeAttr('checked');
+                        $(this).attr('checked', 'checked');
+                    }
+                });
+            });
+        });
+
+        $(".xiadan_a").click(function () {
+            $(".feiyong_a").css("display", "none");
+        })
+        $("#subFedCost").click(function () {
+            $(".feiyong_a").css("display", "none");
+            var tbody = document.getElementById("tableratedesc_body");
+            var tab = document.getElementById("tabFedCost");
+
+
+
+            $("#tableratedesc_body :checkbox").each(function (key, value) {
+                if ($(value).attr('checked')) {
+
+                    $("#txtfreight").attr("value", tbody.rows[key].cells[3].innerHTML);
+                    tab.style.display = "none";
+
+                    $('#txtfreight').trigger("blur");
+                }
+            })
+
+        });
+
+    })
+</script>
+
+
+<script type="text/javascript">
+    $(function () {
+        /*继续采购*/
+        $("#continuepurchasing").click(function () {
+            window.open("/Search/Search_Product_Shops?id=" + $("#hdCASNo").val(), target = "_blank")
+        });
+
+        //txtfreight
+        $("#txtfreight").live("blur", function () {
+            var $value = $.trim($("#txtfreight").val());
+            if ($value == "") { $.dialog.errorTips('请填写物流配送费用！'); } else {
+                if ($value != "0") { 
+                    if (!regprice.test($value)) {
+                        $.dialog.errorTips('物流配送费用必须为数字！');
+                        return false;
+                    } else {
+                        var freight = 0;
+                        if ($.trim($("#txtfreight").val()) != "") { freight = $.trim($("#txtfreight").val()); }
+                        var pamount = 0;
+                        $(".totalprice").each(function () {
+                            pamount = pamount + Number($(this).html());
+                        });
+                        $(".insurancefee").html(Number(pamount * Number($("#hdInsurancefeeMaxValue").val()) * 0.01).toFixed(2));
+                        var insurancefee = 0;
+                        if ($("#cbinsurance").attr("checked") == "checked") { insurancefee = $.trim($(".insurancefee").html()); }
+                        $(".orderamount").html((Number(freight) + Number(pamount) + Number(insurancefee)).toFixed(2));
+                    }
+                } else {
+                    var freight = 0;
+                    if ($.trim($("#txtfreight").val()) != "") { freight = $.trim($("#txtfreight").val()); }
+                    var pamount = 0;
+                    $(".totalprice").each(function () {
+                        pamount = pamount + Number($(this).html());
+                    });
+                    $(".insurancefee").html(Number(pamount * Number($("#hdInsurancefeeMaxValue").val()) * 0.01).toFixed(2));
+                    var insurancefee = 0;
+                    if ($("#cbinsurance").attr("checked") == "checked") { insurancefee = $.trim($(".insurancefee").html()); }
+                    $(".orderamount").html((Number(freight) + Number(pamount) + Number(insurancefee)).toFixed(2));
+                }
+            }
+        });
+
+
+
+        //cbinsurance
+        $("#cbinsurance").click(function () {
+            if (Number($.trim($(".insurancefee").html())) > 0) {
+                if ($(this).attr('checked')) {
+                    $(".orderamount").html((Number($(".orderamount").html()) + Number($.trim($(".insurancefee").html()))).toFixed(2));
+                } else {
+                    $(".orderamount").html((Number($(".orderamount").html()) - Number($.trim($(".insurancefee").html()))).toFixed(2));
+                }
+            }
+        });
+
+
+        //invoicetr
+        $(".invoicetr").attr("disabled", "disabled");
+        $("#invoicetype").click(function () {
+            var $value = $(this).val();
+            if ($value == "3") {
+                $(".invoicetr").removeAttr("disabled");
+            } else { $(".invoicetr").attr("disabled", "disabled"); }
+        });
+
+
+        //王传伟 后加
+
+        $(".plus").each(function () {
+
+            var $input = $(this).parent('td').find('input');
+           //这里加0！！！！！
+            $input.val(Number(Number($input.val()) + 0));
+
+            var $price = $(this).parent('td').prev().find('.price');
+            var $num = $(this).parent('td').find('.pnum').val();
+
+            var $totalprice = $(this).parent('td').next().find('.totalprice');
+            $totalprice.html((Number($price.html()) * Number($num)).toFixed(2));
+
+
+            var freight = 0;
+            if ($.trim($("#txtfreight").val()) != "") { freight = $.trim($("#txtfreight").val()); }
+            var pamount = 0;
+            $(".totalprice").each(function () {
+
+                pamount = pamount + Number($(this).html());
+            });
+            $(".insurancefee").html(Number(pamount * Number($("#hdInsurancefeeMaxValue").val()) * 0.01).toFixed(2));
+            var insurancefee = 0;
+            if ($("#cbinsurance").attr("checked") == "checked") { insurancefee = $.trim($(".insurancefee").html()); }
+            $(".orderamount").html((Number(freight) + Number(pamount) + Number(insurancefee)).toFixed(2));
+        });
+
+        //加载费用
+        costCalc();
+
+        //end 王传伟 后加
+
+
+
+    });
+</script>

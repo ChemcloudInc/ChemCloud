@@ -1,0 +1,506 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "我的订单";
+}
+
+@model IEnumerable<ChemCloud.Web.Areas.Web.Models.OrderListModel>
+@using ChemCloud.Core
+<script src="~/Scripts/datetimeCustom.js"></script>
+<style>
+    .tb-void tr td:nth-child(4) {
+        width: 198px;
+        padding: 0;
+    }
+</style>
+<div class="box1 lh24">
+    <div class="title">
+        <span class="title_txt cur">我的订单</span>
+    </div>
+    <div class="search-area">
+        <label>订单号：</label>
+        <input class="search_order" id="txtkeyword" type="text" value="订单编号" />
+        <label>开始日期：</label>
+        <input id="inputStartDate" class="search_order start_datetime" type="text">
+        <label>结束日期：</label>
+        <input id="inputEndDate" class="search_order end_datetime" type="text"><br />
+        <label>CAS #：</label>
+        <input class="search_order" id="casno" type="text" />
+        <label>订单状态：</label>
+        <select id="orderstatus" class="search_order">
+            <option value="">全部状态</option>
+            @foreach (var item in Enum.GetValues(typeof(ChemCloud.Model.OrderInfo.OrderOperateStatus)))
+            {
+                <option value="@((int)item)">@(((ChemCloud.Model.OrderInfo.OrderOperateStatus)item).ToDescription())</option>
+            }
+        </select>
+        <button class="search_btn pointer" style="margin-left: 86px;" onclick="Search()">搜索</button>
+    </div>
+    <div class="border-box">
+        <table class="tb-void">
+            <colgroup>
+                <col width="40" />
+                <col width="130" />
+                <col width="100" />
+                <col width="100" />
+                <col width="100" />
+                <col width="120" />
+                <col width="100" />
+                <col width="60" />
+                <col width="140" />
+                <col width="100" />
+                <col width="120" />
+                @*<col width="100" />*@
+                <col width="100" />
+            </colgroup>
+            <thead>
+                <tr class="tr" style="background-color:#e6e6e6;">
+                    <th style="background-color:#e6e6e6;">序号</th>
+                    <th style="background-color:#e6e6e6;">订单#</th>
+                    <th style="background-color:#e6e6e6;">产品名称</th>
+                    <th style="background-color:#e6e6e6;">CAS#</th>
+                    <th style="background-color:#e6e6e6;">采购商</th>
+                    @*<th>包装规格</th>
+                        <th>纯度</th>*@
+                    <th style="background-color:#e6e6e6;">供应商</th>
+                    <th style="background-color:#e6e6e6;">订单总额</th>
+                    <th style="background-color:#e6e6e6;">货币</th>
+                    <th style="background-color:#e6e6e6;">支付方式</th>
+                    <th style="background-color:#e6e6e6;">
+                        @*<select name="" id="submitDate" onchange="Query()">
+                                <option selected="selected" value="all">请选择...</option>
+                                <option value="threeMonth">最近三个月</option>
+                                <option value="halfyear">最近半年</option>
+                                <option value="year">最近一年</option>
+                                <option value="yearAgo">一年以前</option>
+                            </select>*@
+                        订单日期
+                    </th>
+                    <th style="background-color:#e6e6e6;">
+                        @*@Html.DropDownList("status", @ChemCloud.Model.OrderInfo.OrderOperateStatus.Close.ToSelectList(), new { onchange = "Query()" })*@
+                        订单状态
+                    </th>
+                    <th style="background-color:#e6e6e6;">签收日期</th>
+                    @*<th>物流单号</th>*@
+                    <th style="background-color:#e6e6e6; width:120px;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="tb-1877769835">
+                @if (Model.Count() == 0)
+                {
+                    <tr><td colspan="13"><div class="empty"><b></b>暂时没有任何的订单信息！</div></td></tr>
+                }
+                @{int rows = 1;}
+                @foreach (var m in Model)
+                {
+                    var model = Model.Where(a => a.OrderDate == m.OrderDate).ToArray();
+
+                    @*<tr class="tr-th">
+                            <td class="tr-th-text" colspan="12">
+                                <span class="tcol1">
+                                    订单编号:
+                                    <a>
+                                        @m.Id
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>*@
+                    <tr class="tr-td" oty="0,4" id="track1877769835">
+                        <td class="u-name">@rows</td>
+                        <td class="u-name">@m.Id</td>
+                        <td>
+                            <div class="img-list" style="width:100px;">
+                                @{var orderdetaillist = m.OrderItemList.DistinctBy(p => p.ProductName);}
+                                @foreach (var item in orderdetaillist)
+                                {
+                                    <div style="width:85px;float:left;">
+                                        @*<a class="img-box" style="float:none;">
+                                                <img width="50" height="50" title="@item.ProductName" src="@item.ThumbnailsUrl/1_150.png" class="err-product" />
+                                            </a>*@
+                                        <span class="ftx-04">@item.ProductName</span>
+                                        @*<span>x @item.Quantity</span>*@
+                                    </div>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <div class="u-name">
+                                @{var orderdetaillistcas = m.OrderItemList.DistinctBy(p => p.CASNo);}
+                                @foreach (var itemcas in orderdetaillistcas)
+                                {
+                                    @itemcas.CASNo
+                                }
+                            </div>
+                        </td>
+                        @*<td>
+                                <div class="u-name">
+                                    @foreach (var itemnum in m.OrderItemList)
+                                    {
+                                        @itemnum.Quantity<br />
+                                    }
+                                </div>
+                            </td>*@
+
+                        <td class="u-name">@m.UserName</td>
+                        <td><div class="u-name">@m.ShopName</div></td>
+                        @*<td>
+                                <div class="u-name">
+                                    @foreach (var itempackding in m.OrderItemList)
+                                    {
+                                        @itempackding.PackingUnit
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <div class="u-name">
+                                    @foreach (var itemPurity in m.OrderItemList)
+                                    {
+                                        @itemPurity.Purity
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <span class="ftx-04"> $@m.OrderTotalAmount.ToString("F2") </span>
+                                <br />
+                                @m.PaymentTypeName
+                            </td>*@
+                        <td>
+                            <span class="ftx-04">@m.OrderTotalAmount.ToString("F2") </span>
+
+                        </td>
+                        <td>
+                            <span class="ftx-04">@(m.CoinTypeName == "RMB" ? "CNY" : "USD")</span>
+                        </td>
+                        <td>
+                            <span class="ftx-04"> @m.PaymentTypeName</span>
+
+                        </td>
+                        <td>
+                            <span class="ftx-03">@m.OrderDate</span>
+                            <input type="hidden" value="@m.OrderDate" />
+                        </td>
+                        <td class="td-01">
+                            @*<strong state="ddfk" class="ftx-04 order-statu">@m.OrderStatus.ToDescription()</strong>*@
+                            @if (m.IsBehalfShip == "1" && string.IsNullOrEmpty(m.BehalfShipNumber))
+                            {
+                                <strong state="ddfk" class="ftx-04 order-statu">未发货</strong>
+                            }
+                            else
+                            {
+                                <strong state="ddfk" class="ftx-04 order-statu">@m.OrderStatus.ToDescription()</strong>
+                            }
+                        </td>
+                        <td>
+                            @if (null == m.FinishDate)
+                            {
+                                <span class="ftx-03">--</span>
+                            }
+                            else
+                            {
+                                <span class="ftx-03">@m.FinishDate</span>
+                            }
+                        </td>
+
+                        @*<td>
+                                @if (null == m.ShipOrderNumber || m.ShipOrderNumber == "")
+                                {
+                                    <span class="ftx-03">--</span>
+                                }
+                                else
+                                {
+                                    <span class="ftx-03">@m.ShipOrderNumber</span>
+                                }
+                            </td>*@
+                        <td width="100" class="order-doi">
+                            @if (m.UserId == ViewBag.UserId)
+                            {
+                                if (m.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.WaitReceiving)
+                                {
+                                    if (m.IsBehalfShip == "1" && string.IsNullOrEmpty(m.BehalfShipNumber))
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        <a href="javascript:;" onclick="ConfirmOrder('@m.Id')">确认收货</a><br />
+                                    }
+
+                                }
+
+                                if (m.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.Singed || m.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.THRefuse)
+                                {
+                                    <a href="/TH/Step2?orderNo=@m.Id"><s></s>我要退货</a><br />
+                                }
+
+
+                                if ((m.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.Singed) && m.OrderCommentInfo.Count == 0)
+                                {
+                                    <a href="@Url.Action("index", "OrderEvaluation", new { id = @m.Id })"><s></s>评价</a><br />
+                                }
+
+
+                                if (m.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.FQPAY)
+                                {
+                                    <a href="@Url.Action("Pay", "Order", new { orderIds=@m.Id,type=1})" target="_blank"><s></s>继续支付</a><br />
+                                }
+
+                                if (m.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.WaitPay)
+                                {
+                                    <a onclick="checkMyMaxMoney(@m.OrderTotalAmount.ToString("F2"),0,@m.Id)" href="javascript:void(0)"><s></s>全额付款</a><br />
+                                    <a onclick="checkMyMaxMoney(@m.OrderTotalAmount.ToString("F2"),1,@m.Id)" href="javascript:void(0)"><s></s>分期付款</a><br />
+                                    <a href="javascript:;" onclick="CancelOrder('@m.Id')">取消订单</a><br />
+                                }
+
+                                if (m.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.WaitDelivery)
+                                {
+                                    <a href="/TK/Step2?orderNo=@m.Id"><s></s>我要退款</a><br />
+                                }
+
+
+                                if (m.OrderStatus == ChemCloud.Model.OrderInfo.OrderOperateStatus.Finish)
+                                {
+                                    int pub_cid = 0;
+                                    foreach (var itemm in m.OrderItemList)
+                                    {
+                                        if (itemm.Pub_CID != 0)
+                                        {
+                                            pub_cid = itemm.Pub_CID;
+                                        }
+                                    }
+                                    <a href="#"  onclick="BuyAgain('@pub_cid')">再次购买</a><br />
+                                }
+                            }
+                            <a href="@Url.Action("Detail", new { id=@m.Id})">查看</a><br />
+
+                        </td>
+                        <td class="sep-col r"></td>
+                    </tr>
+                            rows = rows + 1;
+                }
+            </tbody>
+        </table>
+        <div class="mt10">
+            <div id="pagin-btm" class="pagin fr">
+                @{
+                    var count = ((PagingInfo)ViewBag.pageInfo).TotalPages;
+                    var curr = ((PagingInfo)ViewBag.pageInfo).CurrentPage;
+                    var keywords = Request.QueryString["keywords"];
+                    var orderStatus = Request.QueryString["orderStatus"];
+                    var orderDate = Request.QueryString["orderDate"];
+                    var purchaser = Request.QueryString["purchaser"];
+                    var startDate = Request.QueryString["startDateTime"];
+                    var endDate = Request.QueryString["endDateTime"];
+                }
+                @Html.PageLinks((PagingInfo)ViewBag.pageInfo, x => Url.Action("Index", new { pageNo = x, keywords = keywords, orderStatus = orderStatus, orderDate = orderDate, startDateTime = startDate, endDateTime = endDate, purchaser = purchaser }))
+                <span class="page-skip">
+                    <em>&nbsp;&nbsp;共 @count 页&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                </span>
+            </div>
+
+            <div class="clr"></div>
+        </div>
+    </div>
+</div>
+<div id="showTH" style="position:fixed;    left: 500px;    top: 100px;      z-index: 1995;width:450px;height:200px;background:#edf5f8;border:5px solid #808080;display:none;">
+    <div style="float:left;overflow:hidden;width:100%;height:49px;line-height:49px;font-size:18px;font-weight:bold;text-align:center;border-bottom: solid 1px #f2f2f2;">退货设置</div>
+    <div style="float:left;overflow:hidden;width:100%;height:110px;text-align:center;">
+        <label for="txtTHNum">退货数量：</label>
+        <input class="search_order" id="txtTHNum" type="text" value="" />(数量最大为<span id="showspancount"></span>)
+    </div>
+</div>
+<input type="hidden" id="hdtotalamount" value="@ViewBag.totalamount" />
+<script>
+    $(function () {
+
+        //查询完结 统计总金额
+        var totalamount = $.trim($("#hdtotalamount").val());
+        if (totalamount == null || totalamount == "" || totalamount == undefined) { totalamount = 0; }
+        $("#pagin-btm").before("<span style='color:#ff6600;margin-left:20px'>共计金额：" + totalamount + "</span>");
+
+        document.onkeydown = function (e) {
+            var ev = document.all ? window.event : e;
+            if (ev.keyCode == 13) {
+                var keywords = $("#txtkeyword").val();
+                if (keywords == "订单编号")
+                    keywords = "";
+                var purchaser = $("#purchaser").val();
+                var startDate = $("#inputStartDate").val();
+                var endDate = $("#inputEndDate").val();
+                window.location.href = "?keywords=" + keywords + '&startDateTime=' + startDate + '&endDateTime=' + endDate + '&purchaser=' + purchaser;
+            }
+        }
+
+        $('#txtkeyword').focus(function () {
+            var a = $(this).val(),
+                b = '订单编号';
+            if (a == b) {
+                $(this).val('').css('color', '#333');
+            }
+        }).blur(function () {
+            var a = $(this).val(),
+                b = '订单编号';
+            if (!a) {
+                $(this).val(b).css('color', '#999');
+            }
+        });
+        var orderStatus = "@Request.QueryString["orderStatus"]";
+        var orderDate = "@Request.QueryString["orderDate"]";
+        var keywords = html_decode("@Request.QueryString["keywords"]");
+        var startDate = "@Request.QueryString["startDateTime"]";
+        var endDate = "@Request.QueryString["endDateTime"]";
+        if (orderDate != "" && orderDate != null)
+            $("#submitDate").val(orderDate);
+        if (orderStatus != "" && orderStatus != null)
+            $("#status").val(orderStatus);
+        if (keywords != "" && keywords != null)
+            $("#txtkeyword").val(keywords);
+        if (startDate != '' && startDate != null)
+            $("#inputStartDate").val(startDate);
+        if (endDate != '' && endDate != null)
+            $("#inputEndDate").val(endDate);
+    });
+
+    //根据订单状态、日期筛选
+    function Query() {
+        var orderDate = $("#submitDate").val();
+        var orderStatus = $("#status").val();
+        window.location.href = "?orderDate=" + orderDate + "&orderStatus=" + orderStatus;
+    }
+
+    //限额判断
+    function checkMyMaxMoney(str, type, onum) {
+        $.ajax({
+            type: 'post',
+            url: "@Url.Action("CheckMyMoney")",
+            dataType: 'json',
+            data: { price: str, onum: onum },
+            success: function (result) {
+                if (result == "ok") {
+                    top.location.href = "/Order/Pay?orderIds=" + onum + "&type=" + type, "_blank";
+                } else {
+                    if (result == "你的限额受限") {
+                        $.post("./IsExitsApply", { "orderId": onum }, function (result) {
+                            if (result.success) {
+                                $.dialog.errorTips("您已提交过限额申请，请您耐心等待审批结果.");
+                            } else {
+                                art.dialog({
+                                    content: '您的限额受限，是否提交申请?',
+                                    ok: function () {
+                                        //发送限额申请 json
+                                        $.ajax({
+                                            type: 'post',
+                                            url: "@Url.Action("AddXian")",
+                                            dataType: 'json',
+                                            data: { orderAmount: str, orderId: onum },
+                                            success: function (d) {
+                                                $.dialog.succeedTips("您已成功提交限额申请，请您耐心等待.");
+
+                                            }
+                                        });
+                                    },
+                                    cancelVal: '取消',
+                                    cancel: true
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        $.dialog.errorTips(result);
+                    }
+                }
+            }
+        });
+    }
+
+    //确认收货
+    function ConfirmOrder(orderId) {
+        $.dialog.confirm("你确定收到货了吗？", function () { Confirm(orderId); });
+    }
+
+    function RefundProductTip() {
+        $.dialog.alert("很遗憾，该维权入口已经关闭<br/>1、交易已过退货维权受理期,您无法发起退换货<br/>2、请在帮助中心查看平台退换货流程", '', 2000);
+    }
+    //确认收货
+    function Confirm(orderId) {
+        var loading = showLoading();
+        $.ajax({
+            type: 'post',
+            url: "@Url.Action("ConfirmOrder")",
+            dataType: 'json',
+            data: { orderId: orderId },
+            success: function (d) {
+                loading.close();
+                if (d.success) {
+                    $.dialog.succeedTips("确认成功！", function () {
+                        window.location.href = window.location.href;
+                    }, 1);
+                }
+                else {
+                    $.dialog.errorTips("确认失败！", '', 2);
+                }
+            }
+        });
+    }
+
+    //取消订单
+    function CancelOrder(orderId) {
+        $.dialog.confirm("确定取消该订单吗？", function () { Cancel(orderId); });
+    }
+    //取消订单
+    function BuyAgain(casno) {
+        $.dialog.confirm("确定再次购买该产品？", function () {
+            window.open("/Search/Search_Product_Shops?id="+casno);
+        });
+    }
+
+    function Cancel(orderId) {
+        var loading = showLoading();
+        $.ajax({
+            type: 'post',
+            url: "@Url.Action("CloseOrder")",
+            dataType: 'json',
+            data: { orderId: orderId },
+            success: function (d) {
+                loading.close();
+                if (d.success) {
+                    $.dialog.succeedTips("取消成功！", function () {
+                        window.location.href = window.location.href;
+                    }, 1);
+                }
+                else {
+                    $.dialog.errorTips("取消失败！", '', 2);
+                }
+            }
+        });
+    }
+
+    //搜索
+    function Search() {
+        //订单编号
+        var keywords = $.trim($("#txtkeyword").val());
+        if (keywords == "订单编号")
+        { keywords = ""; }
+        var casno = $.trim($("#casno").val());
+        //订单日期
+        var startDate = $("#inputStartDate").val();
+        var endDate = $("#inputEndDate").val();
+        //订单状态
+        var orderStatus = $("#orderstatus").val();
+
+        window.location.href = "?keywords=" + keywords + '&startDateTime=' + startDate + '&endDateTime=' + endDate + '&casno=' + casno + '&orderStatus=' + orderStatus;
+    }
+
+    //过滤html
+    function html_decode(str) {
+        var s = "";
+        if (str.length == 0) return "";
+        s = str.replace(/&amp;/g, "&");
+        s = s.replace(/&lt;/g, "<");
+        s = s.replace(/&gt;/g, ">");
+        s = s.replace(/&nbsp;/g, " ");
+        s = s.replace(/&#39;/g, "\'");
+        s = s.replace(/&quot;/g, "\"");
+        s = s.replace(/<br\/>/g, "\n");
+        return s;
+    }
+
+</script>

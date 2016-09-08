@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+
+}
+<link href="~/Areas/Web/Content/SearchListPager.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Areas/Admin/Scripts/upload/browser.js"></script>
+<script src="~/Areas/Admin/Scripts/upload/jquery.form.js"></script>
+<script src="~/Areas/Admin/Scripts/WhatBusy.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/pageGroup.js"></script>
+<script src="~/Scripts/datetimeCustom.js"></script>
+<style>
+    #tbody-list tr td:last-child span { cursor: pointer; }
+    .box1 { height: 483px; padding-top: 68px; }
+    #selectBusyType { width:80px; height:30px; }
+    #selectBusyType1 { width:60px; height:26px; }
+    .busyTypeCount { width:60px; height:24px; text-align:center; border:1px solid #CCC; }
+    .btn_update { width:100px; }
+</style>
+<div class="box1 lh24">
+    <div class="title">
+        <span class="title_txt cur">大家在忙什么</span>
+    </div>
+
+    <div class="search-area">
+        <label>数据来源：</label>
+        <select id="selectBusyType">
+            <option value="0">所有</option>
+            <option value="1">用户注册</option>
+            <option value="2">定制合成</option>
+            <option value="3">代理采购</option>
+            <option value="4">招聘信息</option>
+            <option value="5">会议信息</option>
+            <option value="6">技术交易</option>
+        </select>
+        <button class="search_btn pointer" id="btn_Search">搜索</button>
+        <button class="search_btn pointer" id="btn_Update">更新数据</button>
+    </div>
+    <div class="border-box">
+        <table class="tb-list">
+            <colgroup>
+                <col width="10%" />
+                <col width="20%" />
+                <col width="30%" />
+                <col width="10%" />
+                <col width="20%" />
+                @*<col width="10%" />*@
+                <col width="10%" />
+            </colgroup>
+            <thead>
+                <tr class="tr" style="background-color:#e6e6e6;">
+                    <th style="background-color:#e6e6e6;">序号</th>
+                    <th style="background-color:#e6e6e6;">用户</th>
+                    <th style="background-color:#e6e6e6;">内容</th>
+                    <th style="background-color:#e6e6e6;">数据来源</th>
+                    <th style="background-color:#e6e6e6;">更新时间</th>
+                    @*<th style="background-color:#e6e6e6;">是否展示</th>*@
+                    <th style="background-color:#e6e6e6;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-list"></tbody>
+
+        </table>
+        <!-------------------------------------------分页----------------------------------------------------------------->
+        <div id="pageGro1">
+            <div id="pageGro">
+                <div id="preSpanBtn">上一页</div>
+                <div class="pageList">
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+                <div id="nextSpanBtn">下一页</div>
+            </div>
+        </div>
+        <!-------------------------------------------END 分页----------------------------------------------------------------->
+
+
+    </div>
+</div>
+
+
