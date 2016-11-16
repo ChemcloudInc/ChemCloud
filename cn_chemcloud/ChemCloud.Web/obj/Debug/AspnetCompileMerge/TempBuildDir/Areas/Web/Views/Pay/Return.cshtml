@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "支付结果";
+}
+<div class="w cl">
+    <div class="tips-page pay-success-page">
+        <h2>
+            恭喜您，支付成功！
+        </h2>
+        <div class="error_child">您可以： <a href="/">去浏览网站首页</a>。</div>
+    </div>
+</div>
+<input type="hidden" id="h_utype" value="@ViewBag.utype" />
+<script type="text/javascript">
+    $(function () {
+        var utype = $("#h_utype").val();
+        var paytype = getUrlParam("paytype");//支付类型（3供应商认证支付,2产品认证支付，1排名付费支付,0订单支付)
+        var targetid = getUrlParam("targetid"); //其他支付对象的目标ID用来更新状态
+
+        var orderid = getUrlParam("orderid");//订单号
+        var price = getUrlParam("price");//实际支付/充值的价格
+        var type = getUrlParam("type");//类型 webcz:充值 webzf:支付
+        var fqtype = getUrlParam("fq");//类型 1:分期操作、其它操作
+        var ispayleftmoney = getUrlParam("iplm");//类型 1.是账户余额支付 2.第三方其它支付方式
+        var paymodel = getUrlParam("paymodel"); //支付方式
+        if (paymodel == "") { paymodel = "支付宝" }
+        var orderstatus = "";
+
+        if (paytype == "0") {
+            //订单支付
+            if (type == "webcz") {
+                //前台充值
+                //成功充值后 更新充值状态并且更新了自己的钱包
+                $.post('UpdateUserRechargeInfo', { "orderid": orderid }, function (result) {
+                    if (result == "ok") {
+                        $.dialog.succeedTips("您已完成充值！");
+                        if (utype == "2") {
+                            location.href = "/sellerAdmin";
+                        } else {
+                            location.href = "/userCenter";
+                        }
+                    } else {
+                        if (utype == "2") {
+                            location.href = "/sellerAdmin";
+                        } else {
+                            $.dialog.succeedTips("充值失败,请稍后重试！");
+                            location.href = "/Order/ChargePay?orderIds=" + orderid;
+                        }
+
+                    }
+                });
+            } else if (type == "webzf") {
+                //前台支付
+                if (fqtype == "1") {
+                    //分期支付 状态
+                    $.ajax({
+                        type: 'post',
+                        url: 'UpFQStatusandMoney',
+                        async: false,
+                        data: { "orderid": orderid },
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result != "") {
+                                //ok
+                                if (parseFloat(result) <= 0) {
+                                    orderstatus = "2";
+                                } else {
+                                    orderstatus = "7";
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    //全额支付的状态
+                    orderstatus = "2";
+                }
+                //添加支付记录
+                $.post('AddUserPayMentInfoPlat', { "orderid": orderid, "price": price, "isWallet": ispayleftmoney, "paytype": 0 }, function (result) {
+                    if (result == "ok") {
+                        //成功添加支付记录后更新供应商的锁定金额和添加供应商的收入记录
+                        $.post('/common/PublicMoney/AddInComeAndUpdateManagerWallet', { "orderId": orderid, "price": price, "isWallet": ispayleftmoney }, function (result) {
+                            if (result == "ok") {
+                                if (paymodel == "zfb") { paymodel = "支付宝"; }
+                                //成功操作后执行订单状态修改
+                                $.post('/common/PublicMoney/UpdateOrderStatus', { "orderId": orderid, "status": orderstatus, "paymodel": paymodel }, function (result) {
+                                    if (result == "ok") {
+                                        //alert(3);
+                                        //全部操作成功完成后执行订单状态修改
+                                        var strs = '/userCenter?url=/userorder?orderids=' + orderid + '&tar=userorder';
+                                        $.dialog.succeedTips("您已完成支付！");
+                                        setTimeout("change(" + strs + ")", 3000);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+            }
+            setTimeout(function () { location.href = "/userCenter/Index?orderlist=1"; }, 3000);
+        } else {
+            //其他支付，目标给平台
+            $.post('AddUserPayMentInfoPlat', { "orderid": orderid, "price": price, "isWallet": ispayleftmoney, "paytype": paytype }, function (result) {
+
+                if (result == "ok") {
+                    //成功添加支付记录后更新平台的的 锁定金额和 平台的收入记录
+                    $.post('/common/PublicMoney/AddInComeAndUpdatePlatformWallet', { "orderId": orderid, "price": price, "paytype": paytype }, function (result) {
+
+                        if (result == "ok") {
+                            //成功操作后执行订单状态修改
+                            $.post('/common/PublicMoney/UpdatePayToPlatformStatus', { "paytype": paytype, "targetid": targetid }, function (result) {
+
+                                if (result == "ok") {
+                                    //全部操作成功完成后执行订单状态修改
+                                    //var strs = '/userCenter?url=/userorder?orderids=' + orderid + '&tar=userorder';
+                                    $.dialog.succeedTips("您已完成支付！");
+                                    //setTimeout("change(" + strs + ")", 3000);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    function change(str) {
+        location.href = str;
+    };
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    };
+</script>

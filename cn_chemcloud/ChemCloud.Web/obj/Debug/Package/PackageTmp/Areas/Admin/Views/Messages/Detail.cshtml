@@ -1,0 +1,78 @@
+﻿@model ChemCloud.Model.MessageRevice
+@using ChemCloud.Core;
+@{
+    ViewBag.Title = "Detail";
+}
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>消息明细</strong>
+        <li class="active"><a>消息明细</a></li>
+        <li><a href="./Management">消息列表</a></li>
+    </ul>
+
+    <h3 class="table-hd">消息明细</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            @*<tr>
+                    <td>模板ID</td>
+                    <td>@Model.Id</td>
+                </tr>*@
+            @{
+                if (@Model.MessageDetial.MsgType == 1)
+                {
+                    <tr>
+                        <td>消息类别</td>
+                        <td>消息</td>
+                    </tr>
+                }
+                else if (@Model.MessageDetial.MsgType == 2)
+                {
+                    <tr>
+                        <td>消息类别</td>
+                        <td>通知</td>
+                    </tr>
+                }
+            }
+            <tr>
+                <td>消息名称</td>
+                <td>@Model.MessageDetial.MessageTitle</td>
+            </tr>
+            <tr>
+                <td>消息内容</td>
+                <td>@Model.MessageDetial.MessageContent</td>
+            </tr>
+            <tr>
+                <td>发送时间</td>
+                <td>@Model.SendTime</td>
+            </tr>
+            <tr>
+                <td>消息发送人</td>
+                <td>@Model.MessageDetial.SendName</td>
+            </tr>
+            @{
+                if (@Model.ReadFlag == 1)
+                {
+                    <tr>
+                        <td>阅读时间</td>
+                        <td>@Model.ReadTime</td>
+                    </tr>
+                }
+            }
+            @{
+                if (@Model.MessageDetial.MsgType == 1)
+                {
+                    <tr>
+                        <td>打开附件</td>
+                        <td><a href="@ViewBag.url"></a></td>
+                    </tr>
+                }
+            }
+            
+        </tbody>
+    </table>
+
+</div>

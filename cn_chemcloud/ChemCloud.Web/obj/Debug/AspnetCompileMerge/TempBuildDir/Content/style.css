@@ -1,0 +1,416 @@
+
+#Refund{
+    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+    background:#fff;
+}
+#Refund .border_wai{
+    border:1px solid #ccc;
+    padding:15px;
+    width:1000px;
+    overflow: hidden;
+}
+#Refund .Refund_1{
+    float:left;
+    width:200px;
+    height:60px;
+    text-align: center;
+    line-height:60px;
+    /*border: 1px solid rgb(255,127,39);*/
+    border-radius: 4px;
+    margin:40px 0;
+    margin-left: 100px;
+}
+#Refund .Refund_2{
+    float:right;
+    width:200px;
+    height:60px;
+    text-align: center;
+    line-height:60px;
+    border: 1px solid rgb(255,127,39);
+    border-radius: 4px;
+    margin:40px 0;
+    margin-right: 100px;
+}
+#Refund .Refund_2 a,.Refund_1 a{
+    color: #333;
+    background: rgb(255,245,225);
+    width:100%;
+    height:100%;
+    display:inline-block;
+    text-decoration: none;
+}
+#Refund .Refund_2 a,.Refund_1 a:hover{
+    text-decoration: none;
+}
+
+#Refund .div_gui{
+    padding:0 10px;
+}
+#Refund .header_liu{
+    font-size:16px;
+}
+#Refund .header_liu_chu{
+    font-weight:600
+}
+#Refund .header_hong{
+    color:#e4393c;
+    margin-left: 484px;
+}
+#Refund .header_xi{
+    font-size: 14px;
+}
+#Refund .Refund_border{
+    border:1px solid #ccc;
+    width:1100px;
+    overflow: hidden;
+    
+}
+#Refund .main_liu{
+    width:700px;
+    float:left;
+    padding:0 10px;
+}
+#Refund .header_liu{
+    margin:15px 0;
+    height: 30px;
+    border-bottom: 1px solid #ccc;
+}
+#Refund .siader{
+    border-left:1px solid #ccc;
+    padding: 0 12px;
+    width:350px;
+    float:right;
+    padding-bottom: 30px;
+    min-height:460px;
+}
+#Refund .textarea{
+    width:400px;
+    max-width:400px;
+    height: 100px;
+}
+#Refund .lable_mi{
+    color:#e4393c;
+    margin-left:20px;
+    display:inline-block;
+    text-align: right;
+}
+#Refund .lable_text{
+    display:inline-block;
+}
+#Refund .lable{
+    margin-left:20px;
+    display:inline-block;
+    width: 140px;
+    text-align: right;
+    vertical-align: top;
+}
+#Refund .form_hang{
+    margin:15px 0;
+}
+#Refund .upload{
+    border: 1px solid #ccc;
+    height: 30px;
+    background: #eee;
+    width: 120px;
+}
+#Refund .button_hang{
+    padding-left: 162px;
+}
+#Refund .sq_button{
+    background: rgb(255,110,47);
+    color: #fff;
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+#Refund .pt_button{
+    background: rgb(56,121,217);
+}
+#Refund .sq_a{
+    color: rgb(11,110,180);
+}
+#Refund .sq_a:hover{
+    color: rgb(11,110,180);
+}
+#Refund .border_sia{
+    border-bottom:1px solid #ccc;
+    height:150px;
+    padding: 15px 0;
+}
+#Refund .siader h3{
+    font-weight: 600;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+    height: 30px;
+}
+#Refund .line_height_sia{
+    line-height:30px;
+}
+#Refund .bor_bottom{
+    border-bottom:0;
+}
+#Refund .link_op{
+    background: rgb(255,238,162);
+    float: right;
+    text-align: center;
+    width: 74px;
+    color: rgb(11,110,180);
+    border: 1px solid #e4393c;
+}
+#Refund .blud_span{
+    color:rgb(11,110,180);
+}
+#Refund .hong_span{
+    color:#e4393c;
+}
+#Refund .sq_a_button{
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+}
+#Refund .sq_a_button:hover{
+    text-decoration: none;
+}
+#Refund .cheng_span{
+    color:rgb(255,143,103);
+}
+#Refund .border_wai_h3{
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 30px;
+}
+#Refund .border_wai_ul li{
+    line-height: 30px;
+    margin-left:20px;
+}
+#Refund .border_wai_ul{
+    padding-bottom: 50px;
+    border-bottom: 1px solid #ccc;
+    background-color: white;
+}
+#Refund .button_start span{
+    display:inline-block;
+    width:130px;
+    line-height:40px;
+    height:40px;
+    text-align: center;
+}
+#Refund .button_start a{
+    display:inline-block;
+    width:80px;
+    line-height:40px;
+    height:40px;
+    color: #e4393c;
+    text-decoration: none;
+    text-align: center;
+}
+#Refund .button_start a:hover{
+    text-decoration: none;
+}
+#Refund .margin_right{
+    margin-right: 70px;
+}
+#Refund .title_header{
+    border-bottom: 2px solid rgb(11,110,180);
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    line-height: 30px;
+}
+#Refund .left_img{
+        float: left;
+    width: 80px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    margin-top:20px;
+}
+#Refund .left_img .img_tou img{
+    width:100%;
+}
+#Refund .right_input{
+    float:right;
+    width: 940px;
+}
+#Refund .time_span{
+    float:right;
+    color:#ccc;
+    font-size:12px;
+}
+#Refund .right_text{
+    height:30px;
+    line-height:30px;
+}
+#Refund .image_tu{
+    width: 100%;
+}
+#Refund .left_img_tu{
+    width:120px;
+    height:120px;
+    float:left;
+    border:1px solid #ccc;
+    margin-right:15px;
+    text-align: center;
+}
+#Refund .left_img_tu img{
+    max-width:120px;
+    max-height:120px;
+}
+#Refund .liuyan_div{
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+#Refund .myname{
+    text-align: center;
+}
+#Refund span{
+    font-size:14px;
+}
+
+#Refund .liucheng li{
+    float: left;
+    list-style: none;
+    margin-left:4px;
+}
+#Refund .liucheng li:first-child{
+    margin-left:20px;
+}
+#Refund .liucheng #liuchenga img{
+    width:30px;
+    margin-top:22px;
+}
+#Refund .liucheng #liuchengs img{
+    width:210px;
+}
+#Refund .main_liu {
+    width: 650px;
+}
+#Refund .Refund_border {
+    width: 1020px;
+}
+#Refund .main_liu {
+    width: 600px;
+}
+#Refund .header_hong {
+    margin-left: 380px;
+}
+#Refund .header_liu {
+    font-size: 14px;
+}
+#Refund .lable {
+    font-size: 14px;
+}
+#Refund .lable {
+    margin-left: 0px; 
+    width: 130px;
+}
+#Refund .button_hang {
+    padding-left: 132px;
+
+}
+#Refund .sq_button {
+    background: #3480db;
+    color: #fff;
+}
+#Refund .sq_button {
+    background: #3480db;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+#Refund .siader h3{
+    font-size: 14px;
+}
+#Refund .link_op {
+    background: #3480db;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    border:none;
+    cursor: pointer;
+}
+#Refund .h4_gui {
+    line-height: 24px;
+    font-size: 14px;
+        margin: 10px;
+    color: #000;
+}
+#Refund .Refund_2,.Refund_1 {
+    line-height: 60px;
+    border: none
+}
+#Refund .Refund_2 a, .Refund_1 a {
+    color: #fff;
+    background: #3480db;
+    font-size: 16px;
+}
+#Refund .Refund_2 a, .Refund_1 a:hover{
+    font-weight: 400;
+}
+#Refund .liucheng{
+    overflow:hidden;
+    width:1004px;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;
+    border-bottom: none;
+    padding: 20px 0;
+}
+#Refund .liucheng li{
+    float: left;
+    list-style: none;
+    margin-left:4px;
+}
+#Refund .liucheng #liuchenga img{
+    width:30px;
+    margin-top:22px;
+}
+#Refund .border_wai {
+    width: 976px;
+    background: #fff;
+}
+#Refund .Refund_2 {
+    margin-right: 200px;
+}
+#Refund .Refund_1 {
+    margin-left: 200px;
+}
+#Refund .div_gui p{
+    font-size:14px;
+}
+#Refund .h3_gui {
+    line-height: 50px;
+    color: #000;
+    font-weight: 900;
+    font-size: 16px;
+        border-bottom: 1px solid #ccc;
+}
+#Refund select{
+    width: 174px;
+    height: 20px;
+}
+#Refund .guding{
+    width: 70px;
+    display: inline-block;
+    text-align: right;
+}
+    #Refund .right_input {
+    margin-top:20px;
+    width: 890px;
+}
+    #Refund .right_text {
+    font-size: 14px;
+}
+    #Refund .myname {
+    text-align: center;
+    font-size: 18px;
+}

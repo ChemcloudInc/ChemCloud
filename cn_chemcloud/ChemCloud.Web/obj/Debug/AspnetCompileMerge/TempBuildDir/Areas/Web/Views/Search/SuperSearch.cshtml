@@ -1,0 +1,358 @@
+﻿@{
+    ViewBag.Title = "SuperSearch";
+}
+@section Style{
+    <link href="~/Content/inner-custom.css" rel="stylesheet" />
+    <link href="~/Areas/Web/Content/advancedpage.css" rel="stylesheet" />
+}
+<link href="~/Areas/Web/Content/Searchnew.css" rel="stylesheet" />
+<script src="~/Areas/Web/Scripts/modernizr.js"></script>
+<!--DEMO start-->
+
+<div class="cd-tabs">
+    <nav>
+        <ul class="cd-tabs-navigation">
+            <li style="border: 1px solid #3480e8; border-bottom: none; border-right: none;"><a data-content="inbox" style="background: url(/Areas/web/images/bg_button.png) 12% -6% no-repeat;" class="selected" href="#0">结构式搜索</a></li>
+            <li style="border:1px solid #3480e8;border-bottom:none;border-right:none;"><a style="background: url(/Areas/web/images/bg_button.png) 12% 32% no-repeat;" data-content="new" href="#0">批量搜索</a></li>
+            <li style="border:1px solid #3480e8;border-right:none;"><a style="background: url(/Areas/web/images/bg_button.png) 12% 74% no-repeat;" data-content="gallery" href="#0">文本搜索</a></li>
+        </ul>
+    </nav>
+    <ul class="cd-tabs-content">
+        <li data-content="inbox" class="selected" id="listruct">
+            @*结构式搜索开始*@
+            <div style="width:100%; background-color: #fff;" id="search_struct">
+                <iframe id="ketcherFrame" name="ketcherFrame" scrolling="no"
+                        src="../Areas/Web/Content/marvinjs-16.6.6-all/editor.html"
+                        style="overflow:auto; min-width: 500px; min-height: 500px;
+                    width:100%;"></iframe>
+                <div style="text-align:left;">
+                    <input type="button" value="搜 索" onclick="search_by_struct()"
+                           style="width: 85px;height: 30px;color: #FFF;display: inline-block;border: 0px none;border-radius: 5px;margin-top: 10px;font-size: 14px;background: #0F80E3;" />
+                </div>
+            </div>
+            @*结构式搜索结束*@
+        </li>
+        <li data-content="new" id="lisbatch">
+            @*批量搜索开始*@
+            <div style="width:100%; height:400px; background-color: #fff;" id="search_batch">
+                <div class="main">
+                    <div class="ht">输入 / 粘贴 CAS #：</div>
+                    <div class="by fix-clear">
+                        <div class="bc">
+                            <div id="sc_form"><textarea cols="2" rows="10" id="ser_li" disabled="">1</textarea></div>
+                            <textarea class="grey" name="content" rows="12" cols="50" wrap="off" id="c2" oncontextmenu="return false;" data-defv="0">78-96-6</textarea>
+                        </div>
+                        <div class="br" style="position:absolute;left:620px; width:280px; font-size:14px;line-height:30px;">
+                            <span>说明 ：您需要先选择输入CAS#，再在数据列表中输入数据内容进行批量搜索。数据列表中的每个数据必须用换行来分隔。<br></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="buts" style="padding: 19px 8px 87px 10px;position: absolute;bottom: -40px;">
+                    <input class="bbs" type="submit" name="submit2" id="batchsearch" value="搜索" style="margin-left:0px;cursor:pointer" />
+                </div>
+
+            </div>
+            @*批量搜索结束*@
+        </li>
+        <li data-content="gallery" id="listxt">
+            @*文本搜索开始*@
+            <div style="width:100%; height:400px; background-color: #fff;" id="search_text">
+                <div class="main">
+                    <div class="ht">输入 / 粘贴 CAS #或者产品名：</div>
+                    <div class="by fix-clear">
+                        <div class="bc">
+                            <input style="width: 400px;height: 30px;font-size: 18px; color:grey;" id="txtcasorname" />
+
+                            <input class="btntextsearch" type="submit" name="submit2" id="textsearch" value="搜索" style="cursor:pointer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*文本搜索结束*@
+        </li>
+
+    </ul> <!-- cd-tabs-content -->
+</div> <!-- cd-tabs -->
+<script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //不设置ajax缓存
+        $.ajaxSetup({ cache: false });
+        //默认加载结构式搜索
+        var htmlvalue = "";
+        htmlvalue += "<iframe src=\"../Areas/Web/Content/marvinjs-16.2.8-all/editor.html\"";
+        htmlvalue += "style=\"overflow: hidden; min-width: 500px; min-height: 450px;width:100%;height:100%;border: 1px solid darkgray;\" />";
+        //$("#search_struct").html(htmlvalue);
+
+        //当行点击样式切换
+        $("#ulnavigation ul li").click(function () {
+            $("#ulnavigation ul li").eq($(this).index()).addClass("active").siblings().removeClass("active");
+            var navigationvalue = $.trim($(this).children('div').html());
+            //var htmlvalue = "";
+            if (navigationvalue == "结构式搜索") {
+
+                $("#search_struct").css("display", "block");
+                $("#search_batch").css("display", "none");
+                $("#search_text").css("display", "none");
+            } else if (navigationvalue == "批量搜索") {
+
+                $("#search_struct").css("display", "none");
+                $("#search_batch").css("display", "block");
+                $("#search_text").css("display", "none");
+            } else if (navigationvalue == "文本搜索") {
+
+                $("#search_struct").css("display", "none");
+                $("#search_batch").css("display", "none");
+                $("#search_text").css("display", "block");
+            }
+        });
+
+
+        $("#ketcherFrame").load(function () {
+            $(this).contents().find("div").height($(this).height());
+        });
+    });
+
+    /*批量搜索BEGIN*/
+
+    //示例展示
+    $("#batch_example1").on("click", function () {
+        console.log("aaaaaa");
+        if ($("#batch_form_content_tips1").css('display') == 'none') {
+            $("#batch_form_content_tips1").css('display', 'block');
+        } else {
+            $("#batch_form_content_tips1").css('display', 'none');
+        }
+    });
+
+    //提交批量搜索
+    $("#batchsearch").click(function () {
+        var batchcas = $.trim($('#c2').val());
+        batchcas = batchcas.replace(/[\r\n]/g, "~");
+
+        location.href = "/search/index?keywords=" + encodeURIComponent(batchcas) + "&islike=0"; /*精确搜索*/
+    });
+
+    $("#c2").keyup(function (e) {
+        if (e.keyCode == 13) {
+            var str = document.getElementById("c2").value;
+            str = str.replace(/[\r\n]/g, "~");
+            var rows = str.split('~').length;
+            $("#ser_li").append("\r" + rows);
+        }
+        if (e.keyCode == 8) {
+            var str = document.getElementById("c2").value;
+            str = str.replace(/[\r\n]/g, "~");
+            var rows = str.split('~').length;
+            $("#ser_li").html("");
+            var newrows = "1";
+            for (var i = 2; i <= rows; i++) {
+                newrows += "\r" + i;
+            }
+            $("#ser_li").append(newrows);
+        }
+    });
+
+    // 粘贴事件监控
+    $.fn.pasteEvents = function (delay) {
+        if (delay == undefined) delay = 10;
+        return $(this).each(function () {
+            var $el = $(this);
+            $el.on("paste", function () {
+                $el.trigger("prepaste");
+                setTimeout(function () { $el.trigger("postpaste"); }, delay);
+            });
+        });
+    };
+    // 使用
+    $("#c2").on("postpaste", function () {
+        var str = document.getElementById("c2").value;
+        str = str.replace(/[\r\n]/g, "~");
+        var rows = str.split('~').length;
+        $("#ser_li").html("");
+        var newrows = "1";
+        for (var i = 2; i <= rows; i++) {
+            newrows += "\r" + i;
+        }
+        $("#ser_li").append(newrows);
+    }).pasteEvents();
+
+    /*批量搜索END*/
+
+
+
+    /*文本搜索开始*/
+    $("#textsearch").click(function () {
+        var casorname = $.trim($("#txtcasorname").val());
+        location.href = "/search/index?keywords=" + encodeURIComponent(casorname) + "&islike=0";
+    });
+    /*文本搜索结束*/
+
+
+    /*结构式搜索，获取inchkey*/
+    function search_by_struct() {
+
+        ///*绘图生成dataurl，存入数据库*/
+        ////document.ketcherFrame获取iframe写法不兼容火狐浏览器，用document.getElementById('ketcherFrame').contentWindow替换
+        //var settings = document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.getDisplaySettings();
+        //settings.width = 420;
+        //settings.height = 420;
+        //settings.backgroundColor = "#ffffff";
+        //document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.exportStructure("jpeg", settings).then(function (source) {
+        //    $.post('Test2', { src: source }, function (result) {
+        //        document.ketcherFrame.marvin.sketcherInstance.importStructure("mol", result.msg).catch(function (error) {
+        //            alert(error);
+        //        });
+        //    });
+        //});
+        //return false;
+
+        ///*数据库读取dataurl,绘图到控件*/
+        //var settings = document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.getDisplaySettings();
+        //settings.width = 420;
+        //settings.height = 420;
+        //settings.backgroundColor = "#ffffff";
+        //document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.exportStructure("jpeg", settings).then(function (source) {
+        //    $.post('Test', {}, function (result) {
+        //        document.ketcherFrame.marvin.sketcherInstance.importStructure("mol", result.msg).catch(function (error) {
+        //            alert(error);
+        //        });
+        //    });
+        //});
+        //return false;
+
+        /*读取mol生成inhlkey*/
+        document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.exportStructure("mol").then(function (source) {
+            $.post('Getinchkey', { "strmol": source }, function (result) {
+                if (result.success == true) {
+                    /*search页面*/
+                    location.href = "/search/index?exp_keywords=" + encodeURIComponent(result.msg);
+                } else {
+                    alert(result.msg);
+                }
+            });
+        })
+    }
+    /*结构式搜索*/
+</script>
+
+<script>
+    //<![CDATA[
+    jQuery(document).ready(function ($) {
+        var tabItems = $('.cd-tabs-navigation a'),
+            tabContentWrapper = $('.cd-tabs-content');
+
+        tabItems.on('click', function (event) {
+            event.preventDefault();
+            var selectedItem = $(this);
+            if (!selectedItem.hasClass('selected')) {
+                var selectedTab = selectedItem.data('content'),
+                    selectedContent = tabContentWrapper.find('li[data-content="' + selectedTab + '"]'),
+                    slectedContentHeight = selectedContent.innerHeight();
+
+                tabItems.removeClass('selected');
+                selectedItem.addClass('selected');
+                selectedContent.addClass('selected').siblings('li').removeClass('selected');
+                //animate tabContentWrapper height when content changes
+                tabContentWrapper.animate({
+                    'height': slectedContentHeight
+                }, 200);
+            }
+        });
+
+        //hide the .cd-tabs::after element when tabbed navigation has scrolled to the end (mobile version)
+        checkScrolling($('.cd-tabs nav'));
+        $(window).on('resize', function () {
+            checkScrolling($('.cd-tabs nav'));
+            tabContentWrapper.css('height', 'auto');
+        });
+        $('.cd-tabs nav').on('scroll', function () {
+            checkScrolling($(this));
+        });
+
+        function checkScrolling(tabs) {
+            var totalTabWidth = parseInt(tabs.children('.cd-tabs-navigation').width()),
+                tabsViewport = parseInt(tabs.width());
+            if (tabs.scrollLeft() >= totalTabWidth - tabsViewport) {
+                tabs.parent('.cd-tabs').addClass('is-ended');
+            } else {
+                tabs.parent('.cd-tabs').removeClass('is-ended');
+            }
+        }
+    });
+    //]]>
+</script>
+<script>
+    //搜索上部tab效果
+    $('#search-bd li').each(function () {
+        $(this).removeClass("selected");
+    });
+    $("#serachAdvanced").addClass("selected");
+
+    //<![CDATA[
+    function getKetcher() {
+        var frame = null;
+
+        frame = window.frames['ketcherFrame'];
+        return frame.window.ketcher;
+    }
+
+    function molchange(jsdraw) {
+        document.getElementById("molvalue").value = JSDraw.get("Chemstructure").getHtml();
+        document.getElementById("smiles").value = JSDraw.get("Chemstructure").getSmiles();
+        document.getElementById("mol").value = JSDraw.get("Chemstructure").getMolfile();
+        window.scrollTo(0, 0);
+    }
+    function search_by_str() {
+        var ketcher = getKetcher();
+        if (ketcher) {
+            var smiles = ketcher.getSmiles();
+            var mol = ketcher.getMolfile();
+            if (smiles == null || smiles == '') {
+                alert("please draw structure!");
+                return false;
+            } else {
+                alert(smiles);
+            }
+        }
+    }
+    function SetCookies() {
+
+        var ketcher = getKetcher();
+
+        var content = ketcher.getMolfile();
+        var the_date = new Date("December 31, 2020");
+        var expiresDate = the_date.toGMTString();
+        document.cookie = "molvalue=" + escape(content) + ";expires=" + expiresDate;
+    }
+    function ReadCookies() {
+        var cookieStr = document.cookie;
+        if (cookieStr == "") {
+            return "";
+        }
+        var cookieValue = cookieStr.split("; ");
+        var varName = "molvalue";
+        var startPos = -1;
+        var endPos = -1;
+        for (var i = 0; i < cookieValue.length; i++) {
+            startPos = cookieValue[i].indexOf(varName);
+            if (startPos != 0) {
+                continue;
+            }
+            startPos += varName.length + 1;
+            endPos = cookieValue[i].length;
+            var molValue = unescape(cookieValue[i].substring(startPos, endPos));
+            return molValue;
+        }
+        return "";
+
+    }
+    function loadMol() {
+        var ketcher = getKetcher();
+        ketcher.setMolecule(ReadCookies());
+
+    }
+    //]]>
+</script>

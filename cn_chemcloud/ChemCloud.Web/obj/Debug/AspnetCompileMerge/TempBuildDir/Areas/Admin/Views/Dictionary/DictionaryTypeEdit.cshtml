@@ -1,0 +1,85 @@
+﻿@model ChemCloud.Model.ChemCloud_DictionaryType
+
+
+<div class="container">
+    <input type="hidden" id="hdId" value="@Model.Id" />
+    <ul class="nav nav-tabs-custom clearfix">
+
+        <li class="active"><a href="/Admin/Dictionary/DictionaryTypeList">字典类型管理</a></li>
+        <li><a href="/Admin/Dictionary/DictionariesList">字典管理</a></li>
+        
+    </ul>
+    <div class="form-horizontal">
+        <table class="table table-bordered table-striped" style="width:1010px">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>类型编号：</td>
+                    <td>
+                        <label class="checkbox-inline parent-check">@Model.Id</label>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>类型名称：</td>
+                    <td>
+                        <input class="form-control input-sm" style="width:200px;" value="@Model.TypeName " id="txtTypeName" />
+                    </td>
+                </tr>
+
+                @{
+                    if (Model.IsEnabled == "1")
+                    {
+                        <tr>
+                            <td>启用状态：</td>
+                            <td>
+                                <input name="IsEnabled" type="radio" value="0" />禁用
+                                <input name="IsEnabled" type="radio" value="1" checked="checked" />启用
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>启用状态：</td>
+                            <td>
+                                <input name="IsEnabled" type="radio" value="0" checked="checked" />禁用
+                                <input name="IsEnabled" type="radio" value="1" />启用
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div class="mt20">
+        <button type="button" onclick="submitDictionaryType()" class="btn btn-primary statusBtn">保 存</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function submitDictionaryType() {
+        var id = $.trim($("#hdId").val());
+        var typename = $.trim($("#txtTypeName").val());
+        if (typename == "") {
+            $.dialog.tips('请填写字典类型！');
+            return false;
+        }
+        var isenable = $("input[name='IsEnabled']:checked").val();
+        var loading = showLoading();
+        $.post("DictionaryTypeEditSave", { Id: id, TypeName: typename, IsEnabled: isenable }, function (result) {
+            loading.close();
+            if (result.success) {
+                $.dialog.tips("添加成功！");
+                location.href = "/Admin/Dictionary/DictionaryTypeList";
+            }
+            else
+                $.dialog.errorTips("添加失败！");
+        });
+    }
+</script>

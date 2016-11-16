@@ -1,0 +1,171 @@
+﻿<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<link href="~/Content/artdialog.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(function () {
+        $(".start_datetime").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".end_datetime").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".start_datetime").click(function () {
+            $('.start_datetime').datetimepicker('show');
+        });
+        $(".end_datetime").click(function () {
+            $('.end_datetime').datetimepicker('show');
+        });
+        $(".start_datetime").on("changeDate", function () {
+            if ($(".end_datetime").val()) {
+                if ($(".start_datetime").val() > $(".end_datetime").val()) {
+                    $(".end_datetime").val($(".start_datetime").val());
+                }
+            }
+            $(".end_datetime").datetimepicker("setStartDate", $(".start_datetime").val());
+        });
+    });
+</script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a href="RemoveMoneyList">供应商统计</a></li>
+    </ul>
+    <div class="search-box only-line">
+        <form class="custom-inline" role="form">
+            <div class="form-group">
+                <label class="label-inline" for="">开始日期</label>
+                <input id="inputStartDate" class="form-control input-ssm start_datetime" type="text">
+            </div>
+            <div class="form-group">
+                <label class="label-inline" for="">结束日期</label>
+                <input id="inputEndDate" class="form-control input-ssm end_datetime" type="text">
+            </div>
+            <div class="form-group">
+                <select id="type_id" class="form-control input-sm"><option value="">全部</option><option value="1">提现</option><option value="0">支付</option></select>
+            </div>
+            <input type="button" class="btn btn-primary btn-sm" id="searchBtn" value="搜 索">
+        </form>
+    </div>
+    <table class="table mt20" id="shopDatagrid"></table>
+    <table class="table mt20">
+        <tr><td>提现总额：<span style="color:green;font-weight:bold;" class="addmoney"></span></td></tr>
+        <tr><td>支付总额：<span style="color:red;font-weight:bold;" class="removemoney"></span></td></tr>
+        @*<tr><td>利润总额：<span style="color:green;font-weight:bold;" class="totalmoney"></span></td></tr>*@
+    </table>
+</div>
+<input type="hidden" value="@ViewBag.paydanwei" id="hidtype" />
+<script type="text/javascript">
+    $(function () {
+        Query();
+        GetMoney();
+        $("#searchBtn").on("click", function () {
+            Query();
+            GetMoney();
+        });
+    });
+    function Query() {
+        $("#shopDatagrid").hiMallDatagrid({
+            url: "./List",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { "userType": "2", "starttime": $(".start_datetime").val(), "endtime": $(".end_datetime").val(), "type": $('#type_id option:selected').val() },
+            toolbar: "#shopToolBar",
+            columns:
+            [[
+                { field: "UserId", title: "用户编号", hidden: false },
+                { field: "UserName", title: "真实姓名", hidden: false },
+                {
+                    field: "UserType", title: "用户类型", formatter: function (value, row, index) {
+                        var html = "";
+                        var utype = row.UserType;
+                        if (utype == "2") {
+                            html = "<span style=\"color;blue\">供应商</span>";
+                        }
+                        if (utype == "3") {
+                            html = "<span style=\"color:blue;\">采购商</span>";
+                        }
+                        return html;
+                    }
+                },
+                {
+                    field: "TradingType", title: "类型", formatter: function (value, row, index) {
+                        var html = "";
+                        var dtype = row.TradingType;
+                        if (dtype == "1") {
+                            html = "<span style=\"color:red;\">提现</span>";
+                        }
+                        else {
+                            html = "<span style=\"color:green;\">支付</span>";
+                        }
+                        return html;
+                    }
+                }, {
+                    field: "TradingPrice", title: "金额", width: "80", formatter: function (value, row, index) {
+                        var dprice = "<span style=\"font-weight:bold;\">" + row.TradingPrice + " " + $("#hidtype").val() + "</span>";
+                        return dprice;
+                    }
+                },
+                {
+                    field: "operation", operation: true, title: "记录", align: "left", formatter: function (value, row, index) {
+                        var html = "";
+                        var dtype = row.TradingType;
+                        var price = row.TradingPrice;
+                        var order = row.OrderNum;
+                        var time = row.TradingTime;
+                        if (dtype == "0") {
+                            html = "在 " + jsonDateFormat(time) + " 支付了 <span style=\"color:red;\">" + price + " " + $("#hidtype").val() + "</span>,订单号(<a href=\"javascript:getorder(" + order + ")\">" + order + "</a>)";
+                        } else {
+                            html = "在 " + jsonDateFormat(time) + " 提现了 <span style=\"color:red\">" + price + " " + $("#hidtype").val() + "</span>";
+                        }
+                        return html;
+                    }
+                }
+            ]]
+        });
+    };
+    function GetMoney() {
+        $.post('./GetMoney', { "userType": "", "starttime": $(".start_datetime").val(), "endtime": $(".end_datetime").val(), "type": $('#type_id option:selected').val() }, function (result) {
+            var strs = new Array();
+            strs = result.split("|");
+            var remoney = strs[0];
+            var admoney = strs[1];
+            //$(".totalmoney").text(parseFloat((strs[0]) - parseFloat(strs[1])) + " USD");
+            //$(".addmoney").text(strs[0] + " ");
+            //$(".removemoney").text(strs[1] + " ");
+        });
+    };
+    function getorder(str) {
+        ///
+        art.dialog.open('/Admin/Order/Detail/' + str, { title: '提示', width: 1210, height: 500, lock: true });
+    };
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    }
+</script>

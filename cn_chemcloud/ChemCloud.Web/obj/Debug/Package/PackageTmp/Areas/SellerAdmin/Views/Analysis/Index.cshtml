@@ -1,0 +1,159 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        #analysislist th {
+            background-color: #3498DB;
+            color: #fff;
+        }
+
+        #analysislist tr {
+            height: 30px;
+        }
+
+        tr {
+            border-bottom: 1px solid #f2f2f2;
+            height: 32px;
+            line-height: 32px;
+        }
+
+        .box1 {
+            padding-top: 0px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container" style="padding-top:20px">
+        <ul class="nav nav-tabs-custom clearfix">
+            <li>分析鉴定列表</li>
+        </ul>
+        <div class="box1 lh24">
+            <div class="border-box">
+                <div id="shopToolBar">
+                    <div class="search-box only-line">
+                        <div class="form-group" style="height:30px; padding-top:5px; padding-left:30px;">
+                            <label class="label-inline" for="" style="width : 78px ">委托方姓名：</label>
+                            <input class="form-control input-ssm" type="text" id="txtClientName" style="height:24px;" />
+                            <label class="label-inline" for="" style="width : 78px ">样品名称：</label>
+                            <input class="form-control input-ssm" type="text" id="txtSampleName" style="height:24px;" />
+                            <input type="button" class="btn btn-primary btn-sm" id="searchBtn" onclick="Query()" value="搜 索"
+                                   style="width:70px; height:28px; border:0px solid; background-color:#3498DB;
+                        color:#fff; border-radius:2px; cursor:pointer " />
+                        </div>
+                    </div>
+                </div>
+                <table class="table mt40" id="analysislist" style="width:100%;margin-top:10px;"></table>
+            </div>
+        </div>
+    </div>
+    @*/*js部分*/*@
+    <script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+    <script src="~/Scripts/CommonJS.js"></script>
+    <script type="text/javascript">
+
+        /*初始化函数*/
+        $(document).ready(function () {
+            Query();
+        });
+
+        /*查询方法*/
+        function Query() {
+            /*参数*/
+            var ClientName = $.trim($("#txtClientName").val());
+            var SampleName = $("#txtSampleName").val();
+
+            var loading = showLoading();
+
+            $("#analysislist").hiMallDatagrid({
+                url: "/Analysis/QueryList",
+                nowrap: false,
+                rownumbers: true,
+                NoDataMsg: '没有找到符合条件的数据',
+                border: false,
+                fit: true,
+                fitColumns: true,
+                pagination: true,
+                idField: "Id",
+                pageSize: 15,
+                pageNumber: 1,
+                queryParams: { "ClientName": ClientName, "SampleName": SampleName },
+                toolbar: "#shopToolBar",
+                operationButtons: "#orderOperate",
+                columns:
+                [[
+                    {
+                        field: "ClientName", title: "委托方名称", width: 350,
+                    },
+                    {
+                        field: "MemberName", title: "用户", width: 150,
+                    },
+                    {
+                        field: "ReportHeader", title: "报告抬头", width: 150,
+                    },
+                    {
+                        field: "SampleName", title: "样品名称", width: 150,
+                    },
+                    {
+                        field: "SampleQuantity", title: "样品数量", width: 150,
+                    },
+                    {
+                        field: "SampleSpecifications", title: "样品规格型号", width: 150,
+                    },
+                    {
+                        field: "AnalysisStatus", title: "状态", width: 350, formatter: function (value, row, index) {
+                            /*1已提交2已确认3已支付4分析中5已完成*/
+                            html = "";
+                            if (row.AnalysisStatus == 1) {
+                                html = "<span>已提交</span>";
+                            }
+                            if (row.AnalysisStatus == 2) {
+                                html = "<span>已确认</span>";
+                            } if (row.AnalysisStatus == 3) {
+                                html = "<span>已支付</span>";
+                            }
+                            if (row.AnalysisStatus == 4) {
+                                html = "<span>分析中</span>";
+                            }
+                            if (row.AnalysisStatus == 5) {
+                                html = "<span>已完成</span>";
+                            }
+                            return html;
+                        }
+                    },
+                    {
+                        field: "operation", operation: true, title: "操作", width: 320,
+                        formatter: function (value, row, index) {
+                            var html = ["<span class=\"btn-a\">"];
+                            html.push('<a href="/SellerAdmin/Analysis/Detail?Id=' + row.Id + '">查看</a>&nbsp|&nbsp');
+                            html.push('<a onclick="Delete(' + row.Id + ') ">删除</a>');
+                            html.push("</span>");
+                            return html.join("");
+                        }
+                    }
+                ]]
+            });
+            loading.close();
+        };
+
+        /*删除*/
+        function Delete(Id) {
+            $.dialog.confirm("确定删除此信息？", function () {
+                var loading = showLoading();
+                $.post('/Analysis/Delete', { Id: Id }, function (result) {
+                    if (result.success) {
+                        $.dialog.succeedTips("删除成功！", function () { Query(); });
+                    }
+                    else
+                        $.dialog.errorTips("删除失败!");
+                    loading.close();
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+﻿@{
+    ViewBag.Title = "ChemCloud代理采购订单";
+}
+@model IEnumerable<ChemCloud.Model.CASInfo>
+
+<script type="text/javascript" src="~/Areas/Web/Scripts/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="~/Areas/Web/Scripts/blocksit.min.js"></script>
+<style>
+    .p-img {
+        display: table-cell;
+        vertical-align: middle;
+        width: 193px;
+        height: 235px;
+        text-align: center;
+    }
+
+    .pagin a, .pagin span {
+        height: 19px;
+        background: #fff;
+    }
+
+    .pagin-m a, .pagin-m span {
+        height: 14px;
+        line-height: 15px;
+        margin-top: 0px;
+        font-size: 12px;
+    }
+
+    .pagin a, .pagin span:hover {
+        color: #fff;
+        cursor: pointer;
+        background: rgb(11,110,180);
+    }
+
+    #filter .pagin {
+        float: left;
+        height: 22px;
+        margin-left: 20px;
+        padding: 2px 0;
+        padding-left: 15px;
+        border-left: 1px solid rgb(11,110,180);
+    }
+
+    .pagin .activ {
+        color: #fff;
+        background: rgb(11,110,180);
+    }
+     .songwen {
+        float: right;
+        padding: 4px 8px;
+        background: #e4393c;
+        color: #fff;
+    }
+    .songwen:hover{
+        text-decoration:none;
+        font-weight:400;
+    }
+</style>
+
+<div class="w main">
+    <div class="crumb"></div>
+    <div class="left" style="display:none">
+        <div class="m" id="refilter">
+            <div class="mt">
+                <h2></h2>
+            </div>
+        </div>
+    </div>
+    <div class="right-extra" style="width:100%">
+        <div class="clr"></div>
+        <div id="filter">
+            <div class="fore1">
+                <dl class="order">
+                    <dt><strong>代理采购订单</strong></dt>
+                </dl>
+                <div class="pagin pagin-m" id="top_pagi">
+                    <div>
+                        <span class="activ orderby">综合排序</span>
+                        <span class="orderby" id="ordertime">最新</span>
+                        <span class="orderby" id="productcount">数量</span>
+                    </div>
+                </div>
+                <div>
+                    @if (ViewBag.UserType == 3) { <a class="songwen" href="/UserCenter/?c=4">发布代购订单</a> }
+                   
+                </div>
+                <span class="clr"></span>
+            </div>
+        </div>
+
+        <div class="m psearch prebuy plist-n7 no-preview" id="plist">
+            <ul class="list-h cl"></ul>
+        </div>
+        <div id="Pagination" class="pagination">
+        </div>
+    </div>
+    <span class="clr"></span>
+</div>
+<script type="text/javascript">
+    /*变量*/
+    var totalcount = 0;
+    var maxcount = 0;
+    var pagesize = 10;
+    var pageno = 1;
+    /*初始化*/
+    $(function () {
+
+        $('#top_pagi div span').click(function () {
+            $(this).addClass("activ").siblings().removeClass("activ");
+        })
+        QueryResultCount();
+        QueryResult("");
+        $(window).scroll(function () {
+            // 当滚动到最底部以上500像素时， 加载新的查询结果
+            if ($(document).height() - $(this).scrollTop() - $(this).height() < 500) {
+                if (pageno < maxcount) {
+                    pageno = pageno + 1;
+                    QueryResult("");
+                    $(".list-h li").lazyload();
+                    return false;
+                }
+            }
+        });
+
+        $(".orderby").live("click", function () {
+            var $value = $(this).attr('id');
+            $(".list-h").html("");
+            QueryResultCount();
+            QueryResult($value);
+        });
+    });
+
+    /*count*/
+    function QueryResultCount() {
+        $.ajax({
+            type: 'post',
+            url: '/OtherOrder/SearchResultCountOrderPurchasing',
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                $("#res_count").html(data);
+                totalcount = parseInt(data);
+                maxcount = totalcount / 10;
+            }
+        });
+    };
+
+    /*searchdata*/
+    function QueryResult(orderby) {
+        $.ajax({
+            type: 'post',
+            url: '/OtherOrder/SearchResultOrderPurchasing',
+            data: {
+                "orderby": orderby,
+                "pagesize": pagesize,
+                "pageno": pageno
+            },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                var html = "";
+                if (data == "") {
+                    html += "<span>很抱歉，暂无代理采购订单。</span>";
+                } else {
+                    var json = $.parseJSON(data);
+                    $.each(json.ds, function (i, item) {
+                        html += "<li style=\"height:400px\">";
+                        html += "<div class=\"lh-wrap\" style=\"width:210px;\">";
+                        html += " <div class=\"p-img\">";
+                        html += "   <a alt=\"MolPort-011-161-865;undefined\" title=\"MolPort-011-161-865;undefined\" target=\"_blank\" href=\"/OtherOrder/AgentPurchasingDetail?id=" + item.Id + "\">";
+                        html += "     <img class=\"lazyload\" src=\"" + item.Mol + "\" data-url=\"" + item.Mol + "\">";
+                        html += "    </a>";
+                        html += "  </div>";
+                        html += "   <div class=\"p-price\">";
+                        html += "  <span style=\"display:inline-block;padding:0 1px;margin-right:10px;border:1px solid #e4393c  ;color:#e4393c\">代</span>";
+                        html += "  <span>采购(" + item.ProductName + ")</span>";
+                        html += " </div>";
+                        html += " <div style=\"height:36px\">";
+                        html += "" + item.ProductDesc + "";
+                        html += " </div>";
+                        html += " <div style=\"margin-top:5px\">";
+                        html += "     <span style=\"display:inline-block;width:60px;text-align:center;\">纯度" + item.ProductPurity + "%</span>";
+                        html += "     <span style=\"display:inline-block;width:60px;text-align:center;\">数量" + item.ProductCount + "</span>";
+                        html += "     <div style=\"background:#ff6a00;border-radius:4px;height:4px;\"></div>";
+                        html += " </div>";
+                        html += " <div class=\"p-price\">";
+                        html += "     <span style=\"color:#999\">CAS：" + item.CASNo + " 预算：</span>" + Number(item.ProductPrice).toFixed(2);
+                        html += " </div>";
+                        html += " <div class=\"p-price\" id=\"fenzishi\">";
+                        //html += "     <label style=\"float:right;color:#3498DB\">报名：" + item.ProductCount + "</label>";
+                        html += " </div>";
+                        html += "</div>";
+                        html += " </li>";
+                    });
+                }
+                $(".list-h").append(html);
+            }
+        });
+    };
+</script>

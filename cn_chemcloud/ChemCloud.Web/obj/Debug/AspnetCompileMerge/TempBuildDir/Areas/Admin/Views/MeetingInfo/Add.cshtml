@@ -1,0 +1,186 @@
+﻿@using ChemCloud.Core;
+@{
+    ViewBag.Title = "Add";
+    //Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Scripts/jquery.nicescroll.min.js"></script>
+<script src="~/Scripts/jquery.nicescroll.plus.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script>
+    $(function () {
+        $(".start_datetime").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".start_datetime").click(function () {
+            $(".start_datetime").datetimepicker('show');
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    var eidtor;
+
+    $(function () {
+        GetLanguage();
+        eidtor = UE.getEditor('contents', { initialFrameHeight: 400, initialFrameWidth: 600 });
+        (function initRichTextEditor() {
+            eidtor = UE.getEditor('contents');
+            eidtor.addListener('contentChange', function () {
+                $('#contentError').hide();
+            });
+        })();
+
+        
+
+        $("#Save").click(function () {
+            var loading = showLoading();
+            var title = $.trim($("#meetingtitle").val());
+            if (title == "" || title == null) {
+                loading.close();
+                $.dialog.tips("标题不能为空！");
+                setTimeout(3000);
+                return false;
+            }
+            loading.close();
+            var title = $("#meetingtitle").val();
+            var time = $("#inputDate").val();
+            var place = $("#place").val();
+            var content = UE.getEditor('contents').getContent();
+            var continuetime = $("#continue").val();
+            var LanguageType = $("#LanguageType option:selected").val();
+            var param = {
+                "Title": title,
+                "MeetingTime": time,
+                "MeetingPlace": place,
+                "MeetingContent": content,
+                "ContinueTime": continuetime,
+                "LanguageType": LanguageType
+            }
+
+            var param2 = JSON.stringify(param);
+            $.ajax({
+                type: "POST",
+                url: "AddMeetingInfo",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: param2,
+                beforeSend: function () {
+                    if (LanguageType == 0) {
+                        $.dialog.tips("请选择语言版本！");
+                        return false;
+                    }
+                },
+                success: function (result) {
+                    if (result.success)
+                    {
+                        if (result.parentId != "" && result.parentId != null) {
+                            var parentId = result.parentId;
+                            var attachmentName = $("#meetingtitle").val();
+                            var type = "add";
+                            UpLoadFile(parentId, attachmentName, type);
+                        }
+                    } else {
+                        var loading = showLoading();
+                        loading.close();
+                        $.dialog.tips("添加失败！");
+                        setTimeout(3000);
+                        location.href = './Management';
+                    }
+                    
+                }
+            });
+        });
+    });
+    function GetLanguage() {
+        $.post("./GetLanguage", function (result) {
+            if (result != null) {
+                if (result.data != null && result.data != "") {
+                    $.each(result.data, function (key, value) {
+                        $("#LanguageType").append($('<option>', { value: value.Id }).text(value.Username));
+                    });
+                }
+            } else {
+
+            }
+        });
+    }
+    function UpLoadFile(parentId,attachmentName,type) {
+        $.dialog.confirm('确定需要上传附件吗?',
+            function () {
+                window.location.href = "./Admin/MeetingInfo/uploadfile?parentId=" + parentId + '&attachmentName=' + attachmentName + '&type=' + type;
+            }),
+            function () {
+                window.location.href = './Management';
+            };
+    }
+
+</script>
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>会议中心</strong>
+        <li class="active"><a>新增会议信息</a></li>
+        <li><a href="./Management">会议中心列表</a></li>
+    </ul>
+    <form class="form-horizontal" role="form">
+        <h3 class="table-hd">会议信息</h3>
+
+        <div class="form-group" id="TitleDiv">
+            <label class="col-sm-2 control-label" for="">会议标题：</label>
+            <div class="col-sm-4">
+                <input type="text" id="meetingtitle" name="MeetingTitle" class="form-control input-sm" style="width:500px;height:30px" maxlength="200">
+                <label id="regName_info" style="display:none;" class="focus">请输入标题</label>
+                <label id="regName_error" style="display:none;color:red" class="error">标题不能为空</label>
+            </div>
+        </div>
+        <div class="form-group" filter normal>
+            <label class="col-sm-2 control-label" for="">会议日期：</label>
+            <div class="col-sm-4">
+                <input type="text" id="inputDate" class="form-control input-ssm start_datetime" style="width:500px;height:30px">
+            </div>
+        </div>
+        <div class="form-group" >
+            <label class="col-sm-2 control-label" for="">会议持续时间：</label>
+            <div class="col-sm-4">
+                <input type="text" id="continue" name="ContinueTime" class="form-control input-sm" style="width:500px;height:30px;" maxlength="10" />
+            </div>
+        </div>
+        <div class="form-group" id="div2">
+            <label class="col-sm-2 control-label" for="">会议地点:</label>
+            <div class="col-sm-4">
+                <input type="text" id="place" name="MeetingPlace" class="form-control input-sm" style="width:500px;height:30px;" maxlength="100">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">语言版本:</label>
+            <div class="col-sm-4">
+                <select id="LanguageType" style="width:600px;height:30px"></select>
+            </div>
+            <div class="col-sm-4">
+                <p class="help-default"></p>
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">会议内容:</label>
+            <div class="col-sm-4">
+                <textarea id="contents" name="MeetingContent" style="width:600px;height:400px"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="button" id="Save" class="btn btn-primary" value="保存">
+            </div>
+        </div>
+    </form>
+        
+</div>

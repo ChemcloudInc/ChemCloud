@@ -1,0 +1,329 @@
+﻿@using ChemCloud.Core;
+@model ChemCloud.Model.MargainBill
+
+@*<link href="~/Areas/Web/Content/artdilog.css" rel="stylesheet" />*@
+<link href="~/Areas/SellerAdmin/Content/Bargain_Detail.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/Region.js"></script>
+<script src="~/Scripts/RegionBind.js"></script>
+<style>
+    div .container {
+        padding: 20px 0 30px 200px;
+    }
+</style>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>询盘</strong>
+        <li><a href="/selleradmin/Bargain/Management">所有询盘</a></li>
+        @if ("true".Equals(Request.QueryString["updatePrice"]))
+        {
+            <li class="active"><a>回复</a></li>
+        }
+        else
+        {
+            <li class="active"><a>查看</a></li>
+        }
+    </ul>
+    <form class="form" id="frombargain">
+        <input id="hdbillid" type="hidden" value="@Model.Id" />
+        <input id="hdbillid" type="hidden" value="@Model.BillStatus" />
+        <input id="hdisreview" type="hidden" value="@ViewBag.isreview" />
+
+        <div class="box1 lh24">
+
+            <div class="border-box" style="padding:10px; width: 986px; ">
+                <div class="orderstate">
+                    <div class="mt">
+                        <strong>
+                            询盘#：@Model.BillNo&nbsp;&nbsp;&nbsp;&nbsp;状态：<span class="ftx14">@Model.BillStatus.ToDescription()</span>
+                            <span id="pay-button-1622972656"></span>
+                        </strong>
+                        <div class="fr">
+                            <div class="toolbar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="orderinfo-box">
+                    <div class="mc">
+                        <dl class="fore">
+                            <dt>采购商信息</dt>
+                            <dd>
+                                <ul>
+                                    <li>收&nbsp;货&nbsp;人：@Model.MemberName</li>
+                                    <li>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：@Model.DeliverAddress</li>
+                                </ul>
+                            </dd>
+                        </dl>
+
+                        <dl>
+                            <dt>支付及配送方式</dt>
+                            <dd>
+                                <ul>
+                                    <li>
+                                        配送方式：
+                                        <span>@Model.DeliverType</span>
+                                    </li>
+                                    <li>配货周期：<span>@Model.DistributionCycle</span></li>
+
+
+
+                                    <li>支付方式：<span>@Model.PayMode</span></li>
+                                    <li>总&nbsp;&nbsp;金&nbsp;&nbsp;额：<span class="ftx-04"><span id="TotalAmount">@Model.TotalAmount.ToString("F2")</span></span></li>
+                                    <li>币&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种：<span class="ftx-04">@Model.CoinTypeName</span></li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <input type="hidden" id="delivercost" value="@Model.DeliverCost.ToString("F2")" />
+
+                        <!--化工品-->
+                        <dl>
+                            <dt>
+                                <span class="i-mt">询盘记录</span>
+                                <div id="couponListShow" class="prompt p-fquan">
+                                    <div id="couponList" class="pc"></div>
+                                </div>
+                                <div class="clr"></div>
+                            </dt>
+                            <dd class="p-list">
+                                <table width="100%" cellspacing="0" cellpadding="0" id="tabledetail">
+                                    <tbody>
+                                        <tr>
+                                            <th style="text-align:center;" width="4%">序号</th>
+                                            <th style="text-align:center;" width="10%">CAS #</th>
+                                            <th style="text-align:center;" width="10%">名称</th>
+                                            <th style="text-align:center;" width="5%">纯度</th>
+                                            <th style="text-align:center;" width="10%">包装规格</th>
+                                            <th style="text-align:center;" width="10%">等级
+                                            <th style="text-align:center;" width="5%">数量</th>
+                                            <th style="text-align:center;" width="7%">价格</th>
+                                            <th style="text-align:center;" width="7%">币种</th>
+                                            <th style="text-align:center;" width="10%">买家留言</th>
+                                            <th style="text-align:center;" width="10%">我的回复</th>
+                                            <th style="text-align:center;" width="10%">操作人</th>
+                                        </tr>
+                                        @{
+                                            int row = 1;
+                                        }
+                                        @foreach (var billdetail in Model._MargainBillDetail)
+                                        {
+                                            <tr>
+                                                <td>@row</td>
+                                                <td>@billdetail.CASNo</td>
+                                                <td>
+                                                    @billdetail.ProductName
+                                                </td>
+                                                <td>@billdetail.Purity</td>
+
+                                                <td>@billdetail.PackingUnit</td>
+                                                <td>@billdetail.SpecLevel</td>
+
+                                                @if (row == Model._MargainBillDetail.Count)
+                                                {
+                                                    if (@ViewBag.CurrentUser == billdetail.Bidder || @ViewBag.updatePrice == false)
+                                                    {
+                                                        <td>
+                                                            @billdetail.Num
+                                                        </td>
+
+                                                        <td>
+                                                            @billdetail.PurchasePrice.ToString("F2")
+                                                        </td>
+                                                        <td>@Model.CoinTypeName</td>
+                                                        if (null != @billdetail.BuyerMessage)
+                                                        {
+                                                            if (@billdetail.BuyerMessage.Length > 6)
+                                                            {
+                                                                <td title=@billdetail.BuyerMessage> @billdetail.BuyerMessage.Substring(0, 6) ...</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td title=@billdetail.MessageReply> @billdetail.BuyerMessage</td>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <td title=@billdetail.MessageReply> @billdetail.BuyerMessage</td>
+                                                        }
+
+                                                        if (null != @billdetail.MessageReply)
+                                                        {
+                                                            if (@billdetail.MessageReply.Length > 6)
+                                                            {
+                                                                <td title=@billdetail.MessageReply> @billdetail.MessageReply.Substring(0, 6) ...</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td title=@billdetail.MessageReply> @billdetail.MessageReply</td>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <td title=@billdetail.MessageReply> @billdetail.MessageReply</td>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>
+                                                            <input type="text" id="Num" value="@billdetail.Num" style="width:80%;padding-left:5px;color:red; text-align:center;" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="PurchasePrice" value="@billdetail.PurchasePrice.ToString("F2")" style="width:100%; color:red;padding-left:5px;" />
+                                                        </td>
+                                                        <td>@Model.CoinTypeName</td>
+                                                        if (null != @billdetail.BuyerMessage)
+                                                        {
+                                                            if (@billdetail.BuyerMessage.Length > 6)
+                                                            {
+                                                                <td title=@billdetail.BuyerMessage> @billdetail.BuyerMessage.Substring(0, 6) ...</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td title=@billdetail.BuyerMessage> @billdetail.BuyerMessage</td>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <td title=@billdetail.BuyerMessage> @billdetail.BuyerMessage</td>
+                                                        }
+                                                        //   <td><input value="@billdetail.MessageReply" type="text" id="MessageReply" style="width:80%;padding-left:5px;"></td>
+                                                        <td title=@billdetail.MessageReply> <textarea style="height:expression((this.scrollHeight>150)?'150px':(this.scrollHeight+5)+'px');overflow:auto;">@billdetail.MessageReply</textarea></td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        @billdetail.Num
+                                                    </td>
+                                                    <td>
+                                                        @billdetail.PurchasePrice.ToString("F2")
+                                                    </td>
+                                                    <td>@Model.CoinTypeName</td>
+                                                    if (null != @billdetail.BuyerMessage)
+                                                    {
+                                                        if (@billdetail.BuyerMessage.Length > 6)
+                                                        {
+                                                            <td title=@billdetail.BuyerMessage> @billdetail.BuyerMessage.Substring(0, 6) ...</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td title=@billdetail.BuyerMessage> @billdetail.BuyerMessage</td>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <td title=@billdetail.BuyerMessage> @billdetail.BuyerMessage</td>
+                                                    }
+
+                                                    <td title=@billdetail.MessageReply> <textarea style="height:expression((this.scrollHeight>150)?'150px':(this.scrollHeight+5)+'px');overflow:auto;"> @billdetail.MessageReply</textarea></td>
+                                                }
+                                                <td>@billdetail.BidderName</td>
+                                            </tr>
+                                                row++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </dd>
+                        </dl>
+
+                        <dl>
+                            <dt></dt>
+                            <dd class="p-list">
+                                @if (@ViewBag.updatePrice == true)
+                                {
+                                    <a class="btn btn-4" id="submitbargain">继续询盘</a>
+                                    <a class="btn btn-4" style="margin-left:10px;" id="overbargain">结束询盘</a>
+                                }
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<script src="~/Scripts/jquery.form.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#id_a').bind('click', function () {
+            $('#id_a').addClass('curr');
+            $('#id_b').removeClass('curr');
+            $($('.tabcon')[0]).show();
+            $($('.tabcon')[1]).hide();
+        });
+        $('#id_b').bind('click', function () {
+            $('#id_b').addClass('curr');
+            $('#id_a').removeClass('curr');
+            $($('.tabcon')[1]).show();
+            $($('.tabcon')[0]).hide();
+        });
+
+        $("#Num").bind('blur', function () {
+
+            if (!$.trim($("#Num").val()) || !$.trim($("#PurchasePrice").val())) {
+                $.dialog.errorTips("数量或期望金额不能为空！");
+            } else {
+                //$("#TotalAmount").html(($.trim($("#Num").val())) * ($.trim($("#PurchasePrice").val())));
+            }
+        });
+        $("#PurchasePrice").bind('blur', function () {
+
+            if (!$.trim($("#Num").val()) || !$.trim($("#PurchasePrice").val())) {
+                $.dialog.errorTips("数量或期望金额不能为空！");
+            } else {
+                $("#TotalAmount").html(parseFloat($("#delivercost").val()) + parseFloat($.trim($("#PurchasePrice").val())));
+            }
+        });
+
+        //提交询盘单
+        $("#submitbargain").click(function () {
+            if ($("#hdisreview").val() == "false") { $.dialog.errorTips("询盘已经结束！"); }
+            else {
+                $.dialog.confirm('确定提交本次询盘？', function () {
+                    var Id = $("#hdbillid").val();
+                    var Num = $.trim($("#tabledetail tr:last").find('td').eq(6).children('input').val());
+                    var PurchasePrice = $.trim($("#tabledetail tr:last").find('td').eq(7).children('input').val());
+                    var MessageReply = $.trim($("#tabledetail tr:last").find('td').eq(10).children('textarea').val());
+                    var loading = showLoading();
+                    $.post('UpdateBargaion', { Id: Id, Num: Num, PurchasePrice: PurchasePrice, MessageReply: MessageReply },
+                        function (data) {
+                            loading.close();
+                            if (data.success) {
+                                $.dialog.succeedTips("提交成功！", function () {
+                                    location.href = "/selleradmin/Bargain/Management";
+                                }, 3);
+                            }
+                            else {
+                                $.dialog.errorTips("提交失败！");
+                            }
+                        });
+                });
+            }
+        });
+        //结束询盘
+        $("#overbargain").click(function () {
+
+            $.dialog.confirm('确定结束本次询盘？', function () {
+                var loading = showLoading();
+                var billid = $("#hdbillid").val();
+                $.post('OverBargain', { Id: billid },
+                      function (data) {
+                          loading.close();
+                          if (data.success) {
+                              $.dialog.succeedTips("操作成功！", function () {
+                                  location.href = "/selleradmin/Bargain/Management";
+                              }, 3);
+                          }
+                          else {
+                              $.dialog.errorTips("操作失败！" + data.msg);
+                          }
+                      });
+            });
+        });
+    });
+</script>

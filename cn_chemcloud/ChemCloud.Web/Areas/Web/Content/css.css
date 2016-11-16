@@ -141,17 +141,17 @@ font-weight:800;
 }
 .content .content_fl{ float:left;width:215px; height:361px; }
 .content .content_fl ul{}
-.content .content_fl ul li.active1{    margin-bottom: 15px; width:214px;background-size:100%; height:78px; border-bottom:1px solid #22b14c; background-image:url(/Areas/Web/images/img/icon_1-1.png); color:#333; font-size:14px; text-align:center;}
+.content .content_fl ul li.active1{    margin-bottom: 10px; width:214px;background-size:100%; height:82px; border-bottom:1px solid #22b14c; background-image:url(/Areas/Web/images/img/icon_1-1.png); color:#333; font-size:14px; text-align:center;}
 .content .content_fl ul li.active1:hover{ background-image:url(/Areas/Web/images/img/icon_1.png);}
 
-.content .content_fl ul li.active2{ margin-bottom: 15px;width:214px;background-size:100%; height:78px; border-bottom:1px solid #22b14c; background-image:url(/Areas/Web/images/img/icon_2.png); color:#333; font-size:14px; text-align:center;}
+.content .content_fl ul li.active2{ margin-bottom: 10px;width:214px;background-size:100%; height:82px; border-bottom:1px solid #22b14c; background-image:url(/Areas/Web/images/img/icon_2.png); color:#333; font-size:14px; text-align:center;}
 .content .content_fl ul li.active2:hover{ background-image:url(/Areas/Web/images/img/icon_2-2.png);}
 
 
-.content .content_fl ul li.active3{margin-bottom: 15px; width:214px;background-size:100%; height:78px; border-bottom:1px solid #fff; background-image:url(/Areas/Web/images/img/icon_3.png); color:#333; font-size:14px; text-align:center;}
+.content .content_fl ul li.active3{margin-bottom: 10px; width:214px;background-size:100%; height:82px; border-bottom:1px solid #fff; background-image:url(/Areas/Web/images/img/icon_3.png); color:#333; font-size:14px; text-align:center;}
 .content .content_fl ul li.active3:hover{ background-image:url(/Areas/Web/images/img/icon_3-3.png);}
 
-.content .content_fl ul li.active4{ width:214px;background-size:100%; height:78px; border-bottom:1px solid #22b14c; background-image:url(/Areas/Web/images/img/icon_4.png); color:#333; font-size:14px; text-align:center;}
+.content .content_fl ul li.active4{margin-bottom: 10px; width:214px;background-size:100%; height:82px; border-bottom:1px solid #22b14c; background-image:url(/Areas/Web/images/img/icon_4.png); color:#333; font-size:14px; text-align:center;}
 .content .content_fl ul li.active4:hover{ background-image:url(/Areas/Web/images/img/icon_4-4.png);}
 
 

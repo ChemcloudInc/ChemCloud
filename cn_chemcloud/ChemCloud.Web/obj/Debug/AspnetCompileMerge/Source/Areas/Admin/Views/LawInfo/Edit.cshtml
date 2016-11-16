@@ -1,0 +1,72 @@
+﻿@using ChemCloud.Core;
+@model ChemCloud.Model.LawInfo
+@{
+    ViewBag.Title = "Edit";
+}
+<script src="~/Scripts/jquery.nicescroll.min.js"></script>
+<script src="~/Scripts/jquery.nicescroll.plus.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script src="~/Areas/SellerAdmin/Scripts/LawInfoEdit.js"></script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>法律法规</strong>
+        <li class="active"><a>编辑法律法规</a></li>
+        <li><a href="./Management">法律法规列表</a></li>
+    </ul>
+    <form class="form-horizontal" role="form">
+        <h3 class="table-hd">法律法规</h3>
+
+        <div class="form-group" id="TitleDiv">
+            <label class="col-sm-2 control-label" for=""><b style="color:red">*</b>标题：</label>
+            <div class="col-sm-4">
+                <input type="text" id="Title" name="Title" class="form-control input-sm" value="@Model.Title" style="width:600px;height:30px" />
+            </div>
+        </div>
+        <div class="form-group" id="div2">
+            <label class="col-sm-2 control-label" for=""><b style="color:red">*</b>作者:</label>
+            <div class="col-sm-4">
+                <input type="text" id="Author" name="Author" class="form-control input-sm" value="@Model.Author" style="width:600px;height:30px" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">语言版本:</label>
+            <div class="col-sm-4">
+                <select id="LanguageType" style="width:600px;height:30px"></select>
+            </div>
+            <div class="col-sm-4">
+                <p class="help-default"></p>
+            </div>
+        </div>
+        
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">正文:</label>
+            <div class="col-sm-4">
+                <textarea id="lawInfo" name="lawInfo" style="width:600px;height:400px">@Model.LawsInfo</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="button" id="Save" class="btn btn-primary" value="保存">
+                    @if (@ViewBag.attachmentCount == 0)
+                    { 
+                        <input type="button" id="NewUploadFile" class="btn btn-primary" value="添加附件">
+                    }
+                    @if (@ViewBag.attachmentCount != 0)
+                    {
+                        <input type="button" id="Uploadfile" class="btn btn-primary" value="编辑附件">
+                    }
+            </div>
+        </div>
+        <input type="hidden" id="Id" value="@Model.Id" />
+        <input type="hidden" id="Language" value="@Model.LanguageType" />
+        @*<input type="hidden" id="attachmentId" value="@ViewBag.attachmentId" />
+        <input type="hidden" id="parentId" value="@ViewBag.parentId" />
+        <input type="hidden" id="attachment" value="@ViewBag.attachment" />*@
+    </form>
+
+</div>

@@ -8,14 +8,15 @@
 }
 <style>
     .ul {
-        background-color: #ffffff;
+        background-color: #F7F7F7;
         padding-top: 1em;
     }
 
         .ul li {
-            line-height: 2.4em;
+            line-height: 1.8em;
             padding-left: 10px;
             font-size: 14px;
+            float: left;
         }
 
     .sl-wrap {
@@ -155,100 +156,107 @@
     <input type="hidden" id="hdCurrentUserType" value="@ViewBag.CurrentUserType" />
     @if (null != Model)
     {
-    <input type="hidden" id="hdproductname" value="@ViewBag.CASNo" />
-    <div class="crumb">全部结果&nbsp;&gt;&nbsp;<strong>@Model.Pub_CID</strong></div>
-    <div class="right-extra" style="position:relative; z-index:1; width:1185px;">
-        <div class="clr"></div>
-        <div class="m" id="select">
-            <div class="mt" style="height:40px;">
-                <img src="~/Images/iconfont-huaxuepin.png" style="width:18px;position: ABSOLUTE;margin-top: 10px;" />
-                <input type="hidden" id="productname" value="@Model.CHINESE" />
-                @if ("" != Model.CHINESE && null != Model.CHINESE)
+        <input type="hidden" id="hdproductname" value="@ViewBag.CASNo" />
+        <div class="crumb">全部结果&nbsp;&gt;&nbsp;<strong>@Model.Pub_CID</strong></div>
+        <div class="right-extra" style="position:relative; z-index:1; width:1185px;">
+            <div class="clr"></div>
+            <div class="m" id="select">
+                <div class="mt" style="height:40px;">
+                    <img src="~/Images/iconfont-huaxuepin.png" style="width:18px;position: ABSOLUTE;margin-top: 10px;" />
+                    <input type="hidden" id="productname" value="@Model.CHINESE" />
+                    @if ("" != Model.CHINESE && null != Model.CHINESE)
                     {
-                    <h1>@Model.CHINESE</h1>
+                        <h1>@Model.CHINESE</h1>
                     }
                     else
                     {
-                    <h1>产品信息</h1>
+                        <h1>产品信息</h1>
                     }
-            </div>
-            <div style="width:100%; min-height:180px; background-color:#ffffff; padding-top:2px;">
-                <div style="width:100%;min-height:110px; background-color:#ffffff;overflow:hidden;">
-                    <div style="overflow:hidden; width:200px;height:140px;display: table-cell;vertical-align: middle;text-align: center;border: 1px solid #ccc;">
+                </div>
 
-                        @{string imgdataurl = "https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=" + @Model.Pub_CID + "&t=l";}
-                        @if (!string.IsNullOrEmpty(Model.C2D_Structure))
+
+                <div style="width:100%; min-height:138px; background-color:#F7F7F7; padding-top:2px;">
+                    <div style="width:100%;min-height:110px; background-color:#F7F7F7;overflow:hidden;">
+                        <div style="overflow:hidden; width:120px;height:auto;display: table-cell;
+                             vertical-align: middle;text-align: center;border: 1px solid #ccc;
+                         border:0px;">
+
+                            @{string imgdataurl = "https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=" + @Model.Pub_CID + "&t=l";}
+                            @if (!string.IsNullOrEmpty(Model.C2D_Structure))
                             {
                                 if (Model.C2D_Structure.Length > 10)
                                 {
                                     imgdataurl = Model.C2D_Structure;
                                 }
                             }
-                        <img alt="ImagePath" src="@imgdataurl" style="max-width: 100%;" />
-                    </div>
-                    <div style="display: table-cell;overflow:hidden;">
-                        <ul class="ul" style="clear:both;padding-left:10px;width:720px;">
-                            <li>
-                                @if (Model.CAS != "0" && !string.IsNullOrEmpty(Model.CAS))
+                            <img alt="ImagePath" src="@imgdataurl" style="max-width: 100%;" />
+                        </div>
+                        <div style="display: table-cell;overflow:hidden;">
+                            <ul class="ul" style="clear:both;padding-left:20px;width:720px;">
+                                <li>
+                                    @if (Model.CAS != "0" && !string.IsNullOrEmpty(Model.CAS))
                                     {
-                                    <span>CAS#：</span>@Model.CAS
+                                        <span>CAS#：</span>@Model.CAS
                                     }
-                            </li>
-                            <li>英文名称：@Model.Record_Title</li>
-                            <li>
-                                精确质量：@if (Model.Exact_Mass != "0")
+                                </li>
+                                <li>英文名称：@Model.Record_Title</li>
+                                <li>
+                                    精确质量：@if (Model.Exact_Mass != "0")
                                     {
-                                    @Model.Exact_Mass
+                                        @Model.Exact_Mass
                                     }
-                            </li>
-                            <li>
-                                分子量：@if (Model.Molecular_Weight != "0")
+                                </li>
+                                <li>
+                                    分子量：@if (Model.Molecular_Weight != "0")
                                     {
-                                    @Model.Molecular_Weight
+                                        @Model.Molecular_Weight
                                     }
-                            </li>
-                            <li>
-                                <span id="fenzishi">
-                                    分子式：@if (Model.Molecular_Formula != "0")
+                                </li>
+                                <li>
+                                    <span id="fenzishi">
+                                        分子式：@if (Model.Molecular_Formula != "0")
                                         {
-                                    @Model.Molecular_Formula
+                                            @Model.Molecular_Formula
                                         } &nbsp;
-                                </span><a style="color:#3498DB" href="/Search/SearchProductInfo?id=@Model.Pub_CID">【详细链接】</a>
-                            </li>
-                        </ul>
+                                    </span><a style="color:#3498DB" href="/Search/SearchProductInfo?id=@Model.Pub_CID">【详细链接】</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="clr"></div>
+            <div style="padding-bottom:5px; margin-top:30px; line-height:30px;  border:solid 1px dashed;">
+                <div class="sl-wrap">
+                    <div class="sl-key"><strong style="font-size:14px;">供应商类型：</strong></div>
+                    <div class="sl-value">
+                        <div class="sl-v-list">
+                            <ul>
+                                <li>
+                                    <span id="shoptype0" class="background_f2">全部供应商</span>
+                                </li>
+                                <li>
+                                    <span id="shoptype2">实地认证供应商</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="clr"></div>
-        <div style="padding-bottom:5px; margin-top:30px; line-height:30px;  border:solid 1px dashed;">
-            <div class="sl-wrap">
-                <div class="sl-key"><strong style="font-size:14px;">供应商类型：</strong></div>
-                <div class="sl-value">
-                    <div class="sl-v-list">
-                        <ul>
-                            <li>
-                                <span id="shoptype0" class="background_f2">全部供应商</span>
-                            </li>
-                            <li>
-                                <span id="shoptype2">实地认证供应商</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="m psearch prebuy plist-n7 no-preview" id="plist">
+                <table class="table mt30" id="shopDatagrid" style="width:100%"></table>
             </div>
         </div>
-        <div class="m psearch prebuy plist-n7 no-preview" id="plist">
-            <table class="table mt30" id="shopDatagrid" style="width:100%"></table>
-        </div>
-    </div>
-    <span class="clr"></span>
+        <span class="clr"></span>
     }
     else
     {
-    <div style="min-height:200px; text-align:center; width:100%; padding-top:10px;">
-        <span style="font-size:18px; font-weight:bolder;">没有找到符合条件的数据</span>
-    </div>
+        <div style="min-height:200px; text-align:center; width:100%; padding-top:10px;">
+            <span style="font-size:18px; font-weight:bolder;">没有找到符合条件的数据</span>
+        </div>
     }
 </div>
 
@@ -390,11 +398,11 @@
             $(document).attr("title", "ChemCloud产品详细");
         }
 
-      
+
     });
- 
-   
-  
+
+
+
 
     /*在线咨询*/
     function onlinetalk(shopID) {
@@ -584,9 +592,12 @@
                 {
                     field: "Shopping", title: "购物车",
                     formatter: function (value, row, index) {
-                        var html = [''];
-                        html.push('<span class="gou_wu_ce" id="' + row.Id + '" alt=' + row.ShopId + '></span>');
-                        return html.join('');
+                        if ($("#hdCurrentUserType").val() != "2") {
+
+                            var html = [''];
+                            html.push('<span class="gou_wu_ce" id="' + row.Id + '" alt=' + row.ShopId + '></span>');
+                            return html.join('');
+                        }
                     }
                 },
                 {

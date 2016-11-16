@@ -1,0 +1,226 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "Auth";
+}
+@using ChemCloud.Core
+@model ChemCloud.Model.ApplyAmountInfo
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<style>
+    .table {
+        width: 79%;
+    }
+
+    .box1 {
+        padding: 0 0px 0px 82px;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $("#Pass").click(function () {
+            var status = 1;
+            var roleName = $("#roleName").val();
+            var loading = showLoading();
+            if (roleName == "管理员" || roleName == "Admin") {
+                ajaxRequest({
+                    type: 'POST',
+                    url: "./UpdateApplyStatus",
+                    param: { Id: $("#linkId").val(), AuthorId: $("#authorId").val(), status: status },
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        if (data.success) {
+                            loading.close();
+                            setTimeout(function () { $.dialog.tips("审核成功！"); }, 3000);
+                            location.href = "/LimitedApply/Management";
+                        }
+                        loading.close();
+                    }, error: function () {
+                        loading.close();
+                        setTimeout(function () { $.dialog.tips("审核失败！"); }, 3000);
+                        location.href = "/LimitedApply/Management";
+                    }
+                });
+            } else {
+                ajaxRequest({
+                    type: "post",
+                    url: './IsLimitedAmountOver',
+                    data: { Id: $("#linkId").val(), Cointype: $("#coinType").val() },
+                    dataType: "json",
+                    async: false,
+                    success: function (result) {
+                        if (result.success) {
+                            $.dialog.confirm('你的金额受限，是否继续向上级提交申请？', function () {
+                                ajaxRequest({
+                                    type: "post",
+                                    url: './SendMessage',
+                                    async: false,
+                                    success: function (data) {
+                                        if (data.success) {
+                                            $.dialog.succeedTips("申请提交成功！");
+                                            loading.close();
+                                        }
+                                        else {
+                                            $.dialog.errorTips("申请提交失败！");
+                                            loading.close();
+                                        }
+                                    }
+                                });
+                                location.href = "/LimitedApply/Management";
+                            });
+                        }
+                        else {
+                            ajaxRequest({
+                                type: "post",
+                                url: './UpdateApplyStatus',
+                                data: { Id: $("#linkId").val(), AuthorId: $("#authorId").val(), status: status },
+                                dataType: "json",
+                                async: false,
+                                success: function (data) {
+                                    if (data.success) {
+                                        loading.close();
+                                        setTimeout(function () { $.dialog.tips("审核成功！"); }, 3000);
+                                        location.href = "/LimitedApply/Management";
+                                    }
+                                    loading.close();
+                                }, error: function () {
+                                    loading.close();
+                                    setTimeout(function () { $.dialog.tips("审核失败！"); }, 3000);
+                                    location.href = "/LimitedApply/Management";
+                                }
+
+                            });
+                        }
+                    }
+                });
+            }
+            
+        });
+        $("#NoPass").click(function () {
+            var status = 2;
+            var roleName = $("#roleName").val();
+            var loading = showLoading();
+            if (roleName == "管理员" || roleName == "Admin") {
+                ajaxRequest({
+                    type: 'POST',
+                    url: "./UpdateApplyStatus",
+                    param: { Id: $("#linkId").val(), AuthorId: $("#authorId").val(), status: status },
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        if (data.success) {
+                            loading.close();
+                            setTimeout(function () { $.dialog.tips("审核成功！"); }, 3000);
+                            location.href = "/LimitedApply/Management";
+                        }
+                        loading.close();
+                    }, error: function () {
+                        loading.close();
+                        setTimeout(function () { $.dialog.tips("审核失败！"); }, 3000);
+                        location.href = "/LimitedApply/Management";
+                    }
+                });
+            } else {
+                ajaxRequest({
+                    type: "post",
+                    url: './IsLimitedAmountOver',
+                    data: { Id: $("#linkId").val(), Cointype: $("#coinType").val() },
+                    dataType: "json",
+                    async: false,
+                    success: function (result) {
+                        if (result.success) {
+                            $.dialog.confirm('你的金额受限，是否继续向上级提交申请？', function () {
+                                ajaxRequest({
+                                    type: "post",
+                                    url: './SendMessage',
+                                    async: false,
+                                    success: function (data) {
+                                        if (data.success) {
+                                            $.dialog.succeedTips("申请提交成功！");
+                                            loading.close();
+                                        }
+                                        else {
+                                            $.dialog.errorTips("申请提交失败！");
+                                            loading.close();
+                                        }
+                                    }
+                                });
+                                location.href = "/LimitedApply/Management";
+                            });
+                        }
+                        else {
+                            ajaxRequest({
+                                type: "post",
+                                url: './UpdateApplyStatus',
+                                data: { Id: $("#linkId").val(), AuthorId: $("#authorId").val(), status: status },
+                                dataType: "json",
+                                async: false,
+                                success: function (data) {
+                                    if (data.success) {
+                                        loading.close();
+                                        setTimeout(function () { $.dialog.tips("审核成功！"); }, 3000);
+                                        location.href = "/LimitedApply/Management";
+                                    }
+                                    loading.close();
+                                }, error: function () {
+                                    loading.close();
+                                    setTimeout(function () { $.dialog.tips("审核失败！"); }, 3000);
+                                    location.href = "/LimitedApply/Management";
+                                }
+                                
+                            });
+                        }
+                    }
+                });
+
+            }           
+        });
+    });
+
+</script>
+<div class="box1 lh24">
+    <div class="title bot-border" style="margin-top:20px;">
+        <h3 class="title_txt cur">审核申请</h3><h3 class="title_txt cur"><a href="./Management">限额审核</a></h3>
+    </div>
+    <div class="border-box">
+        <div class="container">
+            <table class="table table-bordered table-striped">
+                <colgroup>
+                    <col class="col-xs-1">
+                    <col class="col-xs-7">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>申请人：</td>
+                        <td>@Model.ApplyName</td>
+                    </tr>
+                    <tr>
+                        <td>申请金额：</td>
+                        <td>@Model.ApplyAmount</td>
+                    </tr>
+                    <tr>
+                        <td>货币：</td>
+                        <td>@Model.CoinName</td>
+                    </tr>
+                    <tr>
+                        <td>订单#：</td>
+                        <td>@Model.OrderId</td>
+                    </tr>
+                    <tr>
+                        <td>申请日期：</td>
+                        <td>@Model.ApplyDate</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="mt20">
+                <input type="button" class="btn btn-primary statusBtn" status="passShop" id="Pass" value="通过" />
+                <input type="button" class="btn btn-primary statusBtn" status="passShop" id="NoPass" value="拒绝" />
+            </div>
+            <input type="hidden" value="@ViewBag.AuthorId" id="authorId" />
+            <input type="hidden" value="@ViewBag.Money" id="money" />
+            <input type="hidden" value="@ViewBag.Id" id="linkId" />
+            <input type="hidden" value="@ViewBag.orderId" id="orderId" />
+            <input type="hidden" value="@Model.CoinType" id="coinType" />
+            <input type="hidden" value="@ViewBag.RoleName" id="roleName" />
+        </div>
+    </div>
+</div>

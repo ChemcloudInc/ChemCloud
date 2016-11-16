@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "配置组织架构页面";
+}
+@using ChemCloud.Core;
+<script src="~/Areas/Web/Scripts/EditOrganization.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+
+<div class="box1 lh24">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">编辑组织架构</h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            @*<form id="personRegForm" role="form" method="post">*@
+            @*<input type="hidden" name="regType" id="regType" value="person">
+                <input type="hidden" name="uuid" id="uuid" value="9e4da8d0-1b3e-45c7-b3bd-928fd09f3f97">*@
+            <div class="form">
+                <div class="item" id="select-regName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>用户名：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="regName" name="regName" value="@ViewBag.Name" disabled="disabled" class="text">
+                            <i class="i-name"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="realName">
+                    @if (ViewBag.LanguageType == 1)
+                    {
+                        <span class="label">姓:</span>
+                    }
+                    else if (ViewBag.LanguageType == 2)
+                    {
+                        <span class="label">FirstName:</span>
+                    }
+                    <div class="fl">
+                        <input type="text" id="firstName" class="form-control input-sm select-sort" disabled="disabled" style="width:120px;height:32px" value="@ViewBag.FirstName">
+                    </div>
+                    @if (ViewBag.LanguageType == 1)
+                    {
+                        <span class="label" style="width:35px">名:</span>
+                    }
+                    else if (ViewBag.LanguageType == 2)
+                    {
+                        <span class="label">SecondName:</span>
+                    }
+                    <div class="fl">
+                        <input type="text" id="secondName" class="form-control input-sm select-sort" disabled="disabled" style="width:120px;height:32px" value="@ViewBag.SecondName">
+                    </div>
+                </div>
+                <div class="item" id="select-Name">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>权限组名：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName" id="div4" style="display:block">
+                            <input type="text" id="Name" name="upName" value="@ViewBag.RoleName" disabled="disabled" class="text">
+
+                            <button type="button" id="Clear" style="height:20px;width:60px;text-align:center">修改</button>
+                        </div>
+                        <div class="o-intelligent-regName" id="div3" style="display:none">
+                            <select name="list" id="UserSelect" class="form-control input-sm select-sort" style="width:280px;height:32px"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-upName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>上级权限组名：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName" id="div2" style="display:block">
+                            <input type="text" id="upName" name="upName" value="@ViewBag.ParentRoleName" disabled="disabled" class="text">
+
+                            <button type="button" id="ClearUp" style="height:20px;width:60px;text-align:center">修改</button>
+                        </div>
+                        <div class="o-intelligent-regName" id="div1" style="display:none">
+                            <select name="list" id="UpUserSelect" class="form-control input-sm select-sort" style="width:280px;height:32px"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-upName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>上级用户名：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName" id="div6" style="display:block">
+                            <input type="text" id="upParentName" name="upName" value="@ViewBag.ParentName" disabled="disabled" class="text">
+                            <button type="button" id="ClearUser" style="height:20px;width:60px;text-align:center">修改</button>
+                        </div>
+                        <div class="o-intelligent-regName" id="div5" style="display:none">
+                            <select name="list" id="UpSelectList" class="form-control input-sm select-sort" style="width:280px;height:32px"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" value="@ViewBag.userId" id="UserId" />
+                <input type="hidden" value="@ViewBag.ParentRoleName" id="ParentRoleName" />
+                <input type="hidden" value="@ViewBag.RoleName" id="roleName" />
+                <input type="hidden" value="@ViewBag.roleId" id="roleId" />
+                <input type="hidden" value="@ViewBag.ParentRoleId" id="ParentRoleId" />
+                <input type="hidden" value="@ViewBag.Id" id="OrgId" />
+                <input type="hidden" value="@ViewBag.parentId" id="parentId" />
+                <input type="hidden" value="@ViewBag.MasterId" id="masterId" />
+                <div class="item">
+                    <span class="label">&nbsp;</span>
+                    @*<input type="hidden" id="introducer" name="introducer" value="@ViewBag.Introducer" />*@
+                    <div class="fl">
+                        <input type="button" class="btn-5" id="EditOrg" style="cursor:pointer"
+                               value="保存修改">
+                    </div>
+                </div>
+            </div>
+            <span class="clr"></span>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+
+

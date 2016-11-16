@@ -1,0 +1,290 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "询盘详细";
+}
+@model ChemCloud.Model.MargainBill
+@using ChemCloud.Core
+@using ChemCloud.Model
+
+<link href="~/Areas/Web/Content/order-detail.css" rel="stylesheet" />
+<style>
+    a:hover {
+        color: white;
+    }
+</style>
+
+<form class="form" id="frombargain">
+    <input id="hdbillid" type="hidden" value="@Model.Id" />
+    <input id="hdstatus" type="hidden" value="@Model.BillStatus" />
+    <input id="hdisreview" type="hidden" value="@ViewBag.isreview" />
+    <input id="hdDeliverCost" type="hidden" value="@Model.DeliverCost" />
+    <div class="box1 lh24">
+        <div class="title">
+            <span class="title_txt curr">询盘详细</span>
+        </div>
+        <div class="border-box" style="padding:10px; width: 986px;">
+            <div class="orderstate">
+                <div class="mt">
+                    <strong>
+                        询盘#：@Model.BillNo&nbsp;&nbsp;&nbsp;&nbsp; 供应商：@Model.ShopName &nbsp;&nbsp; &nbsp; &nbsp;
+                        状态：<span class="ftx14">@Model.BillStatus.ToDescription()</span>
+                        <span id="pay-button-1622972656"></span>
+                    </strong>
+                    <div class="fr">
+                        <div class="toolbar">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="orderinfo-box">
+                <div class="mc">
+                    <dl class="fore">
+                        <dt>收货人信息</dt>
+                        <dd>
+                            <ul>
+                                <li>收&nbsp;货&nbsp;人：@Model.MemberName</li>
+                                <li>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：@Model.DeliverAddress</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>支付及配送方式</dt>
+                        <dd>
+                            <ul>
+                                <li>
+                                    配送方式：
+                                    <span>@Model.DeliverType</span>
+                                </li>
+                                @*<li>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费：<span class="ftx-04">$@Model.DeliverCost.ToString("F2")</span></li>*@
+                                <li>配货周期：<span>@Model.DistributionCycle</span></li>
+                                <li>支付方式：<span>@Model.PayMode</span></li>
+                                <li>产品总额：<span class="ftx-04"><span id="TotalAmount">@Model.TotalAmount.ToString("F2")</span></span></li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <span class="i-mt">产品清单</span>
+                            <div id="couponListShow" class="prompt p-fquan">
+                                <div id="couponList" class="pc"></div>
+                            </div>
+                            <div class="clr"></div>
+                        </dt>
+                        <dd class="p-list">
+                            <table width="100%" cellspacing="0" cellpadding="0" id="tabledetail">
+                                <tbody>
+                                    <tr>
+                                        <th style="text-align:center;" width="4%">序号</th>
+                                        <th style="text-align:center;" width="10%">CAS #</th>
+                                        <th style="text-align:center;" width="10%">名称</th>
+                                        <th style="text-align:center;" width="5%">纯度</th>
+                                        <th style="text-align:center;" width="10%">包装规格</th>
+                                        <th style="text-align:center;" width="6%">等级</th>
+                                        <th style="text-align:center;" width="5%">数量</th>
+                                        <th style="text-align:center;" width="7%">价格</th>
+                                        <th style="text-align:center;" width="7%">货币</th>
+                                        <th style="text-align:center;" width="10%">我的留言</th>
+                                        <th style="text-align:center;" width="10%">卖家回复</th>
+                                        <th style="text-align:center;" width="10%">操作人</th>
+                                    </tr>
+                                    @{
+                                        int row = 1;
+                                        //初始化一条新的询盘记录，用于再次提交询盘
+                                        MargainBillDetail detailmodel = new MargainBillDetail();
+                                        string cointypename = "CNY";
+                                    }
+                                    @foreach (var billdetail in Model._MargainBillDetail)
+                                    {
+                                        detailmodel = billdetail;
+                                        <tr>
+                                            <td>@row</td>
+                                            <td>@billdetail.CASNo</td>
+                                            <td>
+                                                @billdetail.ProductName
+                                            </td>
+                                            <td>@billdetail.Purity</td>
+                                            <td>@billdetail.PackingUnit</td>
+                                            <td>@billdetail.SpecLevel</td>
+                                            <td>
+                                                @billdetail.Num
+                                            </td>
+                                            <td>
+                                                @billdetail.PurchasePrice.ToString("F2")
+                                            </td>
+                                            @if (@Model.CoinType == 1)
+                                            {
+                                                <td>
+                                                    CNY
+                                                </td>
+                                            }
+                                            @if (@Model.CoinType == 2)
+                                            {
+                                                cointypename = "USD";
+                                                <td>
+                                                    USD
+                                                </td>
+                                            }
+                                            @{
+                                        if (null != @billdetail.BuyerMessage)
+                                        {
+                                            if (@billdetail.BuyerMessage.Length > 6)
+                                            {
+                                                //@billdetail.BuyerMessage.Substring(0, 6) ...
+                                                <td title="@billdetail.BuyerMessage" style="word-break:break-all;text-align:left;"> @billdetail.BuyerMessage</td>
+                                            }
+                                            else
+                                            {
+                                                <td style="word-break:break-all;text-align:left;"> @billdetail.BuyerMessage</td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td style="word-break:break-all;text-align:left;"> @billdetail.BuyerMessage</td>
+                                        }
+                                        if (null != @billdetail.MessageReply)
+                                        {
+                                            /*  if (@billdetail.MessageReply.Length > 6)
+                                              {
+                                                  <td title="@billdetail.MessageReply"> @billdetail.MessageReply.Substring(0, 6) ...</td>
+                                              }
+                                              else
+                                              {
+                                                  <td> @billdetail.MessageReply</td>
+                                              }*/
+                                            <td title=@billdetail.MessageReply style="word-break:break-all;text-align:left;">@billdetail.MessageReply</td>
+                                        }
+                                        else
+                                        {
+                                            <td title=@billdetail.MessageReply style="word-break:break-all;text-align:left;"> @billdetail.MessageReply</td>
+                                        }
+}
+                                            <td>@billdetail.BidderName</td>
+                                        </tr>
+                                        row++;
+                                    }
+                                    @if (@ViewBag.isreview == "true")
+                                    {
+                                        <tr>
+                                            <td>@row</td>
+                                            <td>@detailmodel.CASNo</td>
+                                            <td>
+                                                @detailmodel.ProductName
+                                            </td>
+                                            <td>@detailmodel.Purity</td>
+                                            <td>@detailmodel.PackingUnit</td>
+                                            <td>@detailmodel.SpecLevel</td>
+                                            <td>
+                                                <input type="text" id="Num" value="@detailmodel.Num" style="width:80%;padding-left:5px;color:red; text-align:center;" />
+                                            </td>
+                                            <td>
+                                                <input type="text" id="PurchasePrice" value="@detailmodel.PurchasePrice.ToString("F2")" style="width:80%; color:red;padding-left:5px;" />
+                                            </td>
+                                            <td>@cointypename</td>
+                                            <td><input type="text" id="BuyerMessage" style="width:80%;padding-left:5px;"></td>
+                                            <td>
+                                                @*@detailmodel.MessageReply*@
+                                            </td>
+                                            <td>
+                                                @*@detailmodel.BidderName*@
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd>
+                            <a class="btn btn-4" id="submitbargain">继续询盘</a>
+                            <a class="btn btn-4" style="margin-left:10px;" id="overbargain">结束询盘</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="~/Scripts/jquery.form.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#id_a').bind('click', function () {
+            $('#id_a').addClass('curr');
+            $('#id_b').removeClass('curr');
+            $($('.tabcon')[0]).show();
+            $($('.tabcon')[1]).hide();
+        });
+        $('#id_b').bind('click', function () {
+            $('#id_b').addClass('curr');
+            $('#id_a').removeClass('curr');
+            $($('.tabcon')[1]).show();
+            $($('.tabcon')[0]).hide();
+        });
+
+        $("#PurchasePrice").bind('blur', function () {
+
+            if (!$.trim($("#Num").val()) || !$.trim($("#PurchasePrice").val())) {
+                $.dialog.errorTips("数量和价格不能为空！");
+            } else {
+                $("#TotalAmount").html(parseFloat($.trim($("#PurchasePrice").val())) + parseFloat($("#hdDeliverCost").val()));
+            }
+        });
+
+        //提交询盘单
+        $("#submitbargain").click(function () {
+
+            if ($("#hdstatus").val() == "BargainOver" || $("#hdstatus").val() == "BargainSucceed") {
+                $.dialog.errorTips("询盘已结束！");
+                return false;
+            }
+
+            if ($("#hdisreview").val() == "false") { $.dialog.errorTips("请等待供应商询盘回复！"); }
+            else {
+                $.dialog.confirm('确定提交本次询盘？', function () {
+                    var Id = $("#hdbillid").val();
+                    var Num = $.trim($("#tabledetail tr:last").find('td').eq(6).children('input').val());
+                    var PurchasePrice = $.trim($("#tabledetail tr:last").find('td').eq(7).children('input').val());
+                    var BuyerMessage = $.trim($("#tabledetail tr:last").find('td').eq(9).children('input').val());
+
+                    var loading = showLoading();
+                    $.post('/Bargain/UpdateBargaion', { Id: Id, Num: Num, PurchasePrice: PurchasePrice, BuyerMessage: BuyerMessage },
+                        function (data) {
+                            loading.close();
+                            if (data.success) {
+                                $.dialog.succeedTips("提交成功！", function () {
+                                    location.href = "/Bargain/BargainList";
+                                }, 3);
+                            }
+                            else {
+                                $.dialog.errorTips("提交失败！");
+                            }
+                        });
+                });
+            }
+        });
+
+        //结束询盘
+        $("#overbargain").click(function () {
+            if ($("#hdstatus").val() == "BargainOver" || $("#hdstatus").val() == "BargainSucceed") {
+                $.dialog.errorTips("询盘已结束！");
+                return false;
+            }
+            $.dialog.confirm('确定结束本次询盘？', function () {
+                var loading = showLoading();
+                var billid = $("#hdbillid").val();
+                $.post('/Bargain/OverBargain', { Id: billid },
+                      function (data) {
+                          loading.close();
+                          if (data.success) {
+                              $.dialog.succeedTips("操作成功！", function () {
+                                  location.href = "/Bargain/BargainList";
+                              }, 3);
+                          }
+                          else {
+                              $.dialog.errorTips("操作失败！");
+                          }
+                      });
+            });
+        });
+    });
+</script>

@@ -1,0 +1,174 @@
+﻿@model ChemCloud.Model.CASInfo
+<script src="~/Scripts/CommonJS.js"></script>
+<div class="container">
+    @using (Html.BeginForm("Edit", "CAS", new { Area = "Admin" }, FormMethod.Post, new { @id = "CASEditForm" }))
+    {
+        @Html.HiddenFor(s => s.CAS_NO)
+        <h3 class="table-hd">CAS详情</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>CAS号</td>
+                    <td>@Html.TextBoxFor(c => c.CAS_NUMBER, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>中文名</td>
+                    <td>@Html.TextBoxFor(c => c.CHINESE, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>中文别名</td>
+                    <td>@Html.TextBoxFor(c => c.CHINESE_ALIAS, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>英文名</td>
+                    <td>@Html.TextBoxFor(c => c.ENGLISH, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>英文别名</td>
+                    <td>@Html.TextBoxFor(c => c.ENGLISH_ALIAS, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>分子式</td>
+                    <td>@Html.TextBoxFor(c => c.MOLECULAR_FORMULA, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>分子量</td>
+                    <td>@Html.TextBoxFor(c => c.MOLECULAR_WEIGHT, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>精确质量</td>
+                    <td>@Html.TextBoxFor(c => c.PRECISE_QUALITY, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>PSA</td>
+                    <td>@Html.TextBoxFor(c => c.PSA, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>LogP</td>
+                    <td>@Html.TextBoxFor(c => c.LOG_P, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>密度</td>
+                    <td>@Html.TextBoxFor(c => c.DENSITY, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>熔点</td>
+                    <td>@Html.TextBoxFor(c => c.RongDian, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>沸点</td>
+                    <td>@Html.TextBoxFor(c => c.BOILING_POINT, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>闪点</td>
+                    <td>@Html.TextBoxFor(c => c.FLASH_POINT, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>外观与性状</td>
+                    <td>@Html.TextBoxFor(c => c.WaiGuanXZ, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>折射率</td>
+                    <td>@Html.TextBoxFor(c => c.REFRACTIVE_INDEX, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>蒸汽压</td>
+                    <td>@Html.TextBoxFor(c => c.VAPOR_PRESSURE, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>海关编码</td>
+                    <td>@Html.TextBoxFor(c => c.HG_CODE, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>WGK Germany</td>
+                    <td>@Html.TextBoxFor(c => c.WGK, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>危险类别码</td>
+                    <td>@Html.TextBoxFor(c => c.DEN_CODE, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>安全说明</td>
+                    <td>@Html.TextBoxFor(c => c.SAFE_DESC, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>危险品标志</td>
+                    <td>@Html.TextBoxFor(c => c.DEN_SIGN, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>所属分类</td>
+                    <td>@Html.TextBoxFor(c => c.CAS_CATEGORY, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>来源</td>
+                    <td>@Html.TextBoxFor(c => c.SOURCE_FROM, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>来源地址</td>
+                    <td>@Html.TextBoxFor(c => c.SOURCE_FROM_LINK, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>2维结构路径</td>
+                    <td>@Html.TextBoxFor(c => c.STRUCTURE_2D, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>外部引用编号</td>
+                    <td>@Html.TextBoxFor(c => c.EXTERNAL_ID, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>外部引用链接</td>
+                    <td>@Html.TextBoxFor(c => c.EXTERNAL_LINK, new { @class = "form-control input-sm" })</td>
+                </tr>
+                <tr>
+                    <td>版本</td>
+                    <td>@Html.TextBoxFor(c => c.VERSION, new { @class = "form-control input-sm" })</td>
+                </tr>
+                @*<tr>
+                    <td>状态</td>
+                    <td>
+                        <select id="sel_lock" class="form-control input-ssm">
+                            @if (Model.IS_LOCK)
+                        {
+                        <option selected="selected">锁定</option>
+                        <option>正常</option>
+                        }
+                        else
+                        {
+                        <option>锁定</option>
+                        <option selected="selected">正常</option>
+                        }
+                        </select>
+                    </td>
+                </tr>*@
+            </tbody>
+        </table>
+    }
+    <div class="mt20">
+        <input type="button" class="btn btn-primary btn-sm" id="linkedit" value="保 存" />
+        <a href="javascript:history.go(-1)" class="btn btn-primary btn-sm">取 消</a>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#linkedit").on("click", function () {
+            var form = $('#CASEditForm');
+            var data = form.serialize();
+            var loading = showLoading();
+            $.post('Editing', data, function (result) {
+                loading.close();
+                if (result.Successful == true) {
+                    $.dialog.tips("修改成功！");
+                    setTimeout(function () {
+                        window.history.go(-1);
+                    }, 2000);
+                }
+                else
+                    $.dialog.errorTips(result.msg);
+            });
+        });
+    });
+</script>

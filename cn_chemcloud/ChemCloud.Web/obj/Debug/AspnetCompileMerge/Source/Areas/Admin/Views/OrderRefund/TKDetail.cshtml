@@ -1,0 +1,181 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TKDetail</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <style>
+        #Refund {
+            width: 1210px;
+            position: relative;
+            padding: 2px 0 30px 280px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        #liucheng {
+            background: #fff;
+            padding: 20px 8px;
+        }
+
+        #Refund .Refund_border .siader h3 {
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .Refund_border {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="Refund">
+        <div class="Refund_border" style="width:1004px; margin-top:60px;">
+            <div class="main_liu">
+                <div class="header_liu">
+                    <h3 style="font-weight:bold;margin-top: 29px;">退款信息</h3>
+                    <span class="header_xi"></span>
+                </div>
+                <div class="form_hang">
+                    <div class="lable">
+                        <span class="lable_text">退款状态：</span>
+                    </div>
+                    <span style="color:red;" id="spanstatus"></span>
+                </div>
+                <div class="Refund_form">
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_text">退货退款原因：</span>
+                        </div>
+                        <select name="" id="Reson" style="width:300px;">
+                            <option value="0">收到的产品与采购产品不一致</option>
+                            <option value="1">产品无法使用</option>
+                            <option value="2">其它原因</option>
+                        </select>
+
+                    </div>
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_text">退款金额：</span>
+                        </div>
+                        <input type="text" id="Amont" value="" disabled="disabled">
+                        <span>元</span>
+                        <span>(最多 </span>
+                        <span style="color:red;">@ViewBag.max</span>
+                        <span class="more"></span>
+                        <span>元)</span>
+                    </div>
+                    <div class="form_hang">
+                        <div class="form_hang">
+                            <span class="lable">回复：</span>
+                            <textarea class="textarea" id="Introduce"></textarea>
+                        </div>
+                    </div>
+                    <div class="button_hang" style="padding-bottom:20px">
+                        <span class="sq_button">
+                            <a onclick="CheckTK()" class="sq_a_button">审核通过</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="siader">
+                <h3>订单信息</h3>
+                <div class="border_sia">
+                    <div class="line_height_sia">
+                        <span class="guding">采购商：</span>
+                        <span>@ViewBag.UserName</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">供应商：</span>
+                        <span>@ViewBag.ShopName</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span>订单编号：</span>
+                        <span class="blud_span">@ViewBag.OrderNo</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">订单金额：</span>
+                        <span class="hong_span">@ViewBag.total</span>
+                        <span>元</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">运 费：</span>
+                        <span class="hong_span">@ViewBag.yunfei</span>
+                        <span>元</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<input type="hidden" id="hdOrderNo" value="@ViewBag.OrderNo" />
+<input type="hidden" id="hdtype" value="@ViewBag.type" />
+<input type="hidden" id="hdReasonType" value="@ViewBag.ReasonType" />
+<input type="hidden" id="hdTKAmont" value="@ViewBag.TKAmont" />
+<input type="hidden" id="hdTKInstruction" value="@ViewBag.TKInstruction" />
+
+
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script>
+    $(function () {
+        var type = $("#hdtype").val(); /*状态*/
+
+        if (type == "5") {
+            $(".button_hang").css("display", "none");
+        }
+
+        switch (type) {
+            case "1": type = "退款中"; break;
+            case "2": type = "仲裁中"; break;
+            case "3": type = "同意退款"; break;
+            case "4": type = "拒绝退款"; break;
+            case "5": type = "已完成"; break;
+        };
+        $("#spanstatus").html(type);
+
+        var ReasonType = $("#hdReasonType").val();/*原因*/
+        $("#Reson").val(ReasonType);
+        $("#Reson").attr("disabled", "disabled");
+
+        var tkamont = $("#hdTKAmont").val();/*金额*/
+        $("#Amont").val(tkamont);
+        $("#Amont").attr("disabled", "disabled");
+
+        var TKInstruction = $("#hdTKInstruction").val();/*留言*/
+        $("#Introduce").val(TKInstruction);
+        $("#Introduce").attr("disabled", "disabled");
+
+    });
+
+    /*退款*/
+    var CheckTK = function () {
+        var type = $("#hdtype").val(); /*状态*/
+
+        if (type == "4") {
+            alert("退款已被供应商拒绝，请等待采购商再次提交申请！");
+            return false;
+        }
+
+        if (type != "3") {
+            alert("请等待供应商确认！");
+            return false;
+        }
+        $.post("CheckTK", {
+            OrderNo: $("#hdOrderNo").val()
+        }, function (data) {
+            if (data.success == true) {
+                alert("操作成功！");
+                setTimeout(function () { location.href = "TK" }, 2000);;
+            } else {
+                alert("操作失败！");
+            }
+        });
+    }
+</script>

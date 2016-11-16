@@ -1,0 +1,39 @@
+﻿
+@{
+    var items = ChemCloud.Core.EnumHelper.ToDescriptionDictionary<ChemCloud.Model.ApplyWithDrawInfo.ApplyWithDrawStatus>().Select(e => new SelectListItem
+    {
+        Text = e.Value,
+        Value = e.Key.ToString()
+    }).ToList();
+    items.Insert(0, new SelectListItem { Text = "全部", Value = "0", Selected = true });
+}
+@{var status = Request.QueryString["status"];}
+<script src="~/Areas/Admin/Scripts/ApplyWithDraw.js"></script>
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<input type="hidden" id="inputApplyStatus" />
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li><a href="Index">预付款管理</a></li>
+        <li class="active"><a >提现管理</a></li>
+    </ul>
+    
+    <div class="search-box" id="search-box">
+        <form class="custom-inline" role="form">
+            <label class="label-inline" for="">状态：</label>
+            <div class="form-group">
+                @Html.DropDownList("applyType", items, new { @class = "form-control input-sm" })
+            </div>
+            <label >提现单号：</label>
+            <div class="form-group">
+                <input id="inputWithNo" class="form-control input-ssm" type="text">
+            </div>
+            <label > 提现会员：</label>
+            <div class="form-group">
+                <input id="inputWithDrawUser" class="form-control input-ssm" type="text">
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" id="searchButton">搜索</button>
+        </form>
+    </div>
+    <table id="list" class="table"></table>
+</div>

@@ -1748,7 +1748,6 @@
     <Content Include="Areas\Admin\Views\Order\NewPdfPrint.cshtml" />
     <Content Include="Areas\Admin\Views\Order\ManageShip.cshtml" />
     <Content Include="Areas\Admin\Views\Order\PrintInvoiceShip.cshtml" />
-    <Content Include="ExcelTemplate\BatchImportProduct - 副本.xls" />
     <Content Include="Areas\Admin\Views\Order\BehalfShip.cshtml" />
     <Content Include="Areas\Admin\Views\OrderRefund\TKDetail.cshtml" />
     <Content Include="Areas\SellerAdmin\Views\TK\Step2 - 复制.cshtml" />

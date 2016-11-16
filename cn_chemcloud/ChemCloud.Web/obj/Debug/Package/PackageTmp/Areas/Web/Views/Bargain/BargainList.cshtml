@@ -1,0 +1,204 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "询盘管理";
+}
+<style>
+    #bargainDatagrid th {
+        background-color: #3498DB;
+        color: #fff;
+    }
+
+    #bargainDatagrid tr {
+        height: 30px;
+    }
+
+    tr {
+        border-bottom: 1px solid #f2f2f2;
+        height: 32px;
+        line-height: 32px;
+    }
+
+    .box1 {
+        padding-top: 0px;
+    }
+</style>
+
+<div class="box1 lh24">
+    <div class="title bot-border" style="margin-top:20px;">
+        <h3 class="title_txt cur">询盘列表</h3>
+    </div>
+    <div class="border-box">
+        <div id="shopToolBar">
+            <div class="search-box only-line">
+                <div class="form-group" style="height:30px; padding-top:5px; padding-left:30px;">
+                    <label class="label-inline" for="" style="width : 78px ">询盘单号：</label>
+                    <input class="form-control input-ssm" type="text" id="txtBillNo" style="height:24px;" />
+
+
+                    <label class="label-inline" for="" style="width : 78px ">供应商：</label>
+                    <input class="form-control input-ssm" type="text" id="shopname" style="height:24px;" />
+                    <input type="button" class="btn btn-primary btn-sm" id="searchBtn" onclick="Query()" value="搜 索" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer " />
+                </div>
+            </div>
+        </div>
+        <table class="table mt40" id="bargainDatagrid" style="width:100%;margin-top:10px;"></table>
+
+        <div class="tabel-operate" id="orderOperate">
+            <button type="button" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer " onclick="batchdelete()">批量删除</button>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script type="text/javascript">
+
+    function Query() {
+        var txtBillNo = $.trim($("#txtBillNo").val());
+        var shopname = $("#shopname").val();
+        var loading = showLoading();
+        $("#bargainDatagrid").hiMallDatagrid({
+            url: "/Bargain/BargainList",
+            nowrap: false,
+            rownumbers: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            border: false,
+            fit: true,
+            fitColumns: true,
+            pagination: true,
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { "shopname": shopname, "billno": txtBillNo },
+            toolbar: "#shopToolBar",
+            operationButtons: "#orderOperate",
+            columns:
+            [[
+                 {
+                     checkbox: true, width: 30, formatter: function (value, row, index) {
+                         return '<input type="checkbox">';
+                     }
+                 },
+                { field: "BillNo", title: "询盘单号", width: 150, align: "center" },
+				{ field: "ShopName", title: "供应商名称", width: 150, align: "center" },
+                //{ field: "BuyerEmail", title: "买家邮箱", width: 150, align: "center" },
+                { field: "CASNo", title: "CAS #", width: 100, align: "center" },
+                { field: "ProudctNum", title: "数量", width: 40, align: "center" },
+                { field: "strCreateDate", title: "询盘日期", width: 100 },
+                 {
+                     field: "BillStatus", title: "询盘状态", width: 100, align: "center",
+                     formatter: function (value, row, index) {
+                         if (row.BillStatus == 1) { return "已提交"; }
+                         else if (row.BillStatus == 2) { return "议价中"; } else if (row.BillStatus == 3) { return "结束议价"; } else if (row.BillStatus == 4) { return "议价成功"; }
+                     }
+                 },
+            {
+                field: "operation", operation: true, title: "操作", width: 120,
+                formatter: function (value, row, index) {
+                    var html = ["<span class=\"btn-a\">"];
+                    html.push('<a href="/Bargain/BargainDetail?Id=' + row.Id + '">查看</a>&nbsp|&nbsp');
+                    html.push('<a onclick="OpenClosebargain(' + row.BillNo + ') ">删除</a>');
+                    html.push("</span>");
+                    return html.join("");
+                }
+            }
+
+            ]]
+        });
+        loading.close();
+    };
+
+    $(function () {
+        var shopname = $.trim($("#shopname").val());
+        Query(shopname);
+    });
+
+    function OpenClosebargain(bargainno) {
+
+        $.dialog({
+            title: '删除询盘',
+            lock: true,
+            id: 'goodCheck',
+            content: ['<div class="dialog-form">',
+                '<div class="form-group">',
+                    '<p class="help-top">确认要删除此条询盘吗？</p>',
+                '</div>',
+            '</div>'].join(''),
+            padding: '10px',
+            button: [
+            {
+                name: '确认删除',
+                callback: function () {
+                    CloseBargain(bargainno);
+                },
+                focus: true
+            }]
+        });
+    }
+
+    function CloseBargain(bargainno) {
+        var loading = showLoading();
+        $.post('/Bargain/CloseBargain', { bargainno: bargainno }, function (result) {
+            if (result.success) {
+                $.dialog.succeedTips("操作成功！");
+                var pageNo = $("#bargainDatagrid").hiMallDatagrid('options').pageNumber;
+                $("#bargainDatagrid").hiMallDatagrid('reload', { pageNumber: pageNo });
+            }
+            else
+                $.dialog.errorTips("操作失败");
+            loading.close();
+        });
+    }
+
+    function batchdelete() {
+        var orderIds = getSelectedIds();
+        if (orderIds.length <= 0) {
+            $.dialog.tips('请至少选择一个询盘');
+            return false;
+        }
+
+        $.dialog({
+            title: '批量删除询盘',
+            lock: true,
+            id: 'goodCheck',
+            content: ['<div class="dialog-form">',
+                '<div class="form-group">',
+                    '<p class="help-top">确认要删除所选的询盘吗？</p>',
+                '</div>',
+            '</div>'].join(''),
+            padding: '10px',
+            button: [
+            {
+                name: '确认删除',
+                callback: function () {
+                    funcbatchdelete(orderIds);
+                },
+                focus: true
+            }]
+        });
+    }
+
+    function funcbatchdelete(Ids) {
+        var loading = showLoading();
+
+        $.post('/Bargain/BatchCloseBargain', { 'Ids': "'" + Ids + "'" }, function (result) {
+            if (result.success) {
+                $.dialog.succeedTips("操作成功！");
+                var pageNo = $("#bargainDatagrid").hiMallDatagrid('options').pageNumber;
+                $("#bargainDatagrid").hiMallDatagrid('reload', { pageNumber: pageNo });
+            }
+            else
+                $.dialog.errorTips("操作失败");
+            loading.close();
+        });
+    }
+
+    function getSelectedIds() {
+        var selecteds = $("#bargainDatagrid").hiMallDatagrid('getSelections');
+        var ids = [];
+        $.each(selecteds, function () {
+            ids.push(this.Id);
+        });
+        return ids;
+    }
+
+</script>

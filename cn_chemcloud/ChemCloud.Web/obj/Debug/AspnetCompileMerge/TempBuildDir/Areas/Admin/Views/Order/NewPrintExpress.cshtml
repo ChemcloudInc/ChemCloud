@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "物流打印明细";
+}
+@model ChemCloud.Model.OrderInfo
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Fedex快递单打印</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <!--media=print 这个属性可以在打印时有效-->
+    <style media="print">
+        .Noprint {
+            display: none;
+        }
+
+        .PageNext {
+            page-break-after: always;
+        }
+    </style>
+    <style type="text/css">
+        .ftx-04 {
+            color: #ff6600;
+        }
+
+        .wrap {
+            width: 100%;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            display: block;
+            font: normal 0.9rem/1.5 'microsoft yahei';
+            overflow: hidden;
+        }
+
+        .table_orderdetail {
+            width: 54%;
+            margin: 0 auto;
+            height: auto;
+            border-collapse: collapse;
+        }
+
+            .table_orderdetail tr {
+                height: 26px;
+            }
+
+        table_orderdetail tr:nth-child(1) {
+            font-weight: bolder;
+        }
+        td{
+            border:1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <center class="Noprint">
+        <p>
+            <input value="打印" type="button" id="btnPrint" />
+            <input type=button name=button_fh value="关闭" onclick="javascript:window.close();">
+            <br />
+        </p>
+    </center>
+    <div class="wrap" id="printContent">
+
+        <table class="table_orderdetail" style="margin:0 auto">
+           
+            @{
+                <tr><td>@DateTime.Now.ToString("dd/MM/yyyyy")</td><td>FedexChemCloud</td></tr>
+            }
+            <tr><td>ChemCloud</td><td>025-18061881137</td></tr>
+            <tr><td colspan="2">NanJing Wosstech Co., Ltd.</td></tr>
+            <tr><td colspan="2">NO.003,JINHU GARDEN, HENGKENG<br /> DISTRICT,LIAO`BU TOWN DONGGUAN, GUANGDONG CHINA</td></tr>
+            <tr><td>NanJing</td><td>JiangSu Province</td></tr>
+            <tr><td>China</td><td>210000</td></tr>
+            <tr><td colspan="2"></td></tr>
+
+            <tr><td>@Model.ShipTo</td><td>@Model.CellPhone</td></tr>
+            <tr><td colspan="2">ChemCloud Co., Ltd.</td></tr>
+            <tr><td colspan="2">@Model.RegionFullName &nbsp;@Model.Address</td></tr>
+            <tr><td>NY</td><td>New York City</td></tr>
+            <tr><td>United States</td><td>11354</td></tr>
+            <tr><td colspan="2"></td></tr>
+            <tr><td colspan="2"></td></tr>
+
+            @foreach (var item in Model.OrderItemInfo)
+            {
+                <tr><td style="text-align:right;">@item.ProductName</td><td>@item.PackingUnit , @item.Purity , @item.SpecLevel</td></tr>
+            }
+
+
+            <tr> <td style="text-align:right;"> <img src="@ViewBag.CodePath" /></td><td style="text-align:center;"><img src="@ViewBag.QRcode" /></tr>
+        </table>
+    </div>
+</body>
+</html>
+
+
+<script src="~/Scripts/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+    (function ($) {
+        var printAreaCount = 0;
+        $.fn.printArea = function () {
+            var ele = $(this);
+            var idPrefix = "printArea_";
+            removePrintArea(idPrefix + printAreaCount);
+            printAreaCount++;
+            var iframeId = idPrefix + printAreaCount;
+            var iframeStyle = 'position:absolute;width:0px;height:0px;left:-500px;top:-500px;';
+            iframe = document.createElement('IFRAME');
+            $(iframe).attr({
+                style: iframeStyle,
+                id: iframeId
+            });
+            document.body.appendChild(iframe);
+            var doc = iframe.contentWindow.document;
+            $(document).find("link").filter(function () {
+                return $(this).attr("rel").toLowerCase() == "stylesheet";
+            }).each(
+                    function () {
+                        doc.write('<link type="text/css" rel="stylesheet" href="'
+                                + $(this).attr("href") + '" >');
+                    });
+            doc.write('<div class="' + $(ele).attr("class") + '">' + $(ele).html()
+                    + '</div>');
+            doc.close();
+            var frameWindow = iframe.contentWindow;
+            frameWindow.close();
+            frameWindow.focus();
+            frameWindow.print();
+            $(".header-footer-checkbox").removeAttr("checked");
+        }
+        var removePrintArea = function (id) {
+            $("iframe#" + id).remove();
+        };
+    })(jQuery);
+
+    $(function () {
+        $("#btnPrint").click(function () { $("#printContent").printArea(); });
+    });
+</script>
+
+
+

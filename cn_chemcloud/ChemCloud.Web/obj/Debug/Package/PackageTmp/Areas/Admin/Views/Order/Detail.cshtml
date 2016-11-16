@@ -1,0 +1,223 @@
+﻿@using ChemCloud.Core;
+@model ChemCloud.Model.OrderInfo
+
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+
+        <li class="active"><a>查看 </a></li>
+    </ul>
+
+    <h3 class="table-hd">产品清单</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>产品名称</th>
+                <th>CAS NO.</th>
+                <th>数量</th>
+                <th>规格</th>
+                <th>等级</th>
+                <th>纯度</th>
+                <th>单价</th>
+                <th>货币</th>
+                @if (Model.OrderStatus.ToDescription() == "已支付")
+                {
+                    <th>操作</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderItem in Model.OrderItemInfo)
+            {
+                <tr>
+                    <td>
+                        @{
+                            @*if (!string.IsNullOrEmpty(orderItem.ThumbnailsUrl))
+                                {
+                                    <img width="50" height="50" style="margin-left:15px;" title="" src="@orderItem.ThumbnailsUrl" />@orderItem.ProductName
+                                }
+                                else
+                                {
+                                    <img width="50" height="50" style="margin-left:15px;" title="" src="@orderItem.ImagePath" />@orderItem.ProductName
+                                }*@
+
+                            @orderItem.ProductName
+                        }
+                    </td>
+                    <td>@orderItem.CASNo</td>
+                    <td>@orderItem.Quantity</td>
+                    <td>@orderItem.PackingUnit</td>
+                    <td>@orderItem.SpecLevel</td>
+                    <td>@orderItem.Purity</td>
+                    <td class="ftx-04">@orderItem.SalePrice.ToString("F2")</td>
+                    <td class="ftx-04">@Model.CoinTypeName</td>
+                    @if (Model.OrderStatus.ToDescription() == "已支付")
+                    {
+                        <td>
+                            <a style="cursor:pointer" onclick="Print('@orderItem.OrderId', '@Model.ShopName')">打印产品报检单</a>
+                            <a style="cursor:pointer" onclick="PrintProductCertification('@orderItem.OrderId','@Model.ShopName')">打印产品认证</a>
+                        </td>
+                    }
+
+                </tr>
+            }
+            <tr>
+                <td align="right" colspan="9">
+                    产品总价：￥ @Model.ProductTotalAmount.ToString("F2")&nbsp;&nbsp;&nbsp;
+                    &nbsp; &nbsp; &nbsp;运费：￥@Model.Freight.ToString("F2")
+                    @if (@Model.Insurancefee > 0)
+                    {
+                        <label>保险金额:￥@Model.Insurancefee.ToString("F2");</label>
+                    }
+
+
+                    <b>&nbsp;&nbsp;&nbsp;实付金额：￥@Model.OrderTotalAmount.ToString("F2")</b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h3 class="table-hd">订单信息</h3>
+    <div class="order-info">
+        <div class="caption">
+            <p>订 单 号：@Model.Id</p>
+
+            @if (Model.IsBehalfShip == "1" && string.IsNullOrEmpty(Model.BehalfShipType))
+            {
+                <p class="ftx-04">订单状态：代发货未处理</p>
+            }
+            else
+            {
+                <p>订单状态：@Model.OrderStatus.ToDescription()</p>
+            }
+            <p>下单会员：@Model.UserName</p>
+        </div>
+        <div class="caption">
+            <p>收 货 人：@Model.ShipTo</p>
+            <p>地    址：@Model.RegionFullName @Model.Address</p>
+            <p>手机号码：@Model.CellPhone</p>
+            @*<p>买家备注：@Model.UserRemark</p>*@
+        </div>
+        <div class="caption">
+            @if (Model.PayDate != null && Model.OrderStatus != ChemCloud.Model.OrderInfo.OrderOperateStatus.WaitPay)
+            {
+                if (@Model.OrderTotalAmount == 0)
+                {
+                    <p>支付方式： <span>积分支付</span></p>
+                }
+                else if (string.IsNullOrEmpty(Model.PaymentTypeName))
+                {
+                    <p>支付方式：平台确认收款  【备注：@{@Model.PayRemark}】</p>
+                }
+                else
+                {
+
+                    <p>支付方式：  @Model.PaymentTypeName @Model.PayRemark</p>
+                }
+            }
+            @if (!string.IsNullOrEmpty(Model.ExpressCompanyName))
+            {
+                <p>物流公司：@Model.ExpressCompanyName</p>
+            }
+            @if (!string.IsNullOrEmpty(Model.ShipOrderNumber))
+            {
+                <p>快递单号：@Model.ShipOrderNumber</p>
+            }
+        </div>
+        @if (Model.InvoiceType != ChemCloud.Model.InvoiceType.None)
+        {
+            <div class="caption">
+                <p>发票类型：@Model.InvoiceType.ToDescription()</p>
+                <p>名称：@Model.InvoiceTitle</p>
+                @if (Model.InvoiceType == ChemCloud.Model.InvoiceType.SpecialTicket)
+                {
+                    <p>纳税人识别号：@Model.InvoiceContext</p>
+                    <p>电话：@Model.SellerPhone</p>
+                    <p>开户行及账号：@Model.SellerRemark</p>
+                    <p>地址：@Model.SellerAddress</p>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="caption">
+                <p>不需要开发票</p>
+            </div>
+        }
+
+
+        <div class="caption">
+            <p>COA报告</p>
+
+            @if (!string.IsNullOrEmpty(ViewBag.COA))
+            {
+                <ul>
+                    <li><a href="@ViewBag.COA" target="_blank">点击查看</a></li>
+                </ul>
+            }
+            else
+            {
+                <ul>
+                    <li>无ＣＯＡ报告</li>
+                </ul>
+            }
+        </div>
+
+        @if (Model.Isreplacedeliver == 1)
+        {
+            <div class="caption">
+                <p class="ftx-04"> 物流代发地址：@Model.Replacedeliveraddress</p>
+            </div>
+        }
+
+    </div>
+
+    <h3 class="table-hd">物流跟踪</h3>
+    <table class="table table-bordered" id="tbExpressData"></table>
+
+    <h3 class="table-hd">操作历史</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>操作者</th>
+                <th>时间</th>
+                <th>描述</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderOperationLog in Model.OrderOperationLogInfo)
+            {
+                <tr>
+                    <td>@orderOperationLog.Operator</td>
+                    <td>@orderOperationLog.OperateDate</td>
+                    <td>@orderOperationLog.OperateContent</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        $.post('../GetExpressData', { expressCompanyName: "@Model.ExpressCompanyName", shipOrderNumber: "@Model.ShipOrderNumber" }, function (result) {
+            var html;
+            var objdata = result.ExpressContentCN;
+            var obj = jQuery.parseJSON(objdata);
+            var data = obj;
+            for (var i = 0; i < data.length; i++) {
+                html += '<tr><td>' + data[i].time + '</td>\
+                             <td>' + data[i].context + '</td>';
+                html += '</tr>';
+            }
+            $("#tbExpressData").html(html);
+        });
+
+    });
+    function PrintProductCertification(orderIds, shopName) {
+        window.open("/Admin/Order/PrintProductCertification?orderId=" + orderIds + "&shopName=" + shopName, "_blank");
+    }
+    function Print(orderIds, shopName) {
+        window.open("/Admin/Order/Print?orderId=" + orderIds + "&shopName=" + shopName, "_blank");
+    }
+</script>

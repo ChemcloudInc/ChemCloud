@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "购物车结算";
+    Layout = "~/Areas/Web/Views/Shared/_OrderTopBar.cshtml";
+}
+<div class="w990 cart">
+    <div class="cart-hd group"><h2>我的购物车</h2></div>
+    <div id="show">
+        <div class="cart-inner">
+            <div class="message">
+                <ul>
+                    <li>购物车内暂时没有产品<span class="unLogin">，登陆后，将显示您之前加入的产品</span></li>
+                    <li><a href="/">去首页</a>挑选喜欢的产品</li>
+                </ul>
+            </div>
+            <div class="cart-list">
+                <div class="cart-thead cl">
+                    <div class="column t-checkbox form"><input type="checkbox" name="checkAll" checked="" value="" /><label for="">全选</label></div>
+                    <div class="column t-goods">产品</div>
+                    <div class="column t-price" style="text-align:center;">数量</div>
+                    <div class="column t-quantity">金额</div>
+                    <div class="column t-action">操作</div>
+                </div>
+                <div id="product-list" class="cart-tbody">
+
+                </div>
+
+                <div class="ui-ceilinglamp-1">
+                    <div class="cart-dibu">
+                        <div class="cart-total-2014">
+                            <span class="column t-checkbox form" style="margin-right:10px;">
+                                <input type="checkbox" checked="" name="checkAll" value="" class="jdcheckbox" style="margin: 15px 5px 0 19px;" />
+                                <label for="">全选</label>
+                            </span>
+                            <span class="delete" style="margin-right:10px;">
+                                <b></b>
+                                <a href="javascript:void(0);" id="remove-batch">删除</a>
+                            </span>
+                            已选产品总数：<span id="selectedCount" style="color:#e4393c;">0</span>
+                            <div class="cart-button">
+                                <a style="display:none;" class="checkout" href="javascript:void(0);" id="toSettlement"><b></b>去结算</a>
+                            </div>
+                            <div class="total fr">
+                                总计（不含运费）：<span id="finalPrice">0</span>
+                                <input type="button" value="全部提交" id="submitorderall"
+                                       style="background: #3498DB;border:none 0;color:#fff;height:30px;width:96px;" />
+                                <input id="hduserid" type="hidden" value="@ViewBag.Member" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="@ChemCloud.Model.ProductInfo.ProductAuditStatus.Audited.GetHashCode()" id="hidAuditStatus" />
+<input type="hidden" value="@ChemCloud.Model.ProductInfo.ProductSaleStatus.OnSale.GetHashCode()" id="hidSaleStatus" />
+<link href="~/Areas/Web/Content/WebLoginPlug.css" rel="stylesheet" />
+<script src="~/Areas/Web/Scripts/jQuery.Web.Login.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Scripts/jquery.cookie.js"></script>
+<script src="~/Areas/Web/Scripts/cartSettleAccounts.js"></script>

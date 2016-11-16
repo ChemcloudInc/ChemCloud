@@ -1,0 +1,334 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>平台登录</title>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/Areas/Admin/Content/BkLogin.css" rel="stylesheet" />*@
+    <script src="~/Scripts/CommonJS.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+
+<style>
+    body {
+        width: 100%;
+        height: 100%;
+        background-image: url("/Areas/Admin/Content/Images/后台登录1.png");
+        background-repeat: no-repeat;
+        margin: 0 auto;
+        background-size: 100%;
+    }
+    .main{
+        width:680px;
+        height:354px;
+        margin:0 auto;
+        margin-top: 185px;
+        background:url("/Areas/Admin/Content/Images/后台登录2.png") no-repeat;
+        position: relative;
+        background-size: 680px;
+    }
+    .login{
+        padding-top: 114px;
+        width: 348px;
+        margin-left: 166px;
+    }
+
+    .login span{
+        font-family: "微软雅黑";
+        font-size: 14px;
+        color: #000;
+        display: inline-block;
+        width: 90px;
+        text-align: right;
+    }
+    .login input{
+        border: none;
+        width: 150px;
+        height: 30px;
+        line-height: 35px;
+        /* border-radius: 6px; */
+        border: 1px solid #6a8196;
+        text-indent: 1em;
+        margin-left: 15px;
+        margin-top: 20px;
+        background: rgb(41,41,41);
+        color: #fff;
+    }
+    #keepLogin{
+        display:block;
+        float:left;
+        border: none;
+        width: 12px;
+        height: 11px;
+ 
+        margin-right: 10px;
+        margin-top: 20px;
+    }
+    .btn {
+        width: 62px;
+        height: 24px;
+        line-height: 11px;
+        background-color: rgb(0,0,0);
+        color: #fff;
+        text-align: center;
+        font-size: 14px;
+        box-shadow: 2px 2px 2px #888888;
+    }
+    .btn:hover{
+        color: #fff;
+    }
+    .for_keepLogin{
+        position: absolute; 
+        bottom: 90px;
+        right: 2px;
+        width: 174px;
+    }
+</style>
+</head>
+<body>
+   <div>
+        <div class="main">
+            <div class="login">
+                <div>
+                    <span>用户</span>
+                    <input type="text" class="texinp" id="username" placeholder="请输入您的账号.." />
+                </div>
+                <div>
+                    <span>密码</span>
+                    <input type="password" class="texinp" id="password" placeholder="请输入您的密码.." />
+                    <button type="button" class="btn">登 录</button>
+                </div>
+                <div style="overflow:hidden;margin-top:-9px;">
+                    <input type="text" class="texinp" id="checkCode" maxlength="4" placeholder="验证码..." style="display:none;width:150px;float:left;margin-left: 109px;" />
+                    <img id="checkCodeImg" title="点击更换验证码" src="login/GetCheckCode" style="display:none;width: auto;height: 22px;float: left;margin-top: 23px;margin-left: 6px;"/>
+                </div>
+                <div class="tipic-dialog">
+                </div>
+                <div class="for_keepLogin">
+                    <input type="checkbox" id="keepLogin" />
+                    <label for="keepLogin" style="color:#fff;display:block;text-decoration:none;font-size:14px;font-weight: 400;padding: 10px 30px;margin: 5px 0;font-family:'微软雅黑';padding-bottom:0;margin-bottom:0;">保持登录状态</label>
+                </div>
+                <div style="clear:both;"></div>
+                
+                <div class="error-info" style="display:none;margin-top:8px;margin-left:108px;color:#e4393c">
+                    <p><i class="glyphicon glyphicon-exclamation-sign"></i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var path = '@Url.Action("Login")';
+        $(function () {
+            if (top.location != location) {
+                top.location.href = location.href;
+            }
+            if ($(window).width() < 800) {
+                $('.login-box').css('margin', 0);
+                $("body").css('background', '#3f4553');
+            }
+            path = path.substring(0, path.lastIndexOf('/') + 1);
+
+            $('.text-code').focus(function () {
+                $('.tipic-dialog').fadeIn(300);
+            });
+
+
+            $('img').click(function () {
+                $('.text-code').focus();
+                changeCheckCode();
+            });
+
+            $('button').click(function () {
+                loginBtnClick();
+            });
+
+            $('input').keydown(function () {
+                $('.error-info').hide();
+                checkBoxIcon();
+            });
+
+            initUsername();
+
+        });
+
+
+        function loginBtnClick() {
+
+            var username = $.trim($('#username').val());
+            var password = $.trim($('#password').val());
+            var checkCode = $.trim($('#checkCode').val());
+            var loading = showLoading();
+            try {
+                checkInputValid(username, password, checkCode);
+                login(username, password, checkCode);
+
+                loading.close();
+
+            }
+            catch (e) {
+                showErrorMsg(e.message);
+                loading.close();
+            }
+        }
+
+        function checkBoxIcon(type) {
+            var right = 'glyphicon-ok-circle', wrong = 'glyphicon-remove-circle';
+            var obj = $('#checkBoxIcon');
+            if (!type) {
+                obj.removeClass(right).removeClass(wrong);
+            }
+            else if (type == 'right')
+                obj.removeClass(wrong).addClass(right);
+            else
+                obj.removeClass(right).addClass(wrong);
+        }
+
+        function checkInputValid(username, password, checkCode) {
+            if (!username) {
+                $('#username').select();
+                throw new Error('请输入用户名');
+            }
+            if (!password) {
+                $('#password').select();
+                throw new Error('请输入密码');
+            }
+            var display = $('#checkCode').css('display') != 'none';
+            if (display && !checkCode) {
+                $('#checkCode').select();
+                throw new Error('请输入验证码');
+            }
+            var checkCodeWrongClass = 'glyphicon-remove-circle';
+            if ($('#checkBoxIcon').hasClass(checkCodeWrongClass)) {
+                $('#checkCode').select();
+                throw new Error('验证码错误');
+            }
+        }
+
+        function showErrorMsg(msg) {
+            var icon = '<i class="glyphicon glyphicon-exclamation-sign"></i>';
+            if (msg)
+                $('.error-info p').html(icon + msg).parent().show();
+            else
+                $('.error-info').hide();
+        }
+
+        function login(username, password, checkCode) {
+            var loading = showLoading();
+            $.ajax({
+                type: "post",
+                url: path + 'login',
+                data: {
+                    username: username,
+                    password: password,
+                    checkCode: checkCode
+                },
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    loading.close();
+                    showErrorMsg();
+                    if (result.success) {
+                        var options = { path: "/" };
+                        if ($('#keepLogin').attr('checked'))
+                            options.expires = 365;
+                        $.cookie('Himall-PlatformManager', result.userId, options);
+                        $.cookie('Himall-PlatformUsername', username, { path: "/", expires: 365 });
+
+                        var url = QueryString('return');
+                        if (!url)
+                            url = '/admin';
+                        location.replace(url);
+                    }
+                    else {
+                        showErrorMsg(result.msg);
+                        $('#checkCode').val('');
+                        checkBoxIcon();
+                        if (result.errorTimes >= result.minTimesWithoutCheckCode) {
+                            var checkCode = $('#checkCode');
+                            var checkCodeImg = $("#checkCodeImg");
+                            var display = checkCode.css('display') != 'none';
+                            var display1 = checkCodeImg.css('display') != 'none';
+                            if (!display && !display1) {
+                                checkCode.show().focus();
+                                checkCodeImg.show();
+                                bindCheckBoxInputChangeEvent();
+                            }
+                            else {
+                                changeCheckCode();
+                            }
+                        }
+                        $('#password').select();
+                    }
+                },
+                error: function () {
+                    loading.close();
+                    showErrorMsg('网络错误');
+                }
+            });
+        }
+
+        function changeCheckCode() {
+            $('#checkCodeImg').attr('src', path + 'GetCheckCode?time=' + new Date().getTime());
+        }
+
+        function checkCheckCode() {
+            var checkCode = $.trim($('#checkCode').val());
+            if (checkCode.length < 4)
+                checkBoxIcon('wrong');
+            else {
+                $.post(path + 'CheckCode', { checkCode: checkCode }, function (result) {
+                    if (result.success) {//验证码正确
+                        checkBoxIcon('right');
+                    }
+                    else {
+                        if (result.msg) {//验证码校验异常
+                            showErrorMsg(result.msg);
+                        }
+                        else {//检验码不正确
+                            checkBoxIcon('wrong');
+                        }
+
+                    }
+
+                });
+            }
+        }
+
+        document.onkeydown = function () {
+            if (event.keyCode == 13) {
+                loginBtnClick();
+
+            }
+        }
+
+        function bindCheckBoxInputChangeEvent() {
+            $('#checkCode').keyup(function () {
+                var text = $(this).val();
+                if (text.length == 4)
+                    checkCheckCode();
+            });
+
+        }
+
+        function initUsername() {
+            var defaultUsername = $.cookie('Himall-PlatformUsername');
+            if (defaultUsername) {
+                $('#username').val(defaultUsername);
+                $('#password').focus();
+            }
+            else
+                $('#username').focus();
+        }
+        $(function () {
+            if (top.location != location) {
+                top.location.href = location.href;
+            }
+        });
+    </script>
+</body>
+</html>

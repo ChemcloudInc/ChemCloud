@@ -66,6 +66,11 @@ function QueryResult(keywords, islike, exp_keywords) {
                         if (item.Record_Title == null || item.Record_Title == "0") {
                             item.Record_Title = "";
                         }
+						
+						if (item.CHINESE == null || item.CHINESE == "0") {
+                            item.CHINESE = "";
+                        }
+
                         if (item.Molecular_Weight == null || item.Molecular_Weight == "0") {
                             item.Molecular_Weight = "";
                         }
@@ -75,11 +80,19 @@ function QueryResult(keywords, islike, exp_keywords) {
                             oMOLECULAR_FORMULA = item.Molecular_Formula;
                         }
                         var pname = "";
-                        if (item.Record_Title != "" || item.Record_Title != null) {
+                       
+					   
+					     if (item.Record_Title != "") {
                             if (item.Record_Title.length > 20) {
                                 pname = item.Record_Title.substring(0, 20) + "...";
                             } else {
                                 pname = item.Record_Title;
+                            }
+                        } else if (item.CHINESE != "") {
+                            if (item.CHINESE.length > 20) {
+                                pname = item.CHINESE.substring(0, 20) + "...";
+                            } else {
+                                pname = item.CHINESE;
                             }
                         }
 

@@ -1,0 +1,37 @@
+
+
+
+ 记录时间：2016-10-08 12:42:14,242 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.Admin.Controllers.LoginController.Login  
+错误描述：用户名和密码不匹配 
+
+ChemCloud.Core.HimallException: 用户名和密码不匹配
+
+
+
+ 记录时间：2016-10-08 13:34:28,414 
+日志级别：  INFO  
+出错类：ChemCloud.Service.LoginGenerateIntegral.ConversionIntegral  
+错误描述：找不到登录产生会员积分的规则 
+
+
+
+
+ 记录时间：2016-10-08 15:11:53,353 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：ISiteSettingService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.ISiteSettingService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 e:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51
+
+
+
+ 记录时间：2016-10-08 15:11:53,353 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：ISiteSettingService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.ISiteSettingService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 e:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51

@@ -1,0 +1,424 @@
+﻿@{ var memberInfo = ViewBag.Member as ChemCloud.Model.UserMemberInfo;}
+<link href="~/Areas/Web/Content/artdilog.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+
+@{Html.RenderAction("TopInfo", "ProductPartial");}
+
+<style>
+    .icheckbox_sm-blue, .radio_sm-blue {
+        position: relative;
+        display: block;
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        line-height: 36px;
+        color: #999;
+        background: #fff;
+        /*-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;*/
+        cursor: pointer;
+        text-align: center;
+        border: 2px solid #CCCCCC;
+    }
+
+        .icheckbox_sm-blue:hover, .radio_sm-blue:hover {
+            border: 2px solid rgb(52,128,232);
+        }
+
+        .icheckbox_sm-blue.checked, .radio_sm-blue.checked {
+            background: #fff;
+            background: url(/Areas/Web/Images/icon-right.png) no-repeat right bottom;
+            border: 2px solid rgb(52,128,232);
+            color: #333;
+        }
+
+    #mohu {
+        width: 80px;
+        float: right;
+        margin-top: -45px;
+        margin-right: -55px;
+    }
+</style>
+
+<div id="header">
+    <a href="/"><img src="~/Areas/Web/images/img/logo.jpg" /></a>
+    <div class="search_hr">
+        <!--代码部分begin-->
+        <div class="search-form">
+            <div id="search-bd" class="search-bd">
+                <ul>
+                    <li id="serachtxt" class="selected">文本搜索</li>
+                    <li id="serachcoa">COA搜索</li>
+                    <li id="serachAdvanced"><a class="nhover" href="@Url.Action("SuperSearch", "Search")">高级搜索</a></li> @*target="_blank"*@
+                    <li id="serachlaw" style="width:140px;display:none">知识产权法律法规搜索</li>
+                </ul>
+            </div>
+            <div id="search-hd" class="search-hd">
+                <div class="search-bg"></div>
+                <input type="text" id="searchBox" class="search-input" placeholder="@ViewBag.HotKey" maxlength="500" />
+                <button id="searchBtn" class="btn-search" style="right: -1px; font-size: 16px;font-weight: 400; word-spacing: 8px;letter-spacing: 8px;font-family: " arial","microsoft yahei","黑体","宋体",sans-serif;" value="搜索">搜索</button>
+
+            </div>
+
+            <div id="search-coa" class="search-hd" style="display:none;">
+                <div class="search-bg"></div>
+                <input type="text" id="coasearchBox" class="search-input" placeholder="请输入COA编号." maxlength="20" />
+                <button id="coasearchBtn" class="btn-search" style="right: -1px; font-size: 16px;font-weight: 400; word-spacing: 8px;letter-spacing: 8px;font-family: " arial","microsoft yahei","黑体","宋体",sans-serif;" value="搜索">搜索</button>
+            </div>
+            <div id="search-law" class="search-hd" style="display:none;">
+                <div class="search-bg"></div>
+                <input type="text" id="lawsearchBox" class="search-input" placeholder="请输入知识产权,法律法规的标题、关键字." maxlength="20" />
+                <button id="lawsearchBtn" class="btn-search" style="right: -1px; font-size: 16px;font-weight:400; word-spacing: 8px;letter-spacing: 8px;font-family: " arial","microsoft yahei","黑体","宋体",sans-serif;" value="搜索">搜索</button>
+            </div>
+
+        </div>
+        @*<div id="mohu">
+                <label for="issearchlike" style="display:block" class="icheckbox_sm-blue">
+                    <input type="checkbox" id="issearchlike" name="checkbox" value="111" style="position: absolute; opacity: 0;">
+                    <span style="position:relative;z-index:23">模糊</span>
+                    <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);">
+                    </ins>
+                </label>
+            </div>*@
+        <div class="search_link">
+            @foreach (string item in (ViewBag.Keys as string[]))
+            {
+                <a href="/search/index?keywords=@item&islike=1">@item</a>
+            }
+        </div>
+        @{
+            int i = 0;
+        }
+        <!--代码部分end-->
+    </div>
+</div>
+
+<div id="menu">
+    <div class="menu_1">
+        <ul class="header_link">
+            <li><a href="#" class="header_active">首页</a></li>
+            <li><a href="javascript:void(0)">我要采购</a></li>
+            <li><a href="javascript:void(0)" id="seller">我要销售</a></li>
+            <li><a href="#">特价商品</a></li>
+            <li><a href="#">大宗商品</a></li>
+            <li><a href="/Search/ManagementWeb">知识产权</a></li>
+            <li><a href="/JobsWeb/JobsWeb">人才市场</a></li>
+            <li class="gome">
+                更多服务
+                @*<div class="xiala_gome">
+                        <ul>
+                            <li><a href="#">特价商品</a></li>
+                            <li><a href="#">特价商品</a></li>
+                        </ul>
+                    </div>*@
+            </li>
+            <li class="Phone_header">服务热线 400-000-000</li>
+        </ul>
+    </div>
+</div>
+<input type="hidden" id="hidusertype" value="@memberInfo.UserType" />
+<input type="hidden" id="hidusername" value="@memberInfo.UserName" />
+<script>
+    $(function () {
+
+
+        ////更多 显示
+        //$('.gome').onMouseOver(function(){
+        //    $('.xiala_gome').css("display","block");
+        //})
+        //$('.xiala_gome').onMouseLeave(function(){
+        //    $('.xiala_gome').css("display","none");
+        //})
+
+
+        //模糊搜索样式
+        var evTimeStamp = 0;
+        $('.icheckbox_sm-blue').click(function(){
+            var now = +new Date();
+            if (now - evTimeStamp < 100) {
+                return;
+            }
+            evTimeStamp = now;
+            if($('.icheckbox_sm-blue').hasClass('checked')){
+                $('.icheckbox_sm-blue').removeClass('checked');
+            }else{
+                $('.icheckbox_sm-blue').addClass('checked');
+            }
+        })
+        var patt1=new RegExp("/MeetingInfo/ManagementWeb");
+        var patt2=new RegExp("/JobsWeb/JobsWeb");
+        var patt21=new RegExp("/JobsWeb/JobWebDes");
+        var patt3=new RegExp("/TechInfo/ManagementWeb");
+        var patt4=new RegExp("/Search/ManagementWeb");
+
+        if (window.location.pathname == "/") {
+        }
+        else if (patt1.test(window.location.pathname)) {
+            $(".active_1").removeClass("active_1");
+            $(".huiyi").addClass("active_1");
+        } else if (patt2.test(window.location.pathname)||patt21.test(window.location.pathname)) {
+            $(".active_1").removeClass("active_1");
+            $(".rencai").addClass("active_1");
+        }else if (patt3.test(window.location.pathname)) {
+            $(".active_1").removeClass("active_1");
+            $(".active_2").removeClass("active_2");
+            $(".jishu").addClass("active_1");
+            $(".jishu").addClass("active_2");
+        }else if (patt4.test(window.location.pathname)) {
+            $(".active_1").removeClass("active_1");
+            $(".zhishi").addClass("active_1");
+        }
+    })
+</script>
+<script>
+    var sUserAgent = navigator.userAgent.toLowerCase();
+    var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+    var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+    var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+    var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+    var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+    var bIsAndroid = sUserAgent.match(/android/i) == "android";
+    var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+    var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+    var islogin = @ViewBag.isLogin;
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    $(function () {
+        //Enter键，搜索功能
+        document.onkeydown = function (a) {
+            var b = document.all ? window.event : a;
+            if (13 == b.keyCode) {
+
+                if ($("#search-hd").css("display") == "block") {
+                    var keyWords = $.trim($('#searchBox').val());
+                    if (keyWords != "") {
+                        $("#searchBtn").click();
+                    }
+                } else if ($("#search-coa").css("display") == "block") {
+                    var keyWords = $.trim($('#coasearchBox').val());
+                    if (keyWords != "") {
+                        $("#coasearchBtn").click();
+                    }
+                } else if ($("#search-law").css("display") == "block"){
+                    var keyWords = $.trim($('#lawsearchBox').val());
+                    if(keyWords != ""){
+                        $("#lawsearchBtn").click();
+                    }
+                }
+            }
+        }
+        if ($('.category').css('display') == 'none') {
+            $('.categorys').mouseDelay().hover(function () {
+                $('.category').show();
+            });
+            $('.categorys').mouseleave(function () {
+                $('.category').hide();
+            });
+        }
+        function queryForm(pageNo) {
+            var keyWords = $('#searchBox').val();
+            var exp_keyWords = $("#text-stock-search").val();
+            var cid = getQueryString('cid');
+            var b_id = getQueryString('b_id');
+            var orderType = getQueryString('orderType');
+            var orderKey = getQueryString('orderKey');
+            location.href = "/search?pageNo=" + pageNo + "&keywords=" + encodeURIComponent(keyWords ? keyWords : $('#searchBox').attr('placeholder'))
+            + "&exp_keywords=" + exp_keyWords + "&cid=" + cid + "&b_id=" + b_id + "&orderType=" + orderType
+            + "&orderKey=" + orderKey;
+        }
+        $('#searchBtn').click(function () {
+            var keyWords = $.trim($('#searchBox').val());
+            if (keyWords == "") {
+                $.dialog.errorTips("请输入搜索关键字！");
+                return false;
+            }
+            //if (keyWords.length < 3) {
+            //    $.dialog.errorTips("搜索长度不能小于3！");
+            //    return false;
+            //}
+
+            if ($("#issearchlike").attr("checked") == "checked"||$("#issearchlike").attr("checked") ==true) {
+                //模糊搜索
+                location.href = "/search/index?keywords=" + encodeURIComponent(keyWords ? keyWords : $('#searchBox').attr('placeholder')) + "&islike=1";
+            }
+            else {
+                //精确搜索
+                location.href = "/search/index?keywords=" + encodeURIComponent(keyWords ? keyWords : $('#searchBox').attr('placeholder')) + "&islike=0";
+            }
+        });
+        $("#seller").click(function(){
+            if ($("#hidusername").val()=="") {
+                alert("请先登录！");
+                location.href="/login";
+                return false;
+            }
+            if ($("#hidusertype").val()!="2"){
+                alert("此功能仅开放于供应商用户！");
+                return false;
+            }
+        });
+        $("#coasearchBtn").click(function () {
+            var keyWords = $.trim($('#coasearchBox').val());
+            if (keyWords == "") {
+                $.dialog.tips("请输入COA编号！");
+                return false;
+            }
+            //if (keyWords.length < 3) {
+            //    $.dialog.tips("搜索长度不能小于3！");
+            //    return false;
+            //}
+            $.post('/Search/SearchCoaR', { key: encodeURIComponent(keyWords ? keyWords : keyWords) }, function (data) {
+                if (data.success) {
+                    location.href = "/search/Search_COA?key=" + encodeURIComponent(keyWords ? keyWords : keyWords);
+                } else {
+                    $.dialog.tips("您搜索的COA编号不存在！");
+                }
+            });
+        });
+
+        $("#lawsearchBtn").click(function () {
+            var keyWords = $.trim($('#lawsearchBox').val());
+            var loading = showLoading();
+            if (keyWords == "") {
+                loading.close();
+                $.dialog.errorTips("请输入法律法规搜索关键字！");
+                setTimeout(3000);
+                return false;
+            }
+            if (keyWords.length < 3) {
+                loading.close();
+                $.dialog.errorTips("搜索关键字长度不能小于3！");
+                setTimeout(3000);
+                return false;
+            }
+            window.location.href = "/search/ManagementWeb?key=" + encodeURIComponent(keyWords ? keyWords : keyWords);
+        });
+
+        $("#searchBox").keydown(function (e) {
+            if (e.keyCode == 13) {
+                $('#searchBtn').click();
+            }
+        });
+
+        $('#btn-re-search').click(function () {
+            var keyWords = $('#key-re-search').val();
+            location.href = "/search?keywords=" + encodeURIComponent(keyWords);
+        });
+
+        $('#btn-stock-search').click(function () {
+            queryForm(1);
+        });
+
+        $('#pageJump').click(function () {
+            var pageNo = parseInt($("#jumpInput").val());
+            var pagecount = parseInt($("#pageCount").html());
+            if (pageNo > pagecount || pageNo < 1) {
+                $.dialog.errorTips("请您输入有效的页码！");
+
+                return;
+            }
+            if (isNaN(pageNo)) {
+                pageNo = 1;
+            }
+            queryForm(pageNo);
+        });
+
+        $("#right_userCenter").click(function () {
+            if (islogin) {
+                window.open("/usercenter");
+            }
+            else {
+                $.fn.login({}, function () {
+                    location.href = "/";
+                }, '', '', '/Login/Login');
+            }
+        });
+
+        $("#right-messages").click(function () {
+            if (islogin) {
+                window.open("/Chat/Index");
+            }
+            else {
+                $.fn.login({}, function () {
+                    location.href = "/";
+                }, '', '', '/Login/Login');
+            }
+        });
+    });
+
+    function bindCartItemDelete() {
+        $('#productsList').on('click', 'a.delete', function () {
+            var skuId = $(this).attr('skuId');
+            removeFromCart(skuId);
+        });
+    }
+
+    function removeFromCart(skuId) {
+        $.post('/cart/RemoveFromCart', { skuId: skuId }, function (result) {
+            if (result.success)
+                refreshCartProducts();
+            else
+                alert(result.msg);
+        });
+    }
+
+
+    $(function () {
+        //鼠标经过 高亮显示
+        $("#searchBox").focus(function () {
+            $("#searchBox").css("border-color", "#7ABD54");
+        })
+        $("#searchBox").blur(function () {
+            $("#searchBox").css("border-color", "#ddd");
+        })
+        //文本搜索 coa搜索切换
+        $("#serachtxt").click(function () {
+            $("#search-hd").css("display", "block");
+            $("#search-coa").css("display", "none");
+            $("#search-law").css("display","none");
+        });
+
+        $("#serachcoa").click(function () {
+            $("#search-hd").css("display", "none");
+            $("#search-coa").css("display", "block");
+            $("#search-law").css("display","none");
+        });
+        $("#serachlaw").click(function () {
+            $("#search-hd").css("display", "none");
+            $("#search-coa").css("display", "none");
+            $("#search-law").css("display","block");
+        });
+        //搜索li
+        $('#search-bd li').click(function () {
+            var index = $(this).index();
+            $('#search-hd .pholder').eq(index).show().siblings('.pholder').hide(0);
+            $('#search-hd .search-input').eq(index).show().siblings('.search-input').hide(0);
+            $(this).addClass('selected').siblings().removeClass('selected');
+            $('#search-hd .search-input').val('');
+        });
+    });
+
+
+
+</script>
+<script>
+    $(document).ready(function(){
+        $('.user-sex input').each(function(){
+            var self = $(this),
+                    label = self.next(),
+                    label_text = label.text();
+
+            label.remove();
+            self.iCheck({
+                checkboxClass: 'icheckbox_sm-blue',
+                radioClass: 'radio_sm-blue',
+                insert: label_text
+            });
+        });
+    });
+</script>

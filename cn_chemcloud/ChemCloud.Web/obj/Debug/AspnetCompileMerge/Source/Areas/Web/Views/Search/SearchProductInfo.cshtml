@@ -1,0 +1,248 @@
+﻿@using ChemCloud.Model;
+@using ChemCloud.Web.Areas.SellerAdmin.Models;
+
+@model ChemCloud.Model.CASInfo
+
+@section Style{
+    <link href="~/Content/inner-custom.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.artDialog.js"></script>
+    <script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+    <link href="~/Areas/Web/Content/artdilog.css" rel="stylesheet" />
+}
+<style>
+    .ul {
+        background-color: #ffffff;
+        padding-top: 1em;
+    }
+
+        .ul li {
+            line-height: 2em;
+            padding-left: 10px;
+            font-size: 14px;
+        }
+
+            .ul li span {
+                display: inline-block;
+                width: 85px;
+                text-align: right;
+                padding-right: 15px;
+            }
+</style>
+<script type="text/javascript">
+    $(function () {
+        var tt = '@ViewBag.GetTitle';
+        if (tt != null && tt != "") {
+            $(document).attr("title", "ChemCloud产品详细-" + tt);
+        } else {
+            $(document).attr("title", "ChemCloud产品详细");
+        }
+    });
+
+
+
+
+
+ 
+
+</script>
+<div class="w main">
+    @if (null != Model)
+    {
+        <input type="hidden" id="hdproductname" value="@ViewBag.CASNo" />
+        <div class="crumb">全部结果&nbsp;&gt;&nbsp;<strong>@Model.CHINESE</strong></div>
+        @*<div class="left">
+                <div class="m" id="refilter">
+                    <div class="mt">
+                        <h2>推荐供应商列表</h2>
+                    </div>
+                    <div class="mc">
+                        <div class="item fore hover">
+                            <h3>
+                                <b></b>
+                                <a class="curr">化工贸易集团南京分公司</a>
+                            </h3>
+                            <ul>
+                                <li class="currcurr">
+                                    <a>中国化工企业</a>
+                                </li>
+                                <li class="currcurr">
+                                    <a>上海迈瑞尔化学技术有限公司</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        <div class="right-extra" style="position:relative; z-index:1; width:1185px;">
+            <div class="clr"></div>
+            <div class="m" id="select">
+                <div class="mt">
+                    <img src="~/Images/iconfont-huaxuepin.png" style="width:18px;position: ABSOLUTE;margin-top: 7px;" />
+                    @if ("" != Model.CHINESE && null != Model.CHINESE)
+                    {
+                        <h1>@Model.CHINESE</h1>
+                    }
+                    else
+                    {
+                        <h1>产品信息</h1>
+                    }
+                </div>
+                <div style="width:100%; min-height:180px; background-color:#ffffff; padding-top:2px;">
+                    <div style="width:100%;min-height:210px; background-color:#ffffff;overflow:hidden;">
+                        <div style="overflow:hidden;width:200px;height:140px;display: table-cell;vertical-align: middle;text-align: center;border: 1px solid #ccc;">
+                            @{string imgdataurl = "https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=" + @Model.Pub_CID + "&t=l";}
+                            @if (!string.IsNullOrEmpty(Model.C2D_Structure))
+                            {
+                                if (Model.C2D_Structure.Length > 10)
+                                {
+                                    imgdataurl = Model.C2D_Structure;
+                                }
+                            }
+                            <img alt="ImagePath" src="@imgdataurl" onerror="javascript:this.src ='/Areas/Web/Images/imgsrv.png'" style="max-width: 100%;" />
+                        </div>
+                        <div style="display: table-cell;overflow:hidden;">
+                            <ul class="ul" style="clear:both;padding-left:10px;width:720px;">
+                                <li>
+                                    <span>英文名称：</span>
+                                    @if (Model.Record_Title != "0")
+                                    {
+                                        @Model.Record_Title
+                                    }
+                                </li>
+                                <li>
+                                    <span>英文别名：</span>
+                                    @if (Model.Record_Description != "0")
+                                    {
+                                        @Model.Record_Description
+                                    }
+                                </li>
+                                <li>
+                                    @if (Model.CAS != "0" && !string.IsNullOrEmpty(Model.CAS))
+                                    {
+                                        <span>CAS#：</span> @Model.CAS
+                                    }
+                                </li>
+                                <li>
+                                    <span id="fenzishi">分子式：</span>
+                                    @if (Model.Molecular_Formula != "0")
+                                    {
+                                        @Model.Molecular_Formula
+                                    }
+                                </li>
+
+                                <li>
+                                    <span>分子量：</span>
+                                    @if (Model.Molecular_Weight != "0")
+                                    {
+                                        @Model.Molecular_Weight
+                                    }
+                                </li>
+                                <li>
+                                    <span>精确质量：</span>
+                                    @if (Model.Exact_Mass != "0")
+                                    {
+                                        @Model.Exact_Mass
+                                    }
+                                </li>
+                                <li>
+                                    <span>LogP：</span>@if (Model.LogP != "0")
+                                    {
+                                        @Model.LogP
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        var obj = $("#fenzishi");
+                        obj.html(obj.html().replace(/(\d+)/g, "<sub>$1</sub>"));
+                    });
+                </script>
+                <div class="mt" style="margin-top:15px;">
+                    <img src="~/Images/iconfont-gongzuoxingzhi.png" style="width:18px;position: ABSOLUTE;margin-top: 6px;" /><h1>物化性质</h1>
+                </div>
+                <div style="width:100%; min-height:185px; background-color:#ffffff;">
+                    <ul class="ul" style="float:left;margin-left:10px;">
+                        <li>
+                            <span>外观与形状：</span>
+                            @if (Model.Physical_Description != "0")
+                            {
+                                @Model.Physical_Description
+                            }
+                        </li>
+                        <li>
+                            <span>密度：</span>
+                            @if (Model.Density != "0")
+                            {
+                                @Model.Density
+                            }
+                        </li>
+                        <li>
+                            <span>沸点：</span>
+                            @if (Model.Boiling_Point != "0")
+                            {
+                                @Model.Boiling_Point
+                            }
+                        </li>
+                        <li>
+                            <span>熔点：</span>
+                            @if (Model.Melting_Point != "0")
+                            {
+                                @Model.Melting_Point
+                            }
+                        </li>
+                        <li>
+                            <span>闪点：</span>
+                            @if (Model.Flash_Point != "0")
+                            {
+                                @Model.Flash_Point
+                            }
+                        </li>
+                        <li>
+                            <span>蒸汽压：</span>
+                            @if (Model.Vapor_Pressure != "0")
+                            {
+                                @Model.Vapor_Pressure
+                            }
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt" style="margin-top:15px;">
+                    <img src="~/Images/iconfont-jinggao.png" style="width:18px;position: ABSOLUTE;margin-top: 6px;" /><h1>安全信息</h1>
+                </div>
+                <div style="width:100%; min-height:160px; background-color:#ffffff;">
+                    <ul class="ul" style="float:left;margin-left:10px;">
+                        <li>
+                            <span>储存条件：</span>
+                            @if (Model.Storage_Conditions != "0")
+                            {
+                                @Model.Storage_Conditions
+                            }
+                        </li>
+                        <li>
+                            <span>安全说明：</span>
+                            @if (Model.Safety_and_Hazards != "0")
+                            {
+                                @Model.Safety_and_Hazards
+                            }
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="clr"></div>
+        </div>
+        <span class="clr"></span>
+    }
+    else
+    {
+        <div style="min-height:200px; text-align:center; width:100%; padding-top:10px;">
+            <span style="font-size:18px; font-weight:bolder;">没有找到符合条件的数据</span>
+        </div>
+    }
+</div>
+
+

@@ -1,0 +1,217 @@
+﻿@using System.Collections
+@{
+    //Layout = "~/Areas/Web/Views/Shared/_SimpeHeadAndFoot.cshtml";
+    ViewBag.Title = "OnBehalfOf.";
+}
+<link href="~/Areas/Web/Content/css.css" rel="stylesheet" />
+<link href="~/Content/inner-custom.css" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+
+
+<style>
+    #mohu {
+        margin-top: -55px;
+    }
+    .top_fl {
+        width: 446px;
+    }
+    .syl_img_bg{
+        width: 1300px;
+        margin: 0 auto;
+     }
+    .syl_left_img {
+        /*background-color: #f7f7f7;*/
+        height: 300px;
+        background: url(/Areas/Web/Images/tip_008.png) no-repeat #f7f7f7;
+        background-repeat: no-repeat;
+        background-position: 20%;
+    }
+
+    .syl_left_img_main {
+        width: 600px;
+        margin-left: 500px;
+        /* margin-top: 200px; */
+    }
+
+        .syl_left_img_main h3 {
+            color: #666;
+            font-size: 30px;
+            font-weight: 400;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .syl_left_img_main div {
+            color: #6d6d6d;
+            font-size: 14px;
+            line-height: 30px;
+        }
+
+    .syl_right_img {
+        height: 278px;
+        background: url(/Areas/Web/Images/tip_09.png) no-repeat;
+        background-repeat: no-repeat;
+        background-position: 80% 64%;
+    }
+
+    .syl_right_img_2 {
+        background: url(/Areas/Web/Images/tip_10.png) no-repeat;
+        background-repeat: no-repeat;
+        background-position: 80% 64%;
+    }
+
+    .syl_left_img_2 {
+        background: url(/Areas/Web/Images/tip_11.png) no-repeat #f7f7f7;
+        background-repeat: no-repeat;
+        background-position: 20%;
+    }
+
+    .title_back_1 {
+        background-position-x: 10%;
+        height: 80px;
+        background: url(/Areas/Web/Images/tu_01.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+
+    .title_back_2 {
+        background-position-x: 10%;
+        height: 80px;
+        background: url(/Areas/Web/Images/tu_06.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+
+    .title_back_3 {
+        height: 80px;
+        background-position-x: 10%;
+        background: url(/Areas/Web/Images/tu_04.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+
+    .title_back_4 {
+        height: 80px;
+        background-position-x: 10%;
+        background: url(/Areas/Web/Images/tip_04.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+
+    .syl_right_img .tabl {
+        border-radius: 4px;
+    }
+
+    .syl_right_img .syl_right_img_main {
+        width: 600px;
+        margin-left: 200px;
+    }
+
+    .borderR {
+        border: 1px solid rgb(221,221,221);
+        border-radius: 4px;
+    }
+
+    #divNews table tr td {
+        border: none;
+    }
+
+    #divNews table {
+        margin-top: 0;
+    }
+
+        #divNews table tr:nth-child(odd) {
+            background-color: #fafafa;
+        }
+
+        #divNews table tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+
+    .header_img_back {
+        background: url(/Areas/Web/Images/bgbanner_01.jpg);
+        background-size: 100%;
+        height: 204px;
+    }
+
+    .syl_right_img_main h3 {
+        color: #666;
+        font-size: 30px;
+        font-weight: 400;
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    .title_q {
+        width: 1120px;
+        margin: 0 auto;
+        height: 50px;
+        background: url(/Areas/Web/Images/tu_05.png) no-repeat;
+        line-height: 50px;
+        text-indent: 4em;
+        font-size: 16px;
+        color: rgb(59,127,174);
+    }
+
+    .width_a {
+        width: 1120px;
+        margin: 0 auto;
+        clear: both;
+        overflow: hidden;
+    }
+
+    .title_a {
+        width: 1030px;
+        background: rgb(250,250,250);
+        float: right;
+        border-radius: 4px;
+        margin: 6px 0;
+        line-height: 20px;
+        padding: 5px;
+    }
+</style>
+<div id="divNews">
+    <div>
+        <div class="header_img_back"></div>
+        <div class="syl_img_bg">
+            <div class="syl_left_img">
+                <div class="title_back_1"></div>
+                <div class="syl_left_img_main">
+                    <h3>上海和波士顿海外仓储</h3>
+                    <div>
+                        供应商签署仓储服务协议后，由供应商发货到平台提供的免费仓库，平台及时接受来自供应商的产品，进行入库信息处理和在线提交。
+                    </div>
+                </div>
+            </div>
+            <div class="syl_right_img">
+                <div class="title_back_2"></div>
+                <div class="syl_right_img_main">
+                    <h3>高效、低价物流代发</h3>
+                    <div>
+                        平台发货到采购商（采购商下单，线上或者线下由仓库直接发货到买家），按照采购商要求，平台将供应商产品，及时发送给采购商，并及时在网站上更新物流信息。
+                    </div>
+
+                </div>
+            </div>
+            <div class="syl_left_img syl_left_img_2">
+                <div class="title_back_3"></div>
+                <div class="syl_left_img_main">
+                    <h3>全程在线跟踪</h3>
+                    <div>
+                        采购商在平台下单，由供应商直接发货到采购商，平台将手机供应商的发货信息，及时反映到网站上，方便采购商及时了解物流信息。
+                    </div>
+
+                </div>
+            </div>
+            <div class="syl_right_img syl_right_img_2">
+                <div class="title_back_4"></div>
+                <div class="syl_right_img_main">
+                    <h3>物流代发</h3>
+                    <div>
+                        采购商下单（在线上或者线下下单），由供应商委托平台托运（由供应商发货到平台提供的免费仓储，再有平台联系供应链服务商，平台经代理检测、鉴定后，由仓库发往采购商）。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

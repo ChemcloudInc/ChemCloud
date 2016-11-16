@@ -1,0 +1,25 @@
+
+
+
+ 记录时间：2016-10-11 17:23:03,222 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.Web.Controllers.LoginController.SellerLoginIn  
+错误描述：用户名和密码不匹配 
+
+ChemCloud.Web.Areas.Web.LoginException: 用户名和密码不匹配
+
+
+
+ 记录时间：2016-10-11 17:23:07,164 
+日志级别：  INFO  
+出错类：ChemCloud.Service.LoginGenerateIntegral.ConversionIntegral  
+错误描述：找不到登录产生会员积分的规则 
+
+
+
+
+ 记录时间：2016-10-11 17:23:15,292 
+日志级别：  INFO  
+出错类：ChemCloud.Service.LoginGenerateIntegral.ConversionIntegral  
+错误描述：找不到登录产生会员积分的规则 
+

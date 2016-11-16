@@ -577,12 +577,18 @@ namespace ChemCloud.Web.Areas.SellerAdmin.Controllers
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         /*必填项 ,如果存在空的值，就跳过*/
-                        if (dt.Rows[i]["SupplierProductId"] == null || dt.Rows[i]["EnglishDescription"] == null
-                     || dt.Rows[i]["PackSize"] == null
-                            || dt.Rows[i]["RegulatedProduct"] == null || dt.Rows[i]["RegulatoryCountry"] == null
-                            || dt.Rows[i]["RMB_CN"] == null) { continue; }
+                        if (dt.Rows[i]["SupplierProductId"] == null
+                            || dt.Rows[i]["EnglishDescription"] == null
+                            || dt.Rows[i]["PackSize"] == null
+                            || dt.Rows[i]["RegulatedProduct"] == null
+                            || dt.Rows[i]["RegulatoryCountry"] == null
+                            || dt.Rows[i]["RMB_CN"] == null)
+                        {
+                            NullCount = NullCount + 1;
+                            continue;
+                        }
 
-                        if (string.IsNullOrEmpty(dt.Rows[i]["SupplierProductId"].ToString())) { continue; }
+
 
                         /*产品货号唯一*/
                         if ((ServiceHelper.Create<IProductService>().IsExitsProductCode(shopid, dt.Rows[i]["SupplierProductId"].ToString())))
@@ -795,6 +801,7 @@ namespace ChemCloud.Web.Areas.SellerAdmin.Controllers
                         {
                             ErrorCount = ErrorCount + 1;
                         }
+
                         if (ErrorCount == 0 && SubErrorCount == 0 && NullCount == 0 && RepeatCount == 0)
                         { SuccessCount = SuccessCount + 1; }
                     }

@@ -1,0 +1,142 @@
+﻿<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script>    var val = "@Request.QueryString["status"]";</script>
+<style>
+    .title {
+        background-color: #e6e6e6;
+        border-bottom: 1px solid #e4e4e4;
+        float: left;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+        .title .title_txt.cur, .title .title_txt.curr {
+            color: #333;
+            border-bottom: 2px solid #3498DB;
+            margin-bottom: -1px;
+            line-height: 44px;
+            display: inline-block;
+            padding: 0 10px;
+        }
+</style>
+<div class="container" style="padding-top:20px">
+    <div class="title" style="padding-left:15px;">
+        <span class="title_txt cur" style="color:#000;font-size:14px;">平台代售</span>
+    </div>
+    <div class="search-box">
+        <form class="custom-inline">
+            <div class="form-group" filter normal audit saleoff>
+                <label class="label-inline" for="">产品名称</label>
+                <input class="form-control input-ssm" type="text" id="pname">
+            </div>
+
+            <div class="form-group" filter normal>
+                <label class="label-inline" for="" style="width:54px">产品货号</label>
+                <input class="form-control input-ssm" type="text" id="pcode">
+            </div>
+            <div class="form-group" filter normal>
+                <label class="label-inline" for="">CAS#</label>
+                <input class="form-control input-ssm" type="text" id="cas" autocomplete="off">
+            </div>
+            <div class="form-group" filter audit>
+                <label class="label-inline" for="" style="width:auto;">平台代售状态</label>
+                <select class="form-control input-ssm" id="pstatus">
+                    <option value="" selected="selected">全部</option>
+                    <option value="0">平台审核中</option>
+                    <option value="1">平台代售中</option>
+                    <option value="2">平台代售驳回</option>
+                </select>
+            </div>
+            <div class="submit" normal style="margin-top: 15px; float: left; margin-left: 63px; position: relative;">
+                <button type="button" class="btn btn-primary btn-sm" id="searchButton" style="width: 100px;">搜 索</button>
+            </div>
+        </form>
+    </div>
+    <table id="list" class="table">
+        <thead style="height:20px;">
+            <tr>
+                <th style="text-align:center;padding-left:0px;padding-right:0px;width:150px;">CAS NO.</th>
+                <th style="text-align:center;padding-left:0px;padding-right:0px;width:200px;">产品名称</th>
+                <th style="text-align:center;padding-left:0px;padding-right:0px;width:250px;">产品货号</th>
+                <th style="text-align:center;padding-left:0px;padding-right:0px;width:100px;">纯度</th>
+                <th style="text-align:center;padding-left:0px;padding-right:0px;width:100px;">状态</th>
+                <th class="td-operate" style="text-align:center;padding-left:0px;padding-right:0px;width:114px;">操作</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    var categoryId;
+    var lastType;
+    var curType;
+    $(function () {
+        Query();
+        $('#searchButton').click(function (e) {
+            Query();
+        });
+    });
+    function Query() {
+        var pname = $.trim($('#pname').val());
+        var pcode = $.trim($('#pcode').val());
+        var cas = $.trim($('#cas').val());
+        var pstatus = $('#pstatus option:selected').val();
+        $.post('./DSList', { 'pname': pname, 'pcode': pcode, 'cas': cas, 'pstatus': pstatus }, function (result) {
+            $("#list tbody").html("");
+            var html = "";
+            var json = $.parseJSON(result);
+            $.each(json.ds, function (i, item) {
+                var status = "";
+                var op = "";
+                if (item.DSStatus == "") {
+                    status = "<span style=\"color:red;\">未申请</span>";
+                    op = "<a class=\"good-author\" style=\"cursor:pointer\" onclick=\"set(" + item.Id + ")\">委托平台代售</a>";
+                }
+                if (item.DSStatus == "0") {
+                    status = "<span style=\"color:green;\">平台审核中</span>";
+                }
+                if (item.DSStatus == "1") {
+                    status = "<span style=\"color:green;\">平台代售中</span>";
+                }
+                if (item.DSStatus == "2") {
+                    status = "<span style=\"color:green;\">平台驳回代售</span>";
+                    op = "<a class=\"good-author\" style=\"cursor:pointer\" onclick=\"set1(" + item.pid + ")\">重新委托平台代售</a>";
+                }
+                html += "<tr>";
+                html += "<td field=\"CASNo\" style=\"width:150px;\"><div style=\"text-align:center;\" class=\"hiMallDatagrid-cell\">" + item.CASNo + "</div></td>";
+                html += "<td field=\"ProductName\" style=\"width:200px;\"><div style=\"text-align:center;\" class=\"hiMallDatagrid-cell\">" + item.ProductName + "</div></td>";
+                html += "<td field=\"ProductCode\" style=\"width:250px;\"><div style=\"text-align:center;\" class=\"hiMallDatagrid-cell\">" + item.ProductCode + "</div></td>";
+                html += "<td field=\"Purity\" style=\"width:100px;\"><div style=\"text-align:center;\" class=\"hiMallDatagrid-cell\">" + item.Purity + "</div></td>";
+                html += "<td field=\"DSStatus\" style=\"width:100px;\"><div style=\"text-align:center;\" class=\"hiMallDatagrid-cell\">" + status + "</div></td>";
+                html += "<td field=\"Op\" style=\"width:114px;\"><div style=\"text-align:center;\" class=\"hiMallDatagrid-cell\">" + op + "</div></td>";
+                html += "</tr>";
+            });
+            $("#list tbody").html(html);
+        });
+    };
+    function set(obj) {
+        $.post('./AddDS', { 'pid': obj }, function (result) {
+            if (result != "ok") {
+                alert("申请失败,请稍后重试.");
+            } else {
+                alert("申请成功.");
+                location.reload(true);
+            }
+        });
+    };
+    function set1(obj) {
+        $.post('./UpDS', { 'pid': obj }, function (result) {
+            if (result != "ok") {
+                alert("申请失败,请稍后重试.");
+            } else {
+                alert("申请成功.");
+                location.reload(true);
+            }
+        });
+    };
+</script>

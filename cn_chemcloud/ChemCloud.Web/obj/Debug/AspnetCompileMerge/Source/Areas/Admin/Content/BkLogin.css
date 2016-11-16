@@ -1,0 +1,13 @@
+body{font-family:ºÚÌå;width:1200px;margin:0 auto;margin-top:100px;background-color:#2a2a2f;text-align:center;}
+.header{width:980px;height:150px;}
+.logo{float:left;width:240px;}
+.logo img{width:220px;}
+.welcome{font-size:30px;font-weight:900;color:#3498db;}
+.welcome .shu{width:40px;color:#ccc;float:left;font-weight:normal;font-size:45px;}
+.welfont{margin-top:10px;float:left;}
+.main{width:1200px;margin:0 auto;text-align:center;}
+.login{width:400px;margin:0 auto;text-align:left;font-size:14px;color:white;}
+.login .texinp{width:300px;height:50px;line-height:50px;display:block;margin-bottom:25px;font-size:16px;padding-left:35px;color:black;}
+.btn{width:300px;margin-top:15px;text-align:center;background-color:#3498db;font-size:20px;font-weight:600;color:#fff;}
+.login img{position:relative;top:35px;left:10px;width:19px;width:22px;}
+

@@ -1,0 +1,242 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Step2</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <style>
+        #Refund {
+            width: 1210px;
+            position: relative;
+            padding: 24px 0 30px 280px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+            #Refund .Refund_border .siader h3 {
+                height: 45px;
+                line-height: 45px;
+            }
+
+        #liucheng {
+            background: #fff;
+            padding: 20px 8px;
+        }
+
+        .Refund_border {
+            background: #fff;
+        }
+
+        .fl {
+            float: none;
+            margin-top: 30px;
+        }
+    </style>
+
+</head>
+<body>
+    <input type="hidden" id="hdTH_Status" value="@ViewBag.TH_Status" />
+    <input type="hidden" id="hdTH_Reason" value="@ViewBag.TH_Reason" />
+    <input type="hidden" id="hdTH_ProductMoney" value="@ViewBag.TH_ProductMoney" />
+    <div id="Refund">
+        <ul class="liucheng" style="border:1px solid #ccc;border-bottom:none;padding:20px 0; display:none;">
+            <li id="liuchengs"><img src="~/images/liucheng001.png" alt=""></li>
+            <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+            <li id="liuchengs"><img src="~/images/liucheng02.png" alt=""></li>
+            <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+            <li id="liuchengs"><img src="~/images/liucheng0003.png" alt=""></li>
+            <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+            <li id="liuchengs"><img src="~/images/liucheng0004.png" alt=""></li>
+        </ul>
+        <div class="Refund_border" style="width:1004px;">
+            <div class="main_liu">
+                <div class="header_liu">
+                    <span style="font-weight:600">申请退货</span>
+                    <span class="header_liu_chu" id="type"></span>
+                    <span class="header_hong">*</span>
+                    <span class="header_xi">为必填项</span>
+                </div>
+                <div class="Refund_form">
+                    <div class="form-hang" id="inputTextDiv">
+                        <div class="lable">
+                            <span class="lable_mi">*</span><span class="lable_text">退货原因：</span>
+                        </div>
+                        <input type="text" id="txtreason" style="width:400px;height:30px">
+                    </div>
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_mi">*</span><span class="lable_text">退货金额：</span>
+                        </div>
+                        <input type="text" id="txtamount" disabled="disabled" style="width:290px;height:30px">
+                    </div>
+                    @*说明*@
+                    <div class="form_hang">
+                        <span class="lable">说明：</span>
+                        <textarea class="textarea" id="Introduce"></textarea>
+                    </div>
+
+                    <div class="form_hang" style="overflow: hidden;margin-left: 130px;">
+                        <span class="lable">上传凭证：</span>
+                        <div style="overflow:hidden">
+                            <div class="form-group upload-img " id="pinzheng"></div>
+                            <img id="image" src="" />
+                        </div>
+                    </div>
+                    <div class="button_hang" style="padding-bottom:40px;">
+                        <span class="sq_button">
+                            <a onclick="TH(@ViewBag.OrderNo)" class="sq_a_button">申  请</a>
+                        </span>
+                        <span class="sq_button">
+                            <a href="" onclick="history.back()" class="sq_a_button">取消并返回</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="siader">
+                <h3>
+                    订单信息
+                </h3>
+                <div class="border_sia">
+                    <div class="line_height_sia">
+                        <span class="guding">卖家：</span>
+                        <span>@ViewBag.ShopName</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span>订单编号：</span>
+                        <span class="blud_span">@ViewBag.OrderNo</span>
+                        <input type="hidden" value="@ViewBag.OrderNo" id="hdOrderNo" />
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">单 价：</span>
+                        <span class="hong_span">@ViewBag.total</span>
+                        <span>元</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">快 递：</span>
+                        <span class="hong_span">@ViewBag.yunfei</span>
+                        <span>元</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/jquery.TKUpload.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script src="~/Scripts/jquery.cookie.js"></script>
+<script>
+    $(function () {
+
+        $("#pinzheng").hishopUpload({
+            title: '凭证文件上传(最多6张)',
+            imageDescript: '',
+            displayImgSrc: '',
+            imgFieldName: "pinzheng",
+            imagesCount: 6,
+            dataWidth: 6
+        });
+
+        /*退货状态*/
+        var TH_Status = $("#hdTH_Status").val();
+
+        if (TH_Status == "1"||TH_Status == "2"||TH_Status == "3"||TH_Status == "4"||TH_Status == "5"||TH_Status == "6"||TH_Status == "7"||TH_Status == "8") {
+            $("#txtreason").attr("disabled", "disabled");
+            $("#txtamount").attr("disabled", "disabled");
+        }
+
+        switch (TH_Status) {
+            case "1": TH_Status = "退货申请中"; break;
+            case "2": TH_Status = "同意退货"; break;
+            case "3": TH_Status = "拒绝退货"; break;
+            case "4": TH_Status = "已寄货"; break;
+            case "5": TH_Status = "已签收"; break;
+            case "6": TH_Status = "已完成"; break;
+            case "7": TH_Status = "仲裁中"; break;
+            case "8": TH_Status = "已取消"; break;
+        };
+        $("#txtstatus").html(TH_Status);
+
+        /*退货原因*/
+        var TH_Reason = $("#hdTH_Reason").val();
+        $("#txtreason").val(TH_Reason);
+
+        /*金额*/
+        var TH_ProductMoney = $("#hdTH_ProductMoney").val();
+        $("#txtamount").val(TH_ProductMoney);
+
+
+    });
+
+    /*检查图片格式*/
+    function checkImgType(filename) {
+        var pos = filename.lastIndexOf(".");
+        var str = filename.substring(pos, filename.length)
+        var str1 = str.toLowerCase();
+        if (!/\.(gif|jpg|jpeg|png|bmp)$/.test(str1)) {
+            return false;
+        }
+        return true;
+    }
+
+    /*退货方法*/
+    var TH = function (orderNo) {
+        var imgstr = "";
+        /*上传的图片*/
+        $(".hiddenImgSrc").each(function () {
+            if ($(this).val() != "") {
+                imgstr += $(this).val() + ",";
+            }
+        });
+
+        /*退货信息*/
+        $.post("InsertTH", {
+            OrderNo: $("#hdOrderNo").val(), Reson: $.trim($("#txtreason").val()), Amont: $.trim($("#txtamount").val()),
+            Introduce: $("#Introduce").val(), images: imgstr, Attitude: 1
+        },
+            function (data) {
+                if (data.success == true) {
+                    $.dialog.succeedTips("操作成功！");
+                    location.href = "/TH/Management";
+                } else {
+                    $.dialog.errorTips("操作失败！");
+                }
+            });
+    }
+
+    /*在线咨询*/
+    function onlinetalk(shopID) {
+        //没有用户在线
+        if ($.cookie("ChemCloud-User") == null) {
+            var r = confirm("请先登陆!");
+            if (r == true) {
+                window.location.href = '/Login';
+            }
+            return;
+        }
+        $.get('/ChatOtherSide/GetOtherSideInfoByShop',
+        {
+            shopID: shopID
+        }, function (result) {
+            if (result.Result == -1 && shopID != 2) {
+
+                $.dialog.errorTips('商家不存在');
+
+            } else {
+                $.cookie("currentSelectedShopUserID", result.UserID, { expires: 100, path: '/' });
+                $.cookie("currentSelectedShopUserName", result.UserName, { expires: 100, path: '/' });
+                //window.open("/ChatMessage/Index");
+                var w = window.open();
+                setTimeout(function () {
+                    w.location = "/ChatMessage/Index";
+                }, 1000);
+            }
+        });
+    }
+</script>

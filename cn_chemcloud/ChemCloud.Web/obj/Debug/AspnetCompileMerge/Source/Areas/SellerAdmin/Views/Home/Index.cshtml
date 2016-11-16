@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+@model ChemCloud.Model.ManagerInfo
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit|ie-stand">
+    <meta name="viewport" content="width=device-width" />
+    <title>供应商中心</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="~/Content/artdialog.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.artDialog.js"></script>
+    <script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/Scripts/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+    <style>
+        .navbar-custom .navbar-nav > li > a:hover {
+            background-color: #3498db;
+        }
+
+        .navbar-custom .navbar-nav > .open > a:hover, .navbar-custom .navbar-nav > .active > a {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        
+
+        .nav-pills li i {
+            background-image: url("../Images/Seller1.png");
+            position: absolute;
+            top: 12px;
+            left: 40px;
+            width: 17px;
+            height: 16px;
+        }
+        .nav-pills li.hover i{
+            background-image: url("../Images/Seller.png");
+        }
+        .nav-pills li.active i {
+            background-image: url("../Images/Seller1.png");
+        }
+    </style>
+    <script>
+        var isSellerAdmin = "@ViewBag.IsSellerAdmin".toLowerCase();
+        function refreshCartProducts() {
+            $.post('/cart/GetCartProducts', {}, function (cart) {
+                var products = cart.products;
+                var count = cart.totalCount;
+                $('#shopping-amount,#cartProductsCount').html(count);
+            });
+        }
+        $(function () {
+            if (isSellerAdmin == "true") {
+                //隐藏 分类管理 页面设置
+                window.onload = function () {
+                    $("a:contains('分类管理'),a:contains('页面设置')").parent().hide();
+                };
+            }
+
+            //下拉菜单
+            $('.top .dropdown').hover(function () {
+                $(this).toggleClass('hover');
+            });
+            refreshCartProducts();
+        })
+    </script>
+    <script>
+        $(function () {
+            var html = "<li onclick='click1(this)' class='active' onmouseover='mouseover1(this)'><a id='a1001'  class='ajax-link' href='/selleradmin'><i class='Seller1001'></i><span>供应商中心</span></a></li>";
+            html += "<li onclick='click1(this)'  onmouseover='mouseover1(this)'><a id='a1003' class='ajax-link' target='iframe' href='/selleradmin/Shop/ShopDetail'><i class='Seller1003'></i><span>企业信息</span></a></li>";
+            html += "<li onclick='click1(this)'  onmouseover='mouseover1(this)'><a id='a1004' class='ajax-link' target='iframe' href='/selleradmin/Shop/ChangePassword'><i class='Seller1004'></i><span>修改密码</span></a></li>";
+            html += "<li onclick='click1(this)'  onmouseover='mouseover1(this)'><a id='a1005' class='ajax-link' target='iframe' href='/selleradmin/Certification/Management'><i class='Seller1005'></i><span>实地认证</span></a></li>";
+            html += "<li onclick='click1(this)'  onmouseover='mouseover1(this)'><a id='a1005' class='ajax-link' target='iframe' href='/selleradmin/MessageDetial/Management'><i class='Seller1006'></i><span>消息中心</span></a></li>";
+            html += "<li onclick='click1(this)'  onmouseover='mouseover1(this)'><a id='a1006' class='ajax-link'  target='_blank' href='/ChatMessage/Index'><i class='Seller1006'></i><span>在线咨询</span></a></li>";
+            $("#myhidden").val(html);
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="top">
+        <div class="warp cl">
+            <span class="top-link" style="font-size:15px">
+                您好，欢迎来到ChemCloud外贸商城@(ViewBag.SiteName)！
+                <span class="sj_poh">
+                    <img src="~/Areas/Web/Images/img/phone.png" align="absmiddle" />
+                    021-6048-3042
+                </span>
+                <a href="/" style="font-weight:bolder;font-size:16px">去@(ViewBag.SiteName)首页</a>
+            </span>
+            <!--侧边栏-->
+            <ul class="quick_list" style="width:450px;font-size:15px">
+
+                <li class="service dropdown">
+                    <s></s>
+                    <span class="outline"></span>
+                    <span class="blank"></span>
+                    <a href='/selleradmin'>供应商中心</a>
+                    <b></b>
+                    <div class="dropdown-menu">
+                        <ol>
+                            <li><a href='/SellerAdmin?url=/SellerAdmin/Shop/ShopDetail&tar=Shop/ShopDetail'>供应商信息</a></li>
+                            <li><a href="/SellerAdmin?url=/SellerAdmin/Order/management&tar=order/management">订单管理</a></li>
+                            <li><a href="/SellerAdmin?url=/SellerAdmin/product/PublicStepOne&tar=PublicStepOne">发布产品</a></li>
+                            <li><a href="/SellerAdmin?url=/SellerAdmin/product/management&tar=product/management">管理产品</a></li>
+                        </ol>
+                    </div>
+                </li>
+                <li><a href="/SellerAdmin" style="padding-right:30px;width:100px;text-decoration:none;">@Model.UserName</a> &nbsp;<a href="javascript:logout()" style="padding-left:30px;">[退出]</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="navbar navbar-static-top navbar-custom">
+        @{var area = (string)ViewContext.RouteData.DataTokens["area"];}
+        <div class="container">
+            <div class="navbar-header">
+                <a class="logo" href="/" style="overflow:hidden;margin-top:40px;"><img src="~/Areas/Admin/Content/Images/logo.png" style="display:block;"></a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown active">
+                        <a class="dropdown-toggle" data-toggle="dropdown">供应商中心</a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("供应商中心", "Console", "Home", new { area = "selleradmin" }, new { target = "iframe", id = "1001" })</li>
+                            <li>@Html.ActionLink("企业信息", "ShopDetail", "Shop", new { area = "selleradmin" }, new { target = "iframe", id = "1003" })</li>
+                            <li>@Html.ActionLink("修改密码", "ChangePassword", "Shop", new { area = "selleradmin" }, new { target = "iframe", id = "1004" })</li>
+                            <li>@Html.ActionLink("实地认证", "Management", "Certification", new { area = "selleradmin" }, new { target = "iframe", id = "1005" })</li>
+                            <li>@Html.ActionLink("消息中心", "Management", "MessageDetial", new { area = "selleradmin" }, new { target = "iframe", id = "1006" })</li>
+                            <li>
+                                @Html.ActionLink("在线询盘", "Index", "Chat", new { area = "Web" }, null)
+                            </li>
+                        </ul>
+                        <input type="hidden" id="myhidden" value="" />
+                    </li>
+                    @foreach (var p in ChemCloud.Web.Framework.PrivilegeHelper.SellerAdminPrivileges.Privilege)
+                    {
+                        string html1 = "";
+                        <li class="dropdown">
+
+                            <a class="dropdown-toggle" data-toggle="dropdown">@p.GroupName</a>
+                            <ul class="dropdown-menu id_menu">
+                                @foreach (var item in p.Items)
+                                {
+                                    <li><a href="/@area/@item.Url" id="@item.PrivilegeId" target="iframe">@item.Name</a></li>
+
+                                    html1 += "<li onclick='click1(this)' onmouseover='mouseover1(this)'><a target='iframe' id='a" + item.PrivilegeId + "' class='ajax-link' href='/" + area + "/" + item.Url + "'><i class='Seller" + item.PrivilegeId + "'></i><span> " + item.Name + "</span></a></li>";
+                                }
+                            </ul>
+                            <input type="hidden" value="@html1" />
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="aside">
+        <div class="sidebar-nav">
+            <div class="nav-canvas">
+                <div class="nav-sm nav nav-stacked">
+                </div>
+                <ul class="nav nav-pills nav-stacked main-menu"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <iframe id="iframecontent" name="iframe" frameborder="0" scrolling="no" style="width:100%;height:3000px;"
+                @*onload="this.height=document.body.scrollHeight"*@></iframe>
+    </div>
+    <input type="hidden" id="hid_userid" value="@ViewBag.uid" />
+    <input type="hidden" id="hid_usertype" value="@ViewBag.utype" />
+    <input type="hidden" id="hid_username" value="@ViewBag.uname" />
+    <script src="~/Scripts/custom.js"></script>
+    <script src="~/Scripts/CommonJS.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        function callParent() {
+            document.documentElement.scrollTop = document.body.scrollTop = 0;
+        }
+        var _getElementById = function (tagName) {
+            return window.frames[0].document.getElementById(tagName);
+        };
+        function change() {
+            var stae1, stae2, stae3;
+            window.frames[0].$.dialog({
+                title: '修改密码',
+                lock: true,
+                id: 'ChangePwd',
+                width: '400px',
+                content: '<div id="changePassword" style="">\
+        <div class="dialog-form">\
+                <div class="form-group">\
+                    <label for="" class="label-inline">旧密码：</label>\
+                    <input type="password" value="" id="old"  name="userVo.realName" maxlength="20" class="form-control input-sm">\
+                    <p id="old_msg" class="help-block"></p>\
+                </div>\
+                <div class="form-group">\
+                    <label for="" class="label-inline">新密码：</label>\
+                    <input type="password" value="" id="new" name="userVo.realName" maxlength="20" class="form-control input-sm">\
+                    <p id="new_msg" class="help-block"></p>\
+                </div>\
+                <div class="form-group">\
+                    <label for="" class="label-inline">重复密码：</label>\
+                    <input type="password" value="" id="confirm" name="userVo.realName" maxlength="20" class="form-control input-sm">\
+                    <p class="help-block" id="confirm_msg" ></p>\
+                </div>\
+        </div>\
+    </div>',
+                padding: '20px 10px',
+                okVal: '确定',
+                init: function () {
+                    $(_getElementById("old")).focus();
+
+                    fn = function (dom, d, callback, msg) {
+                        $.ajax({
+                            type: 'post',
+                            url: '@Url.Action("CheckOldPassword")',
+                            data: 'password=' + d,
+                            dataType: "json",
+                            success: function (data) {
+                                if (!data.success) {
+                                    callback(dom, data.success, msg, d);
+                                } else {
+                                    $(_getElementById('old_msg')).html('');
+                                    $(_getElementById("old")).css({ borderColor: '#ccc' });
+                                    stae1 = $(_getElementById(dom)).val();
+                                }
+                            }
+                        });
+                    },
+                    handle = function (dom, data, msg, d) {
+                        if (data) {
+                            stae1 = $(_getElementById(dom)).val();
+                        } else {
+                            $(_getElementById(dom)).css({ borderColor: '#f60' });
+                            $(_getElementById(dom + '_msg')).css({ color: '#f60' }).html(msg);
+                            stae1 = '';
+                        }
+                    };
+
+                    $(_getElementById("old")).blur(function () {
+                        var d = $(this).val();
+                        fn('old', d, handle, '密码错误!');
+                    });
+                    $(_getElementById('new')).blur(function () {
+                        var d = $(this).val();
+                        if (d.length < 5) {
+                            $(_getElementById('new')).css({ borderColor: '#f60' });
+                            $(_getElementById('new_msg')).css({ color: '#f60' }).html('密码不能少于5位!');
+                            stae2 = '';
+                        } else {
+                            $(_getElementById('new')).css({ borderColor: '#ccc' });
+                            $(_getElementById('new_msg')).css({ color: '#ccc' }).html('');
+                            stae2 = d;
+                        }
+                    });
+                    $(_getElementById('confirm')).blur(function () {
+                        var d = $(this).val();
+                        if (d == $(_getElementById('new')).val()) {
+                            $(_getElementById('confirm')).css({ borderColor: '#ccc' });
+                            $(_getElementById('confirm_msg')).css({ color: '#ccc' }).html('');
+                            stae3 = d;
+                        } else {
+                            $(_getElementById('confirm')).css({ borderColor: '#f60' });
+                            $(_getElementById('confirm_msg')).css({ color: '#f60' }).html('密码不一致!');
+                            stae3 = '';
+                        }
+                    });
+                },
+                button: [
+                    {
+                        name: '确认',
+                        callback: function () {
+                            $.ajax({
+                                type: 'post',
+                                url: '@Url.Action("ChangePassword")',
+                                data: { "oldpassword": stae1, "password": stae3 },
+                                dataType: "json",
+                                success: function (data) {
+                                    if (data.success) {
+                                        window.frames[0].$.dialog.succeedTips("密码修改成功！", function () {
+                                            $(_getElementById("old")).val('');
+                                            $(_getElementById("new")).val('');
+                                            $(_getElementById("confirm")).val('');
+                                            $(_getElementById("ChangePwd")).hide();
+                                            $(_getElementById("changePassword")).hide();
+                                        }, 2);
+                                    } else {
+                                        window.frames[0].$.dialog.errorTips("保存失败！", '', 3);
+                                    }
+                                }
+                            });
+                        },
+                        focus: true
+                    },
+                    {
+                        name: '取消',
+                    }]
+            });
+        }
+
+        function logout() {
+            $.removeCookie('ChemCloud-User', { path: '/' });
+            $.removeCookie('ChemCloud-SellerManager', { path: "/" });
+            location.reload();
+        }
+        function update() {
+            $.ajax({
+                type: 'GET',
+                url: '/sellerAdmin/home/GetsellerAdminMessage',
+                cache: false,
+                data: {},
+                dataType: 'json',
+                success: function (data) {
+                    $("#AllMessageCount").text(data.AllMessageCount);
+                    $("#UnReplyConsultations").text(data.UnReplyConsultations == 0 ? "" : "(" + data.UnReplyConsultations + ")");
+                    $("#UnReplyComments").text(data.UnReplyComments == 0 ? "" : "(" + data.UnReplyComments + ")");
+                    $("#UnPayOrder").text(data.UnPayOrder == 0 ? "" : "(" + data.UnPayOrder + ")");
+                    $("#UnComplaints").text(data.UnComplaints == 0 ? "" : "(" + data.UnComplaints + ")");
+                    $("#UnDeliveryOrder").text(data.UnDeliveryOrder == 0 ? "" : "(" + data.UnDeliveryOrder + ")");
+
+                },
+                error: function () { }
+            });
+        }
+
+        $('.navbar-right .dropdown li').click(function () {
+            var flag = $(this).attr('flag');
+
+            $(this).siblings('#flag').val(flag);
+        });
+
+        ; (function () {
+            var arr = "@ViewBag.Rights".split(','),
+                obj = {};
+            if (arr[0] == 0) {
+                return;
+            }
+            ; (function (a, o) {
+                $.each(a, function (i, e) {
+                    o[e] = true;
+                });
+            }(arr, obj));
+            $('.id_menu').each(function (i, e) {
+                var num = $(e).children().length,
+                    uid = 0;
+                $(e).children().each(function (n, o) {
+                    var a = $(o).find('a').attr('id');
+                    if (!obj[a]) {
+                        $(o).remove();
+                        $('li[right="_' + a + '"]').remove();
+                        uid += 1;
+                    }
+                    if (uid == num) {
+                        $(e).parent().remove();
+                    }
+                });
+            });
+        }());
+    </script>
+    <script>
+        $(function () {
+            refreshCartProducts();
+            var uid = $("#hid_userid").val();
+            var utype = $("#hid_usertype").val();
+            var uname = $("#hid_username").val();
+            if (uid != "" && utype != "" && uname != "") {
+                $.post('/common/PublicMoney/AddUserWallet', { uid: uid, utype: utype, uname: uname }, function (result) {
+                });
+            }
+        });
+        function refreshCartProducts() {
+            $.post('/cart/GetCartProducts', {}, function (cart) {
+                var products = cart.products;
+                var count = cart.totalCount;
+                $('#shopping-amount').html(count);
+            });
+        }
+    </script>
+</body>
+</html>

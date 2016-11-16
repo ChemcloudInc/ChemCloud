@@ -1,0 +1,288 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "费率计算";
+}
+@model  ChemColud.Shipping.ShipmentEx
+
+<link href="~/Areas/Web/Content/bargain.css" rel="stylesheet" />
+
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<div class="box1 lh24">
+    <style>
+        .tabledesc tr th {
+            background: #3498DB;
+            color: #fff;
+        }
+
+        .tabledesc #border_lja {
+            border-bottom: 1px dotted #dae1e6;
+        }
+
+            .tabledesc #border_lja:last-child {
+                border-bottom: none;
+            }
+
+        .baseTitle{
+             width: 100%;
+            text-align: start;
+            margin-top: 10px;
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+            line-height: 30px;
+            text-indent: 1em;
+           
+        }
+
+        .stop_1 {
+            width: 100%;
+            text-align: start;
+            margin-top: 10px;
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+            line-height: 30px;
+            text-indent: 2em;
+            background: url(/Areas/Web/Images/first.png) no-repeat;
+            background-position: 1% 50%;
+        }
+
+        .stop_2 {
+            width: 100%;
+            text-align: start;
+            margin-top: 10px;
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+            line-height: 30px;
+            text-indent: 2em;
+            background: url(/Areas/Web/Images/second.png) no-repeat;
+            background-position: 1% 50%;
+        }
+
+        .textcolspan {
+    width: 100%;
+    height: 16px;
+    padding: 5px 25px 5px 5px;
+    border: 1px solid #cccccc;
+    float: none;
+    font-size: 14px;
+    font-family: arial, "宋体";
+    color: #999;
+}
+
+        .selectbox {
+    width: 238px;
+    height: 28px;
+    padding: 5px 25px 5px 5px;
+    border: 1px solid #cccccc;
+    float: none;
+    font-size: 13px;
+    font-family: arial, "宋体";
+    color: #999;
+}
+
+        .selectbox1 {
+            width: 100px;
+            height: 28px;
+            padding: 5px 25px 5px 5px;
+            border: 1px solid #cccccc;
+            float: none;
+            font-size: 13px;
+            font-family: arial, "宋体";
+            color: #999;
+        }
+
+        .table_margain {
+    border: 0px solid #808080;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+    width:100%
+}
+
+    .table_margain tr {
+        height: 3em;
+    }
+
+       /*.table_margain tr td:nth-child(1) {
+            width: 100px;
+            text-align: right;
+        }
+
+         .table_margain tr td:nth-child(2) {
+            width: 280px;
+            text-align: left;
+        }*/
+
+        .tdLabel{
+              width: 100px;
+            text-align: right;
+        }
+
+        .tdControl{
+              width: 280px;
+            text-align: left;
+        }
+
+        .textEn {
+            width: 208px;
+            height: 16px;
+            padding: 5px 25px 5px 5px;
+            border: 1px solid #cccccc;
+            float: none;
+            font-size: 14px;
+            font-family: arial, "宋体";
+            color: #999;
+            
+        }
+
+
+    </style>
+    <div class="border-box" style="margin-top: 1em; border: 2px solid #dae1e6;">
+        <p class="baseTitle">
+            1.托运始发地/目的地
+        </p>
+        <table id="table_orgin" class="table_margain">
+            <tr>
+                <td colspan="6" style="width:100%"><h2 style="padding-bottom: 3px; border-bottom: 1px solid #000; margin: 10px 0 5px 0;">&nbsp;&nbsp;始发地</h2></td>
+            </tr>
+            <tr>
+                <td class="tdLabel">国家/地点：</td>
+                <td>
+                    @ViewBag.model.OriginAddress.CountryName
+                </td>
+                <td class="tdLabel">城市:</td>
+                <td>@ViewBag.model.OriginAddress.City</td>
+                <td class="tdLabel">邮编:</td>
+                <td>
+                    @ViewBag.model.OriginAddress.PostalCode
+                </td>
+            </tr>
+            <tr>
+                <td class="tdLabel">地址:</td>
+                <td colspan="3">
+                    @ViewBag.model.OriginAddress.Line1
+                </td>
+                <td colspan="2"></td>
+            </tr>
+
+            <tr>
+                <td colspan="6"><h2 style="padding-bottom: 3px; border-bottom: 1px solid #000; margin: 10px 0 5px 0;">&nbsp;&nbsp;目的地</h2></td>
+            </tr>
+            <tr>
+                <td class="tdLabel">国家/地点：</td>
+                <td>
+                    @ViewBag.model.DestinationAddress.CountryName
+                </td>
+                <td class="tdLabel">城市:</td>
+                <td>@ViewBag.model.DestinationAddress.City</td>
+                <td class="tdLabel">邮编:</td>
+                <td>
+                    @ViewBag.model.DestinationAddress.PostalCode
+                </td>
+            </tr>
+            <tr>
+                <td class="tdLabel">地址:</td>
+                <td colspan="3">@ViewBag.model.DestinationAddress.Line1</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="6"><h2 style="padding-bottom: 3px; border-bottom: 1px solid #000; margin: 10px 0 5px 0;">&nbsp;&nbsp;附加信息</h2></td>
+            </tr>
+            <tr>
+                <td class="tdLabel">包裹数量:</td>
+                <td>@ViewBag.model.PackageCount</td>
+                <td colspan="4"></td>
+            </tr>
+            <tr>
+                <td class="tdLabel">重量:</td>
+                <td >
+                    @ViewBag.model.TotalPackageWeight
+                   
+                </td>
+                <td colspan="4">
+                    @if (@ViewBag.model.Packages.Count > 0)
+                    {
+                        @ViewBag.model.Packages[0].ShipWeightUnit
+                    }
+                </td>
+            </tr>
+            
+        </table>
+</div>
+    <div class="border-box" style="margin-top: 1em; border: 2px solid #dae1e6;">
+        <p class="baseTitle">
+            2.包裹和货件详细信息
+        </p>
+        <table class="tabledesc" id="tabledesc" style="margin-top:1em;" border="0" cellpadding="3" cellspacing="1" width="100%" align="center">
+            <tr>
+               
+                <th>数量</th>
+                <th>重量(每件包裹)</th>
+                <th>包裹类型</th>
+                <th style="width:280px">托运申报价值(每件包裹)</th>
+            </tr>
+            <tr>
+                @if (@ViewBag.model.Packages.Count>0)
+                {
+                <td>
+                   @ViewBag.model.PackageCount
+                </td>
+                <td>
+                    @ViewBag.model.Packages[0].Weight
+                    
+                </td>
+                <td>
+                    @ViewBag.model.Packages[0].PackageType
+                    @*<select name="pkgItemType1" id="pkgItemType1Id" disabled="disabled">
+                        <option value="0" selected="selected">选择</option>
+                        <option value="6">FedEx Envelope</option>
+                        <option value="2"> FedEx Pak</option>
+                        <option value="13">FedEx Small Box</option>
+                        <option value="23">FedEx Medium Box</option>
+                        <option value="33">FedEx Large Box</option>
+                        <option value="43">FedEx Extra Large Box</option>
+                        <option value="4">FedEx Tube</option>
+                        <option value="5">FedEx 10kg Box</option>
+                        <option value="25">FedEx 25kg Box</option>
+                        <option value="1">自备包装</option>
+                    </select>*@
+                </td>
+                <td>
+                    @*@ViewBag.model.Packages[0].InsuredValue*@
+                </td>
+                }
+             </tr>
+            
+        </table>
+    </div>
+    <div class="border-box" style="margin-top: 1em; border: 2px solid #dae1e6;">
+        <p class="baseTitle">
+            3.费率和运送时间
+        </p>
+        <table class="tabledesc" id="tabledesc" style="margin-top:1em;" border="0" cellpadding="3" cellspacing="1" width="100%" align="center">
+            <thead>
+                <tr>
+                    <th>送递日期/时间</th>
+                    <th>服务</th>
+                    <th>费率</th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <tbody id="tabledesc_body">
+             
+                <tr>
+                    <td>@ViewBag.model.RateValue.GuaranteedDelivery</td>>
+                    <td>@ViewBag.model.RateValue.Name</td>>
+                    <td>@ViewBag.model.RateValue.TotalCharges</td>>
+                    <td></td>
+                </tr>
+              
+            </tbody>
+                
+        </table>
+    </div>
+    
+</div>
+
+

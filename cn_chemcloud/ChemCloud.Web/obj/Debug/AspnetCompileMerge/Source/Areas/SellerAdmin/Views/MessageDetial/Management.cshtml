@@ -1,0 +1,287 @@
+﻿
+
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<script src="~/Scripts/LodopFuncs.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+
+        $(".start_datetime").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".end_datetime").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".start_datetime").click(function () {
+            $('.end_datetime').datetimepicker('show');
+        });
+        $(".end_datetime").click(function () {
+            $('.start_datetime').datetimepicker('show');
+        });
+        $('.start_datetime').on('changeDate', function () {
+            if ($(".end_datetime").val()) {
+                if ($(".start_datetime").val() > $(".end_datetime").val()) {
+                    $('.end_datetime').val($(".start_datetime").val());
+                }
+            }
+
+            $('.end_datetime').datetimepicker('setStartDate', $(".start_datetime").val());
+        });
+
+
+    });
+</script>
+<style type="text/css">
+    i.refundico {
+        display: inline-block;
+        width: 16px;
+        overflow: hidden;
+        height: 17px;
+        background: url("/Images/iconfont-tui.png") no-repeat center center;
+        text-indent: -999px;
+        margin-right: 3px;
+    }
+</style>
+
+<div class="container" style="padding-top:20px">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>消息</strong>
+        <li value="0" type="statusTab" style="border-bottom: 2px solid rgb(52, 152, 219)"><a>所有消息</a></li>
+        <em class="primary-btn">
+            <span class="glyphicon glyphicon-question-sign"></span>
+            <div class="primary">
+                <h3>温馨提示：</h3>
+                <span>*</span><p>管理供应商所有的消息</p>
+            </div>
+        </em>
+
+    </ul>
+
+    <div class="search-box" id="search-box">
+        <form class="custom-inline" role="form">
+            <div class="form-group">
+                <label class="label-inline" for="">开始日期</label>
+                <input id="inputStartDate" class="form-control input-ssm start_datetime" type="text">
+            </div>
+            <div class="form-group">
+                <label class="label-inline" for="">结束日期</label>
+                <input id="inputEndDate" class="form-control input-ssm end_datetime" type="text">
+            </div>
+            <div class="form-group">
+                <label class="label-inline" for="">阅读状态</label>
+
+                <select class="form-control input-ssm" name="Status" id="readStatusSelect" style="height:24px; width:100px">
+                    <option value="0">全部</option>
+                    <option value="2">已读</option>
+                    <option value="1">未读</option>
+                </select>
+            </div>
+            <div class="submit" style="display:inline"><button type="button" class="btn btn-primary btn-sm" id="searchButton">搜 索</button></div>
+        </form>
+    </div>
+    <table id="list" class="table"></table>
+    <div class="tabel-operate" id="saleOff">
+        <button type="button" style="width:70px; height:25px; border:0px solid; background-color:#3498db; color:#fff; border-radius:2px;" onclick="BatchDelete()">批量删除</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        var status = $("#readStatusSelect option:selected").val();
+        if (status == 0) {
+            typeChoose(0);
+        }
+        else if (status == 1) {
+            typeChoose('1');
+        } else if (status == 2) {
+            typeChoose('2');
+        }
+        function typeChoose(val) {
+            $("#list").hiMallDatagrid({
+                url: './list',
+                nowrap: false,
+                rownumbers: true,
+                NoDataMsg: '没有找到符合条件的数据',
+                border: false,
+                fit: true,
+                fitColumns: true,
+                pagination: true,
+                idField: "Id",
+                pageSize: 15,
+                pagePosition: 'bottom',
+                pageNumber: 1,
+                queryParams: { BeginTime: $("#inputStartDate").val(), EndTime: $("#inputEndDate").val(), ReadFlag: val },
+                operationButtons: "#saleOff",
+                onLoadSuccess: CheckStatus,
+                columns:
+                [[
+                     {
+                         checkbox: true, width: 20, align: "center", formatter: function (value, row, index) {
+                             return '<input type="checkbox">';
+                         }
+                     },
+                     { field: "Id", title: "Id", hidden: true },
+                    {
+                        field: "MessageTitle", title: "消息名称", width: 200, align: "center", formatter: function (value, row, index) {
+                            var html = "";
+                            html = row.MessageTitle;
+                            return html;
+                        }
+                    },
+                    {
+                        field: "MsgType", title: "消息类型", width: 100, formatter: function (value, row, index) {
+                            var html = "";
+                            html = row.MsgType == 1 ? "消息" : "通知";
+                            return html;
+                        }
+                    },
+                                        {
+                                            field: "Status", title: "状态", width: 100, formatter: function (value, row, index) {
+                                                var html = "";
+                                                html = row.Status == "2" ? "已读" : "未读";
+                                                return html;
+                                            }
+                                        },
+                    {
+                        field: "SendObj", title: "接收人类型", width: 160, formatter: function (value, row, index) {
+                            var html = "";
+                            if (row.SendObj == 1) {
+                                var html = "所有人";
+                            } else if (row.SendObj == 2) {
+                                var html = "供应商";
+                            } else if (row.SendObj == 3) {
+                                var html = "采购商";
+                            } else if (row.SendObj == 4) {
+                                var html = "自定义发送";
+                            }
+                            return html;
+                        }
+                    },
+                    {
+                        field: "operation", operation: true, title: "操作",
+                        formatter: function (value, row, index) {
+                            var html = ["<span class=\"btn-a\">"];
+                            html.push('<a href="./Detial?id=' + row.Id + '">查看</a>');
+                            html.push("<a onclick=\"Delete('" + row.MsgId + "')\">删除</a>");
+                            if (row.Status == 1) {
+                                html.push("<a onclick=\"UpdateType('" + row.Id + "')\">标为已读</a>");
+                            }
+                            html.push("</span>");
+                            return html.join("");
+                        }
+                    }
+                ]]
+            });
+        }
+
+        function CheckStatus() {
+            var status = $(".nav li[class='active']").attr("value");
+            if (status && status != '1') {
+
+                $(".td-choose").hide();
+            }
+            else {
+                $(".td-choose").show();
+            }
+        }
+
+        $('#searchButton').click(function (e) {
+            //searchClose(e);
+            var startDate = $("#inputStartDate").val();
+            var endDate = $("#inputEndDate").val();
+            var Status = $('#readStatusSelect option:selected').val();
+            $(".tabel-operate").find("label").remove();
+            $("#list").hiMallDatagrid('reload', { BeginTime: startDate, EndTime: endDate, ReadFlag: Status });
+        });
+
+
+        $('.nav li').click(function (e) {
+            try {
+                //searchClose(e);
+                $(this).addClass('active').siblings().removeClass('active');
+                if ($(this).attr('type') == 'statusTab') {//状态分类
+                    $('#txtOrderId').val('');
+                    $('#txtuserName').val('');
+
+                    $("#list").hiMallDatagrid('reload', { Status: $(this).attr('value') || null });
+                }
+            }
+            catch (ex) {
+                alert();
+            }
+        });
+
+    });
+
+
+    function UpdateType(MId) {
+        var loading = showLoading();
+        $.post('./UpdateType', { Id: MId }, function (result) {
+            if (result.success) {
+                $.dialog.succeedTips("操作成功！");
+                window.location.reload();
+            }
+            else
+                $.dialog.errorTips("操作失败");
+            loading.close();
+        });
+    }
+
+
+    function Delete(id) {
+        $.dialog.confirm('确定删除该条记录吗？', function () {
+            var loading = showLoading();
+            $.post("./Delete", { id: id }, function (result) {
+                if (result.success) {
+                    loading.close();
+                    $.dialog.tips("删除成功");
+                } else {
+                    loading.close();
+                    $.dialog.tips("删除失败");
+                }
+                location.href = "./Management";
+            });
+        });
+    }
+    function BatchDelete() {
+        var selectedRows = $("#list").hiMallDatagrid("getSelections");
+        var selectids = new Array();
+        for (var i = 0; i < selectedRows.length; i++) {
+            selectids.push(selectedRows[i].MsgId);
+        }
+        if (selectedRows.length == 0) {
+            $.dialog.errorTips("你没有选择任何选项！");
+        }
+        else {
+            $.dialog.confirm('确定删除选择的消息吗？', function () {
+                var loading = showLoading();
+                $.post("./BatchDelete", { ids: selectids.join(',') }, function (data) {
+                    if (data.success) {
+                        loading.close();
+                        $.dialog.tips("删除成功");
+                    } else {
+                        loading.close();
+                        $.dialog.tips("删除失败");
+                    }
+                    location.href = "./Management";
+                });
+            });
+        }
+    }
+
+</script>

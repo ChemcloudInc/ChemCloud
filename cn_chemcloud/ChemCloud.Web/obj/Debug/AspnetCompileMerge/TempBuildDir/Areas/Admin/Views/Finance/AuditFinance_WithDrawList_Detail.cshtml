@@ -1,0 +1,104 @@
+﻿@model ChemCloud.Model.Finance_WithDraw
+
+<div class="container">
+    <input type="hidden" id="hdId" value="@Model.Id" />
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active">审核详细</li>
+    </ul>
+    <div class="form-horizontal">
+
+        <input type="hidden" id="hdid" value="@Model.Id" />
+
+        <table class="table table-bordered table-striped" style="width:1010px">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>提现单号：</td>
+                    <td>
+                        <label class="checkbox-inline parent-check">@Model.Withdraw_Number</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>提现日期：</td>
+                    <td>
+                        <label class="checkbox-inline parent-check">@Model.Withdraw_Time</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>提现用户：</td>
+                    <td>
+                        <label class="checkbox-inline parent-check">@Model.Withdraw_UserName</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>提现金额：</td>
+                    <td>
+                        @if (Model.Withdraw_MoneyType == 1)
+                        {
+                            <label class="checkbox-inline parent-check">@Model.Withdraw_Money<span>￥</span></label>
+                        }
+                        else
+                        {
+                            <label class="checkbox-inline parent-check">@Model.Withdraw_Money<span>$</span></label>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>提现银行：</td>
+                    <td>
+                        <label class="checkbox-inline parent-check">@Model.Withdraw_BankName</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>提现法人：</td>
+                    <td>
+                        <label class="checkbox-inline parent-check">@Model.Withdraw_BankUserName</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>提现卡号：</td>
+                    <td>
+                        <label class="checkbox-inline parent-check">@Model.Withdraw_Account</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>审核结果：</td>
+                    <td>
+                        <textarea id="txtWithdraw_shenheDesc" name="txtWithdraw_shenheDesc" class="text" style="width:300px;height:60px">@Model.Withdraw_shenheDesc</textarea>
+                    </td>
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+    <div class="mt20">
+        <button type="button" onclick="submitshen(1)" class="btn btn-primary statusBtn">同意提现</button>
+        <button type="button" onclick="submitshen(2)" class="btn btn-primary statusBtn">拒绝提现</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function submitshen(status) {
+        var hdid = $("#hdid").val();
+        var Remarks = $("#txtWithdraw_shenheDesc").val();
+        var loading = showLoading();
+        $.post("/admin/Finance/SubmitWithdraw", { "Id": hdid, "Withdraw_shenhe": status, "Withdraw_shenheDesc": Remarks }, function (result) {
+            loading.close();
+            if (result.success) {
+                $.dialog.tips("操作成功！");
+            }
+            else {
+                $.dialog.errorTips("操作失败！");
+            }
+            location.href = "/Admin/Finance/AuditFinance_WithDrawList";//
+        });
+    };
+
+</script>

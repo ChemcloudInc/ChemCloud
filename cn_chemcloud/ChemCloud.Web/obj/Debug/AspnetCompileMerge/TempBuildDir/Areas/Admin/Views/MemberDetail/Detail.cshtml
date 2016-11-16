@@ -1,0 +1,89 @@
+﻿@model ChemCloud.Web.Models.MemberDetailsModel
+@using ChemCloud.Core;
+@{
+
+    ViewBag.Title = "Detail";
+}
+<script src="~/Scripts/jquery.nicescroll.min.js"></script>
+<script src="~/Scripts/jquery.nicescroll.plus.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script>
+    var eidtor;
+    $(function () {
+        eidtor = UE.getEditor('companyInfo', {
+            initialFrameHeight: 400, initialFrameWidth: 700,
+            setDisabled: ('fullscreen'), readonly: true
+        });
+        (function initRichTextEditor() {
+            eidtor = UE.getEditor('companyInfo');
+            eidtor.addListener('contentChange', function () {
+                $('#contentError').hide();
+            });
+        })();
+
+    });
+</script>
+<div class="container">
+    <div class="title bot-border" style="margin-top:20px;">
+        <ul class="nav nav-tabs-custom clearfix">
+            <li class="active"><a>采购商明细</a></li>
+        </ul>
+    </div>
+    <form class="form-horizontal" role="form">
+        <div class="form-group" id="TitleDiv">
+            <label class="col-sm-2 control-label" for="">公司名称：</label>
+            <div class="col-sm-4">
+                <input type="text" id="companyName" name="companyName" class="form-control input-sm" value="@Model.CompanyName" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div2">
+            <label class="col-sm-2 control-label" for="">用户名:</label>
+            <div class="col-sm-4">
+                <input type="text" id="userName" name="userName" class="form-control input-sm" value="@Model.UserName" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">公司地址:</label>
+            <div class="col-sm-4">
+                <input type="text" id="companyAddress" name="companyAddress" class="form-control input-sm" value="@Model.CompanyAddress" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">电子邮箱:</label>
+            <div class="col-sm-4">
+                <input type="text" id="companyEmail" name="companyEmail" class="form-control input-sm" value="@Model.Emails" style="width:600px;height:30px" disabled="disabled" />
+
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">创建日期:</label>
+            <div class="col-sm-4">
+                <input type="text" id="creatDate" name="creatDate" class="form-control input-sm" value="@Model.CreateDate" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">最后登录日期:</label>
+            <div class="col-sm-4">
+                <input type="text" id="strLastLoginDate" name="strLastLoginDate" class="form-control input-sm" value="@Model.StrLastLoginDate" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">状态:</label>
+            <div class="col-sm-4">
+                <input type="text" id="memberStatus" name="memberStatus" class="form-control input-sm" value="@Model.Stage" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">公司简介:</label>
+            <div class="col-sm-4">
+                <textarea id="companyInfo" name="companyInfo" style="width:700px;height:400px">@Model.CompanyIntroduction</textarea>
+            </div>
+        </div>
+    </form>
+</div>

@@ -432,20 +432,21 @@ function getParam_UpdateStatusVal(status) {
             message = "";
             break;
         case 3://确已定
-            message = "确已定，无法不能修改";
+            message = "已确定，无法修改";
             break;
         case 4://已下单
-            message = "已下单，无法不能修改";
+            message = "已下单，无法修改";
             break;
         case 5://已支付
-            message = "已支付，无法不能修改";
+            message = "已支付，无法修改";
             break;
         case 6://已发货
-            message = "已发货，无法不能修改";
+            message = "已发货，无法修改";
             break;
         case 7://已收货
-            message = "已收货，无法不能修改";
+            message = "已收货，无法修改";
             break;
+        
         default:
     }
 
@@ -692,7 +693,7 @@ function getIWantToSupplyList(param) {
                            + "<td class='li_latestDate'>" + json.List[i].DeliveryDate + " </td>"
                            + "<td class='li_status'>" + json.List[i].StatusStr + " </td>"
                            //+ "<td class='li_xiala'><span class='span_wytb_hui' onclick=onMore1(" + i + ")>我要报价</span></td>"
-                           + "<td class='li_xiala'>" + (json.List[i].SupplyModel.Id == 0 ? "<span class='span_wytb_hui2' onclick=onMore1(" + i + ")>我要报价</span>" : "<span class='span_wytb_hui' onclick=onMore1(" + i + ")>修改报价</span>") + "</td>"
+                           + "<td class='li_xiala' style='text-align:center;'>" + (json.List[i].SupplyModel.Id == 0 ? "<span class='span_wytb_hui2' onclick=onMore1(" + i + ")>我要报价</span>" : "<span class='span_wytb_hui' onclick=onMore1(" + i + ")>修改报价</span>") + "</td>"
                        + "</tr>"
 
                       + (json.List[i].SupplyModel.Model.Id == 0 ? ("<tr class='tr_detail toubiao' id='toubiao" + i + "'>"
@@ -978,17 +979,35 @@ function getIWantToSupplyList_Default(param) {
                 return false;
             }
             else if (json.List.length > 0) {
+                var NowTime = json.NowTime;
                 for (var i = 0; i < json.List.length; i++) {
-                    trList += ("<tr>"
+                    var FinishTime = json.List[i].DeliveryDate;
+                    
+                   
+                    if(FinishTime > NowTime){
+                        trList += ("<tr>"
                            + "<td class='li_productname'>" + json.List[i].ProductName + "</td>"
                            + "<td class='li_totalprice'>" + json.List[i].TotalPrice + "</td>"
                            + "<td class='li_createDate'>" + json.List[i].CreateDate + " </td>"
                            + "<td class='li_latestDate'>" + json.List[i].DeliveryDate + " </td>"
                            + "<td class='li_status'>" + json.List[i].StatusStr + " </td>"
                            //+ "<td class='li_xiala'><span class='span_wytb_hui' onclick=onMore1(" + i + ")>我要报价</span></td>"
-                           + "<td><span class='span_wytb_hui2' onclick=getParamVel_Default()>我要报价</span></td>"
-                       + "</tr>");
 
+                           + "<td style='text-align:center;'><span class='span_wytb_hui2' onclick=getParamVel_Default() >我要报价</span></td>"
+                          // + "<td style='text-align:center;'><span class='span_wytb_hui1' onclick=NULL >我要报价</span></td>"
+                       + "</tr>");
+                    }
+                    else
+                    {
+                        trList += ("<tr>"
+                           + "<td class='li_productname'>" + json.List[i].ProductName + "</td>"
+                           + "<td class='li_totalprice'>" + json.List[i].TotalPrice + "</td>"
+                           + "<td class='li_createDate'>" + json.List[i].CreateDate + " </td>"
+                           + "<td class='li_latestDate'>" + json.List[i].DeliveryDate + " </td>"
+                           + "<td class='li_status'>" + json.List[i].StatusStr + " </td>"
+                           + "<td style='text-align:center;'><span class='span_wytb_hui1' onclick=NULL >我要报价</span></td>"                     
+                       + "</tr>");
+                    }
                     //+ (json.List[i].SupplyModel.Id == 0 ? ("<tr class='tr_detail toubiao' id='toubiao" + i + "'>"
                     //        + "<td class='li_productname'>单价：<input type='text' class='input_toubiao unitPrice' ></td>"
                     //        + "<td class='li_totalprice'>总价：<input type='text' class='input_toubiao totalPrice' ></td>"

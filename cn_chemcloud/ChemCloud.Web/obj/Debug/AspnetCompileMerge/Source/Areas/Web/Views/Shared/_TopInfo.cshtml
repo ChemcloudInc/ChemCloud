@@ -1,0 +1,323 @@
+﻿@{
+    Layout = null;
+}
+
+@model ChemCloud.Model.UserMemberInfo
+<link href="~/Areas/Web/Content/css.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.cookie.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+<style>
+    .top_fl {
+        width: 446px;
+        height: 40px;
+        line-height: 40px;
+        float: left;
+    }
+
+        .top_fl p {
+            color: #555555;
+            width: 360px;
+            float: left;
+            font-size: 14px;
+        }
+
+    .link_index {
+        line-height: 39px;
+        float: right;
+        color: rgb(52,159,252);
+        text-decoration: underline;
+        font-size: 16px;
+    }
+
+        .link_index:hover {
+            font-weight: 400;
+        }
+
+    .search-form {
+        margin-bottom: 0;
+    }
+</style>
+<div id="top">
+    <div class="top_cent">
+        <div class="top_fl">
+            <p>欢迎来到ChemCloud外贸商城<span><img src="~/Areas/Web/Images/img/phone.png" align="absmiddle" />@ViewBag.Tel</span></p>
+            <input type="hidden" id="hdisindex" value="@Request.Path" />
+            <a href="/" class="link_index">去首页</a>
+            @*@if (Request.Path == "/")
+                {
+                    if (Model != null)
+                    {
+                        if (@Model.UserType == 3)
+                        {  <a href="/UserCenter">采购商中心</a> }
+                        else
+                        {
+                            <a href="/sellerAdmin">供应商中心</a>
+                        }
+                    }
+                }
+                else
+                {
+                    <a href="/">去ChemCloud首页</a>
+                }
+                </div>*@
+        </div>
+        <div class="top_fr">
+            @if (Model != null)
+            {
+                if (@Model.UserType == 3)
+                {
+                    <ul class="top_fr-1">
+                        <li><a href="/UserCenter?url=/UserInfo&tar=UserInfo">我的账户</a></li>
+                        <li><a href="/UserCenter?url=/UserOrder&tar=UserOrder">我的订单</a></li>
+                        <li><a href="/userCenter">@Model.UserName</a></li>
+                        <li><a href="javascript:void(0)" onclick="logout();">退出</a></li>
+                    </ul>
+                    <ul class="top_fr-2">
+                        @*<li class="down" style="border-left:0px;">
+                                <img style="margin: 0px 3px 3px 0px;" src="~/Areas/Web/Images/img/jia.png" /><a href="/">首页</a>
+                                <b></b>
+                                <div class="list">
+                                    <ul>
+                                        <li><a href="/UserCenter?url=/UserOrder&tar=UserOrder">已买到的产品</a></li>
+                                        <li><a href="/UserCenter?url=/productConcern&tar=productConcern">我关注的产品</a></li>
+                                    </ul>
+                                </div>
+                            </li>*@
+                        <li style="width:110px">
+                            <img src="~/Areas/Web/Images/img/shou.png" />
+                            <a target="_blank" href="/cart/cart">购物车(<span id="shopping-amount"></span>)</a>
+                        </li>
+
+
+
+                        @*<li><a href="@ViewBag.web">English</a></li>*@
+                        @*<li><a href="/UserCenter?url=/OrderComplaint&tar=OrderComplaint">投诉中心</a></li>*@
+                    </ul>
+                }
+                else
+                {
+                    <ul class="top_fr-1">
+                        <li><a href="/sellerAdmin">@(string.IsNullOrEmpty(Model.Nick) ? @Model.UserName : @Model.Nick)</a></li>
+                        <li><a href="javascript:logout()">注销</a></li>
+                    </ul>
+                    <ul class="top_fr-2">
+                        <li class="down" style="border-left:0px;width:126px">
+                            <img src="~/Areas/Web/Images/img/jia.png" />
+                            <em></em>
+                            <a href="/sellerAdmin">供应商中心</a>
+                            <div class="list">
+                                <ul>
+                                    <li style="width:126px"><a href="/SellerAdmin?url=/SellerAdmin/order/management&tar=order/management">订单管理</a></li>
+                                    <li style="width:126px"><a href="/SellerAdmin?url=/SellerAdmin/product/PublicStepOne&tar=PublicStepOne">发布产品</a></li>
+                                    <li style="width:126px"><a href="/SellerAdmin?url=/SellerAdmin/product/management&tar=product/management">产品列表</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        @*<li><a href="@ViewBag.web">English</a></li>*@
+                    </ul>
+                }
+                <script>
+                    $(function () {
+                        //采购商
+                        if ("@ViewBag.UserType" == "3") {
+                            setInterval(function () {
+                                $.post('/UserCenter/Message', function (result) {
+                                    if (result.success) {
+                                        $.post('/UserCenter/MessageCount', function (result) {
+                                            if (result.success) {
+                                                art.dialog.notice({
+                                                    title: '消息提示',
+                                                    height: 150,
+                                                    width: 150,// 必须指定一个像素宽度值或者百分比，否则浏览器窗口改变可能导致artDialog收缩
+                                                    content: "您有" + result.msg + "条未读消息",
+                                                    icon: 'face-sad',
+                                                    time: 10,
+                                                    okVal: '查看',
+                                                    ok: function () {
+                                                        location.href = '/UserCenter/index?c=2';
+                                                    },
+                                                });
+                                            }
+
+                                        });
+                                    }
+                                })
+                                //$.post('/Chat/GetState', function (result) {
+                                //    if (result.success) {
+                                //        $(".messages").css("background-position", "0 -350px");
+                                //    } else {
+                                //        $(".messages").css("background-position", "0 -314px");
+                                //    }
+                                //});
+                            }, 10000)
+                        }
+                    });
+                </script>
+            }
+            else
+            {
+                <ul class="top_fr-1">
+                    <li><a href="/Login">登录</a></li>
+                    <li><a href="/Register/RegisterAgreement">注册</a></li>
+                </ul>
+                <ul class="top_fr-2">
+                    @*<li class="down" style="border-left:0px;">
+                            <img src="~/Areas/Web/Images/img/jia.png" /><a href="/UserCenter">采购商中心</a>
+                            <em></em>
+                            <div class="list">
+                                <ul>
+                                    <li><a href="/UserCenter?url=/UserOrder&tar=UserOrder">已买到的产品</a></li>
+                                    <li><a href="/UserCenter?url=/productConcern&tar=productConcern">我关注的产品</a></li>
+                                </ul>
+                            </div>
+                        </li>*@
+
+                    <li>
+                        <img src="~/Areas/Web/Images/img/shou.png" />
+                        <a target="_blank" href="/cart/cart">购物车(<span id="shopping-amount"></span>)</a>
+                    </li>
+
+
+                    @*<li><a href="@ViewBag.web">English</a></li>*@
+
+                    <!--  <li class="service dropdown">
+                         <s></s>
+                         <span class="outline"></span>
+
+                         <img src="~/Areas/Web/Images/homepage/kehuzhongxin.png" />
+                         <a href="javascript:void(0)">客户中心</a>
+                         <em></em>
+                         <div class="list">
+                             <ul>
+                                 <li><a href="/Article/Category">帮助中心</a></li>
+                                 <li><a href="/UserCenter?url=/OrderRefund&tar=OrderRefund">售后服务</a></li>
+                                 <li><a href="/UserCenter?url=/OrderComplaint&tar=OrderComplaint">投诉中心</a></li>
+                             </ul>
+                         </div>
+                     </li>
+                     <!--<li class="language dropdown">
+                         <s></s>
+                         <span class="outline"></span>
+                         <a>版本切换</a>
+                         <b></b>
+                         <div class="dropdown-menu">
+                             <ol>
+                                 @*<li><a href="eu.chemcloud.com">中文版</a></li>*@
+
+                                 @*<li><a href="/UserCenter?url=/OrderComplaint&tar=OrderComplaint">投诉中心</a></li>*@
+                             </ol>
+                         </div>
+                     </li>-->
+                </ul>
+            }
+        </div>
+
+    </div>
+</div>
+@if (Model != null)
+{
+    <input type="hidden" id="hid_userid" value="@Model.Id" />
+    <input type="hidden" id="hid_usertype" value="@Model.UserType" />
+    <input type="hidden" id="hid_username" value="@Model.UserName" />
+}
+else
+{
+    <input type="hidden" id="hid_userid" value="" />
+    <input type="hidden" id="hid_usertype" value="" />
+    <input type="hidden" id="hid_username" value="" />
+}
+<script type="text/javascript">
+    //$("#top .top_fr ul li").hover(function () {
+    //    $(this).addClass("hover");
+    //    $(this).find(".wx").show();
+    //}, function () {
+    //    $(this).removeClass("hover");
+    //    $(this).find(".wx").hide();
+    //});
+
+    $("#sidebarTool ul li.top").click(function () {
+        $('html,body').animate({ "scrollTop": "0px" }, 200);
+        if ($('html,body').scrollTop < 500) {
+            $(this).hide();
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        refreshCartProducts();
+        artDialog.notice = function (options) {
+            var opt = options || {},
+                api, aConfig, hide, wrap, top,
+                duration = 800;
+            var config = {
+                id: 'Notice',
+                left: '100%',
+                top: '100%',
+                fixed: true,
+                drag: false,
+                resize: false,
+                follow: null,
+                lock: false,
+                init: function (here) {
+                    api = this;
+                    aConfig = api.config;
+                    wrap = api.DOM.wrap;
+                    top = parseInt(wrap[0].style.top);
+                    hide = top + wrap[0].offsetHeight;
+                    wrap.css('top', hide + 'px')
+                        .animate({ top: top + 'px' }, duration, function () {
+                            opt.init && opt.init.call(api, here);
+                        });
+                },
+                close: function (here) {
+                    $.post('/UserCenter/UpdateMessage', function (result) {
+
+                    })
+                    wrap.animate({ top: hide + 'px' }, duration, function () {
+                        opt.close && opt.close.call(this, here);
+                        aConfig.close = $.noop;
+                        api.close();
+                    });
+                    return false;
+                }
+            };
+            for (var i in opt) {
+                if (config[i] === undefined) config[i] = opt[i];
+            };
+            return artDialog(config);
+        };
+        var uid = $("#hid_userid").val();
+        var utype = $("#hid_usertype").val();
+        var uname = $("#hid_username").val();
+
+        if (uid != "" && utype != "" && uname != "") {
+            $.post('/common/PublicMoney/AddUserWallet', { uid: uid, utype: utype, uname: uname }, function (result) {
+            });
+        }
+
+        /*去首页*/
+
+        var isindex = $("#hdisindex").val();
+        if (isindex == "/") {
+            $(".link_index").css("display", "none");
+        } else {
+            $(".link_index").css("display", "block");
+        }
+    });
+
+    function refreshCartProducts() {
+        $.post('/cart/GetCartProducts', {}, function (cart) {
+            var products = cart.products;
+            var count = cart.totalCount;
+            $('#shopping-amount,#right_cart em').html(count);
+        });
+    }
+    function logout() {
+        $.post('/common/Cookie/logOut', {}, function (result) {
+            window.location.reload();
+        });
+    }
+
+</script>
+

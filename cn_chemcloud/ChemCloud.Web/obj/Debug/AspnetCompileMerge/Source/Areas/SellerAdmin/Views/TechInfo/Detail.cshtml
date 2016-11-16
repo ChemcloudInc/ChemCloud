@@ -1,0 +1,150 @@
+﻿@model ChemCloud.Model.TechnicalInfo
+@using ChemCloud.Core;
+@{
+    
+    ViewBag.Title = "Detail";
+}
+<script src="~/Scripts/jquery.nicescroll.min.js"></script>
+<script src="~/Scripts/jquery.nicescroll.plus.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script>
+    var eidtor;
+    $(function () {
+        eidtor = UE.getEditor('techContent', { initialFrameHeight: 400, initialFrameWidth: 700, setDisabled: ('fullscreen'), readonly: true });
+        (function initRichTextEditor() {
+            eidtor = UE.getEditor('techContent');
+            eidtor.addListener('contentChange', function () {
+                $('#contentError').hide();
+            });
+        })();
+
+    });
+</script>
+<style>
+    div .container {
+         padding: 0px 0 30px 200px;
+    }
+</style>
+<div class="container">
+    <div class="title bot-border" style="margin-top:20px;">
+        <ul class="nav nav-tabs-custom clearfix">
+            <strong>技术资料</strong>
+            <li class="active"><a>技术资料明细</a></li>
+        </ul>
+    </div>
+    <form class="form-horizontal" role="form">
+        <div class="form-group" id="TitleDiv">
+            <label class="col-sm-2 control-label" for="">标题：</label>
+            <div class="col-sm-4">
+                <input type="text" id="techTitle" name="techTitle" class="form-control input-sm" value="@Model.Title" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div2">
+            <label class="col-sm-2 control-label" for="">作者:</label>
+            <div class="col-sm-4">
+                <input type="text" id="techAuthor" name="techAuthor" class="form-control input-sm" value="@Model.Author" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">联系电话:</label>
+            <div class="col-sm-4">
+                <input type="text" id="techTel" name="techTel" class="form-control input-sm" value="@Model.Tel" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">邮箱:</label>
+            <div class="col-sm-4">
+                <input type="text" id="techEmail" name="techEmail" class="form-control input-sm" value="@Model.Email" style="width:600px;height:30px" disabled="disabled" />
+
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">发布人:</label>
+            <div class="col-sm-4">
+                <input type="text" id="techPublisher" name="techPublisher" class="form-control input-sm" value="@Model.PublisherName" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">发布时间:</label>
+            <div class="col-sm-4">
+                <input type="text" id="techPublishTime" name="techPublishTime" class="form-control input-sm" value="@Model.PublishTime" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        @if (Model.Status == 1)
+        {
+            <div class="form-group" id="div3">
+                <label class="col-sm-2 control-label" for="">审核状态:</label>
+                <div class="col-sm-4">
+                    <input type="text" id="techAuditing" name="techAuditing" class="form-control input-sm" value="待审核" style="width:600px;height:30px" disabled="disabled" />
+                </div>
+            </div>
+        }
+        else if (Model.Status == 2)
+        {
+            <div class="form-group" id="div3">
+                <label class="col-sm-2 control-label" for="">审核状态:</label>
+                <div class="col-sm-4">
+                    <input type="text" id="techAuditing" name="techAuditing" class="form-control input-sm" value="审核通过" style="width:600px;height:30px" disabled="disabled" />
+                </div>
+            </div>
+        }
+        else if (Model.Status == 3)
+        {
+            <div class="form-group" id="div3">
+                <label class="col-sm-2 control-label" for="">审核状态:</label>
+                <div class="col-sm-4">
+                    <input type="text" id="techAuditing" name="techAuditing" class="form-control input-sm" value="审核未通过" style="width:600px;height:30px" disabled="disabled" />
+                </div>
+            </div>
+        }
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">审核人:</label>
+            <div class="col-sm-4">
+                <input type="text" id="techAuditor" name="techAuditor" class="form-control input-sm" value="@Model.Auditor" style="width:600px;height:30px" disabled="disabled"/>
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">语言版本:</label>
+            <div class="col-sm-4">
+                <input type="text" id="LanguageType" name="LanguageType" value="@Model.Language" style="width:600px;height:30px" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group" id="div3">
+            <label class="col-sm-2 control-label" for="">技术资料正文:</label>
+            <div class="col-sm-4">
+                <textarea id="techContent" name="techContent" style="width:700px;height:400px">@Model.TechContent</textarea>
+            </div>
+        </div>
+        @if (@ViewBag.attachmentCount > 0)
+        {
+            {
+                int i = 1;
+                foreach (ChemCloud.Model.AttachmentInfo item in ViewBag.attachmentInfo as List<ChemCloud.Model.AttachmentInfo>)
+                {
+                    string fileName = System.IO.Path.GetFileName(@item.AttachmentName);
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="">已上传的附件：</label>
+                        <div class="col-sm-3 form-control-static" style="width:700px">
+                            <a id="URL_@i" href=@item.AttachmentName style="color:blue" target="_blank">附件 @fileName</a>@* @i*@
+                            <input type="hidden" id="attachmentId_@i" value="@item.Id" />
+
+                        </div>
+                    </div>
+
+                    i++;
+
+                }
+
+            }
+        }
+        <input type="hidden" id="attachmentId" value="@ViewBag.attachmentId" />
+        <input type="hidden" id="parentId" value="@ViewBag.parentId" />
+        <input type="hidden" id="attachment" value="@ViewBag.attachment" />
+        <input type="hidden" value="@Model.Id" id="Id" />
+    </form>
+</div>

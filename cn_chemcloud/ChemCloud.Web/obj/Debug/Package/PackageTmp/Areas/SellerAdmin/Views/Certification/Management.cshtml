@@ -1,0 +1,194 @@
+﻿@model ChemCloud.Model.FieldCertification
+
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+
+<div class="container" style="padding-top:20px">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>实地认证</a></li>
+    </ul>
+    <form class="form-horizontal form-pt0" role="form" id="form_step">
+
+        @*申请*@
+        <div id="apply" style=" display :none ">
+            <h3 class="table-hd">实地认证申请</h3>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label" style="color:red"><b style="color:red">*</b>企业荣誉：</label>
+                <div class="col-sm-3">
+                    @Html.TextAreaFor(item => item.EnterpriseHonor, new { @class = "form-control input-sm", maxLength = "100" })
+
+                </div>
+                <div class="col-sm-3">
+                    @Html.ValidationMessageFor(item => item.EnterpriseHonor)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label" style="color:red"><b style="color:red">*</b>产品详情：</label>
+                <div class="col-sm-3">
+                    @Html.TextAreaFor(item => item.ProductDetails, new { @class = "form-control input-sm", maxLength = "100" })
+                </div>
+                <div class="col-sm-3">
+                    @Html.ValidationMessageFor(item => item.ProductDetails)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">拒绝原因：</label>
+                <div class="col-sm-3">
+                    <textarea class="form-control input-sm valid" cols="20" disabled="disabled" rows="2">@Model.RefuseReason</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                @if (@ViewBag.ShopStatus == ChemCloud.Model.ShopInfo.ShopAuditStatus.Open)
+                {
+                    <label id="ARefuse" class="col-sm-2 control-label" style=" display:none;color:red;">申请被拒绝，请重新提交!</label>
+                    <a class="btn btn-primary" id="submit_info" href="javascript:;" style="margin-left:188px;">提交信息</a>
+                }
+                else
+                {
+                    <label style="color:red;">企业信息没有通过审核，不能提交实地认证</label>
+                }
+            </div>
+        </div>
+
+        @*审核中*@
+        <div id="check" style="display :none ">
+            <h3 class="table-hd">实地认证审核</h3>
+            <p class="apply-primary" id="checksh" style="display :none ">
+                <span class="glyphicon glyphicon-info-sign">实地认证申请已提交，请等待审核！</span>
+            </p>
+            <p class="apply-primary" id="checkPay" style="display :none ">
+                <span class="glyphicon glyphicon-info-sign">实地认证已支付，请等待审核！</span>
+            </p>
+        </div>
+
+        @*支付*@
+        <div id="Pay" style=" display :none ">
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">企业荣誉：</label>
+                <div class="col-sm-3">
+                    <textarea class="form-control input-sm valid" cols="20" id="EnterpriseHonor" maxlength="100"
+                              name="EnterpriseHonor" rows="2" disabled="disabled">
+                        @Model.EnterpriseHonor
+                    </textarea>
+                </div>
+                <div class="col-sm-3">
+                    @Html.ValidationMessageFor(item => item.EnterpriseHonor)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">产品详情：</label>
+                <div class="col-sm-3">
+                    <textarea class="form-control input-sm valid" cols="20" id="ProductDetails" maxlength="100"
+                              name="ProductDetails" rows="2" disabled="disabled">
+                        @Model.ProductDetails
+                    </textarea>
+                </div>
+                <div class="col-sm-3">
+                    @Html.ValidationMessageFor(item => item.ProductDetails)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label"></label>
+                <div class="col-sm-3">
+                    <a class="btn btn-primary" id="submit" href="javascript:;">去支付</a>
+                </div>
+            </div>
+        </div>
+
+        @*通过*@
+        <div id="step" style="display :none ">
+            <h3 class="table-hd">实地认证已通过</h3>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">企业荣誉：</label>
+                <div class="col-sm-3">
+                    <textarea class="form-control input-sm valid" cols="20" id="EnterpriseHonor" maxlength="100" name="EnterpriseHonor" rows="2" disabled="disabled">@Model.EnterpriseHonor</textarea>
+                </div>
+                <div class="col-sm-3">
+                    @Html.ValidationMessageFor(item => item.EnterpriseHonor)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">产品详情：</label>
+                <div class="col-sm-3">
+                    <textarea class="form-control input-sm valid" cols="20" id="ProductDetails" maxlength="100" name="ProductDetails" rows="2" disabled="disabled">@Model.ProductDetails</textarea>
+                </div>
+                <div class="col-sm-3">
+                    @Html.ValidationMessageFor(item => item.ProductDetails)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label"></label>
+                <div class="col-sm-3">
+                    <span class="btn btn-primary">已通过</span>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+@*供应商的shopid*@
+<input type="hidden" id="hdshopid" value="@ViewBag.ShopId" />
+@*自定义单号，支付实地认证费用*@
+<input type="hidden" id="hdOrderId" value="@ViewBag.OrderId" />
+
+<script src="~/Scripts/Region.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/jquery.hishopUpload.js"></script>
+<script src="~/Scripts/jquery.himallLinkage.nocreate.js"></script>
+<script src="~/Scripts/autoNumeric.js"></script>
+<script type="text/javascript">
+    $(function () {
+        /*状态*/
+        var status = "@ViewBag.Status";
+        if (status == "Unusable") {
+            $("#apply").css("display", "block");
+            $("#check").css("display", "none");
+            $("#Pay,#ARefuse,#step").css("display", "none");
+        }
+        else if (status == "Submit") {
+            $("#check").css("display", "block");
+            $("#checksh").css("display", "block");
+        }
+        else if (status == "Receive") {
+            $("#apply,#check,#Pay,#step").css("display", "none");
+            $("#Pay").css("display", "block");
+        }
+        else if (status == "PayandWaitAudit") {
+            $("#apply,#Pay,#step").css("display", "none");
+            $("#check").css("display", "block");
+            $("#checkPay").css("display", "block");
+        }
+        else if (status == "Refuse") {
+            $("#apply,#ARefuse").css("display", "block");
+            $("#check,#Pay,#step").css("display", "none");
+        }
+        else if (status == "Open") {
+            $("#apply,#check,#Pay").css("display", "none");
+            $("#step").css("display", "block");
+        }
+
+
+        $('#submit_info').click(function () {
+            var form = $('#form_step');
+            var data = form.serialize();
+            var loading = showLoading();
+            $.post('EditCertification', data, function (result) {
+                loading.close();
+                if (result.success) {
+                    $.dialog.tips('提交成功！');
+                    window.location.reload();
+                }
+                else
+                    $.dialog.errorTips('提交失败！' + result.msg);
+            });
+        });
+
+        $("#submit").click(function () {
+            var targetid = $("#hdshopid").val();
+            var orderid = $("#hdOrderId").val();
+            top.location.href = "/Order/Pay?orderIds=" + orderid + "&type=0&paytype=3&targetid=" + targetid, "_blank";
+        });
+    });
+</script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

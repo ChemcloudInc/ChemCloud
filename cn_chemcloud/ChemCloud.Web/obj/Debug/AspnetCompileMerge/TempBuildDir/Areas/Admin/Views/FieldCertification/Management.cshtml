@@ -1,0 +1,160 @@
+﻿@model ChemCloud.Web.Models.FieldCertificationModel
+
+@using System.Collections
+
+@{
+    ViewBag.Title = "Management";
+}
+<link href="/Areas/Admin/Content/FieldCertification.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script type="text/javascript">
+
+    /*函数*/
+    $(function () {
+        Query();
+        $("#searchBtn").click(function (e) {
+            Query();
+            searchClose(e);
+        });
+    });
+
+    /*查询*/
+    function Query() {
+        var companyName = $("#companyName").val();
+        var certificationStatus = $("#certificationStatus").val();
+        $("#shopDatagrid").hiMallDatagrid({
+            url: "./List",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { companyName: companyName, Status: certificationStatus, type: $("#type").val() },
+            toolbar: "#shopToolBar",
+            columns:
+            [[
+
+                { field: "Id", title: "Id", hidden: true },
+                //{ field: "IsSelf", title: "IsSelf", hidden: true },
+                {
+                    field: "CompanyName", title: "公司名称", width: 360, formatter: function (value, row, index) {
+                        var id = row.Id.toString();
+                        var html = "";
+                        html = row.CompanyName;
+                        return html;
+                    }
+                },
+                {
+                    field: "ApplicationDate", title: "申请日期", width: 200, formatter: function (value, row, index) {
+                        var time = row.ApplicationDate;
+                        return jsonDateFormat(time);
+                    }
+                },
+                {
+                    field: "Status", title: "状态", width: 140, formatter: function (value, row, index) {
+                        var id = row.Id.toString();
+                        var html = "";
+                        html = row.Status;
+                        return html;
+                    }
+                },
+                {
+                    field: "operation", operation: true, title: "操作",
+                    formatter: function (value, row, index) {
+                        var id = row.Id.toString();
+                        var html = ['<span class="btn-a">'];
+                        if ($("#type").val() == "" || $("#type").val() == null || row.Status == '已拒绝' || row.Status == '已接收') {
+                            html.push('<a href="./Details?id=' + id + '">查看</a>');
+                        }
+                        if ($("#type").val() == "Receing" || row.Status == '已提交') {
+                            html.push('<a href="./Receing?id=' + id + '">接受申请</a><a onclick=RefusalFun(' + id + ',"' + row.CompanyName.toString() + '")>拒绝申请</a>');
+                        }
+                        //付款待确认
+                        if ($("#type").val() == "PayandWaitAudit" || row.Status == '已付款待审核') {
+                            html.push('<a href="./Auditing?id=' + id + '">审核</a>');
+                        }
+                        html.push("</span>");
+                        return html.join("");
+                    }
+                }
+            ]]
+        });
+    };
+
+    /*拒绝审核*/
+    function RefusalFun(id, companyName) {
+        art.dialog({
+            width: 400,
+            height: 200,
+            id: 'Refusal_Dialog',
+            title: "拒绝申请",
+            content: '<table id="table_RefusalDial">'
+                    + '<tr><td class="ref_title">公司名称：</td><td><input id="workPlace" type="text" class="inputTitle" disabled="disabled" value="' + companyName + '"/></td></tr>'
+                    + '<tr>'
+                        + '<td class="ref_title">拒绝原因：</td>'
+                        + '<td>'
+                            + '<textarea id="jianyi" cols="42" rows="3"></textarea>'
+                        + '</td>'
+                    + '</tr>'
+                    + '</table>',
+            lock: true,
+            fixed: true,
+            ok: function () {
+
+                ajaxRequest({
+                    type: 'post',
+                    url: '@Url.Action("Receing")',
+                    param: {
+                        Id: id, status: 6, comment: $.trim($("#jianyi").val())
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.Successful == true) {
+                            location.href = "./Management?type=";
+                        }
+                    }, error: function () { }
+                });
+            },
+            okValue: '提交',
+            cancelValue: '取消',
+            cancel: function () {
+            }
+        });
+    }
+
+    /*日期格式函数*/
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            return date.getFullYear() + "-" + month + "-" + day;
+        } catch (ex) {
+            return "";
+        }
+    };
+
+</script>
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>实地认证</a></li>
+        @*<li><a href="./Management?type=Receing">受理申请</a></li>*@
+    </ul>
+    <div id="shopToolBar">
+        <div class="search-box only-line">
+            <form class="custom-inline" role="form">
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width:78px ">认证状态：</label>
+                    @Html.DropDownListFor(s => s.Status, ((IEnumerable<SelectListItem>)ViewBag.Status), new { @class = "form-control input-ssm", id = "certificationStatus" })
+                </div>
+                <input type="button" class="btn btn-primary btn-sm" id="searchBtn" value="搜 索">
+            </form>
+        </div>
+    </div>
+    <table class="table mt20" id="shopDatagrid"></table>
+    <input type="hidden" value="@ViewBag.Type" id="type" />
+</div>

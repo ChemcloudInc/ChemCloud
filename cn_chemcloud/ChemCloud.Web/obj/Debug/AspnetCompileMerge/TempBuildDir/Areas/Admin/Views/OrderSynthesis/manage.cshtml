@@ -1,0 +1,198 @@
+﻿@using ChemCloud.Core;
+@model ChemCloud.Model.OrderSynthesis
+<style type="text/css">
+    p {
+        line-height: 30px;
+    }
+
+    .span {
+        font-weight: bolder;
+    }
+</style>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>订单详细</a></li>
+    </ul>
+    <div class="order-info">
+        <div class="caption">
+            <p><span class="span">订 单 号：</span>@Model.OrderNumber</p>
+            <p>
+                <span class="span">
+                    订单状态：
+                </span>
+                @if (Model.Status == 0)
+                {
+                <span style="color:red;">未确认</span>
+                }
+                else if (Model.Status == 1)
+                {
+                <span style="color:green;">已确认</span>
+                }
+                else if (Model.Status == 2)
+                {
+                <span style="color:red;">已接单</span>
+                }
+                else if (Model.Status == 3)
+                {
+                <span style="color:green;">已付款</span>
+                }
+                else if (Model.Status == 4)
+                {
+                <span style="color:red;">未发货</span>
+                }
+                else if (Model.Status == 5)
+                {
+                <span style="color:green;">已发货</span>
+                }
+                else if (Model.Status == 6)
+                {
+                <span style="color:red;">未签收</span>
+                }
+                else if (Model.Status == 7)
+                {
+                <span style="color:green;">已签收</span>
+                }
+                else
+                {
+                <span style="color:red;">未知</span>
+                }
+            </p>
+            <p><span class="span">产品名称：</span>@Model.ProductName</p>
+            <p><span class="span">CAS#：   </span> @Model.CASNo</p>
+            <p><span class="span">化学品名：</span>@Model.ChemName</p>
+            <p><span class="span">产品数量：</span>@Model.ProductCount</p>
+            <p><span class="span">产品纯度：</span>@Model.ProductPurity %</p>
+            <p><span class="span">产品描述：</span>@Model.ProductDesc</p>
+            <p><span class="span">下单时间：</span>@Model.OrderTime</p>
+            <p style="color:red;">
+                <span class="span">产品价格：</span>
+                <input type="text" value="@Model.Price" id="proprice" class="form-control input-ssm" disabled="disabled" />
+                <span class="span">元</span>
+            </p>
+
+            <p style="color:red;">
+                <span class="span">合成周期：</span>
+                <input type="text" value="@Model.SynthesisCycle" id="SynthesisCycle" class="form-control input-ssm" disabled="disabled" />
+            </p>
+            <p><span class="span">产品图片：</span><img src="@Model.Mol" style="width:80px;height:80px;" /></p>
+
+            <span class="span">已经上传的附件：</span>
+            @if (@ViewBag.attachmentCount > 0)
+            {
+                {
+                    int i = 1;
+                    foreach (ChemCloud.Model.AttachmentInfo item in ViewBag.attachmentInfo as List<ChemCloud.Model.AttachmentInfo>)
+                    {
+                        string fileName = System.IO.Path.GetFileName(@item.AttachmentName);
+                        <div class="item" id="select-regName">
+                            <div class="fl item-ifo">
+                                <div class="o-intelligent-regName" style="width:700px">
+                                    <a id="URL_@i" href=@item.AttachmentName style="color:blue" target="_blank">附件 @fileName</a>
+                                    <input type="hidden" id="attachmentId_@i" value="@item.Id" />
+                                </div>
+                            </div>
+                        </div>
+                        i++;
+                    }
+                }
+            }
+        </div>
+        <div style="clear:both;"></div>
+        <div class="caption">
+            <p><span class="span">联 系 人：</span>@Model.ConUserName</p>
+            <p><span class="span">公    司：</span>@Model.CompanyName</p>
+            <p><span class="span">网    址：</span>@Model.ConWebsite</p>
+            <p><span class="span">手机电话：</span>@Model.ConTelPhone</p>
+            <hr />
+            <p><span class="span">平台回复：</span></p><textarea cols="3" rows="6" id="reply" style="width: 553px; height: 108px;">@Model.OperatorMessage</textarea>
+        </div>
+        <div class="caption">
+            @if (!string.IsNullOrEmpty(Model.ExpressConpanyName))
+            {
+                <p><span class="span">物流公司：</span>@Model.ExpressConpanyName</p>
+            }
+            @if (!string.IsNullOrEmpty(Model.ShipOrderNumber))
+            {
+                <p><span class="span">快递单号：</span>@Model.ShipOrderNumber</p>
+            }
+        </div>
+    </div>
+
+
+    <div class="order-info" id="wuliu">
+        <div class="caption">
+            <span class="span">
+                物流公司：
+            </span><select id="exname">
+                <option value="DHL">DHL</option>
+                <option value="EMS">EMS</option>
+                <option value="FedEx">FedEx</option>
+                <option value="UPS">UPS</option>
+                <option value="TNT">TNT</option>
+            </select>
+            <span class="span"> 物流单号：</span><input type="text" id="exorderid" />
+        </div>
+    </div>
+    <button type="button" id="saveBtn" class="btn btn-primary btn-sm" style="margin-top:20px;"></button>
+    <button type="button" id="cancelBtn" class="btn btn-primary btn-sm" style="margin-top:20px;margin-left:20px;">返 回</button>
+
+    <h3 class="table-hd">物流跟踪</h3>
+    <table class="table table-bordered" id="tbExpressData"></table>
+
+    <input type="hidden" id="hidid" value="@Model.Id" />
+</div>
+<script type="text/javascript">
+    $(function () {
+        var sid = '@Model.Status';
+        setbtnLabel(sid);
+        var ship = '@Model.ShipOrderNumber';
+        if (ship != "") {
+            $.post('GetExpressData', { shipOrderNumber: ship }, function (result) {
+                var html;
+                var objdata = result.ExpressContentCN;
+                var obj = jQuery.parseJSON(objdata);
+                var data = obj;
+                for (var i = 0; i < data.length; i++) {
+                    html += '<tr><td>' + data[i].time + '</td>\
+                             <td>' + data[i].context + '</td>';
+                    html += '</tr>';
+                }
+                $("#tbExpressData").html(html);
+            });
+        }
+
+        $("#cancelBtn").on("click", function () {
+            location.href = "Index";
+        });
+        $("#saveBtn").on("click", function () {
+            if (sid == 0) {
+                /*确认订单*/
+                if ($.trim($("#reply").val()) == "") {
+                    $.dialog.errorTips("请输入回复的信息");
+                    return false;
+                }
+                $.post('ManUpdate',
+                    { id: $("#hidid").val(), status: 1, reply: $("#reply").val() },
+                    function (result) {
+                        if (result.Successful == true) {
+                            $.dialog.succeedTips("确认成功.");
+                            location.href = "Index";
+                        } else {
+                            $.dialog.errorTips("确认失败.");
+                        }
+                    });
+            }
+        });
+    });
+    function setbtnLabel(sid) {
+        $("#wuliu").css("display", "none");
+        if (sid == 0) {
+            $("#saveBtn").text("确 认");
+        }
+        else {
+            $("#saveBtn").addClass("hide");
+            $('#proprice').attr("disabled", "disabled");
+            $('#SynthesisCycle').attr("disabled", "disabled");
+        }
+    };
+</script>

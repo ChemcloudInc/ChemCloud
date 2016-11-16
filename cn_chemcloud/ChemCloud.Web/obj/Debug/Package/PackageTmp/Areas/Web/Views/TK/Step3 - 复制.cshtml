@@ -1,0 +1,138 @@
+﻿@using ChemCloud.Web.Areas.Web.Models;
+@using ChemCloud.Model;
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "个人信息";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>退货申请</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+</head>
+<style>
+    #Refund {
+        width: 1210px;
+        position: relative;
+        padding:24px 0 30px 280px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    #Refund .right_input {
+        margin-left: 30px;
+        width: 800px;
+    }
+
+    #Refund .left_img {
+        margin-top: 20px;
+    }
+
+    #Refund .myname {
+        font-size: 14px;
+    }
+</style>
+<body>
+    <div id="Refund">
+        <div class="border_wai">
+            <ul class="liucheng">
+                <li id="liuchengs"><img src="~/images/liucheng001.png" alt=""></li>
+                <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+                <li id="liuchengs"><img src="~/images/liucheng02.png" alt=""></li>
+                <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+                <li id="liuchengs"><img src="~/images/liucheng0003.png" alt=""></li>
+                <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+                <li id="liuchengs"><img src="~/images/liucheng0004.png" alt=""></li>
+            </ul>
+            <h3 class="border_wai_h3">请等待卖家处理</h3>
+            <ul class="border_wai_ul">
+                <li>如果卖家同意，请按照给出的退货地址退货。</li>
+                <li>如果卖家拒绝，你可以修改退货申请后再次发起，卖家会重新处理。</li>
+                <li>
+                    如果卖家在
+                    <span class="cheng_span">
+                        <span id="t_d">00天</span>
+                        <span id="t_h">00时</span>
+                        <span id="t_m">00分</span>
+                        <span id="t_s">00秒</span>
+                    </span>
+                    内未处理，退货申请将自动达成，请按系统给出的地址退货。
+                </li>
+            </ul>
+            <div class="button_start">
+                <span class="margin_right">您还可以：</span>
+                <a href="step2?orderno=@ViewBag.OrderNo" class="">继续发言</a>
+                <span>|</span>
+                <a href="" onclick="Cancle(@ViewBag.OrderNo,3)">取消申请</a>
+                <span>|</span>
+                <a href="" onclick="Cancle(@ViewBag.OrderNo,2)">申请仲裁</a>
+            </div>
+        </div>
+        <div class="border_wai" style="margin-top:50px">
+            <h3 class="h3_gui"><span class="title_header">留言板</span></h3>
+
+            @if (ViewBag.tkmms != null)
+            {
+                foreach (TKMessageModel item in ViewBag.tkmms as List<TKMessageModel>)
+                {
+                    <div class="liuyan_div">
+                        <div class="left_img">
+                            <div class="img_tou">
+                                <img src="~/images/2.jpg" alt="">
+                            </div>
+                            <div class="myname">@item.ReturnName</div>
+                        </div>
+                        <div class="right_input">
+                            <div class="right_text">@item.MessageContent<span class="time_span">@item.MessageDate.ToString("yyyy-mm-ss hh:mm:ss")</span></div>
+                            @foreach (TKImageInfo item1 in @item.tkis)
+                            {
+                                <div class="image_tu">
+                                    <div class="left_img_tu">
+                                        <img src="@item1.TKImage" alt="ChemCloud">
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <script>
+        function GetRTime() {
+            var EndTime = new Date('@ViewBag.TK');
+            var NowTime = new Date();
+            var t = EndTime.getTime() - NowTime.getTime();
+            var d = Math.floor(t / 1000 / 60 / 60 / 24);
+            var h = Math.floor(t / 1000 / 60 / 60 % 24);
+            var m = Math.floor(t / 1000 / 60 % 60);
+            var s = Math.floor(t / 1000 % 60);
+
+            document.getElementById("t_d").innerHTML = d + "天";
+            document.getElementById("t_h").innerHTML = h + "时";
+            document.getElementById("t_m").innerHTML = m + "分";
+            document.getElementById("t_s").innerHTML = s + "秒";
+        }
+        setInterval(GetRTime, 0);
+
+        var Cancle = function (id, type) {
+            $.post("ChangeType", { id: id, type: type }, function (d) {
+                if (d.success) {
+                    if (type == 2) {
+                        alert("提交成功");
+                        location.href = "/TK/management";
+                    }
+                    else if (type == 3) {
+                        alert("取消成功");
+                        location.href = "/UserCenter";
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

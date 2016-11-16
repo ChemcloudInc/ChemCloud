@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+
+}
+<link href="~/Areas/Web/Content/SearchListPager.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+@*<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+    <script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+    <script src="~/Scripts/ueditor/ueditor.config.js"></script>
+    <script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+    <script src="~/Scripts/datetimeCustom.js"></script>*@
+<script src="~/Areas/Admin/Scripts/upload/browser.js"></script>
+<script src="~/Areas/Admin/Scripts/upload/jquery.form.js"></script>
+<script src="~/Areas/Admin/Scripts/BannersIndex.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/JqueryHelper_Ver.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/pageGroup.js"></script>
+<style>
+    #tbody-list tr td:last-child span { cursor: pointer; }
+    .box1 { padding-top: 68px; }
+</style>
+<div class="box1 lh24">
+    <div class="title">
+        <span class="title_txt cur">Banner信息列表</span>
+    </div>
+
+    <div class="search-area">
+        <label>标题：</label>
+        <input class="search_order" id="txtkeyword" type="text" placeholder="请输入banner标题" />
+        @*<label>发布日期：</label>
+            <input id="inputStartDate" class="search_datetime start_datetime" type="text">到<input id="inputEndDate" class="search_datetime end_datetime" type="text">*@
+        @*<label>发布状态：</label>
+            <select id="orderstatus" class="search_dll">
+                <option value="">全部状态</option>
+            </select>*@
+        <select id="selectLanguageType" class="search_dll"></select>
+        <button class="search_btn pointer" id="btn_Search">搜索</button>
+        <button class="search_btn pointer" id="btn_Add">新增</button>
+
+        @*<form id="ajaxForm" method="post" enctype="multipart/form-data"><input type="file" name="file" /></form><button id="btnButton" type="button" onclick="updateBtnClickFun()">上传</button>*@
+    </div>
+    <div class="border-box">
+        <table class="tb-list">
+            <colgroup>
+                <col width="10%" />
+                <col width="10%" />
+                <col width="30%" />
+                <col width="30%" />
+                <col width="10%" />
+                <col width="10%" />
+            </colgroup>
+            <thead>
+                <tr class="tr" style="background-color:#e6e6e6;">
+                    <th style="background-color:#e6e6e6;">序号</th>
+                    <th style="background-color:#e6e6e6;">Banner标题</th>
+                    <th style="background-color:#e6e6e6;">图片路径</th>
+                    <th style="background-color:#e6e6e6;">链接地址</th>
+                    <th style="background-color:#e6e6e6;">语言版本</th>
+                    <th style="background-color:#e6e6e6;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-list"></tbody>
+
+        </table>
+        <!-------------------------------------------分页----------------------------------------------------------------->
+        <div id="pageGro1">
+            <div id="pageGro">
+                <div id="preSpanBtn">上一页</div>
+                <div class="pageList">
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+                <div id="nextSpanBtn">下一页</div>
+            </div>
+        </div>
+        <!-------------------------------------------END 分页----------------------------------------------------------------->
+
+
+    </div>
+</div>
+
+

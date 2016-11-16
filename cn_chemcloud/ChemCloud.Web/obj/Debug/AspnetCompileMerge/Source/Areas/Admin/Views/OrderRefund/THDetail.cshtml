@@ -1,0 +1,183 @@
+﻿@model ChemCloud.Model.TH
+@using ChemCloud.Web.Areas.Web.Models;
+@using ChemCloud.Model;
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>卖家处理退货申请</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    <style>
+        #Refund {
+            width: 1210px;
+            position: relative;
+            padding: 2px 0 30px 280px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        #liucheng {
+            background: #fff;
+            padding: 20px 8px;
+        }
+
+        #Refund .Refund_border .siader h3 {
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .Refund_border {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="Refund">
+        <div class="Refund_border" style="width:1004px; margin-top:68px;">
+
+            <div class="border_wai" style="padding-left:0px; padding-right:0px; display:none;border:0px;" id="div_wuliuxinxi">
+                <ul class="border_wai_ul" style="padding-bottom: 20px;border-bottom: 0px solid #ccc; ">
+                    <li style="font-weight:bolder;  border-bottom: 1px solid #ccc;">物流信息</li>
+                    <li style="padding-top:10px; padding-left:50px;">
+                        <span>物流公司：</span><span id="spanwuliugongsi">@Model.TH_WLGS</span><span style="margin-left:20px;">物流单号：</span><span id="spanwuliudanhao">@Model.TH_WLDH</span>
+                        <input type="button" id="btnsign" value="签收"
+                               style="margin-left:5px;cursor: pointer;padding: 5px 15px;border: 1px solid #3498DB;background-color: #3498DB;display: inline-block;text-align: center;color: #fff;font-size: 14px;border-radius: 2px;" />
+
+                    </li>
+                    <li style="padding-top:10px; padding-left:50px;border-bottom: 1px solid #ccc;">
+                        <span id="spanwuliuxinxi">暂无物流信息</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main_liu">
+                <div class="header_liu">
+                    <h3 style="font-weight:bold;">退货信息</h3>
+                    <span class="header_liu_chu" id="type"></span>
+                    <span class="header_hong"></span>
+                    <span class="header_xi"></span>
+                </div>
+                <div class="Refund_form">
+
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_text">退货状态：</span>
+                        </div>
+                        <span style="color:red;" id="spanstatus"></span>
+                    </div>
+
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_text">退货原因：</span>
+                        </div>
+                        <textarea class="textarea" id="Reson"></textarea>
+                    </div>
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_text">退货金额：</span>
+                        </div>
+                        <input type="text" id="Amont" value="" disabled="disabled">
+                        <span>元</span>
+                    </div>
+                    @*<div class="form_hang" id="divhifu">
+                            <div class="form_hang">
+                                <span class="lable">回复：</span>
+                                <textarea class="textarea" id="Introduce"></textarea>
+                            </div>
+                        </div>*@
+                    <div class="button_hang" style="padding-bottom:20px" id="divbutton">
+                        <span class="sq_button">
+                            <a class="sq_a_button" id="sq_a_button">审核通过</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="siader">
+                <h3>订单信息</h3>
+                <div class="border_sia">
+                    <div class="line_height_sia">
+                        <span class="guding">采购商：</span>
+                        <span>@ViewBag.UserName</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span>订单编号：</span>
+                        <span class="blud_span">@ViewBag.OrderNo</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">单 价：</span>
+                        <span class="hong_span">@ViewBag.total</span>
+                        <span>元</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">快 递：</span>
+                        <span class="hong_span">@ViewBag.yunfei</span>
+                        <span>元</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<input type="hidden" id="hdOrderNo" value="@ViewBag.OrderNo" />
+<input type="hidden" id="hdtype" value="@ViewBag.TH_Status" />
+<input type="hidden" id="hdTKResion" value="@ViewBag.TH_Reason" />
+<input type="hidden" id="hdTKAmont" value="@ViewBag.TH_ProductMoney" />
+<script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.TKUpload.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script>
+    $(function () {
+        /*状态*/
+        var type = $("#hdtype").val();
+        if (type != "5") {
+            /*已寄货*/
+            $("#divbutton").css("display", "none");
+        }
+        switch (type) {
+            case "1": type = "退货申请中"; break;
+            case "2": type = "同意退货"; break;
+            case "3": type = "拒绝退货"; break;
+            case "4": type = "已寄货"; break;
+            case "5": type = "已签收"; break;
+            case "6": type = "已完成"; break;
+            case "7": type = "仲裁中"; break;
+        };
+        $("#spanstatus").html(type);
+
+        var resion = $("#hdTKResion").val();
+        var tkamont = $("#hdTKAmont").val();
+
+        /*原因*/
+        $("#Reson").val(resion);
+        $("#Reson").attr("disabled", "disabled");
+
+        /*金额*/
+        $("#Amont").val(tkamont);
+        $("#Amont").attr("disabled", "disabled");
+
+        /*审核*/
+        $("#sq_a_button").click(function () {
+            if ($("#hdtype").val() == "5") {
+                $.post("CheckTH", {
+                    id: $("#hdOrderNo").val(),
+                }, function (d) {
+                    if (d.success) {
+                        alert("操作成功！");
+                        setTimeout(function () { location.href = "TH" }, 2000);;
+                    }
+                    else {
+                        alert("操作失败！");
+                    }
+                });
+            } else {
+                alert("只有已签收状态的订单才可以审核！");
+            }
+        });
+    });
+</script>

@@ -1,0 +1,190 @@
+﻿@using ChemCloud.Core;
+@model List<ChemCloud.Model.OrderShip>
+
+<style type="text/css">
+    .addcoa {
+        cursor: pointer;
+    }
+
+        .addcoa:hover {
+            background: #eee;
+        }
+
+    .coaarea {
+        width: 1016px;
+        height: 600px;
+        position: absolute;
+        top: 3%;
+        left: 16%;
+        background-color: white;
+        display: none;
+    }
+
+    body {
+        margin: 0 auto;
+    }
+
+    .Coa_div {
+        width: 100%;
+        text-align: center;
+        font-family: arial;
+    }
+
+    .title_p {
+        font-weight: 900;
+        margin-top: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .toptable td {
+        border: 0px solid #000;
+        padding-left: 5px;
+        font-weight: bold;
+    }
+
+        .toptable td:first-child {
+            text-align: right;
+        }
+
+        .toptable td:nth-child(3) {
+            text-align: right;
+        }
+
+    .toptable tr {
+        height: 30px;
+    }
+
+    .detial_table th {
+        font-weight: bolder;
+    }
+
+    .detial_table td {
+        font-weight: 500;
+    }
+
+    .detial_table td, .detial_table th {
+        border: 0px solid #000;
+        text-align: center;
+    }
+
+        .detial_table td input {
+            width: 100%;
+            height: 30px;
+        }
+
+    .detial_table tr {
+        height: 30px;
+    }
+
+    .btnspan {
+        width: 208px;
+        height: 16px;
+        padding: 5px 11px 5px 13px;
+        border: 1px solid #cccccc;
+        margin-right: 10px;
+        text-align: center;
+        background-color: #3498DB;
+        font-weight: bolder;
+        color: white;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<div class="container" style="position:relative; height:700px;padding-top:60px">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>订单</strong>
+        <li><a href="./ManageShip">所有订单</a></li>
+        <li class="active">
+            订单打印
+        </li>
+    </ul>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align:center;">订单Form</th>
+                <th style="text-align:center;">订单号</th>
+                <th style="text-align:center;">主订单</th>
+                <th style="text-align:center;">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderItem in Model)
+            {
+                <tr>
+                    <td style="text-align:center;">
+                        @orderItem.TrackFormId
+                    </td>
+                    <td style="text-align:center;">@orderItem.TrackNumber</td>
+                    
+                   @if (orderItem.Master == true)
+                   {
+                    <td style="text-align:center;">是</td>
+                   }
+                   else
+                   {
+                    <td style="text-align:center;">否</td>
+                   }
+                    
+                    <td style="text-align:center;">
+                        <a style="cursor:pointer" onclick="Print('@orderItem.Id')">打印</a>
+                    </td>
+                    
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    //生成物流单号
+    (function ($) {
+        var printAreaCount = 0;
+        $.fn.printArea = function () {
+            var ele = $(this);
+            var idPrefix = "printArea_";
+            removePrintArea(idPrefix + printAreaCount);
+            printAreaCount++;
+            var iframeId = idPrefix + printAreaCount;
+            var iframeStyle = 'position:absolute;width:0px;height:0px;left:-500px;top:-500px;';
+            iframe = document.createElement('IFRAME');
+            $(iframe).attr({
+                style: iframeStyle,
+                id: iframeId
+            });
+            document.body.appendChild(iframe);
+            var doc = iframe.contentWindow.document;
+            $(document).find("link").filter(function () {
+                return $(this).attr("rel").toLowerCase() == "stylesheet";
+            }).each(
+                    function () {
+                        doc.write('<link type="text/css" rel="stylesheet" href="'
+                                + $(this).attr("href") + '" >');
+                    });
+            doc.write('<div class="' + $(ele).attr("class") + '">' + $(ele).html()
+                    + '</div>');
+            doc.close();
+            var frameWindow = iframe.contentWindow;
+            frameWindow.close();
+            frameWindow.focus();
+            frameWindow.print();
+            $(".header-footer-checkbox").removeAttr("checked");
+        }
+        var removePrintArea = function (id) {
+            $("iframe#" + id).remove();
+        };
+    })(jQuery);
+
+    function Print(id) {
+        
+        window.open("/Admin/Order/NewPDFPrint?orderShipId=" + id, "_blank");
+    }
+
+</script>

@@ -3,3 +3,13 @@ D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\bin\Debug\C
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.dll
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.pdb
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.csprojResolveAssemblyReference.cache
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.DBUtility\bin\Debug\ChemCloud.DBUtility.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.DBUtility\bin\Debug\ChemCloud.DBUtility.pdb
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.pdb
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.csprojResolveAssemblyReference.cache
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.DBUtility\bin\Debug\ChemCloud.DBUtility.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.DBUtility\bin\Debug\ChemCloud.DBUtility.pdb
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.csprojResolveAssemblyReference.cache
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.DBUtility\obj\Debug\ChemCloud.DBUtility.pdb

@@ -1,0 +1,167 @@
+﻿@model ChemCloud.Model.CASInfo
+<script src="~/Scripts/CommonJS.js"></script>
+<div class="container">
+    <h3 class="table-hd">CAS详情</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>CAS号</td>
+                <td>@Model.CAS_NUMBER</td>
+            </tr>
+            <tr>
+                <td>中文名</td>
+                <td>@Model.CHINESE</td>
+            </tr>
+            <tr>
+                <td>中文别名</td>
+                <td>@Model.CHINESE_ALIAS</td>
+            </tr>
+            <tr>
+                <td>英文名</td>
+                <td>@Model.ENGLISH</td>
+            </tr>
+            <tr>
+                <td>英文别名</td>
+                <td>@Model.ENGLISH_ALIAS</td>
+            </tr>
+            <tr>
+                <td>分子式</td>
+                <td>@Model.MOLECULAR_FORMULA</td>
+            </tr>
+            <tr>
+                <td>分子量</td>
+                <td>@Model.MOLECULAR_WEIGHT</td>
+            </tr>
+            <tr>
+                <td>精确质量</td>
+                <td>@Model.PRECISE_QUALITY</td>
+            </tr>
+            <tr>
+                <td>PSA</td>
+                <td>@Model.PSA</td>
+            </tr>
+            <tr>
+                <td>密度</td>
+                <td>@Model.DENSITY</td>
+            </tr>
+            <tr>
+                <td>沸点</td>
+                <td>@Model.BOILING_POINT</td>
+            </tr>
+            <tr>
+                <td>闪点</td>
+                <td>@Model.FLASH_POINT</td>
+            </tr>
+            <tr>
+                <td>折射率</td>
+                <td>@Model.REFRACTIVE_INDEX</td>
+            </tr>
+            <tr>
+                <td>蒸汽压</td>
+                <td>@Model.VAPOR_PRESSURE</td>
+            </tr>
+            <tr>
+                <td>所属分类</td>
+                <td>@Model.CAS_CATEGORY</td>
+            </tr>
+            <tr>
+                <td>来源</td>
+                <td>@Model.SOURCE_FROM</td>
+            </tr>
+            <tr>
+                <td>来源地址</td>
+                <td>@Model.SOURCE_FROM_LINK</td>
+            </tr>
+            <tr>
+                <td>2维结构路径</td>
+                <td>@Model.STRUCTURE_2D</td>
+            </tr>
+            <tr>
+                <td>2维结构图片</td>
+                <td><img src="@Model.STRUCTURE_2D" /></td>
+            </tr>
+            <tr>
+                <td>外部引用编号</td>
+                <td>@Model.EXTERNAL_ID</td>
+            </tr>
+            <tr>
+                <td>外部引用链接</td>
+                <td>@Model.EXTERNAL_LINK</td>
+            </tr>
+            <tr>
+                <td>版本</td>
+                <td>@Model.VERSION</td>
+            </tr>
+            <tr>
+                <td>添加日期</td>
+                <td>@Model.ADD_DATE</td>
+            </tr>
+            @*<tr>
+                <td>状态</td>
+                <td>
+                    @if (Model.IS_LOCK)
+                    {
+                        <span style="color:red;">锁定</span>
+                    }
+                    else
+                    {
+                        <span style="color:green;">未锁定</span>
+                    }
+                </td>
+            </tr>*@
+        </tbody>
+    </table>
+    <div class="mt20">
+        <input type="button" class="btn btn-primary statusBtn" value="通过审核" id="btnYES" />
+        <input type="button" class="btn btn-warning refuse-shop" value="拒绝" id="btnNO" />
+    </div>
+</div>
+<input type="hidden" value="@Model.CAS_NO" id="iptvalue" />
+<script type="text/javascript">
+    $(function () {
+        var CAS_NO = getUrlParam("CAS_NO");
+        $("#btnYES").on("click", function () {
+            var loading = showLoading();
+            ajaxRequest({
+                type: 'POST',
+                url: "./Success",
+                param: { "CAS_NO": CAS_NO, "CAS_STATUS": 1 },
+                dataType: "json",
+                success: function (data) {
+                    if (data.Successful == true) {
+                        location.href = "./Management";
+                    }
+                    loading.close();
+                }, error: function () {
+                    loading.close();
+                }
+            });
+        });
+        $("#btnNO").on("click", function () {
+            var loading = showLoading();
+            ajaxRequest({
+                type: 'POST',
+                url: "./Success",
+                param: { "CAS_NO": CAS_NO, "CAS_STATUS": -1 },
+                dataType: "json",
+                success: function (data) {
+                    if (data.Successful == true) {
+                        location.href = "./Management";
+                    }
+                    loading.close();
+                }, error: function () {
+                    loading.close();
+                }
+            });
+        });
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+    });
+</script>

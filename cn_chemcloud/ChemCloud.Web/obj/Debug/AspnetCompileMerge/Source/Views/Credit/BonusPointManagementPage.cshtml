@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="积分管理">
+    <meta name="author" content="王传伟">
+    <title>积分管理</title>
+    <link rel="stylesheet" href="~/Content/Chat/themes/bootstrap/css/bootstrap.css" />
+     
+    <link rel="stylesheet" href="~/Content/Chat/themes/animate.min.css" />
+
+    <link rel="stylesheet" href="~/Content/Credit/bootstrap-table.min.css" />
+   
+    <link rel="stylesheet" href="~/Content/Credit/jquery.bootstrap-touchspin.min.css" />
+    
+    <link rel="stylesheet" href="~/Content/Chat/themes/notifications/humane/css/bigbox.min.css" />
+
+    <script src="~/Scripts/Chat/jquery-1.7.1.min.js"></script>
+
+    <script src="~/Scripts/Chat/jquery.form.min.js"></script>
+    <script src="~/Scripts/Chat/jquery.cookie.min.js"></script>
+
+    <script src="~/Scripts/Chat/jquery.placeholder.min.js"></script>
+
+
+    <style>
+        Body {
+            scrollbar-arrow-color: #f4ae21; /*图6,三角箭头的颜色*/
+            scrollbar-face-color: #333; /*图5,立体滚动条的颜色*/
+            scrollbar-3dlight-color: #666; /*图1,立体滚动条亮边的颜
+
+                色*/
+            scrollbar-highlight-color: #666; /*图2,滚动条空白部分的
+
+                颜色*/
+            scrollbar-shadow-color: #999; /*图3,立体滚动条阴影的颜
+
+                色*/
+            scrollbar-darkshadow-color: #666; /*图4,立体滚动条强阴
+
+                影的颜色*/
+            scrollbar-track-color: #666; /*图7,立体滚动条背景颜色*/
+            scrollbar-base-color: #f8f8f8; /*滚动条的基本颜色*/
+            Cursor: url(mouse.cur); /*自定义个性鼠标*/
+        }
+
+        .modal-header-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+        #txtBonusPointValueOffset{
+            width:70px;
+        }
+    </style>
+    <script>
+        $(function () {
+            //console.log($(".bootstrap-touchspin-up:contains(+)")[1].innerHTML);
+            $("span.input-group-btn:ep(1)").css("float", "left");
+        })
+    </script>
+</head>
+<html>
+<body>
+    <div class="container" style="padding:20px 0 0 100px;width:1000px">
+
+        @*工具条*@
+         
+
+        <div style="min-height:50px;">
+
+        </div>
+         <div class="panel panel-success" style="min-height:600px;">
+             <div class="panel-title">
+                 <div id="tblBonusPointToolbar" class="row fixed-table-toolbar" style="width:600px;">
+
+                     <div class="col-md-8" style="width:163px;">
+                         <div class="input-group">
+                             <input id="txtBonusPointValueOffset" value="1" placeholder="积分值" />
+                         </div>
+                     </div>
+
+                     <button class="btn btn-success" id="btnPlusBonusPointValue" style="margin-left:50px;">
+                         <i class="glyphicon glyphicon-plus">增加</i>
+                     </button>
+                     <button class="btn btn-danger" id="btnMinusBonusPointValue">
+                         <i class="glyphicon glyphicon-minus">减去</i>
+                     </button>
+                 </div>
+
+             </div>
+             <div class="panel-body" >
+                 <table id="tblBonusPointContainer"
+                         data-advanced-search="true"
+           data-id-table="advancedTable"
+                        
+                        ></table>
+             </div>
+         </div>
+        
+       
+      
+
+  </div>
+
+    <!-- context menu -->
+    <ul id="tblBonusPointContainerContextMenu" class="dropdown-menu">
+        <li data-item="plus"><a>加一分</a></li>
+        <li data-item="minus"><a>减一分</a></li>
+        
+    </ul>  
+    <script>
+
+        var tblBonusPointContainer;
+       ///
+        function InitBonusPointContainer()
+        {
+          
+             tblBonusPointContainer = $('#tblBonusPointContainer').bootstrapTable({
+                locale: 'zh-CN',
+                cache:false,
+                url: '/BonusPoint/SearchBonusPoint',
+                dataField: 'rows',
+                pagination: false,//不分页
+                singleSelect: false,
+                clickToSelect: true,
+                pageSize: 5,//每页大小 
+                queryParamsType: "limit",
+                searchAlign: 'right',
+                showRefresh: true,
+                pageNumber: 1,
+                 //Cookie 插进
+                cookie: true,
+                cookieExpire: '1y',
+                cookiePath: '/',
+                cookieDomain: null,
+                cookieSecure: null,
+                cookieIdTable: 'tblBonusPointContainer',
+                cookiesEnabled: ['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl'],
+                 //internal variable
+                
+                 //end Cookie 插进
+
+                 //上下文插件
+                contextMenu: '#tblBonusPointContainerContextMenu',
+                contextMenuTrigger: 'right',
+                contextMenuAutoClickRow: true,
+                contextMenuButton: undefined,
+                beforeContextMenuRow: function (e, row, buttonElement) {
+                    // return false here to prevent menu showing
+                },
+                 // Event default handlers
+                onContextMenuItem: function (row, $element) {
+
+                   
+                    if ($element.data("item") == "plus") {
+                      
+                        
+                        $.post('/BonusPoint/PlusBonusPointValue', {
+                            bonusPointUserID: row.BonusPointUserID,
+                            bonusPointValueOffset: 1
+
+                        }, function (result) {
+                            humane.log('更新成功');
+                            $('#tblBonusPointContainer').bootstrapTable('refresh');
+                        }, 'json');
+
+                      
+
+                    }
+
+                    if ($element.data("item") == "minus") {
+                      
+                        $.post('/BonusPoint/MinusBonusPointValue', {
+                            bonusPointUserID: row.BonusPointUserID,
+                            bonusPointValueOffset: 1
+
+                        }, function (result) {
+
+                            humane.log('更新成功');
+                            $('#tblBonusPointContainer').bootstrapTable('refresh');
+
+                        }, 'json');
+
+                      
+                    }
+                    return false;
+                },
+                onContextMenuRow: function (row, $element) {
+                    return false;
+                },
+                 //end  上下文插件
+
+                 //行Click事件
+                onClickRow: function (item, $element) {
+                     
+                    //$($element).toggleClass('info');
+
+                    return false;
+                },
+
+                onCheck: function (row, $element)
+                {
+                    $($element).parent().parent().addClass('info');
+                },
+
+                onUncheck: function (row, $element) {
+                    $($element).parent().parent().removeClass('info');
+                },
+
+                onCheckAll:function(rows)
+                {
+                    $("#tblBonusPointContainer tbody tr").addClass("info");
+                },
+                onUncheckAll: function (rows)
+                {
+                    $("#tblBonusPointContainer tbody tr").removeClass("info");
+                },
+
+                search: true, //显示搜索框
+                toolbar: "#tblBonusPointToolbar",//工具
+                sidePagination: "server", //服务端处理分页
+                columns: [
+                    {
+                        checkbox: true,
+                        clickToSelect: true,
+
+                    },
+                  {
+
+                      title: '商家名称',
+                      field: 'BonusPointUserName',
+                      align: 'center',
+                      valign: 'middle'
+                       
+                  },
+                  {
+                      title: '积分值',
+                      field: 'BonusPointValue',
+                      align: 'center',
+                      valign: 'middle'
+                  }
+                ]
+
+             });
+
+
+
+              
+        }
+
+        
+
+        $(function () {
+            $("#txtBonusPointValueOffset").TouchSpin({
+                min: 1,
+                max: 5,
+                step: 1//增量或减量
+
+            });
+             
+            InitBonusPointContainer();
+              
+
+            ///加 供应商 
+            $("#btnPlusBonusPointValue").on("click", function () {
+
+                
+                var bonusPointValueOffsetStr = $("#txtBonusPointValueOffset").val();
+
+                if (bonusPointValueOffsetStr == '')
+                {
+                    humane.log('请填写修改的积分值')
+                    return;
+                }
+
+                ///offset 值
+                var bonusPointValueOffset = parseInt(bonusPointValueOffsetStr);
+                
+             
+                if (bonusPointValueOffset < 1) {
+                    humane.log('请填写修改的积分值')
+                    return;
+                }
+
+               var selectedRows = $("#tblBonusPointContainer").bootstrapTable('getSelections');
+                
+                 
+               if (selectedRows)
+               {
+
+                   if (selectedRows.length==0)
+                   {
+                       humane.log('请先选择对像')
+
+                       return;
+                   }
+                    
+                   
+                  
+                    //对于每一个
+                   $.each(selectedRows, function (index, item) {
+                     
+                        ///提交
+                       $.post('/BonusPoint/PlusBonusPointValue', {
+                            bonusPointUserID: item.BonusPointUserID,
+                            bonusPointValueOffset: bonusPointValueOffset
+                            
+                        }, function (result) {
+                        }, 'json');
+                         
+                   });
+
+                  
+                }
+               humane.log('更新成功');
+               $('#tblBonusPointContainer').bootstrapTable('refresh');
+              
+            });
+
+
+            ///- 供应商 
+            $("#btnMinusBonusPointValue").on("click", function () {
+ 
+                
+                var bonusPointValueOffsetStr = $("#txtBonusPointValueOffset").val();
+
+                if (bonusPointValueOffsetStr == '') {
+                    humane.log('请填写修改的积分值')
+                    return;
+                }
+
+                ///offset 值
+                var bonusPointValueOffset = parseInt(bonusPointValueOffsetStr);
+
+
+                if (bonusPointValueOffset < 1) {
+                    humane.log('请填写修改的积分值')
+                    return;
+                }
+
+                var selectedRows = $("#tblBonusPointContainer").bootstrapTable('getSelections');
+
+
+                if (selectedRows) {
+
+                    if (selectedRows.length == 0) {
+                        humane.log('请先选择对像')
+
+                        return;
+                    }
+
+
+                    
+                    //对于每一个
+                    $.each(selectedRows, function (index, item) {
+
+
+                        ///提交
+                        $.post('/BonusPoint/MinusBonusPointValue', {
+                            bonusPointUserID: item.BonusPointUserID,
+                            bonusPointValueOffset: bonusPointValueOffset
+
+                        }, function (result) {
+                        }, 'json');
+
+                    });
+
+                    
+                }
+
+                humane.log('更新成功');
+
+                $('#tblBonusPointContainer').bootstrapTable('refresh');
+
+            });
+
+            //搜索框
+            $("#tblBonusPointToolbar").parent().parent().find('.search input').attr('maxlength', '15').maxlength({
+                alwaysShow: true,
+                threshold: 4,
+            });
+
+             
+        });
+    </script>
+
+    <script src="~/Scripts/Chat/bootstrap-modal.min.js"></script>
+
+    <script src="~/Scripts/Credit/bootstrap-table.js"></script>
+    <script src="~/Scripts/Credit/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="~/Scripts/Credit/jquery.bootstrap-touchspin.min.js"></script>
+
+    <script src="~/Scripts/Chat/humane.min.js"></script>
+    <script src="~/Scripts/Credit/bootstrap-maxlength.min.js"></script>
+   @*////bootstrap-table 插件*@
+     <script src="~/Scripts/Credit/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+ 
+    <script src="~/Scripts/Credit/extensions/context-menu/bootstrap-table-contextmenu.min.js"></script>
+    
+    @*////end bootstrap-table 插件*@
+
+</body>
+
+</html>

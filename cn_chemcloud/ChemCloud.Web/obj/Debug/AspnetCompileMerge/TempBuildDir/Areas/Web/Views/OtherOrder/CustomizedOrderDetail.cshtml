@@ -1,0 +1,275 @@
+﻿@using ChemCloud.Model;
+@model ChemCloud.Model.OrderSynthesis
+<style type="text/css">
+    #select .mt h1 {
+        /*float: left;*/
+        height: 30px;
+        font: normal 15px/30px 'microsoft yahei';
+        color: #3498DB;
+        padding-left: 25px;
+        line-height: 40px;
+    }
+
+    .ul {
+        background-color: #ffffff;
+        padding-top: 1em;
+    }
+
+        .ul li {
+            line-height: 2.4em;
+            padding-left: 10px;
+            font-size: 14px;
+        }
+
+    ul.ul li span.keY {
+        font-weight: 400;
+        color: #fff;
+        background: rgb(11,110,180);
+        width: 60px;
+        text-align: center;
+        border-radius: 4px;
+    }
+
+    .button_anniu {
+        width: 100px;
+        display: inline-block;
+        background: rgb(11,110,180);
+        height: 30px;
+        border-radius: 4px;
+        color: #fff;
+        text-align: center;
+        line-height: 30px;
+        margin-left: 40px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .button_anniu:hover {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 400;
+        }
+
+    .j_j {
+        border: 1px solid #ccc;
+        margin-top: 20px;
+        padding: 10px 30px;
+    }
+
+    .header_j {
+        border-bottom: 2px solid rgb(11,110,180);
+        height: 30px;
+    }
+
+    .title_j {
+        font-size: 16px;
+    }
+
+    .nb_j {
+        display: inline-block;
+        padding: 0px 4px;
+        border-radius: 24px;
+        background: #e4393c;
+        color: #fff;
+        margin-left: 5px;
+    }
+
+    .main_j {
+        height: 26px;
+        line-height: 28px;
+        font-size: 13px;
+    }
+</style>
+
+<div class="w main">
+    <div class="crumb"></div>
+    <div class="left" style="display:none">
+        <div class="m" id="refilter">
+            <div class="mt">
+                <h2></h2>
+            </div>
+        </div>
+    </div>
+    <div class="right-extra" style="width:100%">
+        <div class="m" id="select">
+            <div class="mt" style="height:40px;">
+                <h1><span style="display:inline-block;padding:0 10px;margin-right:10px;border:1px solid #e4393c  ;color:#e4393c;height: 30px;border-radius: 4px;line-height: 30px;">合</span> 定制(@Model.ProductName)</h1>
+            </div>
+            <div style="width:100%; min-height:180px; background-color:#ffffff; padding-top:2px;">
+                <div style="width:100%;min-height:110px; background-color:#ffffff;overflow:hidden;">
+                    <div style="overflow:hidden; width:200px;height:140px;display: table-cell;vertical-align: middle;text-align: center;border: 1px solid #ccc;">
+                        <img alt="ImagePath" src="@Model.Mol" style="max-width: 100%;" />
+                    </div>
+                    <div style="display: table-cell;overflow:hidden;">
+                        <ul class="ul" style="clear:both;padding-left:10px;width: 900px;overflow: hidden;">
+                            <li><span>订单编号：</span>@Model.OrderNumber</li>
+                            <li><span>创建时间：</span>@Model.OrderTime</li>
+                            <li><span>CAS#：</span>@Model.CASNo</li>
+                            <li><span>产品名：</span>@Model.ProductName</li>
+                            <li><span>价格：</span>@Model.Price<span>CNY</span><span class="keY" style="background: rgb(76,170,250); margin-left: 5px;">可议价</span></li>
+                            <li><span>需求量：</span>@Model.ProductCount</li>
+                            <li><span>纯度：</span>@Model.ProductPurity<span>%</span></li>
+                            <li><span>交货期：</span>@Model.SynthesisCycle<span>天</span></li>
+                        </ul>
+                        <div style="margin-top:10px">
+                            <a class="button_anniu" onclick="getorder('@Model.Id')">报名接单</a>
+                            <a class="button_anniu" onclick="onlinetalk('@Model.UserId','@Model.UserName')">咨询信息</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="height: 60px;border: 1px solid #ccc;margin-top: 20px;line-height: 60px;">
+                <span class="button_anniu">附件列表</span>
+                <span style="margin-left: 10px;">
+                    @if (ViewBag.attachmentInfo != null)
+                    {
+                        foreach (ChemCloud.Model.AttachmentInfo item in ViewBag.attachmentInfo as List<ChemCloud.Model.AttachmentInfo>)
+                        {
+                            string fileName = System.IO.Path.GetFileName(@item.AttachmentName);
+                            <a href=@item.AttachmentName style="color:blue" target="_blank">附件 @fileName</a>
+                        }
+                    }
+                </span>
+            </div>
+
+            <div class="j_j" id="divbaomignlist">
+                <div class="header_j">
+                    <span class="title_j">竞标者</span><span class="nb_j">0</span>
+                </div>
+                @*<div class="main_j">
+                        ***于2016年11月2日报价***元。
+                    </div>
+                    <div class="main_j">
+                        ***于2016年11月2日报价***元。
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <span class="clr"></span>
+</div>
+
+<input type="hidden" id="hdOrderNumber" value="@Model.OrderNumber" />
+<script type="text/javascript">
+
+    /*正则验证证书*/
+    var regint = /^\+?[1-9][0-9]*$/;
+    /*正则验证数字*/
+    var regprice = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/;
+
+
+    /*在线咨询*/
+    function onlinetalk(userid, username) {
+        ///没有用户在线
+        if ($.cookie("ChemCloud-User") == null) {
+            var r = confirm("请先登陆!");
+            if (r == true) {
+                window.location.href = '/Login';
+            }
+            return;
+        }
+        $.cookie("currentSelectedShopUserID", userid, { expires: 100, path: '/' });
+        $.cookie("currentSelectedShopUserName", username, { expires: 100, path: '/' });
+        //window.open("/ChatMessage/Index");
+        var w = window.open();
+        setTimeout(function () {
+            w.location = "/ChatMessage/Index";
+        }, 1000);
+    }
+    /*接单*/
+    function getorder(id) {
+        /*判断在线状态*/
+        if ($.cookie("ChemCloud-User") == null) {
+            $.dialog.confirm('请先登录', function () {
+                window.location.href = '/Login';
+            }),
+           function () {
+               $(this).close();
+           };
+        } else {
+            $.dialog({
+                title: '接单确认', lock: true, id: 'goodCheck',
+                content: ['<div class="dialog-form">',
+                         '<div class="item"  style="width:280px;">\
+                                <div style="width:100%;height:40px;padding-left:20px;">\
+                                     <span style="font-weight: bold;">价&nbsp;&nbsp;&nbsp;格：</span>\
+                                    <input type="text" value="" id="orderprice"  maxlength="20" style="width:150px;height:22px;">\
+                                </div>\
+                                <div style="width:100%;height:40px;padding-left:20px;">\
+                                    <span  style="font-weight: bold;">交货期：</span>\
+                                    <input type="text" value="" id="orderCycle"  maxlength="20" style="width:150px;height:22px;"><span style="margin-left:2px;">天</span>\
+                                </div>\
+                          </div>',
+                '</div>'].join(''),
+                padding: '10px',
+                init: function () { $("#orderprice").focus(); },
+                button: [
+                {
+                    name: '确认',
+                    callback: function () {
+                        if ($.trim($("#orderprice").val()) == "") {
+                            $.dialog.alert("价格不能为空！ ");
+                            return false;
+                        } else if (!regprice.test($.trim($("#orderprice").val()))) {
+                            $.dialog.alert("价格必须为数字！");;
+                            return false;
+                        }
+
+
+                        if ($.trim($("#orderCycle").val()) == "") {
+                            $.dialog.alert("交货期不能为空！ ");
+                            return false;
+                        } else if (!regprice.test($.trim($("#orderCycle").val()))) {
+                            $.dialog.alert("交货期必须为数字！");;
+                            return false;
+                        }
+
+                        var loading = showLoading();
+
+                        /*提交*/
+                        $.post('AcceptCustomizedOrder', {
+                            'OrderNumber': $.trim($("#hdOrderNumber").val()),
+                            'Offer': $.trim($("#orderprice").val()),
+                            'OfferCycle': $.trim($("#orderCycle").val())
+                        },
+                            function (result) {
+                                loading.close();
+                                if (result.success == true) {
+                                    $.dialog.alert(result.msg);
+                                } else { $.dialog.alert(result.msg); }
+                            });
+                    },
+                    focus: true
+                },
+                {
+                    name: '取消',
+                    callback: function () { }
+                }]
+            });
+
+        }
+    }
+
+    /*初始化函数*/
+    $(document).ready(function () {
+        $.post('AcceptCustomizedOrderCount', { 'OrderNumber': $.trim($("#hdOrderNumber").val()) }, function (result) {
+            var html = "";
+            if (result.success == true) {
+                $(".nb_j").html(result.msg);
+                if (result.jsonstr == "") {
+                    html = "<div class=\"main_j\">暂无竞标者。</div>";
+                } else {
+                    var json = $.parseJSON(result.jsonstr);
+                    $.each(json, function (i, item) {
+                        //html += "<div class=\"main_j\"> " + item.ShopName + "于" + item.DateTime + "报价" + item.Offer + "元。</div>";
+                        /*隐藏竞价信息*/
+                        html += "<div class=\"main_j\"> " + item.ShopName + "于" + item.DateTime + "报价***元。</div>";
+                    });
+                }
+                $("#divbaomignlist").append(html);
+            } else {
+                html = "<div class=\"main_j\">暂无竞标者。</div>";
+                $("#divbaomignlist").append(html);
+            }
+        });
+    });
+</script>

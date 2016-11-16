@@ -1,0 +1,397 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "限额申请列表";
+}
+<style>
+    #gridlist th { background-color: #3498DB; color: #fff; }
+
+    #gridlist tr { height: 30px; }
+    .table tr { height: 30px; border-bottom: 1px solid #f2f2f2; }
+    .box1 { padding: 0px 4px 20px 200px; }
+
+    .inputApply1 { width: 130px; }
+    .search_apply_80 { width: 130px; }
+    #table_ApplyInfo { width: 200px; margin: 0px auto; }
+        #table_ApplyInfo tr td { height: 30px; margin: 0px auto; }
+</style>
+
+@*<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">*@
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<div class="box1 lh24">
+    <div class="title bot-border" style="margin-top:20px;">
+        <h3 class="title_txt cur">限额申请列表</h3>
+    </div>
+    <div class="border-box" style="padding-bottom:20px">
+        <div id="shopToolBar">
+            <div class="search-box only-line">
+                <div class="form-group" style="height:30px; padding-top:5px; padding-left:30px;">
+                    <label class="label-inline" for="">开始日期</label>
+                    <input id="inputStartDate" class="form-control input-ssm start_datetime" type="text" style="height:24px;margin-right:20px">
+                    <label class="label-inline" for="">结束日期</label>
+                    <input id="inputEndDate" class="form-control input-ssm end_datetime" type="text" style="height:24px;">
+                    <label class="label-inline" for="">申请状态：</label>
+                    <select class="form-control input-ssm" id="Status" style="height:24px; width:100px">
+                        <option value="3">请选择</option>
+                        <option value="0">未审核</option>
+                        <option value="1">通过审核</option>
+                        <option value="2">未通过</option>
+                    </select>
+                    <label class="label-inline" for="">申请人：</label>
+                    <select class="form-control input-ssm" id="Applicant_MineOrChildren" style="height:24px; width:100px">
+                        <option value="0">我的子账户</option>
+                        <option value="1">——我——</option>
+                    </select>
+                    <input type="button" class="btn btn-primary btn-sm" id="searchBtn" onclick="gridlist()" value="搜 索" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer;" />
+                </div>
+            </div>
+        </div>
+        <table class="table" id="gridlist" style="width:100%;margin-top:10px;"></table>
+        <div class="tabel-operate" id="saleOff" style="margin-top: -40px;margin-left: 74px;">
+            <button type="button" style="cursor:pointer;width:70px; height:25px; border:0px solid; background-color:#3498db; color:#fff; border-radius:2px;" onclick="BatchDelete()">批量删除</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $(".start_datetime").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".end_datetime").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".start_datetime").click(function () {
+            $('.end_datetime').datetimepicker('show');
+        });
+        $(".end_datetime").click(function () {
+            $('.start_datetime').datetimepicker('show');
+        });
+        $('.start_datetime').on('changeDate', function () {
+            if ($(".end_datetime").val()) {
+                if ($(".start_datetime").val() > $(".end_datetime").val()) {
+                    $('.end_datetime').val($(".start_datetime").val());
+                }
+            }
+            $('.end_datetime').datetimepicker('setStartDate', $(".start_datetime").val());
+        });
+        gridlist();
+    });
+    function Delete(id) {
+        $.dialog.confirm('确定删除该条记录吗？', function () {
+            var loading = showLoading();
+            $.post("./Delete", { id: id }, function (data) {
+                loading.close();
+                $.dialog.tips(data.msg);
+                query();
+            });
+        });
+    }
+    function BatchDelete() {
+        var selectedRows = $("#gridlist").hiMallDatagrid("getSelections");
+        var selectids = new Array();
+        for (var i = 0; i < selectedRows.length; i++) {
+            selectids.push(selectedRows[i].Id);
+        }
+        if (selectedRows.length == 0) {
+            $.dialog.errorTips("你没有选择任何选项！");
+        }
+        else {
+            $.dialog.confirm('确定删除选择的消息吗？', function () {
+                var loading = showLoading();
+                $.post("./BatchDelete", { ids: selectids.join(',') }, function (data) { $.dialog.tips(data.msg); query(); loading.close(); });
+            });
+        }
+    }
+    function gridlist() {
+        $("#gridlist").hiMallDatagrid({
+            url: "/LimitedApply/list",
+            nowrap: false,
+            rownumbers: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            border: false,
+            fit: true,
+            fitColumns: true,
+            pagination: true,
+            idField: "Id",
+            pageSize: 15,
+            pagePosition: 'bottom',
+            pageNumber: 1,
+            queryParams: { Status: $("#Status option:selected").val(), Start_datetime: $("#inputStartDate").val(), End_datetime: $("#inputEndDate").val(), Applicant: $("#Applicant_MineOrChildren").val() },
+            //toolbar: "#shopToolBar",
+            //operationButtons: "#saleOff",
+            columns:
+            [[
+                {
+                    checkbox: true, width: 51, align: "center", formatter: function (value, row, index) {
+                        return '<input type="checkbox">';
+                    }
+                },
+                { field: "Id", title: "Id", hidden: true },
+                {
+                    field: "ApplyStatus", title: "审核状态", width: 114, align: "center",
+                    formatter: function (value, row, index) {
+                        var status = '';
+                        if (row.ApplyStatus == 0) {
+                            status = "未审核";
+                            return status;
+                        } else if (row.ApplyStatus == 1) {
+                            status = "通过";
+                            return status;
+                        } else if (row.ApplyStatus == 2) {
+                            status = "未通过";
+                            return status;
+                        }
+                    }
+                },
+
+                { field: "ApplyName", title: "申请人", width: 261 },
+                {
+                    field: "ApplyDate", title: "申请时间", width: 263, align: "center",
+                    formatter: function (value, row, index) {
+                        //var da = new Date(parseInt(row.SendTime.replace("/Date(", "").replace(")/", "").split("+")[0]));
+                        //return da.getFullYear() + "-" + (da.getMonth() + 1) + "-" + da.getDate() + " " + da.getHours() + ":" + da.getMinutes() + ":" + da.getSeconds();
+                        return jsonDateFormat(row.ApplyDate);
+                    }
+                },
+		    	{
+		    	    field: "operation", operation: true, title: "操作", width: 317,
+		    	    formatter: function (value, row, index) {
+		    	        var html = ["<span class=\"btn-a\">"];
+		    	        var id = row.Id;
+		    	        html.push('<a href="./Detail?id=' + row.Id + '">查看</a>');
+
+		    	        if (row.ApplyStatus != 1 && row.Applicant == 1) {
+		    	            html.push('&nbsp|&nbsp;<span style="cursor:pointer;" onclick="ApplyModifyFun(' + row.Id + ')">重新申请</a>');
+		    	        }
+		    	        else if (row.ApplyStatus == 0) {
+		    	            html.push("&nbsp|&nbsp;<a onclick=\"Delete('" + id + "');\">删除</a>");
+		    	            html.push('&nbsp|&nbsp;<a href="./Auth?id=' + row.Id + '">审核</a>');
+		    	        }
+		    	        html.push("</span>");
+		    	        return html.join("");
+		    	    }
+		    	}
+            ]]
+        });
+    };
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    };
+
+
+    //-------------------------------------------------------------修改“限额申请”--------------------------------------
+
+    //获取之前提交申请
+    function ApplyModifyFun(id) {
+
+        var param = getParam_Modify(id);
+        var param1 = JSON.stringify(param);
+
+        $.ajax({
+            type: "POST",
+            url: "/LimitedApply/Detail_Apply",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: param1,
+            beforeSend: function () {
+            },
+            success: function (data) {
+                var json = "";
+                if (data.hasOwnProperty('d')) {
+                    json = data.d;
+                } else {
+                    json = data;
+                }
+                if (json.Msg.IsSuccess) {
+
+                    ApplyModifyFun_Dialog(json);
+                    
+                }
+                else {
+                    art.artDialog.errorTips(json.Msg.Message, "", "1.5");//短暂提示-错误
+                }
+            },
+            error: function () {
+                art.artDialog.errorTips("修改失败：系统错误！", "", "1.5");//短暂提示-错误
+            }
+        });
+
+    }
+    function ApplyModifyFun_Dialog(model) {
+        art.dialog({
+            width: 300,
+            height: 150,
+            top: 50,
+            id: 'add_Dialog',
+            title: '限额申请：修改',
+            content: '<table id="table_ApplyInfo">'
+                    + '<tr>'
+                        + '<td>订单号：</td>'
+                        + '<td>'
+                            + '<input id="Apply_OrderId" type="text" value="' + model.Model.OrderId + '" class="inputApply1" />'
+                        + '</td>'
+                    + '</tr>'
+                    + '<tr>'
+                        + '<td>申请金额：</td>'
+                        + '<td>'
+                            + '<input id="Apply_ApplyAmount" type="text" value="' + model.Model.ApplyAmount + '" class="inputApply1" />'
+                        + '</td>'
+                    + '</tr>'
+                    + '<tr>'
+                        + '<td>货币类型：</td>'
+                        + '<td>'
+                               + '<select id="typeOfCurrency" class="search_apply_80">'
+                                + '</select>'
+                        + '</td>'
+                    + '</tr>'
+                    + '</table>',
+            lock: true,
+            fixed: true,
+            ok: function () {
+                var param = getParam_Modify(model.Model.Id);
+                param.query.ParamInfo.ApplyAmount = $("#Apply_ApplyAmount").val();
+                param.query.ParamInfo.CoinType = $("#typeOfCurrency").val();
+                var param2 = JSON.stringify(param);
+                ApplyModifyFun_Post(param2);
+                art.artDialog.succeedTips("修改成功！", "", "1.5"); //短暂提示 - 成功
+            },
+            okValue: '提交',
+            cancelValue: '取消',
+            cancel: function () {
+               
+            }
+        });
+
+        getSelectOptionList(1);//货币类型
+        $("#typeOfCurrency").val(model.Model.CoinType);//货币类型
+    }
+
+    //提交新申请
+    function ApplyModifyFun_Post(param)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/LimitedApply/Update_Apply",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: param,
+            beforeSend: function () {
+            },
+            success: function (data) {
+                var json = "";
+                if (data.hasOwnProperty('d')) {
+                    json = data.d;
+                } else {
+                    json = data;
+                }
+                if (json.Msg.IsSuccess) {
+
+                    art.artDialog.succeedTips("提交成功", "", "1.5");//短暂提示-错误
+
+                }
+                else {
+                    art.artDialog.errorTips(json.Msg.Message, "", "1.5");//短暂提示-错误
+                }
+            },
+            error: function () {
+                art.artDialog.errorTips("修改失败：系统错误！", "", "1.5");//短暂提示-错误
+            }
+        });
+    }
+    function getParam_Modify(id) {
+        var paramSelect = {
+            "query": {
+                "ParamInfo": {
+                    "Id": id
+                },
+                "PageInfo": {
+                    "CurrentPage": 1,
+                    "Total": 0,
+                    "PageCount": 0,
+                    "PageSize": 10
+                }
+            }
+        }
+        return paramSelect;
+    }
+    function getSelectOptionList(type) {
+        $.ajax({
+            type: "POST",
+            url: "/SellerAdmin/Jobs/GetSelectOptionList",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                var json = "";
+                if (data.hasOwnProperty('d')) {
+                    json = data.d;
+                }
+                else {
+                    json = data;
+                }
+                if (json == null) {
+                    art.artDialog.errorTips("获取select内容失败，返回json数据为空！", "", "1");//短暂提示-错误
+                    return false;
+                }
+                if (!json.Msg.IsSuccess) {
+                    art.artDialog.errorTips(json.Msg.Message, "", "1");//短暂提示-错误
+                    return false;
+                }
+                else if (json.List.length > 0) {
+                    var workType = "";
+                    var typeOfCurrency = "";
+                    var payrollType = "";
+                    var languageType = "";
+
+                    for (var i = 0; i < json.List.length; i++) {
+                        if (json.List[i].DictionaryTypeId == 1) {
+                            typeOfCurrency += '<option value="' + json.List[i].DValue + '"> ' + json.List[i].Remarks + ' </option>';
+                        }
+                    }
+                    if (type == 1) {
+                        $("#typeOfCurrency").html(typeOfCurrency);//货币类型
+                    }
+                }
+                else {
+                    art.artDialog.errorTips("select数据获取失败", "", "1");//短暂提示-错误
+                    return false;
+                }
+            },
+            error: function () {
+                art.artDialog.errorTips("查询失败：系统错误", "", "1.5");//短暂提示-错误
+                return false;
+            }
+        });
+    }
+
+    //-------------------------------------------------------------修改“限额申请”--------------------------------------
+
+
+</script>

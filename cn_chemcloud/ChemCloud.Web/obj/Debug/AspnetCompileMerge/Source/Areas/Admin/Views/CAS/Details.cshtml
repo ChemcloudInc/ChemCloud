@@ -1,0 +1,156 @@
+﻿@model ChemCloud.Model.CASInfo
+<script src="~/Scripts/CommonJS.js"></script>
+<div class="container">
+    <h3 class="table-hd">CAS详情</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>CAS NO</td>
+                <td>@Model.CAS</td>
+            </tr>
+            <tr>
+                <td>CHINESE</td>
+                <td>@Model.CHINESE</td>
+            </tr>
+            <tr>
+                <td>CHINESE ALIAS</td>
+                <td>@Model.CHINESE_ALIAS</td>
+            </tr>
+            <tr>
+                <td>HS_CODE</td>
+                <td>@Model.HS_CODE</td>
+            </tr>
+            <tr>
+                <td>SAFE_DESC</td>
+                <td>@Model.SAFE_DESC</td>
+            </tr>
+            <tr>
+                <td>2D_Structure</td>
+                <td>@Model.C2D_Structure</td>
+            </tr>
+            <tr>
+                <td>Names_and_Identifiers</td>
+                <td>@Model.Names_and_Identifiers</td>
+            </tr>
+            <tr>
+                <td>Record_Title</td>
+                <td>@Model.Record_Title </td>
+            </tr>
+            <tr>
+                <td>Record_Description</td>
+                <td>@Model.Record_Description </td>
+            </tr>
+            <tr>
+                <td>Computed_Descriptors</td>
+                <td>@Model.Computed_Descriptors</td>
+            </tr>
+            <tr>
+                <td>IUPAC_Name</td>
+                <td>@Model.IUPAC_Name</td>
+            </tr>
+            <tr>
+                <td>InChI</td>
+                <td>@Model.InChI</td>
+            </tr>
+            <tr>
+                <td>InChI_Key</td>
+                <td>@Model.InChI_Key </td>
+            </tr>
+            <tr>
+                <td>Canonical_SMILES</td>
+                <td>@Model.Canonical_SMILES</td>
+            </tr>
+            <tr>
+                <td>Other_Identifiers</td>
+                <td>@Model.Other_Identifiers</td>
+            </tr>
+            <tr>
+                <td>Synonyms</td>
+                <td>@Model.Synonyms</td>
+            </tr>
+            <tr>
+                <td>MeSH_Synonyms</td>
+                <td>@Model.MeSH_Synonyms</td>
+            </tr>
+            <tr>
+                <td>Depositor_Supplied_Synonyms</td>
+                <td>@Model.Depositor_Supplied_Synonyms</td>
+            </tr>
+            <tr>
+                <td>Chemical_and_Physical_Properties</td>
+                <td>@Model.Chemical_and_Physical_Properties</td>
+            </tr>
+            <tr>
+                <td>Computed_Properties</td>
+                <td>@Model.Computed_Properties</td>
+            </tr>
+            <tr>
+                <td>Molecular_Weight</td>
+                <td>@Model.Molecular_Weight</td>
+            </tr>
+            <tr>
+                <td>Molecular_Formula</td>
+                <td>@Model.Molecular_Formula</td>
+            </tr>
+            <tr>
+                <td>XLogP3</td>
+                <td>@Model.XLogP3</td>
+            </tr>
+            <tr>
+                <td>Exact_Mass</td>
+                <td>@Model.Exact_Mass</td>
+            </tr>
+            <tr>
+                <td>Monoisotopic_Mass</td>
+                <td>@Model.Monoisotopic_Mass</td>
+            </tr>
+            <tr>
+                <td>Topological_Polar_Surface_Area</td>
+                <td>@Model.Topological_Polar_Surface_Area</td>
+            </tr>
+            <tr>
+                <td>Experimental_Properties</td>
+                <td><img src="@Model.Experimental_Properties" /></td>
+            </tr>
+            <tr>
+                <td>Solubility</td>
+                <td>@Model.Solubility</td>
+            </tr>
+            <tr>
+                <td>LogP</td>
+                <td>@Model.LogP</td>
+            </tr>
+            <tr>
+                <td>Related_Records</td>
+                <td>@Model.Related_Records</td>
+            </tr>
+            <tr>
+                <td>Related_Compounds_with_Annotation</td>
+                <td>@Model.Related_Compounds_with_Annotation</td>
+            </tr>
+            <tr><td>Parent_Compound</td><td>@Model.Parent_Compound</td></tr>
+        </tbody>
+    </table>
+    <div class="mt20">
+        <input type="button" class="btn btn-primary btn-sm" id="linkedit" value="编辑CAS详情" />
+        <a href="javascript:history.go(-1)" class="btn btn-primary btn-sm">返回列表</a>
+    </div>
+    <input type="hidden" id="ipt_value" value="" />
+</div>
+<script type="text/javascript">
+    $(function () {
+        var cid = getUrlParam("CAS_NO");
+        $("#linkedit").on("click", function () {
+            location.href = "Edit?cid="+cid;
+        });
+    });
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+</script>

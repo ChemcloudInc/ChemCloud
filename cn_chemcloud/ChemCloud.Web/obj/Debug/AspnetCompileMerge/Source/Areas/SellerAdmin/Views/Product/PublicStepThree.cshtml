@@ -1,0 +1,1271 @@
+﻿@model ChemCloud.Model.ProductInfo
+@using System.Linq
+@{
+    ViewBag.Title = "PublicStepThree";
+    long? proid = (long?)ViewBag.ProductId;
+}
+<style>
+    .table-input {
+        border: 1px solid #e4e4e4;
+        padding: 0;
+        width: 100px;
+        line-height: 28px;
+        margin-right: 10px;
+        padding-left: 10px;
+    }
+
+    .g-tag {
+        display: block;
+        float: left;
+        width: 60px;
+        height: 100%;
+    }
+
+    .g-select-box {
+        display: block;
+        float: right;
+        width: 100%;
+        position: relative;
+    }
+
+    .g-select-box1 {
+        display: block;
+        float: right;
+        width: 500px;
+        height: 100%;
+        position: relative;
+    }
+
+    .checkbox-row {
+        display: block;
+        float: left;
+        margin-right: 20px;
+        width: 80px;
+        height: 30px;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .mr15 {
+        margin-right: 15px;
+    }
+
+    .fileBox {
+        display: inline-block;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        overflow: hidden;
+        position: relative;
+        z-index: 3;
+        cursor: pointer;
+    }
+
+    .fileLabel {
+        background: blue;
+    }
+
+
+    .view img, .view1 img, .view2 img, .view3 img, .view4 img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .checkbox-inline {
+        margin-right: 35px;
+    }
+
+    .container {
+        width: 1210px;
+        position: relative;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .nav-tabs-custom {
+        background-color: #ffffff;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        margin-left: 80px;
+    }
+
+    .pricehidden {
+        display: none;
+    }
+</style>
+
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+
+@*产品编号*@
+<input type="hidden" id="productId" value="@(proid)" />
+
+@*dataurl*@
+<input type="hidden" id="hdmol" value="@ViewBag.mol" />
+
+
+<script>
+    var _salePrice_ = 0, _costPrice_ = 0, _inventory_ = 0;
+
+    var measureUnit = "";
+    var MaxFileSize = 1048576;/*1M*/
+
+    /*切换产品报价页签*/
+    var ChangeType = function (id, a) {
+        $(a).addClass("active").siblings().removeClass('active');
+        $(".price_group").addClass("pricehidden");
+        $("#price_" + id).removeClass("pricehidden");
+    }
+</script>
+
+<div class="container" style="padding:0 0 0 200px;">
+    <ul class="nav nav-tabs-custom"
+        style="width: 1010px;background: rgb(230,230,230);margin-left: 0;">
+        <li type="CASNo"><a href="/SellerAdmin/product/PublicStepOne">有CAS#产品上传</a></li>
+        <li class="active" type="NoCASNo"><a>无CAS#产品上传</a></li>
+    </ul>
+    <h3 class="table-hd">
+        <img src="~/Images/iconfont-gongzuoxingzhi.png" style="height :20px;width:18px" />&nbsp;&nbsp;&nbsp;&nbsp;基本信息
+    </h3>
+    <div class="form-horizontal">
+        <input type="hidden" id="categorylevel1" value="@ViewBag.categorylevel1" />
+        <input type="hidden" id="categorylevel2" value="@ViewBag.categorylevel2" />
+        <input type="hidden" id="categorylevel3" value="@ViewBag.categorylevel3" />
+        <input type="hidden" id="hdproductlevelhtml" value="" />
+        <div class="form-group">
+            <label class="col-sm-2 control-label">分类：</label>
+            <div class="col-sm-5" style="width:390px;">
+                <select id="category1" class="form-control input-sm select-sort">
+                    <option>分类</option>
+                </select>
+                <select id="category2" class="form-control input-sm select-sort">
+                    <option>分类</option>
+                </select>
+                <select id="category3" class="form-control input-sm select-sort" style="width:120px;">
+                    <option>分类</option>
+                </select>
+            </div>
+            <div class="col-sm-3" style="margin-left:-35px;"><span class="help-default">请选择产品所属的经营类目</span></div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">结构式绘图：</label>
+            <div class="col-sm-4" style="width:700px;">
+                <iframe id="ketcherFrame" name="ketcherFrame" scrolling="no"
+                        src="~/Areas/Web/Content/marvinjs-16.6.6-all/editor.html"
+                        style="overflow:auto; min-width: 500px; min-height: 450px;
+                width:100%;height:450px;"></iframe>
+            </div>
+            <input type="hidden" value="btndataurl" id="btndataurl" />
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">中文名称：</label>
+            <div class="col-sm-4">
+                <input class="form-control input-sm" value="@(Model.ProductName??"")" maxlength="50" type="text" id="goods_name">
+            </div>
+            <div class="col-sm-4"><span class="help-default">最多50个字</span></div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="" style="color:red"><span style="color:red">*</span>英文名称：</label>
+            <div class="col-sm-4">
+                <input class="form-control input-sm" value="@(Model.EProductName??"")" maxlength="500" type="text" id="inputEProductName">
+            </div>
+            <div class="col-sm-4">
+                <span class="help-default">最多500个字</span>
+                <label id="regEProductName_error" style="display:none;color:red" class="error">英文名称不能包含中文字符</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="" style="color:red"><span style="color:red">*</span>产品货号：</label>
+            <div class="col-sm-4">
+                <input class="form-control input-sm" value="@(Model.ProductCode??"")" type="text" id="item" maxlength="15" />
+            </div>
+            <div class="col-sm-5"><span class="help-default"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">中文别名：</label>
+            <div class="col-sm-7">
+                <textarea rows="4" cols="50" class="form-control" maxlength="50" id="inputAlias">@(Model.Alias ?? "")</textarea>
+
+            </div>
+            <div class="col-sm-2"><span class="help-default">可以多个，名字之间用分号隔开</span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">英文别名：</label>
+            <div class="col-sm-7">
+                <textarea rows="4" cols="50" class="form-control" maxlength="50" id="inputEalias">@(Model.Ealias ?? "")</textarea>
+            </div>
+            <div class="col-sm-2"><span class="help-default">可以多个，名字之间用逗号隔开</span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">平台货号：</label>
+            <div class="col-sm-4">
+                <input class="form-control input-sm" value="@(Model.Plat_Code??"")" type="text" id="Plat_Code" readonly="readonly">
+            </div>
+            <div class="col-sm-5"><span class="help-default"></span></div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">分子式：</label>
+            <div class="col-sm-4">
+                <input class="form-control input-sm" value="@(Model.MolecularFormula??"")" maxlength="50" type="text" id="inputMolecularFormula">
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">分子量：</label>
+            <div class="col-sm-4">
+                <input class="form-control input-sm" value="@(Model.MolecularWeight ?? "")" maxlength=" 50" type="text" id="inputMolecularWeight">
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">精确质量：</label>
+            <div class="col-sm-4">
+                <input class="form-control input-sm" value="@(Model.PASNo ?? "")" maxlength=" 50" type="text" id="inputPASNo">
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">LogP(油水分配系数)：</label>
+            <div class="col-sm-4">
+                <input class="form-control input-sm" value="@(Model.LogP ?? "")" maxlength=" 50" type="text" id="inputLogP">
+            </div>
+        </div>
+
+        <h3 class="table-hd">
+            <img src="~/Images/iconfont-huaxuepin.png " style="height :20px;width:18px" />&nbsp;&nbsp;&nbsp;&nbsp;物化性质
+        </h3>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">外观与形状：</label>
+            <div class="col-sm-2">
+
+                <input class="form-control input-sm" value="@(Model.Shape ?? "")" maxlength="50" type="text" id="inputShape">
+            </div>
+            <label class="col-sm-2 control-label" for="">密度：</label>
+            <div class="col-sm-2">
+
+                <input class="form-control input-sm" value="@(Model.Density ?? "")" maxlength="50" type="text" id="inputDensity">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">熔点：</label>
+            <div class="col-sm-2">
+
+                <input class="form-control input-sm" value="@(Model.FusingPoint ?? "")" maxlength="50" type="text" id="inputFusingPoint">
+            </div>
+            <label class="col-sm-2 control-label" for="">沸点：</label>
+            <div class="col-sm-2">
+
+                <input class="form-control input-sm" value="@(Model.BoilingPoint ?? "")" maxlength="50" type="text" id="inputBoilingPoint">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">闪点：</label>
+            <div class="col-sm-2">
+
+                <input class="form-control input-sm" value="@(Model.FlashPoint ?? "")" maxlength="50" type="text" id="inputFlashPoint">
+            </div>
+            <label class="col-sm-2 control-label" for="">折射率：</label>
+            <div class="col-sm-2">
+
+                <input class="form-control input-sm" value="@(Model.RefractiveIndex ?? "")" maxlength="50" type="text" id="inputRefractiveIndex">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">存储条件：</label>
+            <div class="col-sm-2">
+
+                <input class="form-control input-sm" value="@(Model.StorageConditions ?? "")" maxlength="50" type="text" id="inputStorageConditions">
+            </div>
+            <label class="col-sm-2 control-label" for="">蒸汽压：</label>
+            <div class="col-sm-2">
+
+                <input class="form-control input-sm" value="@(Model.VapourPressure ?? "")" maxlength="50" type="text" id="inputVapourPressure">
+            </div>
+        </div>
+        <h3 class="table-hd">
+            <img src="~/Images/iconfont-anquanxinxi.png " style="height :20px;width:18px" />&nbsp;&nbsp;&nbsp;&nbsp;安全信息
+        </h3>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">海关编码：</label>
+            <div class="col-sm-2">
+
+                <input class="form-control input-sm" value="@(Model.HSCODE ?? "")" maxlength="50" type="text" id="inputHSCODE">
+            </div>
+            <label class="col-sm-2 control-label" for="">危险运输编码：</label>
+            <div class="col-sm-2">
+                <input class="form-control input-sm" value="@(Model.TransportationNmber ?? "")" maxlength="50" type="text" id="inputTransportationNmber">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">RETCS号：</label>
+            <div class="col-sm-2">
+
+                <input class="form-control input-sm" value="@(Model.RETCS ?? "")" maxlength="50" type="text" id="inputRETCS">
+            </div>
+            <label class="col-sm-2 control-label" for="">WGK Germany：</label>
+            <div class="col-sm-2">
+                <input class="form-control input-sm" value="@(Model.WGKGermany ?? "")" maxlength="50" type="text" id="inputWGKGermany">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">安全说明：</label>
+            <div class="col-sm-7">
+                <textarea rows="4" cols="50" class="form-control" maxlength="100" id="inputSafetyInstructions">@(Model.SafetyInstructions ?? "")</textarea>
+            </div>
+            <div class="col-sm-3"><span class="help-default">最多100个字</span></div>
+        </div>
+
+        <h3 class="table-hd">
+            <img src="~/Images/baojia.png " style="height :20px;width:18px" />
+            &nbsp;&nbsp;&nbsp;&nbsp;产品报价
+        </h3>
+        <ul class="nav-tabs-custom">
+            @{
+                int i = 1; int j = 1;
+                List<ChemCloud.Model.ChemCloud_Dictionaries> listdc = (List<ChemCloud.Model.ChemCloud_Dictionaries>)ViewBag.CoinDic;
+            }
+            @foreach (ChemCloud.Model.ChemCloud_Dictionaries item in listdc)
+            {
+                if (i == 1)
+                {
+                    <li class="active" type="statusTab" id="@item.DValue" onclick="ChangeType(@item.DValue,this)"><a>@item.DKey</a></li>
+                }
+                else
+                {
+                    <li type="statusTab" id="@item.DValue" onclick="ChangeType(@item.DValue,this)"><a>@item.DKey</a></li>
+                }
+                i++;
+            }
+        </ul>
+        @{
+            List<ChemCloud.Model.ChemCloud_Dictionaries> listdc2 = (List<ChemCloud.Model.ChemCloud_Dictionaries>)ViewBag.CoinDic2;
+        }
+        @foreach (ChemCloud.Model.ChemCloud_Dictionaries item in listdc2)
+        {
+            if (j == 1)
+            {
+                <div class="form-group price_group" id="price_@item.DValue">
+                    <label class="col-sm-2 control-label" for="">产品报价：</label>
+                    <div class="col-sm-7">
+                        <table id="TBSpec" class="table table-bordered" style=" width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;">包装</th>
+                                    <th style="text-align:center;">纯度</th>
+                                    <th style="text-align:center;">等级</th>
+                                    <th style="text-align:center;">单价</th>
+                                    <th style="text-align :center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TBbody_@item.DValue" class="tbbody">
+                                @if ((Model.Id == 0))
+                                {
+                                    <tr class="trprice">
+                                        <td style="width:140px;">
+                                            <input class="form-control input-sm packs" maxlength="50" type="text" style="width:50px; display:inline;padding:4px 0px;"
+                                                   name="inputPackaging" value="0">
+                                            <select style="width:40px; height:30px;">
+                                                <option value="g">g</option>
+                                                <option value="kg">kg</option>
+                                                <option value="l">l</option>
+                                                <option value="ml">ml</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input class="form-control input-sm puritys purityClass" value="0" maxlength="50" type="text"
+                                                   name="inputPurity">
+                                        </td>
+                                        <td style="width:150px;">
+                                            <select id="level" style="width: 100px; height:30px; margin-left: 18px;"><option>ACS级</option><option>实验室级</option><option>工业级</option><option>试剂级</option><option>分析试剂</option><option>标准</option><option>化学纯</option><option>FCC</option><option>NF</option><option>USP</option><option>其它</option><option>固态</option></select>
+
+                                            @*<input class="form-control input-sm SpecLevel"
+                                                       maxlength="50" type="text" name="inputSpecLevel" style="width:120px; float:left;">
+                                                <span class="spanlevel" style="cursor:pointer;width:10px;height:20px; float:left; margin-top:10px;">...</span>*@
+                                            <input type="hidden" name="hiddenType" value="@item.DValue" />
+
+                                        </td>
+                                        <td>
+                                            <input class="form-control input-sm prices" maxlength="50" type="text"
+                                                   name="inputPrice" style=" border-color:red;" onkeyup="value=value.replace(/[^\d.]/g,'')">
+
+                                        </td>
+
+                                        <td><img src="~/Images/iconfont-zengjia.png " title="新增行" onclick="NewRow(@item.DValue)" /></td>
+                                    </tr>
+                                }
+                                @if (Model.Id > 0)
+                                {
+                                    int speccount = 0;
+                                    List<ChemCloud.Model.ProductSpec> listspec = new List<ChemCloud.Model.ProductSpec>();
+                                    foreach (var model in Model._ProductSpec)
+                                    {
+                                        if (model != null)
+                                        {
+                                            if (model.CoinType.ToString() == item.DValue)
+                                            {
+                                                listspec.Add(model);
+                                            }
+                                        }
+                                    }
+                                    foreach (var productspec in listspec)
+                                    {
+                                        speccount++;
+                                        string parmpack = "", parmunit = "";
+                                        if (productspec.Packaging.Split('-').Length == 2)
+                                        {
+                                            parmpack = productspec.Packaging.Split('-')[0];
+                                            parmunit = productspec.Packaging.Split('-')[1];
+
+                                        }
+                                        <tr class="trprice">
+
+                                            <td style="width:140px;">
+                                                @if (parmunit != "")
+                                                {
+                                                    <input class="  input-sm pack" style="width:50px; display:inline;padding:4px 0px;"
+                                                           value="@parmpack" maxlength="50" type="text" name="inputPackaging">
+
+                                                    <select style="width:40px; height:30px;">
+
+                                                        <option value="g" @if (parmunit == "g") { @: selected='selected'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }>
+                                                            g
+                                                        </option>
+                                                        <option value="kg" @if (parmunit == "kg") { @: selected='selected'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }>
+                                                            kg
+                                                        </option>
+                                                        <option value="l" @if (parmunit == "l") { @: selected='selected'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }>
+                                                            l
+                                                        </option>
+
+                                                        <option value="ml" @if (parmunit == "ml") { @: selected='selected'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }>
+                                                            ml
+                                                        </option>
+                                                    </select>
+                                                }
+                                                else
+                                                {
+                                                    <input class="input-sm pack" style="width:60px; display:inline; padding:4px 0px;"
+                                                           value="@productspec.Packaging" maxlength="50" type="text" name="inputPackaging">
+                                                    <select style="width:40px; height:30px;">
+                                                        <option value="g">g</option>
+                                                        <option value="kg">kg</option>
+                                                        <option value="l">l</option>
+                                                        <option value="ml">ml</option>
+                                                    </select>
+                                                }
+                                            </td>
+                                            <td>
+                                                <input class="form-control input-sm purity purityClass"
+                                                       value="@productspec.Purity " maxlength="20" type="text" name="inputPurity">
+                                            </td>
+
+                                            <td style="width:150px;">
+                                                <select id="level" style="width: 100px; height:30px;  margin-left: 18px;"><option>ACS级</option><option>实验室级</option><option>工业级</option><option>试剂级</option><option>分析试剂</option><option>标准</option><option>化学纯</option><option>FCC</option><option>NF</option><option>USP</option><option>其它</option><option>固态</option></select>
+
+                                                @*<input class="form-control input-sm SpecLevel" value="@productspec.SpecLevel "
+                                                           maxlength="50" type="text" name="inputSpecLevel" style="width:120px; float:left;">
+                                                    <span class="spanlevel" style="width:10px;height:20px; float:left; margin-top:10px;">...</span>*@
+                                                <input type="hidden" name="hiddenType" value="@item.DValue" />
+                                            </td>
+                                            <td>
+                                                <input class="form-control input-sm price"
+                                                       value="@productspec.Price" maxlength="50" type="text" style=" border-color:red;" name="inputPrice" onkeyup="value=value.replace(/[^\d.]/g,'')">
+                                            </td>
+                                            <td>
+                                                <img src="/Images/iconfont-icon52.png" title="删除行" onclick="deleteRow(this)" />
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group price_group pricehidden" id="price_@item.DValue">
+                    <label class="col-sm-2 control-label" for="">产品报价：</label>
+                    <div class="col-sm-7">
+                        <table id="TBSpec" class="table table-bordered" style=" width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;">包装</th>
+                                    <th style="text-align:center;">纯度</th>
+                                    <th style="text-align:center;">等级</th>
+                                    <th style="text-align:center;">单价</th>
+                                    <th style="text-align :center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TBbody_@item.DValue" class="tbbody">
+                                @if (Model.Id == 0)
+                                {
+                                    <tr class="trprice">
+                                        <td style="width:140px;">
+                                            <input class="form-control input-sm packs packs2" maxlength="50" type="text" style="width:50px; display:inline;padding:4px 0px;"
+                                                   name="inputPackaging" value="0">
+                                            <select style="width:40px; height:30px;">
+                                                <option value="g">g</option>
+                                                <option value="kg">kg</option>
+                                                <option value="l">l</option>
+                                                <option value="ml">ml</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input class="form-control input-sm puritys purityClass purityClass2" maxlength="50" type="text"
+                                                   name="inputPurity" value="0">
+                                        </td>
+                                        <td style="width:150px;">
+                                            <select id="level" style="width: 100px; height:30px;  margin-left: 18px;"><option>ACS级</option><option>实验室级</option><option>工业级</option><option>试剂级</option><option>分析试剂</option><option>标准</option><option>化学纯</option><option>FCC</option><option>NF</option><option>USP</option><option>其它</option><option>固态</option></select>
+
+                                            @*<input class="form-control input-sm SpecLevel"
+                                                       maxlength="50" type="text" name="inputSpecLevel" style="width:120px; float:left;">
+                                                <span class="spanlevel" style="cursor:pointer;width:10px;height:20px; float:left; margin-top:10px;">...</span>*@
+                                            <input type="hidden" name="hiddenType" value="@item.DValue" />
+
+                                        </td>
+                                        <td>
+                                            <input class="form-control input-sm prices" maxlength="50" type="text"
+                                                   name="inputPrice" style=" border-color:red;" onkeyup="value=value.replace(/[^\d.]/g,'')">
+
+                                        </td>
+
+                                        <td><img src="~/Images/iconfont-zengjia.png " title="新增行" onclick="NewRow(@item.DValue)" /></td>
+                                    </tr>
+                                }
+                                @if (Model.Id > 0)
+                                {
+                                    int speccount = 0;
+
+                                    List<ChemCloud.Model.ProductSpec> listspec = new List<ChemCloud.Model.ProductSpec>();
+                                    foreach (var model in Model._ProductSpec)
+                                    {
+                                        if (model != null)
+                                        {
+                                            if (model.CoinType.ToString() == item.DValue)
+                                            {
+                                                listspec.Add(model);
+                                            }
+                                        }
+                                    }
+
+                                    foreach (var productspec in listspec)
+                                    {
+                                        speccount++;
+                                        string parmpack = "", parmunit = "";
+                                        if (productspec.Packaging.Split('-').Length == 2)
+                                        {
+                                            parmpack = productspec.Packaging.Split('-')[0];
+                                            parmunit = productspec.Packaging.Split('-')[1];
+
+                                        }
+                                        <tr class="trprice">
+                                            <td style="width:140px;">
+                                                @if (parmunit != "")
+                                                {
+                                                    <input class="  input-sm pack" style="width:50px; display:inline;padding:4px 0px;"
+                                                           value="@parmpack" maxlength="50" type="text" name="inputPackaging">
+
+                                                    <select style="width:40px; height:30px;">
+
+                                                        <option value="g" @if (parmunit == "g") { @: selected='selected'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }>
+                                                            g
+                                                        </option>
+                                                        <option value="kg" @if (parmunit == "kg") { @: selected='selected'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }>
+                                                            kg
+                                                        </option>
+                                                        <option value="l" @if (parmunit == "l") { @: selected='selected'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }>
+                                                            l
+                                                        </option>
+
+                                                        <option value="ml" @if (parmunit == "ml") { @: selected='selected'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }>
+                                                            ml
+                                                        </option>
+                                                    </select>
+                                                }
+                                                else
+                                                {
+                                                    <input class="input-sm pack" style="width:60px; display:inline; padding:4px 0px;"
+                                                           value="@productspec.Packaging" maxlength="50" type="text" name="inputPackaging">
+                                                    <select style="width:40px; height:30px;">
+                                                        <option value="g">g</option>
+                                                        <option value="kg">kg</option>
+                                                        <option value="l">l</option>
+                                                        <option value="ml">ml</option>
+                                                    </select>
+                                                }
+                                            </td>
+                                            <td>
+                                                <input class="form-control input-sm purity purityClass"
+                                                       value="@productspec.Purity " maxlength="50" type="text" name="inputPurity">
+                                            </td>
+
+                                            <td style="width:150px;">
+                                                <select id="level" style="width: 100px; height:30px;  margin-left: 18px;"><option>ACS级</option><option>实验室级</option><option>工业级</option><option>试剂级</option><option>分析试剂</option><option>标准</option><option>化学纯</option><option>FCC</option><option>NF</option><option>USP</option><option>其它</option><option>固态</option></select>
+
+                                                @*<input class="form-control input-sm SpecLevel" value="@productspec.SpecLevel "
+                                                    maxlength="50" type="text" name="inputSpecLevel" style="width:120px; float:left;">*@
+                                                <input type="hidden" name="hiddenType" value="@item.DValue" />
+                                                @*<span class="spanlevel" style="width:10px;height:20px; float:left; margin-top:10px;">...</span>*@
+
+                                            </td>
+                                            <td>
+                                                <input class="form-control input-sm price"
+                                                       value="@productspec.Price" maxlength="50" type="text" style=" border-color:red;" name="inputPrice" onkeyup="value=value.replace(/[^\d.]/g,'')">
+
+
+                                            </td>
+                                            <td>
+
+                                                <img src="/Images/iconfont-icon52.png" title="删除行" onclick="deleteRow(this)" />
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            }
+            j++;
+        }
+        <div class="form-group" id="divVolume" style=" display:none ">
+            <label for="" class="col-sm-2 control-label">物流体积(M<sup>3</sup>)：</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control input-sm" value="@(Model.Volume.HasValue ? Model.Volume.Value : 0)" id="inputVolume">
+            </div>
+        </div>
+        <div class="form-group" id="divWeight" style=" display:none ">
+            <label for="" class="col-sm-2 control-label">物流重量(KG)：</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control input-sm" value="@(Model.Weight.HasValue?Model.Weight.Value:0)" id="inputWeight">
+            </div>
+        </div>
+
+        <div class="form-group" style=" display:block ">
+            <label for="" class="col-sm-2 control-label">SEO标题：</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control input-sm" value="@(Html.Raw(@ViewBag.Meta_Title))" id="seo_title">
+            </div>
+        </div>
+        <div class="form-group" style=" display:block ">
+            <label for="" class="col-sm-2 control-label">SEO关键字：</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control input-sm" value="@(Html.Raw(@ViewBag.Meta_Description))" id="seo_key">
+            </div>
+        </div>
+        <div class="form-group" style=" display:block ">
+            <label for="" class="col-sm-2 control-label">SEO描述：</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control input-sm" value="@(Html.Raw(@ViewBag.Meta_Keywords))" id="seo_des">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-primary" id="publish" style="width:108px"> 保存</button>
+            </div>
+        </div>
+        <div style="min-height:40px;"></div>
+    </div>
+</div>
+
+<script>
+    var ISCASMo = false;
+    function NewRow(id) {
+        if (id == "") {
+            var cointype = $("ul.nav-tabs-custom>li.active").attr('id');
+            $("#TBbody_" + cointype).append(trHTML);
+        } else {
+            $("#TBbody_" + id).append(trHTML);//在table最后面添加一行
+        }
+    }
+    function deleteRow(obj) {
+        var rowIndex = obj.parentElement.parentElement.rowIndex;
+        //允许删除第一行
+        var styles = $(obj).parent().parent().parent()[0];
+        styles.deleteRow(rowIndex - 1);
+
+    }
+    $("#inputEProductName").blur(function () {
+        var str = $("#inputEProductName").val();
+        if (str != "" && str != null) {
+            var reg = /^.*[\u4e00-\u9fa5].*$/;
+            if (reg.test(str)) {
+                $("#regEProductName_error").css('display', 'block');
+            } else {
+                $("#regEProductName_error").css('display', 'none');
+            }
+        }
+    });
+    /*初始化加载*/
+    $(function () {
+        $("#inventory").val("99999");
+        trHTML = "<tr class='trprice'><td style='width:140px;'> <input class='form-control input-sm packs3' maxlength='50' value='0' type='text' style='width:50px; display:inline;padding:4px 0px;'  name='inputPackaging'> <select style='width:40px; height:30px;'><option value='g'>g</option><option value='kg'>kg</option>	<option value='l'>l</option><option value='ml'>ml</option></select></td><td> <input class='form-control input-sm purityClass purityClass3' maxlength='50' type='text' value='0' name='inputPurity'></td> <td style='width:150px;'><select id='level' style='width: 100px; height:30px; margin-left: 18px;'><option>ACS级</option><option>实验室级</option><option>工业级</option><option>试剂级</option><option>分析试剂</option><option>标准</option><option>化学纯</option><option>FCC</option><option>NF</option><option>USP</option><option>其它</option><option>固态</option></select></td>  <td> <input class='form-control input-sm' maxlength='50' type='text' style=\" border-color:red;\" name='inputPrice' onkeyup='value=value.replace(/[^\d.]/g,'')'></td> <td><img src='/Images/iconfont-icon52.png' title='删除行' onclick='deleteRow(this)'/></td></tr>";
+
+    });
+
+
+    /*验证必填选项是否已经填写*/
+    var verify = function () {
+        var reg = /^[0-9]+([.]{1}[0-9]{1,3})?$/,
+            eproductname = $('#inputEProductName').attr('value'),
+            productCode = $('#item').attr('value'),//产品英文名
+            inventory = reg.test($('#inventory').attr('value')),
+            item = $('#item').attr('value');//产品货号
+        var regInt = /^[0-9]+$/;
+        var isVerify = true;
+        if (!inventory || parseFloat($('#inventory').attr('value')) <= 0) {
+            $('#inventory').css({ border: '1px solid #f60' });
+            $('#inventory').focus();
+        } else {
+            $('#inventory').css({ border: '1px solid #ccc' });
+        }
+        if (!eproductname) {
+            $('#inputEProductName').css({ border: '1px solid #f60' });
+            $('#inputEProductName').focus();
+        } else {
+            $('#inputEProductName').css({ border: '1px solid #ccc' });
+        }
+        if (!productCode) {
+            isVerify = false;
+            $('#inputEalias').css({ border: '1px solid #f60' });
+            $('#inputEalias').focus();
+        } else {
+            $('#inputEalias').css({ border: '1px solid #ccc' });
+        }
+
+        if ($('#item').val().trim() == "") {
+            /*如果无CAS号那么产品货号就不能为空*/
+            isVerify = false;
+            $('#item').css({ border: '1px solid #f60' });
+            $('#item').focus();
+        }
+        else {
+            $('#item').css({ border: '1px solid #ccc' });
+        }
+        if (isVerify && eproductname) {
+            return true;
+        } else {
+            alert("isVerify:" + isVerify + " ;inventory:" + inventory + " ; inv--" + $('#inventory').attr('value') + " ;eproductname:" + eproductname + " ;4:" + parseFloat($('#inventory').attr('value')));
+            return false;
+        }
+    };
+
+    /*搜集填写数据准备post*/
+    var inputDataFn = function () {
+        var temp = '', temp1 = '', string = '', arr = [], elem = $('.table-input'), len = elem.length;
+        /*如果开启规格取得表格数据*/
+        $('.table-input').each(function (i, e) {
+            var obj = $(e), str, val;
+            val = obj.attr('value') || '';
+            str = obj.attr('data-tag') || '';
+            if (string == '') {
+                temp = str;
+                string = temp + '&' + val;
+                return;
+            }
+
+            if (str == temp) {
+                string += '&' + val;
+            } else {
+                arr.push(string);
+                temp = str;
+                string = temp + '&' + val;
+            }
+            if ((i + 1) == len) {
+                arr.push(string);
+            }
+        });
+        len = arr.length;
+        var tagArr = ['colorName', 'sizeName', 'versionName', 'colorId', 'sizeId', 'versionId', 'mallPrice', 'cost', 'stock', 'sku'], s = [];
+        temp1 = [];
+        string = '"specificationsValue":[';
+        if (!len) {
+            return false;
+        }
+        for (var i = 0; i < len; i++) {
+            temp = arr[i].split('&');
+            for (var n = 0, l = temp.length; n < l; n++) {
+                temp1.push('"' + tagArr[n] + '":"' + temp[n] + '"');
+            }
+            s.push('{' + temp1.join(',') + '}');
+            temp1 = [];
+        }
+        string += (s.join(',')) + ']';
+        return string;
+    },
+        getAttr = function () {
+            var obj = $('#attr').children(), len = obj.length, str = '', i = 0, s = 'false', t = '', o = [], h = [];
+            str += '"attrSelectData":[';
+            for (; i < len; i++) {
+                $(obj[i]).children().each(function (i, e) {
+                    $(e).children().each(function (n, k) {
+                        if (n == 0) {
+                            s = $(k).attr('data_plat');
+                            t = $(k).attr('data_id');
+                        } else {
+                            if (((k.nodeName).toLowerCase()) == 'label') {
+                                if ($(k).find('input')[0].checked) {
+                                    o.push($(k).children().val());
+                                }
+                            } else if (((k.nodeName).toLowerCase()) == 'div') {
+                                o.push($(k).children().val());
+                            }
+                        }
+                    });
+                    h.push('{"isPlatform":false,"AttrId":' + t + ',"valueId":"' + (o.join(',') || '') + '"}');
+                    // alert('{"isPlatform":false,"AttrId":' + t + ',"valueId":' + (o.join(',') || '') + '}');
+                    o = [];
+                });
+            }
+            str += h.join(',');
+            str += ']';
+            return str;
+        },
+    categoryFn = function () {
+        /*自营店无需分类*/
+        return '"goodsCategory":[0]';
+    },
+
+
+
+    specificationsData = null;
+
+    /*保存*/
+    $('#publish').bind('click', function () {
+        var productstate = 1;
+        var iscasno = false;
+        if ($("#productId").val().trim() == null || $("#productId").val() == 0) {
+            pack = $('.packs').val();
+            if (parseFloat($('.prices').attr('value')) > 0) {
+                price = $('.prices').val();
+            } else {
+                price = 0;
+            }
+            purity = $('.puritys').val();
+        }
+        else {
+            pack = $('.pack').val();
+            if (parseFloat($('.prices').attr('value')) > 0) {
+                price = $('.prices').val();
+            } else {
+                price = 0;
+            }
+            purity = $('.purity').val();
+        }
+
+        if (!(/^[0-9]*$/.test($.trim($('.packs').val())))) {
+            $.dialog.tips('包装填写格式不正确');
+            return;
+        }
+        if (!(/^[0-9]*$/.test($.trim($('.purityClass').val())) && parseInt($.trim($('.purityClass').val())) >= 0 && parseInt($.trim($('.purityClass').val())) < 100)) {
+            $.dialog.tips('纯度填写格式不正确');
+            return;
+        }
+        if (!(/^[0-9]*$/.test($.trim($('.packs2').val())))) {
+            $.dialog.tips('包装填写格式不正确');
+            return;
+        }
+        if (!(/^[0-9]*$/.test($.trim($('.purityClass2').val())) && parseInt($.trim($('.purityClass2').val())) >= 0 && parseInt($.trim($('.purityClass2').val())) < 100)) {
+            $.dialog.tips('纯度填写格式不正确');
+            return;
+        }
+        if ($('.purityClass3').eq(0) && typeof ($('.purityClass3').eq(0).val()) != 'undefined') {
+
+            if (!(/^[0-9]*$/.test($.trim($('.purityClass3').val())) && parseInt($.trim($('.purityClass3').val())) >= 0 && parseInt($.trim($('.purityClass3').val())) < 100)) {
+                $.dialog.tips('纯度填写格式不正确');
+                return;
+            }
+            if (!(/^[0-9]*$/.test($.trim($('.packs3').val())))) {
+                $.dialog.tips('包装填写格式不正确');
+                return;
+            }
+        }
+        if ($('.purityClass3').eq(1) && typeof ($('.purityClass3').eq(1).val()) != 'undefined') {
+            if (!(/^[0-9]*$/.test($.trim($('.purityClass3').eq(1).val())) && parseInt($.trim($('.purityClass3').eq(1).val())) >= 0 && parseInt($.trim($('.purityClass3').eq(1).val())) < 100)) {
+                $.dialog.tips('纯度填写格式不正确');
+                return;
+            }
+            if (!(/^[0-9]*$/.test($.trim($('.packs3').eq(1).val())))) {
+                $.dialog.tips('包装填写格式不正确');
+                return;
+            }
+        }
+        if ($('.purityClass3').eq(2) && typeof ($('.purityClass3').eq(2).val()) != 'undefined') {
+            if (!(/^[0-9]*$/.test($.trim($('.purityClass3').eq(2).val())) && parseInt($.trim($('.purityClass3').eq(2).val())) >= 0 && parseInt($.trim($('.purityClass3').eq(2).val())) < 100)) {
+                $.dialog.tips('纯度填写格式不正确');
+                return;
+            }
+            if (!(/^[0-9]*$/.test($.trim($('.packs3').eq(2).val())))) {
+                $.dialog.tips('包装填写格式不正确');
+                return;
+            }
+        }
+        if ($('.purityClass3').eq(3) && typeof ($('.purityClass3').eq(3).val()) != 'undefined') {
+            if (!(/^[0-9]*$/.test($.trim($('.purityClass3').eq(3).val())) && parseInt($.trim($('.purityClass3').eq(3).val())) >= 0 && parseInt($.trim($('.purityClass3').eq(3).val())) < 100)) {
+                $.dialog.tips('纯度填写格式不正确');
+                return;
+            }
+            if (!(/^[0-9]*$/.test($.trim($('.packs3').eq(3).val())))) {
+                $.dialog.tips('包装填写格式不正确');
+                return;
+            }
+        }
+        if ($('.purityClass3').eq(4) && typeof ($('.purityClass3').eq(4).val()) != 'undefined') {
+            if (!(/^[0-9]*$/.test($.trim($('.purityClass3').eq(4).val())) && parseInt($.trim($('.purityClass3').eq(4).val())) >= 0 && parseInt($.trim($('.purityClass3').eq(4).val())) < 100)) {
+                $.dialog.tips('纯度填写格式不正确');
+                return;
+            }
+            if (!(/^[0-9]*$/.test($.trim($('.packs3').eq(4).val())))) {
+                $.dialog.tips('包装填写格式不正确');
+                return;
+            }
+        }
+        if ($('.purityClass3').eq(5) && typeof ($('.purityClass3').eq(5).val()) != 'undefined') {
+            if (!(/^[0-9]*$/.test($.trim($('.purityClass3').eq(5).val())) && parseInt($.trim($('.purityClass3').eq(5).val())) >= 0 && parseInt($.trim($('.purityClass3').eq(5).val())) < 100)) {
+                $.dialog.tips('纯度填写格式不正确');
+                return;
+            }
+            if (!(/^[0-9]*$/.test($.trim($('.packs3').eq(5).val())))) {
+                $.dialog.tips('包装填写格式不正确');
+                return;
+            }
+        }
+        if ($.trim($("#inputEProductName").val()) == null || $.trim($("#inputEProductName").val()) == "") {
+            $.dialog.tips('请填写英文名称');
+            return;
+        }
+        if ($.trim($("#inputEProductName").val()) != null && $.trim($("#inputEProductName").val()) != "") {
+            var str = $("#inputEProductName").val();
+            var reg = /^.*[\u4e00-\u9fa5].*$/;
+            if (reg.test(str)) {
+                $("#regEProductName_error").css('display', 'block');
+                return false;
+            } else {
+                $("#regEProductName_error").css('display', 'none');
+            }
+        }
+        if ($.trim($("#item").val()) == null || $.trim($("#item").val()) == "") {
+            $.dialog.tips('请填写产品货号！');
+            return;
+        }
+
+        var bool = verify();
+
+        var priceisnull = true;
+        $(".trprice").each(function () {
+
+            var ss = $.trim($(this).children('td').eq(0).children('input').val());
+
+            if ($.trim($(this).children('td').eq(0).children('input').val()) != "" &&
+                $.trim($(this).children('td').eq(1).children('input').val()) != "" &&
+                $.trim($(this).children('td').eq(2).children('input').val()) != "" &&
+                $.trim($(this).children('td').eq(3).children('input').val()) != "") {
+                priceisnull = false;
+            }
+        });
+        if (priceisnull) {
+            $.dialog.tips('请填写产品报价的单价！');
+            return false;
+        }
+        /*报价等级验证 结束*/
+        if (bool) {
+
+            var des = '"des":"' + ("") + '"';  // 产品描述-暂时改为dataur
+            var mpdes = '"mdes":"' + ("") + '"';// 移动端产品描述-暂时存放mol
+
+            /*marvin开始*/
+            /*绘图生成dataurl，存入数据库*/
+            var dataurl = "";
+            //document.ketcherFrame获取iframe写法不兼容火狐浏览器，用document.getElementById('ketcherFrame').contentWindow替换
+            var settings = document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.getDisplaySettings();
+            settings.width = 420;
+            settings.height = 420;
+            settings.backgroundColor = "#ffffff";
+            document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.exportStructure("mol", settings).then(function (source) {
+                dataurl = source;
+                if (source.length == 82) {
+                    $.dialog.errorTips("请绘制结构式图！");
+                    return false;
+                }
+
+
+                /*start*/
+                mpdes = '"mdes":"' + source + '"';
+                /*读取mol*/
+                document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.exportStructure("jpeg").then(function (source) {
+                    des = '"des":"' + source + '"';
+
+                    var category3 = 68;
+                    if ($('#category3').val() != null && $('#category3').val() != '') {
+                        category3 = $('#category3').val();
+                    }
+
+                    /*表格数据*/
+                    var tableData = inputDataFn(),//
+                        category = '"categoryId":"' + category3 + '"',// 分类数据据
+                        specifications = specificationsData || '"specifications":[]',
+                        goods_name = '"goodsName":"' + ($('#goods_name').attr('value').replace(/'/g, "‘").replace(/\\/g, "\\\\")) + '"',// 产品名称
+                        ad = '"adWord":"ad"',// 广告词
+                        mallPrce = '"mallPrce":"' + price + '"',//销售价
+                        marketPrice = '"marketPrice":"' + price + '"',// 市场价
+                        cost = '"cost":"' + price + '"',// 成本价
+                        rebate = '"rebate":"0"',// 折扣
+                        stock = '"stock":"' + 0 + '"',// 库存  ($('#inventory').attr('value'))
+                        Plat_Code = '"Plat_Code":"' + ($('#Plat_Code').val()) + '"',
+                        productCode = '"productCode":"' + ($('#item').attr('value')) + '"',//产品货号
+                        goodsCategory = categoryFn(),// 产品分类
+                    productId = '"productId":' + $("#productId").val(),
+                    saleStatus = '"saleStatus":' + productstate,
+                    attrSelect = getAttr(),// 产品属性选择
+                    up_pic1 = ('"' + ($('#up_pic1').attr('data-url')) + '"'),// 产品图片1
+                    up_pic2 = ('"' + ($('#up_pic2').attr('data-url')) + '"'),// 产品图片1
+                    up_pic3 = ('"' + ($('#up_pic3').attr('data-url')) + '"'),// 产品图片1
+                    up_pic4 = ('"' + ($('#up_pic4').attr('data-url')) + '"'),// 产品图片1
+                    up_pic5 = ('"' + ($('#up_pic5').attr('data-url')) + '"'),// 产品图片1
+                    pic = ('"pic":[' + up_pic1 + ',' + up_pic2 + ',' + up_pic3 + ',' + up_pic4 + ',' + up_pic5 + ']').replace(/\\/g, "\\\\");
+
+                    seoTitle = '"seoTitle":"' + ($('#seo_title').attr('value').replace(/\\/g, "\\\\")) + '"',
+                    seoKey = '"seoKey":"' + ($('#seo_key').attr('value').replace(/\\/g, "\\\\")) + '"',
+                    seoDes = '"seoDes":"' + ($('#seo_des').attr('value').replace(/\\/g, "\\\\")) + '"',
+
+                    measureUnit = '"MeasureUnit":"' + 0 + '"', //($('#inputMeasureUnit').attr('value').replace(/\\/g, "\\\\"))
+                    volume = '"Volume":"' + 0 + '"',//($('#inputVolume').attr('value'))
+                    weight = '"Weight":"' + 0 + '"', ($('#inputWeight').attr('value'))
+                    EProductName = '"EProductName":"' + ($('#inputEProductName').attr('value')) + '"',//产品英文名
+                    MolecularFormula = '"MolecularFormula":"' + ($('#inputMolecularFormula').attr('value')) + '"',//产品的分子式
+                    ISCASNo = '"ISCASNo":"' + ISCASMo + '"',//是否有CASNo
+                    Purity = '"Purity":"' + purity + '"', //产品纯度
+                    Alias = '"Alias":"' + ($('#inputAlias').attr('value')) + '"',//中文别名
+                    Ealias = '"Ealias":"' + ($('#inputEalias').attr('value')) + '"',//英文别名
+                    MolecularWeight = '"MolecularWeight":"' + ($('#inputMolecularWeight').attr('value')) + '"',//分子量
+                    PASNo = '"PASNo":"' + ($('#inputPASNo').attr('value')) + '"',//PASNo
+                    LogP = '"LogP":"' + ($('#inputLogP').attr('value')) + '"',//LogP
+                    Shape = '"Shape":"' + ($('#inputShape').attr('value')) + '"',//外观与形状
+                    Density = '"Density":"' + ($('#inputDensity').attr('value')) + '"',//密度
+                    FusingPoint = '"FusingPoint":"' + ($('#inputFusingPoint').attr('value')) + '"',//熔点
+                    BoilingPoint = '"BoilingPoint":"' + ($('#inputBoilingPoint').attr('value')) + '"',//沸点
+                    FlashPoint = '"FlashPoint":"' + ($('#inputFlashPoint').attr('value')) + '"',//闪点
+                    RefractiveIndex = '"RefractiveIndex":"' + ($('#inputRefractiveIndex').attr('value')) + '"',//折射率
+                    StorageConditions = '"StorageConditions":"' + ($('#inputStorageConditions').attr('value')) + '"',//存储条件
+                    VapourPressure = '"VapourPressure":"' + ($('#inputVapourPressure').attr('value')) + '"',//蒸汽压
+                    PackagingLevel = '"PackagingLevel":"' + pack + '"',//包装等级
+                    SafetyInstructions = '"SafetyInstructions":"' + ($('#inputSafetyInstructions').attr('value')) + '"',//安全说明
+                     TransportationNmber = '"TransportationNmber":"' + ($('#inputTransportationNmber').attr('value')) + '"',//危险品运输编号
+                    RETCS = '"RETCS":"' + ($('#inputRETCS').attr('value')) + '"',//RETCS
+                    WGKGermany = '"WGKGermany":"' + ($('#inputWGKGermany').attr('value')) + '"',//WGKGermany
+                     HSCODE = '"HSCODE":"' + ($('#inputHSCODE').attr('value')) + '"',//海关编码
+
+                    data = '{' + saleStatus + ',' + productId + ',' + (tableData || '"specificationsValue":[]') + ',' + specifications + ',' + category + ',' + goods_name + ',' + ad + ',' + mallPrce + ',' + marketPrice + ',' + cost + ',' + rebate + ',' + stock + ',' + Plat_Code + ',' + productCode + ',' + goodsCategory + ',' + attrSelect + ',' + pic + ',' + des + ',' + mpdes + ',' + seoTitle + ',' + seoKey + ',' + seoDes + ',' + measureUnit + ',' + volume + ',' + weight + ',' + EProductName + ',' + Purity + ',' + MolecularFormula + ',' + ISCASNo + ',' + Alias + ',' + Ealias + ',' + MolecularWeight + ',' + PASNo + ',' + LogP + ',' + Shape + ',' + Density + ',' + FusingPoint + ',' + BoilingPoint + ',' + FlashPoint + ',' + RefractiveIndex + ',' + StorageConditions + ',' + VapourPressure + ',' + SafetyInstructions + ',' + PackagingLevel + ',' + TransportationNmber + ',' + RETCS + ',' + WGKGermany + ',' + HSCODE + '}';
+
+                    /*数据发送*/
+                    var send = function (url, d) {
+                        $('.ajax-loading').css('display', 'block');
+                        var loading = showLoading();
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: d,
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.successful == true) {
+                                    var jsonbill = "";
+                                    jsonbill += "{";
+                                    jsonbill += "\"_ProductSpec\":[";
+                                    $(".trprice").each(function () {
+
+                                        var selectunit = $.trim($(this).children('td').eq(0).find("select").val());
+
+                                        var Packaging = $.trim($(this).children('td').eq(0).children('input').val()) + "-" + selectunit;
+
+                                        var Purity = $.trim($(this).children('td').eq(1).children('input').val());
+                                        var SpecLevel = $.trim($(this).children('td').eq(2).children('input').val());
+                                        var Price = $.trim($(this).children('td').eq(3).children('input').val());
+                                        var CoinType = $.trim($(this).children('td').eq(2).find("input[type='hidden']").val());
+                                        if (CoinType == null || CoinType == undefined || CoinType == "") {
+                                            var valueid = $(this).parent().attr('id');
+                                            CoinType = valueid.substring(valueid.length - 1)
+                                        }
+                                        if (Packaging != "" && Purity != "" && SpecLevel != "" && Price != "") {
+                                            jsonbill += "{";
+                                            jsonbill += "\"Packaging\":\"" + Packaging + "\",";
+                                            jsonbill += "\"Purity\":\"" + Purity + "\",";
+                                            jsonbill += "\"SpecLevel\":\"" + SpecLevel + "\",";
+                                            jsonbill += "\"CoinType\":\"" + CoinType + "\",";
+                                            jsonbill += "\"Price\":\"" + Price + "\"";
+                                            jsonbill += "},";
+                                        }
+                                    });
+                                    jsonbill = jsonbill.substring(0, jsonbill.length - 1);
+                                    jsonbill += "]}";
+                                    $.post('../Product/SaveSpec', { json: jsonbill, id: data.id },
+                                      function (data) {
+                                          loading.close();
+                                          if (data.success) {
+                                              window.location.href = "@Url.Action("Management", "Product")";//数据提交成功页面跳转
+                                          }
+                                          else {
+                                              $.dialog.errorTips("添加失败！" + data.msg);
+                                          }
+                                      });
+                                } else {
+                                    $.dialog.errorTips(data.msg);
+                                    $('.ajax-loading').css('display', 'none');
+                                }
+                            }
+                        });
+                    };
+                    send('../Product/SaveProductDetailNo', { productDetail: data });
+
+                })
+                /*marvin结束*/
+
+                /*end*/
+            });
+        } else {
+            categoryFn();
+        }
+    });
+    /*折扣算法*/
+    $("#price_a,#price_b").blur(function (e) {
+        var a = parseFloat($('#price_a').attr('value'), 10),
+            b = parseFloat($('#price_b').attr('value'), 10);
+        if (a && b) {
+            var c = (a / b),
+                d = (c * 100).toFixed(2) + '%';
+            $('#disabledInput').attr('value', d);
+        }
+    });
+    ; (function () {
+        var a = parseFloat($('#price_a').attr('value'), 10),
+            b = parseFloat($('#price_b').attr('value'), 10);
+        if (a && b) {
+            var c = (a / b),
+                d = (c * 100).toFixed(2) + '%';
+            $('#disabledInput').attr('value', d);
+        }
+    }());
+
+
+    var html = "<select id='level'>";
+    $.post("../Product/getProductLevel", "", function (data) {
+        if (data.length > 0) {
+            var html = "<select id='level'>";
+            for (var i = 0; i < data.length; i++) {
+
+                html += "<option>" + data[i].LevelNameCN + "</option>";
+            }
+            html += "</select>";
+
+            $("#hdproductlevelhtml").val(html);
+        }
+    });
+
+    /*选择等级*/
+    $(".spanlevel").live("click", function () {
+
+        $(".aui_dialog").show();
+        var $this = $(this).parent('td').children().eq(0);
+
+        $.dialog({
+            content: $("#hdproductlevelhtml").val(),
+            ok: function () {
+                $this.val($("#level").val());
+                $(".aui_dialog").hide();
+            },
+            cancel: true, lock: true, title: "报价等级"
+        });
+    });
+
+
+    /*产品分类加载*/
+    $('#category1,#category2,#category3').himallLinkage({
+        url: '../ProductImport/GetPlatFormCategoryNew',
+        enableDefaultItem: true,
+        defaultItemsText: '请选择',
+        defaultSelectedValues: [$("#categorylevel1").val(), $("#categorylevel2").val(), $("#categorylevel3").val()],
+        onChange: function (level, value, text) {
+            var len = $("#category3 option").size();
+            if (level == 1 && len == 0) {
+                $("#category3").val(value);
+            }
+            else if (level == 2)
+                $("#category3").val(value);
+        }
+    });
+
+
+    /*Marvin控件高度自适应*/
+    $("#ketcherFrame").load(function () {
+        $("#ketcherFrame").contents().find("div").height($("#ketcherFrame").height());
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var thisid = $("#productId").val();
+        if (thisid == 0) {
+            var stime = '@DateTime.Now.ToString("yyyyMMddHHmmssffff").ToString()';
+            $("#Plat_Code").val(stime);
+        } else {
+            /*编辑状态*/
+            setTimeout(function () {
+                $("#btndataurl").click();
+            }, 4000)
+        }
+
+        /*编辑状态下 显示图片到marvin*/
+        $("#btndataurl").click(function () {
+            var dataurl = $("#hdmol").val();
+            document.getElementById('ketcherFrame').contentWindow.marvin.sketcherInstance.importStructure("mol", dataurl).catch(function (error) {
+                alert(error);
+            });
+        });
+
+        /*纯度验证*/
+        $('.packs').blur(function () {
+            var value = $.trim($(this).val());
+            if (!(/^[0-9]*$/.test(value))) {
+                $.dialog.errorTips("请输入数字");
+                return false;
+            }
+        })
+        $(".purityClass").live("blur", function () {
+            var value = $.trim($(this).val());
+            if (/^[0-9]*$/.test(value) && parseInt(value) >= 0 && parseInt(value) < 100) {
+            } else {
+                $.dialog.errorTips("请输入0~100之间的数字");
+                return false;
+            }
+        });
+        //$(".purityClass").live("blur", function () {
+        //    var value = $.trim($(this).val());
+        //    if (parseInt(value) >= 0 && parseInt(value) < 100) {
+        //    } else {
+        //        $.dialog.errorTips("请输入0~100之间的数字");
+        //        return;
+        //    }
+        //});
+    });
+</script>

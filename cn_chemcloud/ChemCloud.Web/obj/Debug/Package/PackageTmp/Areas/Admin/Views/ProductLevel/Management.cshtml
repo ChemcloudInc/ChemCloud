@@ -1,0 +1,226 @@
+﻿@model ChemCloud.Web.Areas.Admin.Models.ProductLevelModel
+@using System.Collections
+
+@{
+    ViewBag.Title = "Management";
+}
+
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script type="text/javascript">
+    $(function () {
+        query();
+        $('.add-manager').click(function () {
+            LoadAddBox();
+        });
+        $("#searchBtn").click(function (e) {
+            query();
+            searchClose(e);
+        });
+    })
+    function LoadAddBox() {
+        
+        $("#UserNameDiv").show();
+        $("#levelNameCN").val("").removeAttr("disabled");
+        $("#levelNameEN").val("").removeAttr("disabled");
+        $.dialog({
+            title: '添加产品等级',
+            id: 'addManager',
+            width: '460px',
+            content: document.getElementById("addManagerform"),
+            lock: true,
+            okVal: '确认添加',
+            init: function () {
+                $("#levelNameCN").focus();
+            },
+            ok: function () {
+                var nameCN = $("#levelNameCN").val();
+                var nameEN = $("#levelNameEN").val();
+                if (nameCN == "") {
+                    $.dialog.tips("中文等级名称不能为空！");
+                    return false;
+                }
+                if (nameEN == "") {
+                    $.dialog.tips("英文等级名称不能为空！");
+                    return false;
+                }
+                AddManage(nameCN, nameEN);
+            }
+        });
+    }
+    function AddManage(nameCN, nameEN) {        
+        var loading = showLoading();
+        $.ajax({
+            type: 'post',
+            url: 'AddPRoductLevel',
+            cache: false,
+            async: true,
+            data: { nameCN: nameCN, nameEN: nameEN},
+            dataType: "json",
+            success: function (data) {
+                loading.close();
+                if (data.success) {
+                    $.dialog.tips("添加成功！");
+                    $("#addManagerform input").val("");
+                    setTimeout(3000);
+                    location.href = "/Admin/ProductLevel/Management";
+                }
+                else {
+                    $.dialog.errorTips("添加失败！" + data.msg);
+                    setTimeout(3000);
+                }
+            }
+
+        });
+    }
+    function query() {
+        $("#list").hiMallDatagrid({
+            url: './list',
+            nowrap: false,
+            rownumbers: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            border: false,
+            fit: true,
+            fitColumns: true,
+            pagination: true,
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "levelNameCN": $.trim($("#levelCN").val()), "levelNameEN": $.trim($("#levelEN").val()) },
+            toolbar: /*"#goods-datagrid-toolbar",*/'',
+            operationButtons: "#batchOperate",
+            columns:
+            [[
+                { checkbox: true, width: 39 },
+                { field: "Id", hidden: true },
+                { field: "LevelNameCN", title: '等级名称(中文)' },
+                { field: "LevelNameEN", title: '等级名称(英文)' },
+            {
+                field: "operation", operation: true, title: "操作",
+                formatter: function (value, row, index) {
+                    var id = row.Id.toString();
+                    var nameCN = row.LevelNameCN.toString();
+                    var nameEN = row.LevelNameEN.toString();
+                    var html = ["<span class=\"btn-a\">"];
+                    html.push("<a onclick=\"EditLevel('" + id + "','" + nameCN + "','" + nameEN + "');\">修改</a>");
+                    html.push("<a onclick=\"Delete('" + id + "');\">删除</a>");
+                    html.push("</span>");
+                    return html.join("");
+                }
+            }
+            ]]
+        });
+    }
+    
+    function EditLevel(id,nameCN,nameEN) {
+        $("#UserNameDiv").show();
+        $("#levelNameCN").val(nameCN).removeAttr("disabled");
+        $("#levelNameEN").val(nameEN).removeAttr("disabled");
+        $.dialog({
+            title: '修改产品等级',
+            lock: true,
+            id: 'EditLevel',
+            width: '460px',
+            content: document.getElementById("addManagerform"),
+            padding: '20px 10px',
+            okVal: '确定',
+            init: function () {
+                $("#levelNameCN").focus();
+            },
+            ok: function () {
+                var loading = showLoading();
+                var SelectedLevelId = $("#Id").val();
+                if (SelectedLevelId == null)
+                    SelectedLevelId = 0;
+                var nameCN = $("#levelNameCN").val();
+                var nameEN = $("#levelNameEN").val();
+                $.post("./UpdateProductLevel",
+                    { id: id, nameCN: nameCN, nameEN: nameEN },
+                    function (data) {
+                        loading.close();
+                        if (data.success) {
+                            $.dialog.tips("修改成功！");
+                            $("#addManagerform input").val("");
+                            setTimeout(3000);
+                            location.href = "/Admin/ProductLevel/Management";
+                        }
+                        else
+                            $.dialog.errorTips("修改失败");
+                    });
+            }
+        });
+    }
+
+    function Delete(id) {
+        $.dialog.confirm('确定删除该条记录吗？', function () {
+            var loading = showLoading();
+            $.post("./DeleteProductLevel", { id: id }, function (data) { $.dialog.tips("删除成功"); query(); loading.close(); });
+        });
+    }
+    function BatchDelete() {
+        var selectedRows = $("#list").hiMallDatagrid("getSelections");
+        var selectids = new Array();
+        for (var i = 0; i < selectedRows.length; i++) {
+            selectids.push(selectedRows[i].Id);
+        }
+        if (selectedRows.length == 0) {
+            $.dialog.errorTips("你没有选择任何选项！");
+        }
+        else {
+            $.dialog.confirm('确定删除选择的产品等级吗？', function () {
+                var loading = showLoading();
+                $.post("./BatchDelete", { ids: selectids.join(',') }, function (data) { $.dialog.tips("删除成功"); query(); loading.close(); });
+            });
+        }
+    }
+</script>
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>产品等级管理</strong>
+        <li class="active"><a>产品等级</a></li>
+        
+        <em class="primary-btn">
+            <span class="glyphicon glyphicon-question-sign"></span>
+            <div class="primary">
+            </div>
+        </em>
+    </ul>
+    <div id="shopToolBar">
+        <div class="search-box only-line">
+            <form class="custom-inline" role="form">
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width : 90px">等级名称(中文)</label>
+                    <input class="form-control input-ssm" type="text" id="levelCN">
+                </div>
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width : 90px">等级名称(英文)</label>
+                    <input class="form-control input-ssm" type="text" id="levelEN">
+                </div>
+                <input type="button" class="btn btn-primary btn-sm" id="searchBtn" value="搜 索">
+                <input type="button" class="btn btn-primary btn-sm add-manager" value="添加产品等级">
+            </form>
+        </div>
+    </div>
+    <table class="table" id="list">
+        <div class="tabel-operate" id="batchOperate">
+            <button type="button" class="btn btn-danger btn-ssm" onclick="BatchDelete()">批量删除</button>
+        </div>
+    </table>
+    @*<input type="hidden" value="@ViewBag.Type" id="type" />*@
+</div>
+<div class="dialog-form" id="addManagerform" style="display:none">
+    <div class="form-group" id="UserNameDiv">
+        <label class="label-inline" for="" style="width : 110px" >等级名称(中文)</label>
+        <input class="form-control input-sm" type="text" id="levelNameCN" name="levelNameCN">
+    </div>
+    <div class="form-group">
+        <label class="label-inline" for="" style="width : 110px" >等级名称(英文)</label>
+        <input class="form-control input-sm" type="text" id="levelNameEN" name="levelNameEN">
+    </div>
+    @*<input class="form-control input-sm" type="text" id="userId" name="userId" style="display:none" value="@ViewBag.UserId">
+    <input class="form-control input-sm" type="text" id="shopId" name="userId" style="display:none" value="@ViewBag.ShopId">*@
+</div>
+
+

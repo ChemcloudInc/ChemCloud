@@ -1,0 +1,132 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "权限组列表";
+}
+<style>
+    /*#list th {
+        background-color: #3498DB;
+        color: #fff;
+    }*/
+    #List th {
+        background: #3498DB;
+        color: #fff;
+    }
+    tr {
+        border-bottom: 1px solid #f2f2f2;
+        height: 32px;
+        line-height: 32px;
+    }
+    #gridlist tr {
+        height: 30px;
+    }
+    .tabel-operate{
+        display:none;
+    }
+    .box1{
+            padding: 0px 4px 20px 200px;
+    }
+</style>
+
+@*<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">*@
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<link href="~/Areas/Web/Content/user-center.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+
+<div class="box1 lh24" style="padding: 0px 4px 20px 200px;">
+    @*<div class="title bot-border">
+        <h3 class="title_txt cur">组织架构</h3>
+
+    </div>*@
+    <div class="title bot-border" style="margin-top:20px;">
+        <ul class="nav nav-tabs-custom clearfix">
+            <li class="active">
+                <h3 class="title_txt cur" style="height: 38px;"><a style="color:#3498DB">组织架构</a></h3>
+            </li>
+            <li><a href="./add">添加角色组</a></li>
+        </ul>
+    </div>
+    <div class="border-box">
+        <table class="table" id="List" style="width:100%;"></table>
+        <div class="tabel-operate" id="saleOff">
+            <button type="button" style="width:70px; height:25px; border:0px solid; background-color:#3498db; color:#fff; border-radius:2px;" onclick="BatchDelete()">批量删除</button>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="@ViewBag.UserId" id="userId" />
+<script type="text/javascript">
+
+    $(function () {
+        gridlist();
+    });
+    function Delete(id) {
+        $.dialog.confirm('确定删除该条记录吗？', function () {
+            var loading = showLoading();
+            $.post("./Delete", { id: id }, function (data) {
+                loading.close();
+                $.dialog.tips(data.msg);
+                gridlist();
+            });
+        });
+    }
+    function BatchDelete() {
+        var selectedRows = $("#List").hiMallDatagrid("getSelections");
+        var selectids = new Array();
+        for (var i = 0; i < selectedRows.length; i++) {
+            selectids.push(selectedRows[i].Id);
+        }
+        if (selectedRows.length == 0) {
+            $.dialog.errorTips("你没有选择任何选项！");
+        }
+        else {
+            $.dialog.confirm('确定删除选择的消息吗？', function () {
+                var loading = showLoading();
+                $.post("./BatchDelete", { ids: selectids.join(',') }, function (data) { $.dialog.tips(data.msg); gridlist(); loading.close(); });
+            });
+        }
+    }
+    function gridlist() {
+        $("#List").hiMallDatagrid({
+            url: "/PermissionGroup/List",
+            nowrap: false,
+            rownumbers: true,
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            border: false,
+            fit: true,
+            fitColumns: true,
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { "Id": $("#userId").val() },
+            toolbar: "#shopToolBar",
+            operationButtons: "#saleOff",
+            columns:
+            [[
+
+                
+                { field: "Id", title: "Id", hidden: true },
+                {
+                    field: "RoleName", title: "角色组名", width: 503, align: "center",
+                    
+                },
+                
+		    	{
+		    	    field: "operation", operation: true, title: "操作", width: 503,
+		    	    formatter: function (value, row, index) {
+		    	        var html = ["<span class=\"btn-a\">"];
+		    	        var id = row.Id;
+		    	        if (row.RoleName != "管理员" && row.RoleName != "Admin") {
+		    	            html.push('<a href="./Edit?id=' + row.Id + '">编辑</a>');
+		    	            html.push("&nbsp|&nbsp;<a onclick=\"Delete('" + id + "');\">删除</a>");
+		    	        }
+		    	        html.push("</span>");
+		    	        return html.join("");
+		    	    }
+		    	}
+            ]]
+        });
+    }
+</script>

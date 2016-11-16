@@ -1,0 +1,463 @@
+/*
+ * ChemWriter (R)
+ * Copyright (C) 2007-2014 Metamolecular, LLC
+ *
+ * This source code is the exclusive property of Metamolecular, LLC.
+ * Unauthorized duplication in any form without written consent
+ * is prohibited.
+ *
+ * Contact: http://metamolecular.com <info@metamolecular.com>
+ */
+@font-face {
+  font-family: 'ChemWriter Symbols';
+  src: url('../other/chemwriter-symbols.woff') format('woff');
+}
+.chemwriter {
+  position: relative;
+  font-family: "Lucida Sans", Arial, sans-serif;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.chemwriter-hide {
+  display: none;
+}
+.chemwriter-fullscreen {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  overflow: hidden;
+}
+.chemwriter-fullscreen .chemwriter-editor {
+  border: 0px;
+  border-radius: 0;
+}
+.chemwriter svg {
+  overflow: hidden;
+}
+.chemwriter svg path, .chemwriter svg line {
+  stroke-linecap: round;
+}
+.chemwriter svg path {
+  stroke-linejoin: round;
+}
+.chemwriter ul {
+  margin: 0;
+}
+.chemwriter li {
+  line-height: 1em;
+}
+.chemwriter-default-cursor {
+  cursor: default;
+}
+.chemwriter-move-cursor {
+  cursor: move !important;
+}
+.chemwriter-button {
+  position: relative;
+  font-size: 20px;
+  border-radius: 3px;
+  cursor: default;
+  display: inline-block;
+  text-align: center;
+  color: #444444;
+  text-shadow: 0 1px #ffffff;
+}
+.chemwriter-palette .chemwriter-button {
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin: 4px 0 0 4px;
+  line-height: 30px;
+  box-sizing: border-box;
+}
+.chemwriter-button-enabled:hover {
+  background-color: #bbbbbb;
+}
+.chemwriter-button-disabled {
+  color: #b0b0b0;
+}
+.chemwriter-button-pressed {
+  background-color: #bbbbbb;
+}
+.chemwriter-button-about {
+  position: absolute;
+  bottom: 0; left: 0;
+}
+.chemwriter-icon {
+  font-family: "Chemwriter Symbols";
+  font-size: 25px;
+  line-height: 25px;
+  margin-top: 3px;
+  box-sizing: border-box;
+}
+.chemwriter-detail-disclosure {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  font-family: "Chemwriter Symbols";
+  font-size: 30px;
+}
+.chemwriter-detail-disclosure:after {
+  content: 'y';
+}
+.chemwriter-canvas {
+  height: 100%;
+  position: relative;
+}
+.chemwriter-canvas:focus {
+  outline:none;
+}
+.chemwriter-graphics {
+  height: 100%;
+  width: 100%;
+}
+.chemwriter-dynamic-palette {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  visibility: hidden;
+  /* IE 9/10 hack to allow palette dismissal by re-pressing button */
+  background-color: rgba(0, 0, 0, 0);
+}
+.chemwriter-appear {
+  visibility: visible;
+}
+.chemwriter-overlay {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  border-radius: 5px;
+  visibility: hidden;
+  opacity: 0;
+  transition-duration: 1s;
+}
+.chemwriter-overlay-no-transition {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  border-radius: 5px;
+  display: none;
+}
+.chemwriter-show {
+  visibility: visible;
+  opacity: 1;
+  transition-duration: 1s;
+}
+.chemwriter-show-no-transition {
+  display: block;
+}
+.chemwriter-rev {
+  margin-bottom: 0.1em;
+}
+.chemwriter-authors {
+  margin: 1em 0 2em 0;
+}
+.chemwriter-copyright {
+  font-size: 10px;
+}
+.chemwriter-logo {
+  width: 75px;
+  height: 75px;
+  margin: 15px auto 15px auto;
+  font-family: "ChemWriter Symbols";
+  font-size: 70px;
+}
+.chemwriter-logo:after {
+  content: "B";
+}
+.chemwriter-product-name {
+  font-size: 28px;
+  margin-bottom: 0.5em;
+}
+.chemwriter-dialog {
+  position: absolute;
+  top: 0; right: 0; bottom: 0px; left: 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.chemwriter-dialog .chemwriter-content {
+  position: absolute;
+  top: 0; right: 0; bottom: 30px; left: 0;
+}
+.chemwriter-about-panel {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 200px;
+  background-color: #466bb0;
+  border-top-left-radius: 5px;
+  text-align: center;
+  color: white;
+  font-size: 12px;
+  padding: 0 0.5em 0 0.5em;
+}
+.chemwriter-about-panel a {
+  color: white;
+}
+.chemwriter-documentation-panel {
+  position: absolute;
+  top: 20px; bottom: 0; right: 0;
+  left: 212px;
+  padding: 15px 20px 15px 20px;
+  text-align: center;
+  font-size: 16px;
+}
+.chemwriter-documentation-panel a {
+  color: white;
+}
+.chemwriter-list {
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.chemwriter-list-item {
+  margin-left: 0;
+  padding-left: 0;
+  margin-bottom: 1em;
+}
+.chemwriter-super {
+  vertical-align: super;
+  font-size: 50%;
+}
+.chemwriter-clipboard-panel {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+}
+.chemwriter-left-panel {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; width: 70%;
+  background-color: green;
+}
+.chemwriter-right-panel {
+  position: absolute;
+  top: 0; bottom: 0; right: 0; width: 30%;
+  background-color: white;
+}
+.chemwriter-code-editor {
+  position: absolute;
+  top: 0; bottom: 0; right: 0; left: 0;
+  background-color: black;
+}
+.chemwriter-code-editor-front {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  font-family: monospace;
+  font-size: 12px;
+  white-space: pre;
+  line-height: 12px;
+  background-color: transparent;
+  color: #00ff00;
+}
+.chemwriter-code-editor-front::-moz-selection {
+  background-color: rgba(100, 200, 100, 0.5);
+}
+.chemwriter-code-editor-back {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  font-family: monospace;
+  font-size: 12px;
+  white-space: pre;
+  line-height: 12px;
+  background-color: #000000;
+  color: #ff0000;
+}
+.chemwriter-text-area {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  font-family: monospace;
+  font-size: 12px;
+  white-space: pre;
+}
+.chemwriter-button-row {
+  position: absolute;
+  right: 0; bottom: 0; left: 0;
+  height: 30px;
+  text-align: center;
+  background-color: #d2d2d2;
+}
+.chemwriter-text-button {
+  padding: 0.1em 0.4em 0.1em 0.4em;
+  margin: 7px 1em 7px 0;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: default;
+  font-size: 12px;
+  border: 1px solid #888888;
+}
+.chemwriter-editor {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border: 2px solid gray;
+  border-radius: 5px;
+  background: #dcdcdc;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.chemwriter-element-palette {
+  right: 38px; bottom: 0; left: 38px;
+  height: 38px;
+}
+.chemwriter-element-palette .chemwriter-select {
+  margin: 6px 0 0 8px;
+  font-size: 16px;
+  height: 22px;
+}
+.chemwriter-palette {
+  position: absolute;
+}
+.chemwriter-palette-float {
+  position: absolute;
+  top: 50px; left: 39px;
+  height: 38px;
+  border-radius: 0 5px 5px 0;
+  padding-right: 4px;
+  background-color: #dcdcdc;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+.chemwriter-palette-left {
+  position: absolute;
+  top: 0; bottom: 38px;
+  width: 38px;
+}
+.chemwriter-palette-bottom {
+  position: absolute;
+  right: 38px; bottom: 0; left: 38px;
+  height: 38px;
+}
+.chemwriter-palette-bottom .chemwriter-button {
+  font-weight: bold;
+}
+.chemwriter-palette-right {
+  position: absolute;
+  top: 0; right: 0; bottom: 38px;
+  right: 0; bottom: 38px;
+  width: 38px;
+}
+.chemwriter-palette-bottom-right {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 38px; height: 38px;
+}
+.chemwriter-canvas {
+  position: absolute;
+  top: 0;
+  right: 38px;
+  bottom: 38px;
+  left: 38px;
+  height: auto;
+  background-color: white;
+  border-radius: 0 0 5px 5px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border-left: 1px solid #555555;
+  border-right: 1px solid #555555;
+  border-bottom: 1px solid #555555;
+}
+.chemwriter-document-view {
+  height: 100%;
+  width: 100%;
+}
+.chemwriter-image {
+  position: relative;
+  height: 100%;
+  text-align: center;
+}
+.chemwriter-error-image {
+  font-family: "ChemWriter Symbols";
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  background-color: inherit;
+  color: #ff0000;
+  text-shadow: 1px 1px #202020;
+}
+.chemwriter-error-image:after {
+  vertical-align: middle;
+  content: "z";
+}
+/* Button Icons */
+.chemwriter-button-move .chemwriter-icon:after {
+  content: "a";
+}
+.chemwriter-button-delete .chemwriter-icon:after {
+  content: "b";
+}
+.chemwriter-button-single-bond .chemwriter-icon:after {
+  content: "c";
+}
+.chemwriter-button-wedge-bond .chemwriter-icon:after {
+  content: "d";
+}
+.chemwriter-button-hash-bond .chemwriter-icon:after {
+  content: "e";
+}
+.chemwriter-button-wavy-bond .chemwriter-icon:after {
+  content: "f";
+}
+.chemwriter-button-crossed-bond .chemwriter-icon:after {
+  content: "g";
+}
+.chemwriter-button-benzene .chemwriter-icon:after {
+  content: "h";
+}
+.chemwriter-button-cyclohexane .chemwriter-icon:after {
+  content: "i";
+}
+.chemwriter-button-cyclopentane .chemwriter-icon:after {
+  content: "j";
+}
+.chemwriter-button-cyclopropane .chemwriter-icon:after {
+  content: "k";
+}
+.chemwriter-button-cyclobutane .chemwriter-icon:after {
+  content: "l";
+}
+.chemwriter-button-cycloheptane .chemwriter-icon:after {
+  content: "A";
+}
+.chemwriter-button-cyclooctane .chemwriter-icon:after {
+  content: "m";
+}
+.chemwriter-button-increase-charge .chemwriter-icon:after {
+  content: "n";
+}
+.chemwriter-button-decrease-charge .chemwriter-icon:after {
+  content: "o";
+}
+.chemwriter-button-next-isotope .chemwriter-icon:after {
+  content: "p";
+}
+.chemwriter-button-undo .chemwriter-icon:after {
+  content: "q";
+}
+.chemwriter-button-redo .chemwriter-icon:after {
+  content: "r";
+}
+.chemwriter-button-new-document .chemwriter-icon:after {
+  content: "s";
+}
+.chemwriter-button-edit-document .chemwriter-icon:after {
+  content: "t";
+}
+.chemwriter-button-reset-view .chemwriter-icon:after {
+  content: "u";
+}
+.chemwriter-button-about .chemwriter-icon:after {
+  content: "v";
+}
+.chemwriter-button-full-screen .chemwriter-icon:after {
+  content: "w";
+}
+.chemwriter-fullscreen .chemwriter-button-full-screen .chemwriter-icon:after {
+  content: "x";
+}
+/* IE8 and lower only */
+.chemwriter-fallback-content {
+  background-position-x: center;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-size: cover ;
+  background-image: url('../images/.com/sdk/data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAbCAYAAACKlipAAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAEIwAABCMBJrKakgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAg7SURBVGiB7ZprsNZVFcZ/6yDIEVKIMxlDHAIyCIEgLl5ARFChkshJcVA0nWJydJr6QHwJTbRMm9GkxoGRUgwKQRAcBQ4CDrcUEAwMZbipxP14CYEAufj0Ya0/Z/Pyci7vOTRnjGfmnbPX3muv/76ttfd+9jHgz8D9knZSBczsO8BiSYeq0q1rmFkzoKekhZXojAT65GSXSxpdy2+PAjpIGlkbO9VBEfBDoFk19ScDXz57zakU7YEJVehcBbQAFie/lWezUXWN81LBzK4AjgPFQD9gnqQ1UTYEaAzcamYfAgslbTGzRsAtQAdgAzBV0mdR5w6gDPg20BoYDwzGB+oWYA8wQ9LRpA2lwI34IpkvaYWZGfAD4EIzuztUJ0k6kqdPb0malJtpZpcDJZJeDrkYuAOYBhyJ9AvA8Oj/VEnb8w1a1L0dKAXWRR8UZcOjfwNwr7rfzBoANwGdgfeAyZKOhf7NwGsx3l2Kcr51EzARGBPyDDO7N9IN4+/5+MQ0iMlYBowAPgJ+Cvw1sfco8CJwPXAA+ArwR+BvwEVRb3nS0R7RuE6AgJlmNiyKG+Ee3Th+NcV24GkzuybkPwD9JO0DmuKL5SWgJXAlsMrMWuYaMbOG0ca7gUPA43jkyPAgMBsYChyIxTQPuBf4GJ/IuZEPcB8wCx/7A+AecWlM8GPAekmEPBwoS+SPgHaJfA+wNpEvCKNdQt4NPJSUfxMf6G+F3Ag4CFwc8qvAmET/RmBjpHsAW7KyfD/gL2E//c1MyocCO2JwtgBfiPyS0B2R6M4DfhvpUcDESN8J7AIs5NKo2ynkzcATiZ1hwDagQchFUX9AyG8BEzL9U0JWoCxJ/wP4fR6dDL2BRmY2PT5UBHyKh69/hs4rOXU+kPQmgKSjZvY20A2YD/QCjif2ioH24fLVxe+AXyXyiSwh6UUz+x7upZdJOpBTd1GSXgL0zWO/Mx6uFTb/ZWabIv+d0Jmf6PfCF/1UM8vGSPgYvZqrn29C0hPUiTBwJgif4Udy8rcl6Q8qsQ/wGZC5r4DpwOqk/JehU10cP8Pegpk1xTf+PfhAvZGjUpykG+MDeZr9HL1M91gi5/Z5C/BwTl56qv0wS1Q22PmwjVNPWcuA/sAGSWslrcUn6JMa2s2wHF+5axN762M1bgdKYpUViieBVfgGOtbMuuaUfxcgvnFd6OZiJTDAzC4I3S5AKzya5MNS/Cj+Xk6//p1POZ+HVIbpwGQzWwOMAybhp6adZjYL96jr8FW4q4a2AX6Gb3jrcTduBTQHBkkqN7NVwEoz2wqMzBNyAEaYWXoXOSJpsJmNwAemu6QDZjYamGZmPUPvBHBDbPod8MX6ZB77s/GrwrtmNh/fjH8j6f18HZL0kplNAbaZ2WzgP/gJbBgVYf0kDLgaeEPSITNrD5zIjMfxrruk105WMLsI6IpvtuWR1wPfB/YDf5e0K/KvANZlF0kza4Jv+CsSe92BbZI+Drkx7nWluEculXQ40S8F2sV30jCBmXXk9HvSCUnLYuD3pkfZmLhNeKjcjZ+2BsbfMkn7Q681UCxpU8jZuLUD1khal9jsjUeMUxZLeFJP4DCwIhnjnsBmSZ9AxUnh/xpmVgLsltSwSuWzjNrE488TjlFPbvTnPKSe4ZyH1DOcm5B6hpoee0/CzAYCl+P3gxckHaxNQ+IkMzDEfTjNv682Nqv53fPxI/a1kvJdBGtqbzDQR9J9hdQvyEPMbAzwHE4Q/hhYFMfVfLotg5CrCt3wu01//Jy/1czy3QPqGgLej791gZbApYW3phKy7gwEXhPgKDAkydsK3HkG/VUE2ViF3SHApkTuivNiJUneefjE9QOa5tQvwgnI7kAD4GtAwyhrTRCJIV8ItI60AR2TslL8HnIxzlJnpGAJfqH7Rp62twCuAb4E3IVHjBqPraSCJuTr+GpqkeRNAabX8YR8EeeNLgu5FfAmTuAtxrmgzlHWAJiDc0JLgLk41X1JlL8C3JzYvhVYpAqGWsnkLcFZ4z040doU+AlOB70MlBPMb+j3i7KlOJP8fG0mpJCQtQM/t1+V5PXFV2FtUWxm/c1sKP4u8zYVBODjwOuSOknqj7PQ46LsNpzuaCvpanxCmteiHe2Ar0oajIegJ3DG4gbcgwab2fWhOx4YK6kf0BFnfQtGjTd1OcXyMPCMmQ3AN3YIxjb2khVJlUuA580sY2AfkfTcGcy3AB7A6Y+2wJWK10ecM3vKzO7Bw1NznLEFXxyLVEFXzMAp9kIxSxWM8UDcGwcl9PlOoLeZrcYf02YDSDpoZmVAm0I/XNApS9IDZrYQfw+Ziz/aZJvipyFnmIIP8paQd1RiekesfuKpdqaZdcafWJvgNHx2QCjHX9uIsncTO/vwfe5kk6mg+MEfxirD5iTdLGyldaYCa+K7IqHPgb38rycEQNJyYHl4xFTgR5EvYG2mZ2aHcCLyNGazCvsTgqEdFQtgI7BP0rg86huAaxO5D6cO4Dt4KJke8kCqj/X4AD+t0wnDIvyFtC++MME3/oKvAAVNSBI2SvC35WX4u3Bd49f4S9vjwGhgUrxzL8D3rLaSfgE8BfzczJ7Fw+VdOKuaYQHwJzMrx+N8N9zDqoM5wOvAAjObFPX64mFtmZk9Bow3s0dxNrcd/iZUEAq9qW/Aj6Vt8LDx/fCMfJiIu3FV2EhO3JdUhr+0tZE0B199h/G3/lbEipe0F/eK/fiedTvJKpU0N+p0xg8KtwHPRvExYCwVT73PRFuyugIGRT964f9Bs5EYdEkPAg/h4Xs1/s4xrRr9zYvPLbkY3tBH0uYqlesRznFZ9Qz/BUskpddGC5gpAAAAAElFTkSuQmCC');
+ }

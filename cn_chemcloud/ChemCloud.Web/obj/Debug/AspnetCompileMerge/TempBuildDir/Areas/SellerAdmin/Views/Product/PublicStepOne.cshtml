@@ -1,0 +1,136 @@
+﻿@{
+    Layout = null;
+
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>产品发布</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/custom.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css" />
+    <style type="text/css">
+        html {
+            overflow: hidden;
+        }
+
+        .container {
+            width: 1210px;
+            position: relative;
+            padding: 20px 0 30px 200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .nav-tabs-custom {
+            line-height: 42px;
+            background-color: #e6e6e6;
+            padding-left: 15px;
+            height: 44px;
+        }
+
+            .nav-tabs-custom li {
+                cursor: pointer;
+                display: inline-block;
+                font-size: 14px;
+            }
+
+                .nav-tabs-custom li a {
+                    padding: 0 20px;
+                    color: #565656;
+                }
+
+                    .nav-tabs-custom li a:hover {
+                        color: #3498DB;
+                        transition: all linear .2s;
+                        background-color: transparent;
+                    }
+
+                .nav-tabs-custom li.active a {
+                    border-bottom: 2px solid #3498DB;
+                    color: #000;
+                }
+
+            .nav-tabs-custom strong {
+                font-size: 24px;
+                color: #000;
+                font-weight: 500;
+                margin-right: 30px;
+                float: left;
+                display: none;
+            }
+
+            .nav-tabs-custom em {
+                float: right;
+                font-style: normal;
+                line-height: 20px;
+                position: relative;
+                padding: 20px 0 20px 20px;
+                margin: -8px 0 -20px;
+                display: none;
+            }
+
+                .nav-tabs-custom em .glyphicon {
+                    margin-right: 2px;
+                    color: #999;
+                    font-size: 14px;
+                    float: right;
+                    cursor: pointer;
+                }
+
+        .content {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container container_none" style="padding-bottom:20px;">
+        <ul class="nav nav-tabs-custom" style="width: 1010px;">
+            <strong>产品发布</strong>
+            <li class="active" type="CASNo"><a>有CAS#产品上传</a></li>
+            <li type="NoCASNo"><a>无CAS#产品上传</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <iframe id='iframe' src='PublicStepTwo' name='iframe' frameborder='0' scrolling='auto'></iframe>
+    </div>
+    <script type="text/javascript" src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/custom.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/CommonJS.js"></script>
+    <script type="text/javascript">
+        function callParent() {
+            parent.callParent();
+            $('.container_none').css('display',"none");
+        }
+        $(function () {
+            
+            $('.nav li').click(function (e) {
+                try {
+                    //searchClose(e);
+                    $(this).addClass('active').siblings().removeClass('active');
+                    $("#iframe").attr("src", "");
+                    if ($(this).attr('type') == 'CASNo') {//状态分类
+                        $("#iframe").attr("src", "PublicStepTwo");
+                    }
+                    else {//状态分类
+                        $("#iframe").attr("src", "PublicStepThree");
+                        $('.container_none').css("display","none");
+                    }
+                }
+                catch (ex) {
+                    alert();
+                }
+            });
+            $('.content,.aside').height($(window).height() - 40);
+            $(window).resize(function () {
+                $('.content,.aside').height($(window).height() - 40);
+            });
+            
+        });
+    </script>
+</body>
+</html>

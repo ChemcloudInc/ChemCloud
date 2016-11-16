@@ -1,0 +1,128 @@
+﻿@model ChemCloud.Web.Areas.Admin.Models.Product.ProductModel
+
+@using System.Collections
+@{
+    ViewBag.Title = "ProductsDS";
+    // Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<style>
+    table tr td:nth-child(5) {
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>产品</strong>
+        <li class="active"><a>平台代售审核</a></li>
+    </ul>
+    <div id="divList">
+        <div class="search-box">
+            <form class="custom-inline">
+                <div class="form-group">
+                    <label class="label-inline" for="">状 态</label>
+                    <select class="form-control input-ssm" id="pstatus">
+                        <option value="0">待处理</option>
+                        <option value="1">代售中</option>
+                        <option value="2">代售驳回</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" id="searchBtn">搜 索</button>
+            </form>
+        </div>
+        <table id="list" class="table"></table>
+    </div>
+</div>
+<script type="text/javascript">
+    function Query() {
+        var pstatus = $('#pstatus option:selected').val();
+        $("#list").hiMallDatagrid({
+            url: "./ListDS",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { 'pstatus': pstatus },
+            toolbar: "#shopToolBar",
+            columns:
+            [[
+
+                { field: "Id", title: "序号", width: 50, hidden: false },
+                {
+                    field: "cas", title: 'CAS NO.', width: 100
+                },
+                {
+                    field: "productName", title: "产品名称", width: 200
+                },
+                {
+                    field: "productCode", title: "产品货号", width: 200
+                },
+                {
+                    field: "sellerusername", title: "供应商名称", width: 310
+                },
+                {
+                    field: "DSStatus", title: "状态", width: 100, formatter: function (value, row, index) {
+                        var id = row.DSStatus;
+                        var html = "";
+                        if (row.DSStatus == "0") {
+                            html += ('<span style=\"color:green;\">待审核</span>');
+                        }
+                        if (row.DSStatus == "1") {
+                            html += ('<span style=\"color:blue;\">代售中</span>');
+                        }
+                        if (row.DSStatus == "2") {
+                            html += ('<span style=\"color:red;\">代售驳回</span>');
+                        }
+                        return html;
+                    }
+                },
+                {
+                    field: "operation", operation: true, title: "操作", width: 200,
+                    formatter: function (value, row, index) {                       
+                        var html = "";
+                        if (row.DSStatus == "0") {
+                            html += ('<a href=\'javascript:void(0)\' onclick=\'setty(' + row.Id + ')\'>同意代售</a> |  <a href=\'javascript:void(0)\' onclick=\'setjj(' + row.Id + ')\'>代售驳回</a>');
+                        }else {
+                            html += ('已处理');
+                        }
+                        
+                        return html;
+                    }
+                }
+            ]]
+        });
+
+    };
+    function setty(obj) {
+        $.post('./DS', { 'id': obj,'Status':1 }, function (result) {
+            if (result != "ok") {
+                alert("操作失败,请稍后重试.");
+            } else {
+                alert("操作成功.");
+                location.reload(true);
+            }
+        });
+    };
+    function setjj(obj) {
+        $.post('./DS', { 'id': obj, 'Status': 2 }, function (result) {
+            if (result != "ok") {
+                alert("操作失败,请稍后重试.");
+            } else {
+                alert("操作成功.");
+                location.reload(true);
+            }
+        });
+    };
+    $(function () {
+        Query();
+        $("#searchBtn").click(function (e) {
+            Query();
+            searchClose(e);
+        });
+    });
+</script>

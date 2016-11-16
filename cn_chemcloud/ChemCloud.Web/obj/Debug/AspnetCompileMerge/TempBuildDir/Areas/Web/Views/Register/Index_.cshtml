@@ -1,0 +1,204 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>供应商注册</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/inner-custom.css" />
+    <link href="~/Areas/Web/Content/register.css" rel="stylesheet" />
+    <link href="~/Areas/Web/Content/artdilog.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <style>
+        .btn {
+            margin-left: 10px;
+            border: 1px solid #dddddd;
+            padding: 0;
+            width: 106px;
+            height: 36px;
+            background: #f4f4f4;
+            margin-top: 0;
+            text-align: center;
+            line-height: 36px;
+            color: #333;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+        }
+
+            .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+                border-color: #3498db;
+                border-bottom-color: #fff;
+                background-color: #fff;
+                color: #3498db;
+            }
+
+            .nav-tabs > li > a {
+                height: 39px;
+            }
+
+        #divhtml {
+            width: 100%;
+        }
+
+        .checkrdo {
+            padding: 0px;
+            margin-bottom: 20px;
+
+        }
+            .nav-tabs-custom {
+             background-color:#ffffff;
+             margin-top:20px;
+             margin-bottom:20px;
+             text-align:center;
+         }
+        .nav-tabs-custom li{
+             margin-right:50px;
+        }
+            .nav-tabs-custom li.active a {
+                padding:15px 20px;
+            }
+            .nav-tabs-custom li a.hover {
+                text-decoration:none;
+            }
+       
+    </style>
+
+</head>
+
+<body>
+    
+   
+    <div class="w">
+        <div id="logo">
+            <a href="/">
+                @*<img src="@ViewBag.Logo" alt="ChemCloud" height="60">*@
+                <img src="~/Areas/Web/images/logo.png" width="330" alt="ChemCloud" />
+            </a>
+        </div>
+    </div>
+    <hr style="border-top:1px #3498db solid; position:relative;top:59px;" />
+    <div class="w" id="regist">
+        <div class="mt" style="height:39px;">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" style="margin-right:0">供应商注册</a></li>
+            </ul>
+            <div class="extra"><span>我已经注册，现在就&nbsp;<a href="/login" class="flk13">登录</a></span></div>
+        </div>
+        <div class="mc">
+            <ul class="nav-tabs-custom">
+                <li type="statusTab"><a>查看入驻协议</a></li>
+                <li class="active" type="statusTab"><a>填写账号信息</a></li>
+                <li value="1" type="statusTab"><a>邮箱激活</a></li>
+                <li value="1" type="statusTab"><a>注册成功</a></li>
+
+            </ul>
+            <form id="personRegForm" method="POST" onsubmit="return false;">
+                <input type="hidden" name="regType" id="regType" value="person">
+                <input type="hidden" name="uuid" id="uuid" value="9e4da8d0-1b3e-45c7-b3bd-928fd09f3f97">
+
+                <div class="form">
+                    <div class="item" id="select-regName">
+                        <span class="label"><b class="ftx04">*</b>用户名：</span>
+                        <div class="fl item-ifo">
+                            <div class="o-intelligent-regName">
+                                <input type="text" id="regName" name="regName" class="text" tabindex="1" autocomplete="off"
+                                       onpaste="return false;" value="用户名" onfocus="    if (this.value == '用户名') this.value = ''; this.style.color = '#333'"
+                                       onblur="if (this.value == '') { this.value = '用户名'; this.style.color = '#999999' }" style="color: rgb(153, 153, 153);">
+                                <i class="i-name"></i>
+                                <label id="regName_succeed" class="blank"></label>
+                                <label id="regName_info" style="display:none;" class="focus">请输入用户名</label>
+                                <label id="regName_error" style="display:none;" class="error">请输入用户名</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="o-password">
+
+                        <div class="item">
+                            <span class="label"><b class="ftx04">*</b>请设置密码：</span>
+                            <div class="fl item-ifo">
+                                <input type="password" id="pwd" name="pwd" class="text" tabindex="2" style="ime-mode:disabled;" onpaste="return  false" autocomplete="off">
+                                <i class="i-pass"></i>
+                                <label id="pwd_succeed" class="blank"></label>
+                                <label id="pwd_info" class="focus" style="display:none;"><span>6-20位字符，可使用字母、数字或符号的组合,，不建议使用纯字母、纯数字、纯符号</span></label>
+                                <label id="pwd_error" class="focus" style="display:none;"><span>密码长度只能在6-20位字符之间，不包含空格</span></label>
+                                <span class="clr"></span>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <span class="label"><b class="ftx04">*</b>确认密码：</span>
+                            <div class="fl item-ifo">
+                                <input type="password" id="pwdRepeat" name="pwdRepeat" class="text" tabindex="2" style="ime-mode:disabled;" onpaste="return  false" autocomplete="off">
+                                <label id="pwdRepeat_error" class="focus" style="display:none;"><span>两次输入的密码不一致</span></label>
+                                <span class="clr"></span>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <span class="label"><b class="ftx04">*</b>邮箱：</span>
+                            <div class="fl item-ifo">
+                                <div class="o-intelligent-regName">
+                                    <input type="text" id="regEmail" name="regName" class="text" tabindex="3" autocomplete="off"
+                                           onpaste="return false;" value="邮箱" onfocus="if(this.value=='邮箱') this.value='';this.style.color='#333'"
+                                           onblur="if (this.value == '') { this.value = '邮箱'; this.style.color = '#999999' }" style="color: rgb(153, 153, 153);">
+                                    <i class="i-name"></i>
+                                    <label id="regEmail_succeed" class="blank"></label>
+                                    <label id="regEmail_info" style="display:none;" class="focus">请输入您常用的电子邮箱</label>
+                                    <label id="regEmail_error" style="display:none;" class="error">请输入邮箱帐号</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item" id="authcodeDiv">
+                            <span class="label"><b class="ftx04">*</b>验证码：</span>
+                            <div class="fl item-ifo" style="width:272px;">
+                                <input type="text" id="checkCode" name="authcode" class="text text-1" tabindex="5" autocomplete="off" maxlength="5">
+                                <label class="img">
+                                    <img id="checkCodeImg" src="/Register/GetCheckCode" onclick="reloadImg()">
+                                </label>
+                                <label id="checkCode_error" class="error" style="display:none"><span>请输入验证码</span></label>
+                                <span class="clr"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item item-new">
+                        <span class="label">&nbsp;</span>
+                        <div class="fl item-ifo">
+                            <label><input type="checkbox" class="checkbox" onchange="checkAgreementIsValid()" checked="checked" id="readme">我已阅读并同意《<a href="/Register/RegisterAgreement" target="_blank" style="color:#3498DB" id="protocol">用户注册协议</a>》</label>
+                            <label id="checkAgreement_error" class="error" style="display:none"><span>请仔细阅读并同意以上协议</span></label>
+                            <span class="clr"></span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <span class="label">&nbsp;</span>
+                        <input type="hidden" id="introducer" name="introducer" value="@ViewBag.Introducer" />
+                        <input type="button" class="btn-img btn-regist" id="registsubmit_" style="cursor:pointer" value="立即注册" tabindex="8">
+                    </div>
+                </div>
+                <span class="clr"></span>
+            </form>
+        </div>
+    </div>
+    <div class="w">
+        <div id="footer">
+            <div class="copyright">Copyright©2015-2025&nbsp;&nbsp;ChemCloud&nbsp;版权所有</div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/jquery.artDialog.js"></script>
+    <script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+    <script src="~/Scripts/CommonJS.js"></script>
+    <script src="~/Areas/Web/Scripts/register.js"></script>
+</body>
+</html>
+
+

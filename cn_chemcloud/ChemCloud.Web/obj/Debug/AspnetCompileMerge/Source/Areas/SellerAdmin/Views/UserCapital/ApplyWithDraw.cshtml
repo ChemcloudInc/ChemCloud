@@ -1,0 +1,316 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "提现";
+}
+<link href="~/Areas/Web/Content/register.css" rel="stylesheet" />
+
+<div class="box1 lh24" style="margin-bottom:0; padding-bottom:0;display:none; min-height:0;" id="stepnav">
+    <div class="step-list">
+        <div name="step2" class="step-u active">
+            <em>1</em>
+            提现设置
+            <span class="tail tail2"></span>
+            <span class="tail"></span>
+        </div>
+
+        <div name="step3" class="step-u todo">
+            <em>2</em>
+            输入提现金额，提交提现申请
+            <span class="tail tail2"></span>
+            <span class="tail"></span>
+        </div>
+        <div name="step4" class="step-u  todo">
+            <em>3</em>
+            提现处理中，请耐心等待...
+        </div>
+    </div>
+</div>
+
+<div class="box1 lh24" id="step1" name="stepname">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">提现/支付密码设置</h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            <div class="form">
+                <div class="item">
+                    <span class="label">请设置密码：</span>
+                    <div class="fl">
+                        <input type="password" value="" id="new" name="userVo.realName" maxlength="20" class="itxt fl">
+                        <span id="new_msg" class="prompt-06" style="padding-left:10px;"></span><span>6-20位字符，可使用字母、数字或符号的组合</span>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">请确认密码：</span>
+                    <div class="fl">
+                        <input type="password" value="" id="confirm" name="userVo.realName" maxlength="20" class="itxt fl">
+                        <span class="prompt-06" id="confirm_msg" style="padding-left:10px;"></span>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">&nbsp;</span>
+                    <div class="fl">
+                        <a id="submitPwd" class="btn-5" href="javascript:;">提交</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box1 lh24" style="display:none;" id="step2" name="stepname">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">提现信息设置</h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            <div class="form">
+                <div class="item">
+                    <span class="label">银行名称：</span>
+                    <div class="fl">
+                        <input type="text" id="bankName" class="itxt" /><br />
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">法人名称：</span>
+                    <div class="fl">
+                        <input type="text" id="bankuserName" class="itxt" /><br />
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">银行帐户：</span>
+                    <div class="fl">
+                        <input type="text" id="bankId" class="itxt" /><br />
+                        <span class="red">注：请准确填写本人的银行帐户，您提现的金额将进入到自动转入该账户</span><br />
+                        <a id="submitPayBank" class="btn-5" href="javascript:;">提交</a>
+                    </div><br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box1 lh24" style="display:none;" id="step3" name="stepname">
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            <div class="form">
+                <div class="item">
+                    <span class="label">可提现金额：</span>
+                    <div class="fl">
+                        <span>@ViewBag.ApplyWithMoney</span>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <span class="label">收款银行名称：</span>
+                    <div class="fl">
+                        <span id="tobankName"></span>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">收款法人名称：</span>
+                    <div class="fl">
+                        <span id="tobankuserName"></span>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">收款银行帐号：</span>
+                    <div class="fl">
+                        <span id="tobankId"></span>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">提现金额：</span>
+                    <div class="fl">
+                        <input value="" id="inputMoney" name="userVo.realName" maxlength="20" class="itxt fl">
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">支付密码：</span>
+                    <div class="fl">
+                        <input type="password" value="" id="payPwd" name="userVo.realName" maxlength="20" class="itxt fl">
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="label">&nbsp;</span>
+                    <div class="fl">
+                        <a id="submitApply" class="btn-5" href="javascript:;">提交</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box1 lh24" style="display:none;" id="step4" name="stepname">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">提现状态</h3>
+    </div>
+    <div class="border-box">
+        <p style="font-size:22px; text-align:center; padding:50px 0">您已成功提现，请耐心等候平台打款...</p>
+    </div>
+</div>
+
+<link href="~/Content/artdialog.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+
+<script type="text/javascript">
+    var pwdflag = '@ViewBag.IsSetPwd';
+    var balance = '@ViewBag.ApplyWithMoney';
+    if (pwdflag.toString() == "True") {
+        JumpStep(2);
+    }
+    (function ($) {
+
+        $("#old").focus();
+        var stae1, stae2, stae3,
+            handle = function (dom, data, msg, d) {
+                if (data) {
+                    stae1 = $('#' + dom).val();
+                } else {
+                    $('#' + dom).css({ borderColor: '#f60' });
+                    $('#' + dom + '_msg').css({ color: '#f60' }).html(msg);
+                    stae1 = '';
+                }
+            };
+
+        $('#new').blur(function () {
+            var d = $(this).val();
+            if (d.length < 6) {
+                $('#new').css({ borderColor: '#f60' });
+                $('#new_msg').css({ color: '#f60' }).html('密码不能少于6位!');
+                stae2 = '';
+            } else {
+                $('#new').css({ borderColor: '#ccc' });
+                $('#new_msg').css({ color: '#ccc' }).html('');
+                stae2 = d;
+                if ($('#confirm').val() != '' && $('#confirm').val() == $('#new').val()) {
+                    $('#confirm').css({ borderColor: '#ccc' });
+                    $('#confirm_msg').css({ color: '#ccc' }).html('');
+                    stae3 = d;
+                }
+            }
+        });
+        $('#confirm').blur(function () {
+            var d = $(this).val();
+            if (d == $('#new').val()) {
+                $('#confirm').css({ borderColor: '#ccc' });
+                $('#confirm_msg').css({ color: '#ccc' }).html('');
+                stae3 = d;
+            } else {
+                $('#confirm').css({ borderColor: '#f60' });
+                $('#confirm_msg').css({ color: '#f60' }).html('两次密码不一致!');
+                stae3 = '';
+            }
+        });
+        $('#submitPwd').bind('click', function () {
+            if (!stae2) {
+                $('#new').css({ borderColor: '#f60' });
+                $('#new_msg').css({ color: '#f60' }).html('密码不能少于6位!');
+            }
+            if (!stae3) {
+                $('#confirm').css({ borderColor: '#f60' });
+                $('#confirm_msg').css({ color: '#f60' }).html('两次密码不一致!');
+            }
+            if (stae2 && stae3) {
+                var loading = showLoading();
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("SavePayPwd")',
+                    data: { "pwd": stae3 },
+                    dataType: "json",
+                    success: function (data) {
+                        loading.close();
+                        if (data) {
+                            //$.dialog.succeedTips('设置支付密码成功！');
+                            JumpStep(2);
+                            checkScanState(0);
+                        }
+                    }
+                });
+            }
+        });
+    }(jQuery));
+    $(function () {
+        //提交提现操作
+        $('#submitApply').click(function () {
+            var reg = /^[0-9]+([.]{1}[0-9]{1,2})?$/;
+            if (!reg.test($('#inputMoney').val())) {
+                $.dialog.alert("提现金额不能为非数字字符");
+                return;
+            }
+            if (parseFloat(balance) < parseFloat($('#inputMoney').val())) {
+                $.dialog.alert("提现金额不能超出可用金额");
+                return;
+            }
+            if (parseFloat($('#inputMoney').val()) < 1) {
+                $.dialog.alert("提现金额不能小于1");
+                return;
+            }
+            $.post('ApplyWithDrawSubmit', { amount: parseFloat($('#inputMoney').val()), pwd: $('#payPwd').val() },
+                function (result) {
+                    if (result == "ok") {
+                        //$.dialog.succeedTips('成功提交提现请求，请耐心等候平台打款！');
+                        JumpStep(4);
+                    }
+                }
+            );
+        });
+        //提现帐户设置
+        $("#submitPayBank").on("click", function () {
+            checkScanState(1);
+        });
+    });
+    function checkScanState(key) {
+        if ($.trim($("#bankName").val()) == "" || $.trim($("#bankuserName").val()) == "" || $.trim($("#bankId").val()) == "") {
+            $.dialog.alert("请填写提现信息！");
+        } else {
+            $.post("GetPayBankInfo", { "bankName": $("#bankName").val(), "bankuserName": $("#bankuserName").val(), "bankId": $("#bankId").val() }, function (result) {
+                if (result == "ok") {
+                    $("#tobankName").text($("#bankName").val());
+                    $("#tobankuserName").text($("#bankuserName").val());
+                    $("#tobankId").text($("#bankId").val());
+                    if (key == 1) {
+                        JumpStep(3);
+                    }
+                }
+            });
+        }
+    };
+    function JumpStep(step) {
+        $('div[name="stepname"]').hide();
+        switch (step) {
+            case 1:
+                $('#stepnav').hide();
+                $('#step' + step).show();
+                break;
+            case 2:
+                $('#stepnav').show();
+                $('#step' + step).show();
+                break;
+            case 3:
+                $('#stepnav').show();
+                $('div[name="step3"]').removeClass('todo').addClass('active');
+                $('div[name="step3"]').prev().removeClass('active').addClass('done');
+                $('#step' + step).show();
+                break;
+            case 4:
+                $('#stepnav').show();
+                $('div[name="step4"]').removeClass('todo').addClass('active');
+                $('div[name="step4"]').prev().removeClass('active').addClass('done');
+                $('#step' + step).show();
+                break;
+        }
+    };
+    function openBlank(action, data, n) {
+        var form = $("<form/>").attr('action', action).attr('method', 'post');
+        if (n)
+            form.attr('target', '_blank');
+        var input = '';
+        $.each(data, function (i, n) {
+            input += '<input type="hidden" name="' + i + '" value="' + n + '" />';
+        });
+        form.append(input).appendTo("body").css('display', 'none').submit();
+    }
+</script>

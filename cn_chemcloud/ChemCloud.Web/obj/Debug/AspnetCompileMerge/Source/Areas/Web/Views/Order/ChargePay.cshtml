@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "订单支付";
+    Layout = "~/Areas/Web/Views/Shared/_PayTopBar.cshtml";
+}
+<div class="w990 main">
+    <div class="m mainbody">
+        <div class="mc">
+            <s class="icon-succ04"></s>
+            <h3 class="orderinfo">提交成功，请您尽快付款！</h3>
+            <ul class="list-orderinfo">
+                <li>充值单号：@ViewBag.OrderIds</li>
+            </ul>
+            <p class="mb-tip">您已申请账户余额充值，请立即支付！ 充值金额：<strong id="totalAmount" class="ftx-01">@(((decimal)ViewBag.RechargeMoney).ToString("F2"))</strong> <span>@ViewBag.RechargeMoneyType</span></p>
+        </div>
+    </div>
+    <div class="m pay-box">
+        <div class="mc">
+            <h5 class="subtit">请选择支付方式</h5>
+            <ul class="list-bank">
+                <li id="pp_show" style="display:none;">
+                    <label>
+                        <input type="radio" class="jdradio" value="" name="requestUrl" id="radPaypal" urltype="2" />
+                        <img title="paypal" width="165" height="48" alt="paypal" src="~/Areas/Web/Images/logo_paypal.png" style="border: 1px solid #CCC;" />
+                    </label>
+                </li>
+                <li id="ali_show" style="display:none;">
+                    <label>
+                        <input type="radio" class="jdradio" value="" name="requestUrl" id="radAlipay" urltype="3" />
+                        <img title="ALIPAY" width="165" height="48" alt="paypal" src="~/Areas/Web/Images/alipay.png" style="border: 1px solid #CCC;" />
+                    </label>
+                </li>
+
+                <li id="weixin_show">
+                    <label>
+                        <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="4" />
+                        <img title="weixin" width="165" height="48" alt="weixin" src="~/Areas/Web/Images/WePayLogo.png" style="border: 1px solid #CCC;" />
+                    </label>
+                </li>
+            </ul>
+            <div class="btns"><a class="btn-next" href="javascript:void(0);" id="nextBtn">下一步</a></div><div class="btns"><a class="btn-pre" href="javascript:void();" id="preBtn">上一步</a></div>
+        </div>
+    </div>
+</div>
+<div id="shownextbtn"></div>
+<input type="hidden" id="hidlanguage" value="@ViewBag.CoinType" />
+<input type="hidden" id="orderIds" value="@ViewBag.OrderIds" />
+<script>
+    $(function () {
+
+        //var lan = $("#hidlanguage").val();
+        //if (lan == "2") {
+        $("#pp_show").css("display", "block");
+        //} else if (lan == "1") {
+        $("#ali_show").css("display", "block");
+        // }
+        $('.progress-').hide();
+        var orderIds = $('#orderIds').val();
+        $('input[name="requestUrl"]').change(function () {
+            $('#nextBtn').attr('urlType', $(this).attr('urlType'));
+            $('#nextBtn').attr('formdata', url);
+        });
+        $('#preBtn').click(function () {
+            window.top.open('/UserCapital/CapitalCharge', '_self');
+
+        });
+        $('#nextBtn').click(function () {
+            var t = $("input[name='requestUrl']:checked").val();
+            if (t == undefined) {
+                $.dialog.tips('请选择充值方式！');
+                return;
+            }
+            if ($(this).attr('urlType') == "2") {
+                var totalmon = @(((decimal)ViewBag.RechargeMoney).ToString("F2"));
+                openBlank('https://www.paypal.com/cgi-bin/webscr', {
+                    cmd: "_xclick",
+                    business: "fangmsen@sina.com",
+                    item_name: orderIds,
+                    amount: totalmon,
+                    notify_url: "/Pay/Return?orderid=" + orderIds + "&price=" + totalmon + "&paytype=0&type=webcz&iplm=2",
+                    currency_code: "USD"
+                }, true);
+                //$('#nextBtn').attr('href', "/Pay/Return?orderid=" + orderIds + "&price=" + totalmon+ "&paytype=0&type=webcz&iplm=2");
+                //$('#nextBtn').attr('target', "_self");
+            } else if ($(this).attr('urlType') == "3") {
+                //支付宝充值
+                $.ajax({
+                    type: 'post',
+                    url: '/common/AliPay/SetAliPay',
+                    async: false,
+                    dataType: 'json',
+                    data: {
+                        "out_trade_no": orderIds,//
+                        "subject": orderIds,//
+                        "total_fee": parseFloat($("#totalAmount").html()),//
+                        "body": "充值到chemcloud",//
+                        "paytype": "0",
+                        "type": "webcz",
+                        "iplm": "2",
+                        "targetid": "0",
+                        "paymodel": "支付宝"
+                    },
+                    success: function (aliresult) {
+                        console.log(aliresult);
+                        $('#nextBtn').attr('href', "javascript:void(0)");
+                        $('#nextBtn').attr('target', "_self");
+                        $("#shownextbtn").html(aliresult);
+                    }
+                });
+            }
+            else if ($(this).attr('urlType') == "4") {
+                //微信支付
+
+                //打开微信支付界面
+
+                window.open("/Pay/QRPay?out_trade_no=" + orderIds + "&paytype=0&type=webcz&total_fee=" + parseFloat($("#totalAmount").html()));
+
+            }
+            else {
+                //其它支付方式
+
+            }
+        });
+    });
+    function BuildPostForm(fm, url, target) {
+        var e = null, el = [];
+        if (!fm || !url)
+            return e;
+        target = target || '_blank';
+        e = document.getElementById(fm);
+        if (!e) {
+            e = document.createElement('Form');
+            e.Id = fm;
+            document.body.appendChild(e);
+        }
+
+        e.method = 'post';
+        e.target = target;
+        e.style.display = 'none';
+        e.enctype = 'application/x-www-form-urlencoded';
+
+        var idx = url.indexOf('?');
+        var para = [], op = [];
+        if (idx > 0) {
+            para = url.substring(idx + 1, url.length).split('&');
+            url = url.substr(0, idx);//截取URL
+            var keypair = [];
+            for (var p = 0 ; p < para.length; p++) {
+                idx = para[p].indexOf('=');
+                if (idx > 0) {
+                    el.push('<input type="hidden" name="' + para[p].substr(0, idx) + '" id="frm' + para[p].substr(0, idx) + '" value="' + para[p].substring(idx + 1, para[p].length) + '" />');
+                }
+            }
+        }
+
+        e.innerHTML = el.join('');
+        e.action = url;
+        return e;
+    };
+    function openBlank(action, data, n) {
+        var form = $("<form/>").attr('action', action).attr('method', 'post');
+        if (n)
+            //form.attr('target', '_blank');
+            var input = '';
+        $.each(data, function (i, n) {
+            input += '<input type="hidden" name="' + i + '" value="' + n + '" />';
+        });
+        form.append(input).appendTo("body").css('display', 'none').submit();
+    }
+</script>

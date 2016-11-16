@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>输入密码</title>
+    <link href="~/Areas/Web/Content/login.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+</head>
+<body>
+
+    <div class=" w1" id="entry">
+        <div class="mc " id="bgDiv">
+            <div id="entry-bg"></div>
+            <div class="form ">
+                <br/><br /><br /><br />
+                <div class="item fore2">
+                    <span>密码</span>
+                    <div class="item-ifo">
+                        <input type="password" id="password" name="password" class="text highlight2" tabindex="2" autocomplete="off" sta="2">
+                        <label id="loginpwd_error" class="error" style="display:none;"></label>
+                    </div>
+                </div>
+
+                <div class="item login-btn2013">
+                    <input type="button" class="btn-img btn-entry" id="loginsubmit" value="登&nbsp;录" tabindex="8">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/CommonJS.js"></script>
+    <script src="~/Areas/Web/Scripts/login.js"></script>
+
+    <script type="text/javascript">
+    $(function () {
+        $('#loginsubmit').click(function () {
+            var password = $('#password').val();
+            var loginpwd_error = $('#loginpwd_error');
+
+            if (password.trim() != "") {
+                $.post('/Home/Login', { password: password }, function (result) {
+                    if (result.success == true) {
+                        window.top.location.href = "@Url.Action("Index", "Home")";
+                    }
+                    else {
+
+                        loginpwd_error.html('密码错误！').show();
+                    }
+                });
+            }
+
+            else {
+                $("#loginpwd_error").val("密码不能为空！");
+
+            }
+
+        });
+    });
+
+    </script>
+</body>
+
+
+</html>

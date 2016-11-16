@@ -1,0 +1,103 @@
+﻿<link href="~/Areas/Web/Content/common.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<link href="~/Areas/Web/Content/user-center.css" rel="stylesheet" />
+<link href="~/Areas/SellerAdmin/Content/SearchListPager.css" rel="stylesheet" />
+<link href="/Content/artdialog.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/artDialog.iframeTools.js"></script>
+
+<script src="~/Scripts/jquery.json.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script src="~/Scripts/datetimeCustom.js"></script>
+<script src="~/Areas/SellerAdmin/Scripts/Jobs.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/JqueryHelper_Ver.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/pageGroup.js"></script>
+
+
+<style>
+    body { background: #fff; }
+    td:last-child span { cursor: pointer; }
+    .div_web_content .title { background-color: #e6e6e6; }
+        .div_web_content .title .title_txt { color: #333; }
+</style>
+<div class="div_web_content" style="padding-top:20px;width:1210px">
+    <div class="title">
+        <span class="title_txt cur">招聘信息列表</span>
+    </div>
+
+    <div class="search-area">
+        <label>职位名称：</label>
+        <input class="search_order" id="txtkeyword" type="text" placeholder="请输入职位名称" />
+        @*<label>发布日期：</label>
+            <input id="inputStartDate" class="search_datetime start_datetime" type="text">到<input id="inputEndDate" class="search_datetime end_datetime" type="text">*@
+        <label>工作类型：</label>
+        <select id="selectWorkType" class="search_dll">
+            @*<option value="3">所有</option>
+                <option value="0">全职</option>
+                <option value="1">兼职</option>
+                <option value="2">外包</option>*@
+        </select>
+        <label>语言类型：</label>
+        <select id="selectLanguageType" class="search_dll"></select>
+        <button id="btn_Search" class="btn_SearchAddDel">搜索</button>
+        <button id="btn_Add" class="btn_SearchAddDel">新增</button>
+    </div>
+    <div class="div_list">
+        <table class="tb-list">
+            <colgroup>
+                <col width="5%" />
+                <col width="20%" />
+                <col width="15%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+            </colgroup>
+            <thead>
+                <tr class="tr" style="background-color:#e6e6e6;">
+                    <th style="background-color:#e6e6e6;">序号</th>
+                    <th style="background-color:#e6e6e6;">职位名称</th>
+                    <th style="background-color:#e6e6e6;">薪资待遇</th>
+                    <th style="background-color:#e6e6e6;">工作类型</th>
+                    <th style="background-color:#e6e6e6;">截止日期</th>
+                    <th style="background-color:#e6e6e6;">更新日期</th>
+                    <th style="background-color:#e6e6e6;">语言类型</th>
+                    <th style="background-color:#e6e6e6;">审核状态</th>
+                    <th style="background-color:#e6e6e6;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-list"></tbody>
+        </table>
+        <!-------------------------------------------分页----------------------------------------------------------------->
+        <div id="pageGro1">
+            <div id="pageGro">
+                <div id="preSpanBtn">上一页</div>
+                <div class="pageList">
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+                <div id="nextSpanBtn">下一页</div>
+            </div>
+        </div>
+        <!-------------------------------------------END 分页----------------------------------------------------------------->
+
+    </div>
+</div>
+
+

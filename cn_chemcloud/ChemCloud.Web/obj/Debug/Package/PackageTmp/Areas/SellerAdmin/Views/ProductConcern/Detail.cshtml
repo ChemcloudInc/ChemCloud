@@ -1,0 +1,171 @@
+﻿@model ChemCloud.Model.Attention
+
+@*@using System.Collections
+
+@{
+    ViewBag.Title = "Detail";
+}*@
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        @*<span class="title_txt curr"><a href="~/ProductConcern/Index">关注列表</a></span>*@
+        <li><a href="./Index">关注列表</a></li>
+        <li class="active"><a>产品详情</a></li>
+        @*<span class="title_txt"><a href="@Url.Action("Detail")">关注详情</a></span> style="height:30px; padding-top:5px; padding-left:30px;*@
+    </ul>
+    <h3 class="table-hd">产品基本信息</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>供应商名称</td>
+                <td>@Model.CompanyName</td>
+            </tr>
+            <tr>
+                <td>产品名称</td>
+                <td>@Model.ProductName</td>
+            </tr>
+            <tr>
+                <td>产品英文名称</td>
+                <td>@Model.EProductName</td>
+            </tr>
+            <tr>
+                <td>产品货号</td>
+                <td>@Model.ProductCode</td>
+            </tr>
+            <tr>
+                <td>HSCODE</td>
+                <td>@Model.HSCODE</td>
+            </tr>
+            <tr>
+                <td>销售价格</td>
+                <td>@Model.MinSalePrice</td>
+            </tr>
+            <tr>
+                <td>计量单位</td>
+                <td>@Model.MeasureUnit</td>
+            </tr>
+            <tr>
+                <td>CASNo</td>
+                <td>@Model.CASNo</td>
+            </tr>
+            <tr>
+                <td>中文别名</td>
+                <td>@Model.Alias</td>
+            </tr>
+            <tr>
+                <td>英文别名</td>
+                <td>@Model.Ealias</td>
+            </tr>
+            <tr>
+                <td>分子式</td>
+                <td>@Model.MolecularFormula</td>
+            </tr>
+            <tr>
+                <td>分子量</td>
+                <td>@Model.MolecularWeight</td>
+            </tr>
+            <tr>
+                <td>PSA</td>
+                <td>@Model.PASNo</td>
+            </tr>
+            <tr>
+                <td>LogP</td>
+                <td>@Model.LogP</td>
+            </tr>
+            <tr>
+                <td>二维结构图片</td>
+                <td><img style="max-width:700px" src="@Model.STRUCTURE_2D" alt="" /></td>
+            </tr>
+            <tr>
+                <td>纯度</td>
+                <td>@Model.Purity</td>
+            </tr>
+        </tbody>
+    </table>
+    @if (!string.IsNullOrEmpty(Model.ImagePath))
+    {
+        <h3 class="table-hd">产品图片</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>@*<img style="max-width:700px" src="@(Model.ImagePath+'/'+'1'+'.'+'png')" alt="" />*@
+            <tbody>
+                <tr>
+                    <td><img style="max-width:700px" src="@(Model.ImagePath +'/'+ string.Format("{0}.png", 1))" alt="" /></td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    <h3 class="table-hd">物化性质</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+
+            <tr>
+                <td>外观与形状</td>
+                <td>@Model.Shape</td>
+            </tr>
+            <tr>
+                <td>密度</td>
+                <td>@Model.Density</td>
+            </tr>
+            <tr>
+                <td>熔点</td>
+                <td>@Model.FusingPoint</td>
+            </tr>
+            <tr>
+                <td>沸点</td>
+                <td>@Model.BoilingPoint</td>
+            </tr>
+            <tr>
+                <td>闪点</td>
+                <td>@Model.FlashPoint</td>
+            </tr>
+            <tr>
+                <td>折射率</td>
+                <td>@Model.RefractiveIndex</td>
+            </tr>
+            <tr>
+                <td>存储条件</td>
+                <td>@Model.StorageConditions</td>
+            </tr>
+            <tr>
+                <td>蒸汽压</td>
+                <td>@Model.VapourPressure</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 class="table-hd">安全信息</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>危险运输编码</td>
+                <td>@Model.TransportationNmber</td>
+            </tr>
+            <tr>
+                <td>RETCS号</td>
+                <td>@Model.RETCS</td>
+            </tr>
+            <tr>
+                <td>WGK Germany</td>
+                <td>@Model.WGKGermany</td>
+            </tr>
+            <tr>
+                <td>安全说明</td>
+                <td>@Model.SafetyInstructions</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

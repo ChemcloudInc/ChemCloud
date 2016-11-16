@@ -1,0 +1,95 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+   
+    <title>订单打印</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <!--media=print 这个属性可以在打印时有效-->
+    <style media="print">
+        .Noprint {
+            display: none;
+        }
+
+        .PageNext {
+            page-break-after: always;
+        }
+    </style>
+    <style type="text/css">
+        .ftx-04 {
+            color: #ff6600;
+        }
+
+        .wrap {
+            width: 100%;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            display: block;
+            font: normal 0.9rem/1.5 'microsoft yahei';
+            overflow: hidden;
+        }
+
+        .table_order {
+            width: 90%;
+            margin: 0 auto;
+            height: auto;
+            border-collapse: collapse;
+            border: solid 1px #808080;
+            margin-top: 10px;
+        }
+
+            .table_order tr {
+                height: 36px;
+            }
+
+                .table_order tr td {
+                    border: solid 1px #808080;
+                }
+
+                    .table_order tr td:nth-child(2n+0) {
+                        text-align: left;
+                    }
+
+                    .table_order tr td:nth-child(1) {
+                        text-align: right;
+                    }
+
+                    .table_order tr td:nth-child(3) {
+                        text-align: right;
+                    }
+
+        .table_orderdetail {
+            width: 100%;
+            margin: 0 auto;
+            height: auto;
+            border-collapse: collapse;
+            border: solid 1px #808080;
+        }
+
+            .table_orderdetail tr {
+                height: 26px;
+            }
+
+                .table_orderdetail tr td {
+                    border: solid 1px #808080;
+                }
+
+        table_orderdetail tr:nth-child(1) {
+            font-weight: bolder;
+        }
+        td {
+            text-align:center!important;
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+</html>
+
+
+

@@ -1,0 +1,239 @@
+﻿@using ChemCloud.Web.Areas.Web.Models;
+@using ChemCloud.Model;
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>卖家处理退货申请</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    <style>
+       #Refund {
+            width: 1210px;
+            position: relative;
+            padding: 2px 0 30px 280px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        #liucheng {
+            background: #fff;
+            padding: 20px 8px;
+        }
+        #Refund .Refund_border .siader h3{
+            height: 45px;
+            line-height: 45px;
+        }
+        .Refund_border {
+            background: #fff;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="Refund">
+        <ul class="liucheng" style="border:1px solid #ccc;border-bottom:none;padding:20px 0;">
+            <li id="liuchengs"><img src="~/images/liucheng001.png" alt=""></li>
+            <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+            <li id="liuchengs"><img src="~/images/liucheng02.png" alt=""></li>
+            <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+            <li id="liuchengs"><img src="~/images/liucheng0003.png" alt=""></li>
+            <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+            <li id="liuchengs"><img src="~/images/liucheng0004.png" alt=""></li>
+        </ul>
+        <div class="Refund_border" style="width:1004px;">
+            <div class="main_liu">
+                <div class="header_liu">
+                    <span>
+                        申请服务:
+                    </span>
+                    <span class="header_liu_chu" id="type">
+
+                    </span>
+                    <span class="header_hong">
+                        *
+                    </span>
+                    <span class="header_xi">
+                        为必填项
+                    </span>
+                </div>
+                <div class="Refund_form">
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_mi">*</span><span class="lable_text">退货退款原因：</span>
+                        </div>
+
+                        <select name="" id="Reson" style="width:300px;"  >
+                            <option value="0">收到的产品与采购产品不一致</option>
+                            <option value="1">产品无法使用</option>
+                            <option value="2">其它原因</option>
+                        </select>
+                        <span><input type="text" id="ReasonEdit" style="display:none;" value="" disabled></span>
+                    </div>
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_mi">*</span><span class="lable_text">退款金额：</span>
+                        </div>
+                        <input type="text" id="Amont" value="" disabled>
+                        <span>元</span>
+                        <span>(最多 </span>
+                        <span style="color:red;">@ViewBag.max</span>
+                        <span class="more"></span>
+                        <span>元)</span>
+                    </div>
+                    <div class="form_hang">
+                        <span class="lable"></span>
+                        客户凭证：
+                        @foreach (TKMessageModel item in ViewBag.tkmms)
+                        {
+                            foreach (TKImageInfo item1 in item.tkis)
+                            {
+                                var arrUrl = item1.TKImage.Split('/');
+                                if (arrUrl.Length > 0)
+                                {
+                                    var uploadName = arrUrl[arrUrl.Length - 1];
+                                    <a href="@item1.TKImage" style="color:blue;">@uploadName</a>
+                                }
+                            }
+                        }
+                        <div class="form_hang">
+                            <span class="lable">回复：</span>
+                            <textarea class="textarea" id="Introduce" ></textarea>
+                        </div>
+                        @*<div class="form-group upload-img " id="pinzheng">
+                            
+                        </div>*@
+                    </div>
+                    <div class="button_hang" style="padding-bottom:20px">
+                        <span class="sq_button">
+                            <a onclick="TK(@ViewBag.OrderNo,1)" class="sq_a_button">同意退款</a>
+                        </span>
+                        <span class="sq_button">
+                            <a href="" onclick="TK(@ViewBag.OrderNo,2)" class="sq_a_button">拒绝退款</a>
+
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="siader">
+                <h3>
+                    退货退款申请
+                </h3>
+                <div class="border_sia">
+                    <div class="line_height_sia">
+                        <span class="guding">卖家：</span>
+                        <span>@ViewBag.ShopName</span>
+                        @*<span class="link_op">
+                            <a onclick="onlinetalk(@ViewBag.ShopId)" class="sq_a_button">联系商家</a>
+                        </span>*@
+                    </div>
+                    <div class="line_height_sia">
+                        <span>订单编号：</span>
+                        <span class="blud_span">@ViewBag.OrderNo</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">单 价：</span>
+                        <span class="hong_span">@ViewBag.total</span>
+                        <span>元</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">快 递：</span>
+                        <span class="hong_span">@ViewBag.yunfei</span>
+                        <span>元</span>
+                    </div>
+                </div>
+
+                @*<div class="border_sia bor_bottom">
+                    联系平台：
+                    <span class="sq_button pt_button">
+                        <a onclick="onlinetalk('2')" class="sq_a_button">联系我们</a>
+                    </span>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/jquery.TKUpload.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script>
+
+
+    $(function () {
+        if (location.href.indexOf("type=thtk") > 0) {
+            $("#type").html("退货退款");
+        }
+        else if (location.href.indexOf("type=tk") > 0) {
+            $("#type").html("退款");
+        }
+        var type="@ViewBag.type";
+        var resion ="@ViewBag.TKResion";
+        var tkamont ="@ViewBag.TKAmont";
+        var uploads="@ViewBag.UploadStrs";
+        if (type==1) {
+            $("#Amont").attr("disabled","disabled");
+            $("#Reson").attr("disabled","disabled");
+            $("#Amont").val(tkamont);
+            var count=$("#Reson").get(0).options.length;
+            var isExist=false;
+            for(var i=0;i<count;i++){
+                if($("#Reson").get(0).options[i].text == resion)  
+                {
+                    $("#Reson").get(0).options[i].selected = true;      
+                    isExist=true;
+                    break;  
+                }  
+            }
+            //退款原因选择“其他原因”，说明用户采取的退款原因是手动编辑的
+            if(!isExist){
+                $("#Reson").hide();
+                $("#ReasonEdit").show();
+                $("#ReasonEdit").val(resion);
+            }
+        }
+        
+
+        //$("#pinzheng").hishopUpload({
+        //    title: '凭证文件上传(最多6张)',
+        //    imageDescript: '',
+        //    displayImgSrc: '',
+        //    imgFieldName: "pinzheng",
+        //    imagesCount: 6,
+        //    dataWidth: 6
+        //});
+    });
+    function checkImgType(filename) {
+        var pos = filename.lastIndexOf(".");
+        var str = filename.substring(pos, filename.length)
+        var str1 = str.toLowerCase();
+        if (!/\.(gif|jpg|jpeg|png|bmp)$/.test(str1)) {
+            return false;
+        }
+        return true;
+    }
+    var TK = function (orderNo,att) {
+        var imgstr = "";
+        $("#pinzheng").find(".hiddenImgSrc").each(function () {
+            if ($(this).val() != "" ) {
+                imgstr += $(this).val() + ",";
+            }
+        });
+        $.post("InsertTK",{ OrderNo:@ViewBag.OrderNo,
+            Reson:$("#Reson option:selected").val(),
+            Amont:$("#Amont").val(),
+            Introduce:$("#Introduce").val(),
+            images:imgstr,
+            Attitude:att},function(data){
+            alert(data.msg);
+            location.href="step3?orderno=@ViewBag.OrderNo";
+        });
+
+    }
+</script>

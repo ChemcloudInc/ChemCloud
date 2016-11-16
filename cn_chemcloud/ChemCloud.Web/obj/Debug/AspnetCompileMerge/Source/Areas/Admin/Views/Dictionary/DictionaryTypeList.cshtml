@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "字典类型管理";
+}
+<style>
+    .col-sm-10 {
+        margin-left: 60px;
+    }
+
+    .btnoperation-style {
+        color: white;
+        background-color: #3498DB;
+        padding: 3px 20px;
+        font-size: 12px;
+        line-height: 1.5;
+        border: 1px solid transparent;
+    }
+</style>
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script>
+    $(function () {
+        //查询
+        query();
+        //弹出添加记录页面
+        $('.add-manager').click(function () {
+            LoadAddBox();
+        });
+    })
+
+    //删除单挑记录
+    function Delete(id) {
+        $.dialog.confirm('确定删除该条记录吗？', function () {
+            var loading = showLoading();
+            $.post("./DeleteType", { id: id }, function (data) {
+                if (data.success) {
+                    $.dialog.tips("删除成功!"); query(); loading.close();
+                } else {
+                    $.dialog.tips("删除失败!"); loading.close();
+                }
+            });
+        });
+    }
+
+    //批量删除
+    function BatchDelete() {
+        var selectedRows = $("#list").hiMallDatagrid("getSelections");
+        var selectids = new Array();
+        for (var i = 0; i < selectedRows.length; i++) {
+            selectids.push(selectedRows[i].Id);
+        }
+        if (selectedRows.length == 0) {
+            $.dialog.errorTips("你没有选择任何选项！");
+        }
+        else {
+            $.dialog.confirm('确定删除选择的记录？', function () {
+                var loading = showLoading();
+                $.post("./BatchDeleteType", { ids: selectids.join(',') }, function (data) {
+                    if (data.success) {
+                        $.dialog.tips("删除成功!"); query(); loading.close();
+                    } else {
+                        $.dialog.tips("删除失败!"); loading.close();
+                    }
+                });
+            });
+        }
+    }
+
+    //查询方法
+    function query() {
+        $("#list").hiMallDatagrid({
+            url: './DictionaryTypePageModelList',
+            nowrap: false,
+            rownumbers: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            border: false,
+            fit: true,
+            fitColumns: true,
+            pagination: true,
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: {},
+            toolbar: /*"#goods-datagrid-toolbar",*/'',
+            operationButtons: "#batchOperate",
+            columns:
+            [[
+                { checkbox: true, width: 39 },
+                { field: "Id", hidden: true },
+                { field: "TypeName", title: '字典类型名称' },
+                {
+                    field: "IsEnabled", title: '启用状态',
+                    formatter: function (value, row, index) {
+                        if (row.IsEnabled == "1") {
+                            return "<span>启用</span>";
+                        } else {
+                            return "<span>禁用</span>";
+                        }
+                    }
+                },
+            {
+                field: "operation", operation: true, title: "操作",
+                formatter: function (value, row, index) {
+                    var html = ["<span class=\"btn-a\">"];
+                    html.push("<a href='./DictionaryTypeEdit?Id=" + row.Id + "'>修改</a>");
+                    if (row.RoleId != 0) {
+                        html.push("<a onclick=\"Delete('" + row.Id + "');\">删除</a>");
+                    }
+                    html.push("</span>");
+                    return html.join("");
+                }
+            }
+            ]]
+        });
+    }
+
+    //弹出框
+    function LoadAddBox() {
+
+        $.dialog({
+            title: '添加字典类型',
+            id: 'addManager',
+            width: '700px',
+            content: document.getElementById("addManagerform"),
+            lock: true,
+            okVal: '确认添加',
+            init: function () {
+                $("#typename").focus();
+            },
+            ok: function () {
+                var typename = $.trim($("#typename").val());
+
+                if (typename == "") {
+                    $.dialog.tips("请填写字典类别名称！");
+                    return false;
+                }
+                var isenable = $("input[name='IsEnabled']:checked").val();
+
+                AddManage(typename, isenable);
+            }
+        });
+    }
+
+    //添加方法
+    function AddManage(typename, isenable) {
+        var loading = showLoading();
+        $.ajax({
+            type: 'post',
+            url: 'DictionaryTypeAddFuc',
+            cache: false,
+            async: true,
+            data: {
+                typename: typename, isenable: isenable
+            },
+            dataType: "json",
+            success: function (data) {
+                loading.close();
+                if (data.success) {
+                    $.dialog.tips("添加成功！");
+                    $("#addManagerform input").val("");
+                    setTimeout(3000);
+                    location.href = "/Admin/Dictionary/DictionaryTypeList";
+                }
+                else {
+                    $.dialog.errorTips("添加失败！");
+                    setTimeout(3000);
+                }
+            }
+        });
+    }
+
+</script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>字典类型管理</a></li>
+        <li><a href="/Admin/Dictionary/DictionariesList">字典管理</a></li>
+    </ul>
+    <div style="margin-top:10px; text-align:right;">
+        <input type="button" value="添加" class="add-manager btnoperation-style" style="margin-right:10px;" />
+    </div>
+    <table class="table" id="list" style="margin-top:8px;">
+        <div class="tabel-operate" id="batchOperate">
+            <button type="button" class="btn btn-danger btn-ssm" onclick="BatchDelete()">批量删除</button>
+        </div>
+    </table>
+</div>
+
+<div class="dialog-form" id="addManagerform" style="display:none">
+    <div class="form-group" id="divtypename">
+        <label class="label-inline" for="">类型名称：</label>
+        <input class="form-control input-sm" type="text" id="typename" name="typename">
+    </div>
+    <div class="form-group" id="divisenabled">
+        <label class="label-inline" for="">启用状态：</label>
+        <input name="IsEnabled" type="radio" value="0" />禁用
+        <input name="IsEnabled" type="radio" value="1" checked="checked" />启用
+    </div>
+</div>

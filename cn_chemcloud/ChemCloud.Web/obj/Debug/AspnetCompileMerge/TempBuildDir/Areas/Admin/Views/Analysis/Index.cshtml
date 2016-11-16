@@ -1,0 +1,123 @@
+﻿<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active">分析鉴定管理</li>
+    </ul>
+    <div class="search-box">
+        <form class="custom-inline">
+            <div class="form-group">
+                <label class="label-inline" style="width:72px;">委托方姓名：</label>
+                <input class="form-control input-ssm" type="text" id="txtClientName">
+            </div>
+            <div class="form-group">
+                <label class="label-inline" style="width:72px;">样品名称：</label>
+                <input class="form-control input-ssm" type="text" id="txtSampleName">
+            </div>
+            <div class="form-group">
+                <label class="label-inline" for="">状态</label>
+                <select class="form-control input-ssm" id="AuthStatus">
+                    <option value="0">全部</option>
+                    <option value="1">已提交</option>
+                    <option value="2">已确认</option>
+                    <option value="3">已支付</option>
+                    <option value="4">分析中</option>
+                    <option value="5">已完成</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary btn-sm" id="searchButton">搜 索</button>
+            </div>
+        </form>
+    </div>
+    <table id="analysislist" class="table"></table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        Query();
+        $("#searchButton").on("click", function () {
+            Query();
+        });
+    });
+
+    /*查询列表*/
+    function Query() {
+        $("#analysislist").hiMallDatagrid({
+            url: "./QueryList",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "ClientName": $.trim($("#txtClientName").val()), "SampleName": $.trim($("#txtSampleName").val()), "AnalysisStatus": $('#AuthStatus option:selected').val() },
+            toolbar: "#shopToolBar1",
+            columns:
+            [[
+                 {
+                     field: "ClientName", title: "委托方名称", width: 350,
+                 },
+                    {
+                        field: "MemberName", title: "用户", width: 150,
+                    },
+                    {
+                        field: "ReportHeader", title: "报告抬头", width: 150,
+                    },
+                    {
+                        field: "SampleName", title: "样品名称", width: 150,
+                    },
+                    {
+                        field: "SampleQuantity", title: "样品数量", width: 150,
+                    },
+                    {
+                        field: "SampleSpecifications", title: "样品规格型号", width: 150,
+                    },
+                    {
+                        field: "AnalysisStatus", title: "状态", width: 350, formatter: function (value, row, index) {
+                            /*1已提交2已确认3已支付4分析中5已完成*/
+                            html = "";
+                            if (row.AnalysisStatus == 1) {
+                                html = "<span>已提交</span>";
+                            }
+                            if (row.AnalysisStatus == 2) {
+                                html = "<span>已确认</span>";
+                            } if (row.AnalysisStatus == 3) {
+                                html = "<span>已支付</span>";
+                            }
+                            if (row.AnalysisStatus == 4) {
+                                html = "<span>分析中</span>";
+                            }
+                            if (row.AnalysisStatus == 5) {
+                                html = "<span>已完成</span>";
+                            }
+                            return html;
+                        }
+                    },
+                    {
+                        field: "operation", operation: true, title: "操作", width: 320,
+                        formatter: function (value, row, index) {
+                            var html = ["<span class=\"btn-a\">"];
+                            html.push('<a href="/Admin/Analysis/Detail?Id=' + row.Id + '">查看</a>&nbsp|&nbsp');
+                            html.push('<a onclick="Delete(' + row.Id + ') ">删除</a>');
+                            html.push("</span>");
+                            return html.join("");
+                        }
+                    }
+            ]]
+        });
+    };
+
+    /*删除*/
+    function Delete(Id) {
+        $.dialog.confirm("确定删除此信息？", function () {
+            var loading = showLoading();
+            $.post('./Delete', { Id: Id }, function (result) {
+                if (result.success) {
+                    $.dialog.succeedTips("删除成功！", function () { Query(); });
+                }
+                else
+                    $.dialog.errorTips("删除失败!");
+                loading.close();
+            });
+        });
+    }
+</script>

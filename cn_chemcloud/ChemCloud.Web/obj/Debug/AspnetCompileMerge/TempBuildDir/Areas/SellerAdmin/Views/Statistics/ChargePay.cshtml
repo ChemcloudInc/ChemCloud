@@ -1,0 +1,179 @@
+﻿@{
+    ViewBag.Title = "订单支付";
+    //Layout = "~/Areas/Web/Views/Shared/_PayTopBar.cshtml";
+    var orders = (ChemCloud.Model.ChargeDetailInfo)ViewBag.Orders;
+}
+@*@model IEnumerable<ChemCloud.Web.Areas.Web.Models.PaymentModel>*@
+<html>
+<head>
+    <title>订单支付</title>
+    <link href="~/Areas/Web/Content/artdilog.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.artDialog.js"></script>
+    <script src="~/Areas/SellerAdmin/Scripts/artDialog.iframeTools.js"></script>
+    <link href="~/Areas/Web/Content/common.css" rel="stylesheet" />
+    <link href="~/Areas/Web/Content/inner.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="w990 main">
+        <div class="m mainbody">
+            <div class="mc">
+                <s class="icon-succ04"></s>
+                <h3 class="orderinfo">提交成功，请您尽快付款！</h3>
+                <ul class="list-orderinfo">
+                    <li>充值单号：@orders.Id</li>
+                </ul>
+                <p class="mb-tip">您已申请账户余额充值，请立即支付！ 充值金额：<strong id="totalAmount" class="ftx-01">@(((decimal)ViewBag.TotalAmount).ToString("F2"))</strong> 元</p>
+            </div>
+        </div>
+        <div class="m pay-box">
+            <div class="mc">
+                <h5 class="subtit">请选择支付方式</h5>
+                <ul class="list-bank">
+                    <li>
+                        <label>
+                            <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="2" />
+                            <img title="paypal" width="165" height="48" alt="paypal" src="~/Areas/Web/Images/logo_paypal.png" style="border: 1px solid #CCC;" />
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="3" />
+                            <img title="Google Wallet" width="165" height="48" alt="paypal" src="~/Areas/Web/Images/GreyLogo124_26.png" style="border: 1px solid #CCC;" />
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="4" />
+                            <img title="Adyen" width="165" height="48" alt="paypal" src="~/Areas/Web/Images/adyen-logo.png" style="border: 1px solid #CCC;" />
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="5" />
+                            <img title="CyberSource" width="165" height="48" alt="paypal" src="~/Areas/Web/Images/logo-cybersource.png" style="border: 1px solid #CCC;" />
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="6" />
+                            <img title="PayScape" width="165" height="48" alt="paypal" src="~/Areas/Web/Images/payscape-logo-color.png" style="border: 1px solid #CCC;" />
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="7" />
+                            <img title="BlueSnap" width="165" height="48" alt="paypal" src="~/Areas/Web/Images/bluesnap-logo.png" style="border: 1px solid #CCC;" />
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="8" />
+                            <img title="UniPay" width="165" height="48" alt="paypal" src="~/Areas/Web/Images/header_login.gif" style="border: 1px solid #CCC;" />
+                        </label>
+                    </li>
+                </ul>
+                <div class="btns"><a class="btn-next" href="javascript:;" id="nextBtn" style="margin-bottom:100px;">下一步</a></div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="orderIds" value="@ViewBag.OrderIds" />
+    <script type="text/javascript">
+        function openBlank(action, data, n) {
+            var form = $("<form/>").attr('action', action).attr('method', 'post');
+            if (n)
+                form.attr('target', '_blank');
+            var input = '';
+            $.each(data, function (i, n) {
+                input += '<input type="hidden" name="' + i + '" value="' + n + '" />';
+            });
+            form.append(input).appendTo("body").css('display', 'none').submit();
+        };
+        $(function () {
+            $('.progress-').hide();
+            var orderIds = $('#orderIds').val();
+            $('input[name="requestUrl"]').change(function () {
+                var url = $(this).val();
+                if ($(this).attr('urlType') == "1")
+                    //url = '/pay/QRPay?url=' + url + '&id=' + $(this).attr('id') + '&orderIds=' + orderIds + '&type=charge';
+
+                    $('#nextBtn').attr('urlType', $(this).attr('urlType'));
+                $('#nextBtn').attr('formdata', url);
+
+                $('#nextBtn').removeAttr('href');
+                $('#nextBtn').removeAttr('target');
+                if ($(this).attr('urlType') != "2") {
+                    $('#nextBtn').attr('href', url);
+                    $('#nextBtn').attr('target', "_blank");
+                }
+            });
+            $('#nextBtn').click(function () {
+                var t = $("input[name='requestUrl']:checked").val();
+                if (t == undefined) {
+                    $.dialog.tips('请选择支付方式！');
+                    return;
+                }
+                //openBlank('https://www.paypal.com/cgi-bin/webscr', {
+                //    cmd: "_xclick",
+                //    business: "XBPMFGHUUYHKG",
+                //    item_name: orderIds,
+                //    amount: $("#totalAmount").html(),
+                //    notify_url: location.href,
+                //    currency_code: "USD"
+                //}, true);
+
+                if ($(this).attr('href') != 'javascript:;' || $(this).attr('urlType') == "2") {
+                    $.ajax({
+                        type: 'post',
+                        url: 'SetExpressCheckout',
+                        async: false,
+                        dataType: 'json',
+                        data: { "amount": parseFloat($("#totalAmount").html()), "currency_code": "USD", "item_name": orderIds, "return_false_url": location.href },
+                        success: function (result11) {
+                            if (result11 != "") {
+                                location.href = result11;
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        function BuildPostForm(fm, url, target) {
+            var e = null, el = [];
+            if (!fm || !url)
+                return e;
+            target = target || '_blank';
+            e = document.getElementById(fm);
+            if (!e) {
+                e = document.createElement('Form');
+                e.Id = fm;
+                document.body.appendChild(e);
+            }
+
+            e.method = 'post';
+            e.target = target;
+            e.style.display = 'none';
+            e.enctype = 'application/x-www-form-urlencoded';
+
+            var idx = url.indexOf('?');
+            var para = [], op = [];
+            if (idx > 0) {
+                para = url.substring(idx + 1, url.length).split('&');
+                url = url.substr(0, idx);//截取URL
+                var keypair = [];
+                for (var p = 0 ; p < para.length; p++) {
+                    idx = para[p].indexOf('=');
+                    if (idx > 0) {
+                        el.push('<input type="hidden" name="' + para[p].substr(0, idx) + '" id="frm' + para[p].substr(0, idx) + '" value="' + para[p].substring(idx + 1, para[p].length) + '" />');
+                    }
+                }
+            }
+
+            e.innerHTML = el.join('');
+            e.action = url;
+            return e;
+        };
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+
+}
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script src="~/Scripts/datetimeCustom.js"></script>
+<script src="~/Areas/Web/Scripts/TransactionRecord.js"></script>
+
+<style>
+    #jobTitle {
+     width:300px;
+    }
+    #endDate {
+     width:100px;
+    }
+    #table_AddJob {
+        width:100%;
+        height:100%;
+    }
+        #table_AddJob tr td {
+       height:30px;
+       line-height:30px;
+    }
+</style>
+<div class="box1 lh24">
+    <div class="title">
+        <span class="title_txt cur">招聘信息列表</span>
+    </div>
+
+    <div class="search-area">
+        <label>职位名称：</label>
+        <input class="search_order" id="txtkeyword" type="text" placeholder="请输入职位名称" />
+        @*<label>发布日期：</label>
+            <input id="inputStartDate" class="search_datetime start_datetime" type="text">到<input id="inputEndDate" class="search_datetime end_datetime" type="text">*@
+        @*<label>发布状态：</label>
+            <select id="orderstatus" class="search_dll">
+                <option value="">全部状态</option>
+            </select>*@
+        <button class="search_btn pointer" id="btn_Search">搜索</button>
+        <button class="search_btn pointer" id="btn_Add">新增</button>
+    </div>
+    <div class="border-box">
+        <table class="tb-void">
+            <colgroup>
+                <col width="10%" />
+                <col width="25%" />
+                <col width="15%" />
+                <col width="15%" />
+                <col width="15%" />
+                <col width="20%" />
+            </colgroup>
+            <thead>
+                <tr class="tr" style="background-color:#e6e6e6;">
+                    <th style="background-color:#e6e6e6;">序号</th>
+                    <th style="background-color:#e6e6e6;">职位名称</th>
+                    <th style="background-color:#e6e6e6;">职位有效期</th>
+                    <th style="background-color:#e6e6e6;">更新日期</th>
+                    <th style="background-color:#e6e6e6;">审核状态</th>
+                    <th style="background-color:#e6e6e6;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-jobs"></tbody>
+
+        </table>
+        <div class="mt10">
+            <div id="pagin-btm" class="pagin fr">
+                <span class="page-skip">
+
+                </span>
+            </div>
+
+            <div class="mt10">
+                <div id="pagin-btm" class="pagin fr">
+                    <span id="preSpanBtn">上一页</span><span class="current" id="currentSpanPage">1</span><span id="nextSpanBtn">下一页</span>
+                    <span class="page-skip">
+                        <em>&nbsp;&nbsp; <span>共 </span><span id="spanTotal"></span><span> 页</span>&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                    </span>
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+     
+    </div>
+</div>
+
+

@@ -1,0 +1,176 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+}
+@model IEnumerable<ChemCloud.Model.OrderPurchasing>
+<script src="~/Scripts/datetimeCustom.js"></script>
+<style>
+    td {
+        border: 1px solid #f2f2f2;
+    }
+</style>
+<div class="box1 lh24">
+    <div class="title">
+        <span class="title_txt cur">代购订单</span>
+        <a href="@Url.Action("AddOrderPurchasing", "OrderPurchasing")" class="search_btn pointer" style="float:right;margin-top:7px;margin-right:15px;">发布代购订单</a>
+    </div>
+    <div class="search-area">
+        <label>订单#：</label>
+        <input class="search_order" id="txtOrderNum" type="text" value="" style="width:140px;" />
+        <label>有效期：</label>
+        <input class="search_order start_datetime" id="starttime" type="text" style="width:170px;" />至&nbsp;&nbsp;
+        <input class="search_order end_datetime" id="endtime" type="text" style="width:170px;" />
+        <label>订单状态：</label>
+        <select class="search_order" id="orderStatus" style="width:auto;">
+            <option value="-1">全部</option>
+            <option value="0">平台未确认</option>
+            <option value="1">平台已确认</option>
+            <option value="2">未付款</option>
+            <option value="3">已付款</option>
+            <option value="4">未发货</option>
+            <option value="5">已发货</option>
+            <option value="6">未签收</option>
+            <option value="7">已签收</option>
+        </select>
+        <button class="search_btn pointer" onclick="Search()">搜索</button>
+    </div>
+    <div class="border-box">
+        <table class="tb-void" style="min-height:20px;">
+            <thead>
+                <tr class="tr" style="background-color:#e6e6e6;">
+                    <th style="background-color:#e6e6e6;">订单#</th>
+                    <th style="background-color:#e6e6e6;">产品名称</th>
+                    <th style="background-color:#e6e6e6;">数量</th>
+                    <th style="background-color:#e6e6e6;">邮箱</th>
+                    <th style="background-color:#e6e6e6;">公司名称</th>
+                    <th style="background-color:#e6e6e6;">状态</th>
+                    <th style="background-color:#e6e6e6;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count() == 0)
+                {
+                    <tr><td colspan="8"><div class="empty"><b></b>暂时没有代购订单记录,<a href="@Url.Action("AddOrderPurchasing", "OrderPurchasing")"><span style="font-weight:bold;text-decoration:underline;">我要发布</span></a>.</div></td></tr>
+                }
+                @{var i = 0;}
+                @foreach (var m in Model)
+                {
+                    i++;
+                    <tr>
+                        <td>@m.OrderNum</td>
+
+                        <td>@m.ProductName</td>
+
+                        <td>@m.ProductCount</td>
+
+                        <td>@m.Email</td>
+
+                        <td>@m.CompanyName</td>
+
+                        <td>
+                            @if (m.Status == 0)
+                            {
+                                <strong state="ddfk" class="ftx-02 order-statu" style="color:red;">平台未确认</strong>
+                            }
+                            else if (m.Status == 1)
+                            {
+                                <strong state="ddfk" class="ftx-04 order-statu" style="color:green;">平台已确认</strong>
+                            }
+                            else if (m.Status == 2)
+                            {
+                                <strong state="ddfk" class="ftx-04 order-statu" style="color:red;">已接单</strong>
+                            }
+                            else if (m.Status == 3)
+                            {
+                                <strong state="ddfk" class="ftx-04 order-statu" style="color:green;">已付款</strong>
+                            }
+                            else if (m.Status == 4)
+                            {
+                                <strong state="ddfk" class="ftx-04 order-statu" style="color:red;">未发货</strong>
+                            }
+                            else if (m.Status == 5)
+                            {
+                                <strong state="ddfk" class="ftx-04 order-statu" style="color:green;">已发货</strong>
+                            }
+                            else if (m.Status == 6)
+                            {
+                                <strong state="ddfk" class="ftx-04 order-statu" style="color:red;">未签收</strong>
+                            }
+                            else if (m.Status == 7)
+                            {
+                                <strong state="ddfk" class="ftx-04 order-statu" style="color:green;">已签收</strong>
+                            }
+                        </td>
+                        <td>
+                            @if (m.Status == 2)
+                            {
+                                <a href="AddOrderPurchasing?id=@m.Id">去付款</a>
+                            }
+                            else if (m.Status == 5)
+                            {
+                                <a href="AddOrderPurchasing?id=@m.Id">去签收</a>
+                            }
+                            else if (m.Status == 0)
+                            {
+                                @*<a href="AddOrderPurchasing?id=@m.Id">编辑</a>*@
+                                <a onclick="delOrderPurchasing('@m.Id')">删除</a>
+                            }
+                            else
+                            {
+                                <a href="AddOrderPurchasing?id=@m.Id">查看</a>
+                            }
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        <div class="mt10">
+            <div id="pagin-btm" class="pagin fr">
+                @{
+                    var count = ((PagingInfo)ViewBag.pageInfo).TotalPages;
+                    var curr = ((PagingInfo)ViewBag.pageInfo).CurrentPage;
+                    var pageno = Request.QueryString["pageNo"];
+                    var orderstatus = Request.QueryString["orderStatus"];
+                    var starttime = Request.QueryString["starttime"];
+                    var endtime = Request.QueryString["endtime"];
+                    var ordernum = Request.QueryString["orderNum"];
+                }
+                @Html.PageLinks((PagingInfo)ViewBag.pageInfo, x => Url.Action("ManageMent", new { pageNo = x, orderStatus = orderstatus, starttime = starttime, endtime = endtime, orderNum = ordernum }))
+                <span class="page-skip">
+                    <em>&nbsp;&nbsp;共 @count 页&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                </span>
+            </div>
+
+            <div class="clr"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function Search() {
+        //订单编号
+        var txtOrderNum = $.trim($("#txtOrderNum").val());
+        //有效期
+        var starttime = $("#starttime").val();
+        var endtime = $("#endtime").val();
+        //订单状态
+        var orderStatus = $("#orderStatus option:selected").val();
+
+        window.location.href = "?orderNum=" + txtOrderNum + '&orderStatus=' + orderStatus + '&starttime=' + starttime + '&endtime=' + endtime;
+    };
+    function delOrderPurchasing(id) {
+        $.dialog.confirm('确定要删除吗？', function () {
+            $.post('DelOrderInfo', { id: id }, function (data) {
+                if (data.Successful) {
+                    $.dialog.alert('删除成功！');
+                    location.reload();
+                } else if (data.Successful == false) {
+                    $.dialog.errorTips("删除失败！");
+                } else {
+                    $.dialog.errorTips(data);
+                }
+
+            });
+        })
+    }
+
+</script>

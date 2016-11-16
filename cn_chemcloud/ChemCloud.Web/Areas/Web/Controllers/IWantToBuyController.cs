@@ -593,11 +593,13 @@ namespace ChemCloud.Web.Areas.Web.Controllers
         {
             Result_List_Pager<Result_IWantToBuy> res = new Result_List_Pager<Result_IWantToBuy>();
             Result_List_Pager<IWantToBuy> resList = iWantToBuyService.Get_IWantToBuyList_Web_Supply(query);
-
+            DateTime Now = DateTime.Now;
+            String NowTime = Now.ToString("yyyy-MM-dd hh:mm");
+            
             if (resList.Msg.IsSuccess)
             {
                 var listHash = hashSet.Get_DictionariesList();
-
+                res.NowTime = NowTime;
                 res.PageInfo = resList.PageInfo;
                 res.Msg = resList.Msg;
                 res.List = resList.List.Select(x => new Result_IWantToBuy()

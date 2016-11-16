@@ -226,7 +226,7 @@ namespace ChemCloud.Web.Areas.Web.Controllers
             {
                 strSql.Append("order by T.Pub_CID");
             }
-            strSql.Append(")AS Row,T.PUB_CID,T.Record_Title,T.CAS,T.Molecular_Formula,T.Molecular_Weight,T.[2D_Structure] as Dataurl  from ChemCloud_CAS T ");
+            strSql.Append(")AS Row,T.PUB_CID,T.Record_Title,T.CAS,T.Molecular_Formula,T.Molecular_Weight,T.[2D_Structure] as Dataurl,T.CHINESE  from ChemCloud_CAS T ");
             if (!string.IsNullOrEmpty(strWhere.Trim()))
             {
                 strSql.Append(" WHERE " + strWhere);

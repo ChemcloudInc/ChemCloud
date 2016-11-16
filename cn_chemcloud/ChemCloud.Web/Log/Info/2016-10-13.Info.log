@@ -1,0 +1,154 @@
+
+
+
+ 记录时间：2016-10-13 13:26:41,875 
+日志级别：  INFO  
+出错类：ChemCloud.Service.LoginGenerateIntegral.ConversionIntegral  
+错误描述：找不到登录产生会员积分的规则 
+
+
+
+
+ 记录时间：2016-10-13 15:41:45,888 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：IIWantToBuyService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.IIWantToBuyService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 e:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 68
+
+
+
+ 记录时间：2016-10-13 16:40:44,072 
+日志级别：  INFO  
+出错类：ChemCloud.Service.LoginGenerateIntegral.ConversionIntegral  
+错误描述：找不到登录产生会员积分的规则 
+
+
+
+
+ 记录时间：2016-10-13 16:47:42,254 
+日志级别：  INFO  
+出错类：ChemCloud.Service.LoginGenerateIntegral.ConversionIntegral  
+错误描述：找不到登录产生会员积分的规则 
+
+
+
+
+ 记录时间：2016-10-13 16:47:43,920 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:editprofile1 
+
+
+
+
+ 记录时间：2016-10-13 16:47:49,823 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:step1 
+
+
+
+
+ 记录时间：2016-10-13 16:47:50,231 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:setemail 
+
+
+
+
+ 记录时间：2016-10-13 16:48:50,483 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:editprofile1 
+
+
+
+
+ 记录时间：2016-10-13 16:48:50,713 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:editprofile2 
+
+
+
+
+ 记录时间：2016-10-13 16:48:50,912 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:step2 
+
+
+
+
+ 记录时间：2016-10-13 16:50:21,909 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:editprofile2 
+
+
+
+
+ 记录时间：2016-10-13 16:50:22,014 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:step2 
+
+
+
+
+ 记录时间：2016-10-13 16:50:41,971 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:editprofile2 
+
+
+
+
+ 记录时间：2016-10-13 16:50:42,067 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:step2 
+
+
+
+
+ 记录时间：2016-10-13 17:09:14,735 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Controllers.PublicMoneyController.AddUserWallet  
+错误描述：用户(ggmm)在IP(127.0.0.1)于2016/10/13 17:09:14创建钱包成功. 
+
+
+
+
+ 记录时间：2016-10-13 17:09:14,859 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Controllers.PublicMoneyController.AddUserWallet  
+错误描述：用户(ggmm)在IP(127.0.0.1)于2016/10/13 17:09:14创建钱包成功. 
+
+
+
+
+ 记录时间：2016-10-13 17:11:24,808 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:editprofile2 
+
+
+
+
+ 记录时间：2016-10-13 17:11:24,918 
+日志级别：  INFO  
+出错类：ChemCloud.Web.Areas.SellerAdmin.Controllers.ShopProfileController.OnActionExecuting  
+错误描述：Executing:step2 
+
+
+
+
+ 记录时间：2016-10-13 17:11:35,178 
+日志级别：  INFO  
+出错类：ChemCloud.Service.LoginGenerateIntegral.ConversionIntegral  
+错误描述：找不到登录产生会员积分的规则 
+

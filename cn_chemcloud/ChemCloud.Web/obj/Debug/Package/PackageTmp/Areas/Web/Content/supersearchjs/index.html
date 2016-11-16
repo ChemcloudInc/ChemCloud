@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Listen for Edits | ChemWriter</title>
+    <link rel="stylesheet" href="css/chemwriter.css"> 
+    <script src="js/chemwriter.js" data-chemwriter-license="http://chemwriter.com/licenses/396f597e46fbdbd39e34108b010c6efcb2ef2ed2.txt"></script>
+      <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+  </head>
+  <body>
+    <div id="editor"
+         data-chemwriter-width="500" data-chemwriter-height="350"
+         data-chemwriter-ui="editor">
+    </div>
+    <script>
+      chemwriter.System.ready(function () {
+        var editor = chemwriter.components.editor;
+        
+        editor.addEventListener('document-edited', function (event) {
+          console.log('Document was edited.');
+        });
+      });
+    </script>
+  </body>
+</html>

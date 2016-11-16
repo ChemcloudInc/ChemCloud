@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Areas/SellerAdmin/Views/Shared/_ShopProfile.cshtml";
+    var manager = ViewBag.Manager as ChemCloud.Model.ManagerInfo;
+
+    var step = (int)ViewBag.Step;
+
+}
+
+<div class="content">
+    <iframe id='iframe' src='@ViewBag.Frame' name='iframe' frameborder='0' style="height:1800px;" scrolling='auto'></iframe>
+</div>

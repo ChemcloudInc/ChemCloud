@@ -1,0 +1,203 @@
+﻿@using System.Collections
+@{
+    ViewBag.Title = "RegionalAndOverseasStorag";
+}
+@*知识产权*@
+<link href="~/Areas/Web/Content/css.css" rel="stylesheet" />
+<link href="~/Content/inner-custom.css" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<style>
+    #mohu {
+        margin-top: -55px;
+    }
+     .top_fl {
+        width: 446px;
+    }
+     ul{
+         margin:0;
+         padding:0;
+     }
+     .img_title{
+         text-align:center;
+         margin-top:20px;
+         margin-bottom: 20px;
+     }
+     .mo_kuai{
+         border:1px solid rgb(224,222,217);
+         background:rgb(249,247,246);
+         color:rgb(148,145,140);
+         font-size:18px;
+         height:48px;
+         padding:15px;
+             margin-bottom: 40px;
+     }
+     .mo_kuai p{
+         font-size:18px;
+         text-indent:36px;
+     }
+     .mo_lian a{
+         display:inline-block;
+        width: 278px;
+        height: 368px;
+        margin-bottom:70px;
+     }
+     .mo_lian .mo_1{
+        background:url(/Areas/Web/Images/img/zscq13.png);
+            margin-right: 28px;
+                width: 280px;
+     }
+     .mo_lian .mo_1:hover{
+         background:url(/Areas/Web/Images/img/zscq1.png);
+     }
+     .mo_lian .mo_2{
+        background:url(/Areas/Web/Images/img/zscq2.png);
+            margin-right: 28px;
+     }
+     .mo_lian .mo_2:hover{
+         background:url(/Areas/Web/Images/img/zscq14.png);
+     }
+     .mo_lian .mo_3{
+        background:url(/Areas/Web/Images/img/zscq3.png);
+            margin-right: 28px;
+                width: 276px;
+     }
+     .mo_lian .mo_3:hover{
+         background:url(/Areas/Web/Images/img/zscq15.png);
+     }
+     .mo_lian .mo_4{
+        background:url(/Areas/Web/Images/img/zscq4.png);
+     }
+     .mo_lian .mo_4:hover{
+         background:url(/Areas/Web/Images/img/zscq16.png);
+     }
+     .mo_lian .mo_5{
+        background:url(/Areas/Web/Images/img/zscq5.png);
+            margin-right: 28px;
+     }
+     .mo_lian .mo_5:hover{
+         background:url(/Areas/Web/Images/img/zscq17.png);
+     }
+     .mo_lian .mo_6{
+        background:url(/Areas/Web/Images/img/zscq6.png);
+            margin-right: 28px;
+     }
+     .mo_lian .mo_6:hover{
+         background:url(/Areas/Web/Images/img/zscq18.png);
+     }
+     .mo_lian .mo_7{
+        background:url(/Areas/Web/Images/img/zscq7.png);
+            margin-right: 28px;
+            width: 276px;
+     }
+     .mo_lian .mo_7:hover{
+         background:url(/Areas/Web/Images/img/zscq19.png);
+     }
+     .mo_lian .mo_8{
+        background:url(/Areas/Web/Images/img/zscq8.png);
+     }
+     .mo_lian .mo_8:hover{
+         background:url(/Areas/Web/Images/img/zscq20.png);
+     }
+     /*.float_left{
+         width:586px;
+         height:376px;
+         background:
+     }*/
+     .title_wen{
+        position:relative;
+        box-shadow:3px 3px 3px rgb(231,231,228);
+        color:rgb(69,79,77);
+        border-radius:4px;
+        background:rgb(248,248,248);
+        margin-bottom: 10px;
+        text-indent: 20px;
+        font-size:14px;
+     }
+     .title_wen p{
+         font-size:18px;
+         height:50px;
+         line-height:50px;
+     }
+     .title_wen i{
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        position:absolute;
+        top:18px;
+        right:40px;
+        cursor: pointer;
+        background: url(/Areas/Web/Images/img/zscq10.png);
+     }
+     .title_wen i.active{
+         background:url(/Areas/Web/Images/img/zscq11.png);
+     }
+     #divNews{
+         height:2000px;
+     }
+</style>
+<div id="divNews">
+    <div class="content">
+        <div class="img_title">
+            <img src="~/Areas/Web/Images/img/zscq12.png" alt="Alternate Text" />
+        </div>
+        <div class="mo_kuai">
+            <p>
+                知识产权业务介绍： ChemCloud开姆平台的法务团队，专注于医药、材料、化学领域的专利咨询业务，集成多种服务体系，打造“一站式知识产权服务链”！
+            </p>
+        </div>
+        <div class="mo_lian">
+            <a class="mo_1" href="#"></a>
+            <a class="mo_2" href="#"></a>
+            <a class="mo_3" href="#"></a>
+            <a class="mo_4" href="#"></a>
+
+            <a class="mo_5" href="#"></a>
+            <a class="mo_6" href="#"></a>
+            <a class="mo_7" href="#"></a>
+            <a class="mo_8" href="#"></a>
+        </div>
+        <div class="">
+            <img style="width: 588px;" src="~/Areas/Web/Images/img/zscq9.png" alt="Alternate Text " />
+            <img style="width: 610px;" src="~/Areas/Web/Images/img/zscq21.png" alt="Alternate Text" />
+        </div>
+        <div class="img_title">
+            <img src="~/Areas/Web/Images/img/zscq22.png" alt="Alternate Text" />
+        </div>
+        <div>
+            <div class="title_wen">
+                <p>1. 怎么防止产品被别人抄袭？ </p><i></i>
+                <div style="display:none">产品要上市会不会侵犯别人的专利</div>
+            </div>
+            
+            <div class="title_wen">
+                <p>2. 被别人告专利侵权如何处理？</p><i></i>
+                <div style="display:none">自己专利被别人告无效怎么办？</div>
+            </div>
+            
+            <div class="title_wen">
+                <p>3. 别人拿着你的技术申请专利怎么办？</p><i></i>
+                <div style="display:none">产品被仿造抄袭如何处理？</div>
+            </div>
+            
+            <div class="title_wen">
+                <p>4. 专利技术如何估值？</p><i></i>
+                <div style="display:none">专利怎么变现如何交易？如何授权他人，收取专利费？</div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script>
+    $('.title_wen i').click(function () {
+        if ($(this).hasClass("active")) {
+            $(this).parent().children('div').css("display", "none");
+            $(this).parent().css("background", "rgb(248,248,248)");
+            $(this).removeClass('active');
+        } else {
+            $(this).parent().children('div').css("display", "block");
+            $(this).parent().css("background", "#fff");
+            $(this).addClass("active");
+        }
+    })
+</script>

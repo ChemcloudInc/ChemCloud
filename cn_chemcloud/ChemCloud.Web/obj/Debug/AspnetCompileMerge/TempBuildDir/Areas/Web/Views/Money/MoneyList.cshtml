@@ -1,0 +1,788 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "财务管理";
+}
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/datetimeCustom.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#start_datetime").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#end_datetime").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#start_datetime1").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#end_datetime1").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#start_datetime2").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#end_datetime2").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#start_datetime3").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#end_datetime3").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#start_datetime4").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#end_datetime4").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#start_datetime5").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#end_datetime5").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            endDate: getDatedate_YMD_1(),//最晚的日期
+            minView: 2
+        });
+        $("#start_datetime").click(function () {
+            $('#start_datetime').datetimepicker('show');
+        });
+        $("#end_datetime").click(function () {
+            $("#end_datetime").datetimepicker("show");
+        });
+        $('#start_datetime').on('changeDate', function () {
+            if ($(".end_datetime").val()) {
+                if ($("#start_datetime").val() > $("#end_datetime").val()) {
+                    $('#end_datetime').val($("#start_datetime").val());
+                }
+            }
+
+            $('#end_datetime').datetimepicker('setStartDate', $("#start_datetime").val());
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#tabs").tabs();
+        QueryPay();
+        $("#tabs ul li").on("click", function () {
+            if ($("#tabs ul li").hasClass("ui-tabs-active")) {
+                var typeid = $(this).attr("id");
+                if (typeid == "tabs1") {
+                    QueryPay();
+                }
+                if (typeid == "tabs2") {
+                    QueryInCome();
+                }
+                if (typeid == "tabs3") {
+                    QueryWithDraw();
+                }
+                if (typeid == "tabs4") {
+                    QueryRecharge();
+                }
+                if (typeid == "tabs5") {
+                    QueryRefund();
+                }
+                if (typeid == "tabs6") {
+                    QueryTrans();
+                }
+            }
+        });
+
+        $("#searchBtn").on("click", function () {
+            if ($("#start_datetime").val() <= $("#end_datetime").val()) {
+                QueryPay();
+            }
+            else {
+                art.artDialog.errorTips("开始日期不能大于结束日期", "", "1.5");//短暂提示-错误
+            }
+        });
+        $("#searchBtn1").on("click", function () {
+            if ($("#start_datetime1").val() <= $("#end_datetime1").val()) {
+                QueryInCome();
+            }
+            else {
+                art.artDialog.errorTips("开始日期不能大于结束日期", "", "1.5");//短暂提示-错误
+            }
+        });
+        $("#searchBtn2").on("click", function () {
+            if ($("#start_datetime2").val() <= $("#end_datetime2").val()) {
+                QueryWithDraw();
+            }
+            else {
+                art.artDialog.errorTips("开始日期不能大于结束日期", "", "1.5");//短暂提示-错误
+            }
+        });
+        $("#searchBtn3").on("click", function () {
+            if ($("#start_datetime3").val() <= $("#end_datetime3").val()) {
+                QueryRecharge();
+            }
+            else {
+                art.artDialog.errorTips("开始日期不能大于结束日期", "", "1.5");//短暂提示-错误
+            }
+        });
+        $("#searchBtn4").on("click", function () {
+            if ($("#start_datetime4").val() <= $("#end_datetime4").val()) {
+                QueryRefund();
+            }
+            else {
+                art.artDialog.errorTips("开始日期不能大于结束日期", "", "1.5");//短暂提示-错误
+            }
+        });
+        $("#searchBtn5").on("click", function () {
+            if ($("#start_datetime5").val() <= $("#end_datetime5").val()) {
+                QueryTrans();
+            }
+            else {
+                art.artDialog.errorTips("开始日期不能大于结束日期", "", "1.5");//短暂提示-错误
+            }
+        });
+
+
+
+
+
+
+        document.getElementById("searchBtn").click();
+    });
+    function QueryPay() {
+        var stime = $("#start_datetime").val();
+        var etime = $("#end_datetime").val();
+        if (stime != "") {
+            stime = stime + " 00:00:00";
+        }
+        if (etime != "") {
+            etime = etime + " 23:59:59";
+        }
+        $("#MoneyPay").hiMallDatagrid({
+            url: "/common/PublicMoney/ListPay",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到您的支付信息.',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "starttime": stime, "endtime": etime, "moneytype": $('#type_id option:selected').val(), "userid": $("#hid_userid").val(), "usertype": $("#hid_usertype").val() },
+            columns:
+            [[
+                 {
+                     field: "PayMent_Number", title: "支付单号", align: "center", formatter: function (value, row, index) {
+                         return row.PayMent_Number;
+                     }
+                 }
+                , {
+                    field: "PayMent_OrderNum", title: "订单号", align: "center", formatter: function (value, row, index) {
+                        return row.PayMent_OrderNum;
+                    }
+                }
+                , {
+                    field: "PayMent_MoneyType", title: "支付币种", align: "center", formatter: function (value, row, index) {
+                        if (row.PayMent_MoneyType == "1") {
+                            return "CNY";
+                        } else {
+                            return "USD";
+                        }
+                    }
+                }, {
+                    field: "PayMent_PayMoney", title: "支付金额", align: "center", formatter: function (value, row, index) {
+                        return row.PayMent_PayMoney.toFixed(2);
+                    }
+                }, {
+                    field: "PayMent_SXMoney", title: "手续费", align: "center", formatter: function (value, row, index) {
+                        return row.PayMent_SXMoney.toFixed(2);
+                    }
+                }, {
+                    field: "PayMent_YFMoney", title: "运费", align: "center", formatter: function (value, row, index) {
+                        return row.PayMent_YFMoney.toFixed(2);
+                    }
+                }, {
+                    field: "PayMent_BXMoney", title: "保险费", align: "center", formatter: function (value, row, index) {
+                        var bxmoney = row.PayMent_BXMoney;
+                        return bxmoney.toFixed(2);
+                    }
+                }, {
+                    field: "PayMent_JYMoney", title: "交易费", align: "center", formatter: function (value, row, index) {
+                        return row.PayMent_JYMoney.toFixed(2);
+                    }
+                }, {
+                    field: "PayMent_PayTime", title: "支付时间", align: "center", formatter: function (value, row, index) {
+                        var time = row.PayMent_PayTime;
+                        return jsonDateFormat(time);
+                    }
+                }
+            ]]
+        });
+    };
+    function QueryInCome() {
+        var stime = $("#start_datetime1").val();
+        var etime = $("#end_datetime1").val();
+        if (stime != "") {
+            stime = stime + " 00:00:00";
+        }
+        if (etime != "") {
+            etime = etime + " 23:59:59";
+        }
+        $("#MoneyInCome").hiMallDatagrid({
+            url: "/common/PublicMoney/ListInCome",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到您的收入信息.',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "starttime": stime, "endtime": etime, "moneytype": $('#type_id1 option:selected').val(), "userid": $("#hid_userid").val(), "usertype": $("#hid_usertype").val() },
+            columns:
+            [[
+                 {
+                     field: "InCome_Number", title: "收入单号", align: "center", formatter: function (value, row, index) {
+                         return row.InCome_Number;
+                     }
+                 }
+                , {
+                    field: "InCome_OrderNum", title: "订单号", align: "center", formatter: function (value, row, index) {
+                        return row.InCome_OrderNum;
+                    }
+                }
+                , {
+                    field: "InCome_MoneyType", title: "收入币种", align: "center", formatter: function (value, row, index) {
+                        if (row.InCome_MoneyType == "1") {
+                            return "CNY";
+                        } else {
+                            return "USD";
+                        }
+                    }
+                }, {
+                    field: "InCome_Money", title: "收入金额", align: "center", formatter: function (value, row, index) {
+                        return row.InCome_Money.toFixed(2);
+                    }
+                }, {
+                    field: "InCome_StartTime", title: "收入时间", align: "center", formatter: function (value, row, index) {
+                        var time = row.InCome_StartTime;
+                        return jsonDateFormat(time);
+                    }
+                }
+                //, {
+                //    field: "InCome_Address", title: "收入地点", align: "center", formatter: function (value, row, index) {
+                //        return row.InCome_Address;
+                //    }
+                //}
+            ]]
+        });
+    };
+    function QueryWithDraw() {
+        var stime = $("#start_datetime2").val();
+        var etime = $("#end_datetime2").val();
+        if (stime != "") {
+            stime = stime + " 00:00:00";
+        }
+        if (etime != "") {
+            etime = etime + " 23:59:59";
+        }
+        $("#MoneyWithDraw").hiMallDatagrid({
+            url: "/common/PublicMoney/ListWithDraw",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到您的提现信息.',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "starttime": stime, "endtime": etime, "moneytype": $('#type_id2 option:selected').val(), "userid": $("#hid_userid").val(), "usertype": $("#hid_usertype").val() },
+            columns:
+            [[
+                 {
+                     field: "Withdraw_Number", title: "提现单号", align: "center", formatter: function (value, row, index) {
+                         return row.Withdraw_Number;
+                     }
+                 }
+                , {
+                    field: "Withdraw_MoneyType", title: "提现币种", align: "center", formatter: function (value, row, index) {
+                        if (row.Withdraw_MoneyType == "1") {
+                            return "CNY";
+                        } else {
+                            return "USD";
+                        }
+                    }
+                }, {
+                    field: "Withdraw_Money", title: "提现金额", align: "center", formatter: function (value, row, index) {
+                        return row.Withdraw_Money.toFixed(2);
+                    }
+                }, {
+                    field: "Withdraw_BankName", title: "提现银行", align: "center", formatter: function (value, row, index) {
+                        return row.Withdraw_BankName;
+                    }
+                }, {
+                    field: "Withdraw_BankUserName", title: "提现人名", align: "center", formatter: function (value, row, index) {
+                        return row.Withdraw_BankUserName;
+                    }
+                }, {
+                    field: "Withdraw_Account", title: "提现账户", align: "center", formatter: function (value, row, index) {
+                        return row.Withdraw_Account;
+                    }
+                }, {
+                    field: "Withdraw_Time", title: "提现时间", align: "center", formatter: function (value, row, index) {
+                        var time = row.Withdraw_Time;
+                        return jsonDateFormat(time);
+                    }
+                }, {
+                    field: "Withdraw_shenhe", title: "处理状态", align: "center", formatter: function (value, row, index) {
+                        var sstau = row.Withdraw_shenhe;
+                        if (sstau == "0") {
+                            return "<span style=\"color:green;\">提现处理中</span>";
+                        } else if (sstau == "1") {
+                            return "<span style=\"color:blue;\">提现完成</span>";
+                        } else {
+                            return "<span style=\"color:red;\">提现失败</span>";
+                        }
+                    }
+                }
+            ]]
+        });
+    };
+    function QueryRecharge() {
+        var stime = $("#start_datetime3").val();
+        var etime = $("#end_datetime3").val();
+        if (stime != "") {
+            stime = stime + " 00:00:00";
+        }
+        if (etime != "") {
+            etime = etime + " 23:59:59";
+        }
+        $("#MoneyRecharge").hiMallDatagrid({
+            url: "/common/PublicMoney/ListRecharge",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到您的充值信息.',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "starttime": stime, "endtime": etime, "moneytype": $('#type_id3 option:selected').val(), "userid": $("#hid_userid").val(), "usertype": $("#hid_usertype").val() },
+            columns:
+            [[
+                 {
+                     field: "Recharge_Number", title: "充值单号", align: "center", formatter: function (value, row, index) {
+                         return row.Recharge_Number;
+                     }
+                 }
+                , {
+                    field: "Recharge_MoneyType", title: "充值币种", align: "center", formatter: function (value, row, index) {
+                        if (row.Recharge_MoneyType == "1") {
+                            return "CNY";
+                        } else {
+                            return "USD";
+                        }
+                    }
+                }, {
+                    field: "Recharge_Money", title: "充值金额", align: "center", formatter: function (value, row, index) {
+                        return row.Recharge_Money.toFixed(2);
+                    }
+                }, {
+                    field: "Recharge_MoneyLeft", title: "充值后可用余额", align: "center", formatter: function (value, row, index) {
+                        return row.Recharge_MoneyLeft.toFixed(2);
+                    }
+                }, {
+                    field: "Recharge_Time", title: "充值时间", align: "center", formatter: function (value, row, index) {
+                        var time = row.Recharge_Time;
+                        return jsonDateFormat(time);
+                    }
+                }, {
+                    field: "Recharge_Type", title: "状态", align: "center", formatter: function (value, row, index) {
+                        var time = row.Recharge_Type;
+                        var html = "";
+                        if (time == "1") {
+                            html = "<span style=\"color:green;\">充值成功</span>";
+                        } else {
+                            html = "<span style=\"color:red;\">充值失败</span>";
+                        }
+                        return html
+                    }
+                }
+                //, {
+                //    field: "Recharge_Address", title: "充值地点", align: "center", formatter: function (value, row, index) {
+                //        var time = row.Recharge_Address;
+                //        return time;
+                //    }
+                //}
+            ]]
+        });
+    };
+    function QueryRefund() {
+        var stime = $("#start_datetime4").val();
+        var etime = $("#end_datetime4").val();
+        if (stime != "") {
+            stime = stime + " 00:00:00";
+        }
+        if (etime != "") {
+            etime = etime + " 23:59:59";
+        }
+        $("#MoneyRefund").hiMallDatagrid({
+            url: "/common/PublicMoney/ListMoneyRefund",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到您的退款信息.',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "starttime": stime, "endtime": etime, "moneytype": $('#type_id4 option:selected').val(), "userid": $("#hid_userid").val(), "usertype": $("#hid_usertype").val() },
+            columns:
+            [[
+                 {
+                     field: "Refund_Number", title: "退款单号", align: "center", formatter: function (value, row, index) {
+                         return row.Refund_Number;
+                     }
+                 }, {
+                     field: "Refund_OrderNum", title: "订单号", align: "center", formatter: function (value, row, index) {
+                         return row.Refund_OrderNum;
+                     }
+                 }
+                , {
+                    field: "Refund_ISChujing", title: "是否出境", align: "center", formatter: function (value, row, index) {
+                        if (row.Refund_ISChujing == "1") {
+                            return "是";
+                        } else {
+                            return "否";
+                        }
+                    }
+                }
+                , {
+                    field: "Refund_UserName", title: "供应商", align: "center", formatter: function (value, row, index) {
+                        return row.Refund_UserName;
+                    }
+                }
+                , {
+                    field: "Refund_MoneyType", title: "退款币种", align: "center", formatter: function (value, row, index) {
+                        if (row.Refund_MoneyType == "1") {
+                            return "CNY";
+                        } else {
+                            return "USD";
+                        }
+                    }
+                }, {
+                    field: "Refund_Money", title: "退款金额", align: "center", formatter: function (value, row, index) {
+                        return row.Refund_Money.toFixed(2);
+                    }
+                }, {
+                    field: "Refund_Time", title: "退款时间", align: "center", formatter: function (value, row, index) {
+                        var time = row.Refund_Time;
+                        return jsonDateFormat(time);
+                    }
+                }, {
+                    field: "Refund_Status", title: "退款状态", align: "center", formatter: function (value, row, index) {
+                        var sss = row.Refund_Status;
+                        if (sss == "0") {
+                            return "<span style=\"color:green;\">处理中</span>";
+                        }
+                        if (sss == "1") {
+                            return "<span style=\"color:blue;\">退款成功</span>";
+                        }
+                        if (sss == "2") {
+                            return "<span style=\"color:red;\">退款失败</span>";
+                        }
+                    }
+                }
+            ]]
+        });
+    };
+    function QueryTrans() {
+        var stime = $("#start_datetime5").val();
+        var etime = $("#end_datetime5").val();
+        if (stime != "") {
+            stime = stime + " 00:00:00";
+        }
+        if (etime != "") {
+            etime = etime + " 23:59:59";
+        }
+        $("#MoneyTrans").hiMallDatagrid({
+            url: "/common/PublicMoney/ListTrans",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到您的转账信息.',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "starttime": stime, "endtime": etime, "moneytype": $('#type_id5 option:selected').val(), "userid": $("#hid_userid").val(), "usertype": $("#hid_usertype").val() },
+            columns:
+            [[
+                 {
+                     field: "Trans_Number", title: "转账单号", align: "center", formatter: function (value, row, index) {
+                         return row.Trans_Number;
+                     }
+                 }
+                , {
+                    field: "Trans_MoneyType", title: "转账币种", align: "center", formatter: function (value, row, index) {
+                        if (row.Trans_MoneyType == "1") {
+                            return "CNY";
+                        } else {
+                            return "USD";
+                        }
+                    }
+                }, {
+                    field: "Trans_Money", title: "转账金额", align: "center", formatter: function (value, row, index) {
+                        return row.Trans_Money.toFixed(2);
+                    }
+                }, {
+                    field: "Trans_UserName", title: "转账方", align: "center", formatter: function (value, row, index) {
+                        return row.Trans_UserName;
+                    }
+                }
+                    , {
+                        field: "Trans_ToUserName", title: "接收方", align: "center", formatter: function (value, row, index) {
+                            return row.Trans_ToUserName;
+                        }
+                    }
+                , {
+                    field: "Trans_Time", title: "转账时间", align: "center", formatter: function (value, row, index) {
+                        var time = row.Trans_Time;
+                        return jsonDateFormat(time);
+                    }
+                }
+            ]]
+        });
+    };
+    var returnstr;
+    function GetUserName(uid) {
+        $.post('GetUserName', { uid: uid },
+                function (result) {
+                    returnstr = result;
+                }
+            );
+        return returnstr;
+    };
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    };
+</script>
+<style type="text/css">
+    .table th {
+        background-color: #3498DB;
+        color: #fff;
+    }
+
+    .table tr {
+        height: 36px;
+    }
+
+    tbody tr {
+        height: 36px;
+        border-bottom: 1px dashed #999;
+    }
+
+        tbody tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+    #tabs ul li {
+        display: inline-block;
+        list-style: none;
+        float: left;
+        position: relative;
+        top: 0;
+        margin: 1px .2em 0 0;
+        border-bottom-width: 0;
+        padding: 0;
+        white-space: nowrap;
+        width: 98px;
+        text-align: center;
+        border-radius: 0;
+        height: 40px;
+    }
+
+    .clear_syl {
+        display: none;
+    }
+</style>
+<link href="~/Content/jquery-ui.css" rel="stylesheet">
+<script src="~/Content/jquery-ui.min.js"></script>
+<div class="box1 lh24">
+    <div class="title bot-border" style="margin-bottom: 0px">
+        <h3 class="title_txt cur">我的账户</h3>
+    </div>
+    <div class="border-box">
+        <div id="describe" style="padding: 15px;border-bottom: 1px solid #e4e4e4;">
+            <div class="fl">
+                可用余额：<span style="color:red;font-weight:bold;font-size:16px;">￥@ViewBag.LeftMoney</span>@ViewBag.M_type &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;锁定金额：<span style="color:red;font-weight:bold;font-size:16px;">￥@ViewBag.LockMoney</span>@ViewBag.M_type &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;账户状态：<span style="color:red;font-weight:bold;font-size:16px;">@ViewBag.ShowIDLock</span><br />
+                最后次操作时间：<span style="color:#3498DB">@ViewBag.DoTime </span><br />
+                最后次操作IP：<span style="color:#3498DB">@ViewBag.DoIP </span><br />
+            </div>
+            <div class="fr">
+                <a class="btn-5 btn-8" style="background:#ff4d50; width:72px;height:28px;color:#fff;padding:0;text-align:center;margin-right:10px;" href="@Url.Action("CapitalCharge","UserCapital")" target="_self">去充值</a>
+                <a class="btn-5 btn-8" style="background:#eff2f5; width:60px;height:28px;border:1px solid #6a7c86;color:#6a7c86;padding:0;text-align:center" href="@Url.Action("ApplyWithDraw","UserCapital")" target="_self">提现</a>
+                <a class="btn-5 btn-8" style="background:#4190de; width:60px;height:28px;border:1px solid #6a7c86;color:#fff;padding:0;text-align:center;margin-left:10px;" href="@Url.Action("ToOtherDraw","UserCapital")" target="_self">转账</a>
+            </div>
+            <div class="clr"></div>
+        </div>
+        <div style="height:30px;background:#f2f2f2"></div>
+        <div class="title bot-border" style="margin-bottom: 0px">
+            <h3 class="title_txt cur">账户收支明细</h3>
+        </div>
+        <div class="clr"></div>
+        <div id="shopToolBar">
+            <div id="tabs">
+                <ul>
+                    <li id="tabs1"><a href="#tabs-1">支付</a></li>
+                    <li id="tabs2"><a href="#tabs-2">收入</a></li>
+                    <li id="tabs3"><a href="#tabs-3">提现</a></li>
+                    <li id="tabs4"><a href="#tabs-4">充值</a></li>
+                    <li id="tabs5"><a href="#tabs-5">退款</a></li>
+                    <li id="tabs6"><a href="#tabs-6">转账</a></li>
+                </ul>
+                <div id="tabs-1" class="clear_syl">
+                    <div class="search-box only-line">
+                        <div class="form-group" style="height:30px; padding-top:5px;">
+                            <label class="label-inline" for="start_datetime" style="width : 78px ">开始日期</label>
+                            <input class="form-control input-ssm" type="text" id="start_datetime" style="height:24px;" />
+                            <label class="label-inline" for="end_datetime" style="width : 78px ">结束日期</label>
+                            <input class="form-control input-ssm" type="text" id="end_datetime" style="height:24px;" />
+                            <select id="type_id" class="sele valid" style="width:80px;height:28px;"><option value="1">CNY</option><option value="2">USD</option></select>
+                            <input type="button" class="btn btn-primary btn-sm" id="searchBtn" value="搜 索" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer;" />
+                        </div>
+                    </div>
+                    <table class="table mt40" id="MoneyPay" style="width:100%;margin-top:10px;"></table>
+                </div>
+                <div id="tabs-2" class="clear_syl">
+                    <div class="search-box only-line">
+                        <div class="form-group" style="height:30px; padding-top:5px;">
+                            <label class="label-inline" for="start_datetime1" style="width : 78px ">开始日期</label>
+                            <input class="form-control input-ssm" type="text" id="start_datetime1" style="height:24px;" />
+                            <label class="label-inline" for="end_datetime1" style="width : 78px ">结束日期</label>
+                            <input class="form-control input-ssm" type="text" id="end_datetime1" style="height:24px;" />
+                            <select id="type_id1" class="sele valid" style="width:80px;height:28px;"><option value="1">CNY</option><option value="2">USD</option></select>
+                            <input type="button" class="btn btn-primary btn-sm" id="searchBtn1" value="搜 索" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer;" />
+                        </div>
+                    </div>
+                    <table class="table mt40" id="MoneyInCome" style="width:100%;margin-top:10px;"></table>
+                </div>
+                <div id="tabs-3" class="clear_syl">
+                    <div class="search-box only-line">
+                        <div class="form-group" style="height:30px; padding-top:5px;">
+                            <label class="label-inline" for="start_datetime2" style="width : 78px ">开始日期</label>
+                            <input class="form-control input-ssm" type="text" id="start_datetime2" style="height:24px;" />
+                            <label class="label-inline" for="end_datetime2" style="width : 78px ">结束日期</label>
+                            <input class="form-control input-ssm" type="text" id="end_datetime2" style="height:24px;" />
+                            <select id="type_id2" class="sele valid" style="width:80px;height:28px;"><option value="1">CNY</option><option value="2">USD</option></select>
+                            <input type="button" class="btn btn-primary btn-sm" id="searchBtn2" value="搜 索" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer;" />
+                        </div>
+                    </div>
+                    <table class="table mt40" id="MoneyWithDraw" style="width:100%;margin-top:10px;"></table>
+                </div>
+                <div id="tabs-4" class="clear_syl">
+                    <div class="search-box only-line">
+                        <div class="form-group" style="height:30px; padding-top:5px;">
+                            <label class="label-inline" for="start_datetime3" style="width : 78px ">开始日期</label>
+                            <input class="form-control input-ssm" type="text" id="start_datetime3" style="height:24px;" />
+                            <label class="label-inline" for="end_datetime3" style="width : 78px ">结束日期</label>
+                            <input class="form-control input-ssm" type="text" id="end_datetime3" style="height:24px;" />
+                            <select id="type_id3" class="sele valid" style="width:80px;height:28px;"><option value="1">CNY</option><option value="2">USD</option></select>
+                            <input type="button" class="btn btn-primary btn-sm" id="searchBtn3" value="搜 索" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer;" />
+                        </div>
+                    </div>
+                    <table class="table mt40" id="MoneyRecharge" style="width:100%;margin-top:10px;"></table>
+                </div>
+                <div id="tabs-5" class="clear_syl">
+                    <div class="search-box only-line">
+                        <div class="form-group" style="height:30px; padding-top:5px;">
+                            <label class="label-inline" for="start_datetime4" style="width : 78px ">开始日期</label>
+                            <input class="form-control input-ssm" type="text" id="start_datetime4" style="height:24px;" />
+                            <label class="label-inline" for="end_datetime4" style="width : 78px ">结束日期</label>
+                            <input class="form-control input-ssm" type="text" id="end_datetime4" style="height:24px;" />
+                            <select id="type_id4" class="sele valid" style="width:80px;height:28px;"><option value="1">CNY</option><option value="2">USD</option></select>
+                            <input type="button" class="btn btn-primary btn-sm" id="searchBtn4" value="搜 索" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer;" />
+                        </div>
+                    </div>
+                    <table class="table mt40" id="MoneyRefund" style="width:100%;margin-top:10px;"></table>
+                </div>
+                <div id="tabs-6" class="clear_syl">
+                    <div class="search-box only-line">
+                        <div class="form-group" style="height:30px; padding-top:5px;">
+                            <label class="label-inline" for="start_datetime5" style="width : 78px ">开始日期</label>
+                            <input class="form-control input-ssm" type="text" id="start_datetime5" style="height:24px;" />
+                            <label class="label-inline" for="end_datetime5" style="width : 78px ">结束日期</label>
+                            <input class="form-control input-ssm" type="text" id="end_datetime5" style="height:24px;" />
+                            <select id="type_id5" class="sele valid" style="width:80px;height:28px;"><option value="1">CNY</option><option value="2">USD</option></select>
+                            <input type="button" class="btn btn-primary btn-sm" id="searchBtn5" value="搜 索" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer;" />
+                        </div>
+                    </div>
+                    <table class="table mt40" id="MoneyTrans" style="width:100%;margin-top:10px;"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hid_userid" value="@ViewBag.userid" />
+<input type="hidden" id="hid_usertype" value="@ViewBag.usertype" />
+

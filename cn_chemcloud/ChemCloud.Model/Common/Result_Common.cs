@@ -144,6 +144,7 @@ namespace ChemCloud.Model.Common
         public PageInfo PageInfo { get; set; }
 
         public Result_Msg Msg { get; set; }
+        public String NowTime { get; set; }         //当前时间;
     }
     #endregion
 }

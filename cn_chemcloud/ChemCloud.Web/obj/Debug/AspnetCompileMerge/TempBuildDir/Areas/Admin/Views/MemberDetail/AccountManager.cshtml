@@ -1,0 +1,183 @@
+﻿
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>账户激活管理</a></li>
+    </ul>
+
+    <div class="search-box only-line">
+        <form class="custom-inline" role="form">
+            <div class="form-group">
+                <label class="label-inline" for="">用户名：</label>
+                <input class="form-control input-ssm" type="text" id="txtusername" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label class="label-inline" for="">状态：</label>
+                <select id="accountdisabled" class="sele" style="width:80px;height:28px;">
+                    <option value="0">全部</option>
+                    <option value="1" selected="selected">未激活</option>
+                    <option value="2">已激活</option>
+                </select>
+            </div>
+
+
+            <button type="button" id="searchBtn" class="btn btn-primary btn-sm">搜 索</button>
+            <button type="button" id="btnActive" class="btn btn-primary btn-sm">批量激活</button>
+
+        </form>
+    </div>
+    <table class="table" id="list"></table>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        query();
+        $("#searchBtn").click(function () { query(); });
+        $("#btnActive").click(function () {
+            var rows = $("#list").hiMallDatagrid("getSelections");
+            if (rows.length == 0) {
+                $.dialog.alert("请选择要激活的用户！");
+                return;
+            }
+            if ($("#accountdisabled").val() == 2) {
+                $.dialog.alert("批量选择的用户中包含已激活用户，不能重复操作！");
+                return;
+            }
+            for (var i = 0; i < rows.length; i++) {
+                if (rows[i].Disabled == 1) {
+                    $.dialog.alert("批量选择的用户中包含已激活用户，不能重复操作！");
+                    return;
+                }
+            }
+            var ids = new Array();
+            for (var i = 0; i < rows.length; i++) {
+                ids.push(rows[i].Id);
+            }
+            if (rows.length == 0) {
+                $.dialog.tips("你没有选择任何选项！");
+            }
+            else {
+                $.dialog.confirm('确定激活选择的用户吗？', function () {
+                    var loading = showLoading();
+                    $.post("./ActiveUsers", { param: ids.join(',') }, function (data) {
+                        if (data.success == true) {
+                            $.dialog.tips('激活成功.');
+                            query();
+                            loading.close();
+                        }
+                        else {
+                            $.dialog.tips('激活失败,请稍候尝试.');
+                            loading.close();
+                        }
+                    });
+                });
+            }
+        });
+    })
+
+    /*激活*/
+    function ActiveUser(id) {
+        $.dialog.confirm('确定激活该用户吗？', function () {
+            var loading = showLoading();
+            ajaxRequest({
+                type: 'POST',
+                url: './ActiveUser',
+                cache: false,
+                param: { Id: id },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success == true) {
+                        $.dialog.tips('激活成功.'); query(); loading.close();
+                    }
+                },
+                error: function (data) { $.dialog.tips('激活失败,请稍候尝试.'); loading.close(); }
+            });
+        });
+    }
+
+
+    /*查询方法*/
+    function query() {
+        $("#list").hiMallDatagrid({
+            url: './AccountList',
+            nowrap: false,
+            rownumbers: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            border: false,
+            fit: true,
+            fitColumns: true,
+            pagination: true,
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "username": $.trim($("#txtusername").val()), disabled: $("#accountdisabled").val() },
+            operationButtons: "#batchOperate",
+            columns:
+            [[
+                {
+                    checkbox: true, width: 39
+                },
+                { field: "Id", hidden: true },
+
+                 {
+                     field: "UserName", title: "用户名", width: 160, formatter: function (value, row, index) {
+                         return row.UserName;
+                     }
+                 },
+
+                { field: "Email", title: '邮箱' },
+
+                {
+                    field: "CreateDate", title: "创建日期", width: 150, formatter: function (value, row, index) {
+                        html = "";
+                        html += "<span>" + jsonDateFormat(row.CreateDate) + "</span>";
+                        return html;
+                    }
+                },
+
+                 {
+                     field: "Disabled", title: "状态", width: 160, formatter: function (value, row, index) {
+                         var html = "未激活";
+                         if (row.Disabled == 1) { html = "已激活"; }
+                         return html;
+                     }
+                 },
+                 {
+                     field: "operation", operation: true, title: "操作",
+                     formatter: function (value, row, index) {
+                         var html = ['<span class="btn-a">'];
+                         if (row.Disabled == 0) {
+                             html.push('<a onclick="ActiveUser(' + row.Id + ')">激活</a>');
+                         } else {
+                             html.push('<a style="color:#ccc;" onclick="javascript:void(0);">激活</a>');
+                         }
+                         html.push("</span>");
+                         return html.join("");
+                     }
+                 }
+            ]]
+        });
+    }
+
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    };
+
+</script>

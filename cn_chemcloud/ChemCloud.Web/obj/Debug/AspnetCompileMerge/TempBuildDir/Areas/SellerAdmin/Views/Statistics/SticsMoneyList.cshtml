@@ -1,0 +1,257 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "财务管理";
+}
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#start_datetime").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $("#end_datetime").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $("#start_datetime").click(function () {
+            $('#start_datetime').datetimepicker('show');
+        });
+        $("#end_datetime").click(function () {
+            $("#end_datetime").datetimepicker("show");
+        });
+        $('#start_datetime').on('changeDate', function () {
+            if ($(".end_datetime").val()) {
+                if ($("#start_datetime").val() > $("#end_datetime").val()) {
+                    $('#end_datetime').val($("#start_datetime").val());
+                }
+            }
+
+            $('#end_datetime').datetimepicker('setStartDate', $("#start_datetime").val());
+        });
+    });
+</script>
+<style type="text/css">
+    #MoneyDatagrid th {
+        background-color: #3498DB;
+        color: #fff;
+    }
+
+    #MoneyDatagrid tr {
+        height: 30px;
+    }
+</style>
+<div class="box1 lh24" style="    padding-top:20px;">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">账户管理</h3>
+    </div>
+    <div class="border-box">
+        <div id="describe" style="padding: 15px;border-bottom: 1px solid #e4e4e4;">
+            <div class="fl">
+                帐户余额： <span style="color:#3498DB" class="addmoney"></span> @*+ 余额（<span style="color:#3498DB" class="mymoney"></span>）*@<br />
+                上次交易时间：<span style="color:#3498DB"> </span><br />
+                上次交易订单：<span style="color:#3498DB"> </span>
+            </div>
+            <div class="fr">
+                @*<a class="btn-5 btn-8" style="background-color:#ff4d50; width:72px;height:26px;color:#fff;padding:0;text-align:center;margin-right:10px;d" href="@Url.Action("CapitalCharge")" target="_self">去充值</a>*@
+                <a class="btn-5 btn-8" style="background-color:#eff2f5;width:60px;height:28px;border:1px solid #6a7c86;color:#6a7c86;padding:0;text-align:center" href="@Url.Action("ApplyWithDraw")" target="_self">提现</a>
+            </div>
+            <div class="clr"></div>
+        </div>
+        <div style="height: 30px;padding: 0 10px;border: 1px solid #ddd;border-bottom: none;background: #F7F7F7;line-height: 30px;"><h1 style="float: left;height: 30px;font: normal 15px/30px 'microsoft yahei';color: #3498DB;">财务流水</h1></div>
+        <div id="shopToolBar">
+            <div class="search-box only-line">
+                <div class="form-group" style="height:30px; padding-top:5px; padding-left:30px;">
+                    <label class="label-inline" for="start_datetime" style="width : 78px ">开始日期</label>
+                    <input class="form-control input-ssm" type="text" id="start_datetime" style="height:24px;" />
+                    <label class="label-inline" for="end_datetime" style="width : 78px ">结束日期</label>
+                    <input class="form-control input-ssm" type="text" id="end_datetime" style="height:24px;" />
+                    <input type="button" class="btn btn-primary btn-sm" id="searchBtn" value="搜 索" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer;" />
+                </div>
+            </div>
+            <table class="table mt40" id="MoneyDatagrid" style="width:100%;margin-top:10px;"></table>
+            @*<table class="table mt40" style="margin-left:15px;">
+                    <tr><td>当前账户余额：<span style="color:green;font-weight:bold;" class="addmoney"></span></td></tr>
+                </table>*@
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        GetMoney();
+        Query();
+        GetMyMoney();
+        $("#searchBtn").on("click", function () {
+            Query();
+        });
+    });
+    function GetMyMoney() {
+        $.post('./GetMyMoney', {}, function (result) {
+            $(".mymoney").text(result);
+        });
+    };
+    function Query() {
+        $("#MoneyDatagrid").hiMallDatagrid({
+            url: "./GetManagersAccountList",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "starttime": new $("#start_datetime").val(), "endtime": $("#end_datetime").val() },
+            toolbar: "#shopToolBar1",
+            columns:
+            [[
+                {
+                    field: "Datatime", title: "日期", align: "center", formatter: function (value, row, index) {
+                        var time = row.Datatime;
+                        return jsonDateFormat(time);
+                    }
+                },
+                {
+                    field: "Daikuan", title: "贷款($)", align: "center", formatter: function (value, row, index) {
+                        var html = row.Daikuan;
+                        return html;
+                    }
+                },
+                {
+                    field: "Zhuanzhang", title: "转账($)", align: "center", formatter: function (value, row, index) {
+                        var html = row.Zhuanzhang;
+                        return html;
+                    }
+                },
+                {
+                    field: "ZhuanzhangName", title: "转账平台账号", align: "center", formatter: function (value, row, index) {
+                        var html = row.ZhuanzhangName;
+                        return html;
+                    }
+                },
+                {
+                    field: "Tiqu", title: "提取($)", align: "center", formatter: function (value, row, index) {
+                        var html = "<span style=\"color:green;\">" + row.Tiqu + "</span>";
+                        return html;
+                    }
+                },
+                {
+                    field: "Tiqufeiyong", title: "提取费用($)", align: "center", formatter: function (value, row, index) {
+                        var html = "<span style=\"color:red;\">" + row.Tiqufeiyong + "</span>";
+                        return html;
+                    }
+                },
+                {
+                    field: "Tiquhuobi", title: "提取货币", align: "center", formatter: function (value, row, index) {
+                        if (row.Tiquhuobi=="1") {
+                            row.Tiquhuobi = "USD";
+                        } else {
+                            row.Tiquhuobi = "CNY";
+                        }
+                        var html = "<span >" + row.Tiquhuobi + "</span>";
+                        return html;
+                    }
+                },
+                {
+                    field: "Huilv", title: "汇率", align: "center", formatter: function (value, row, index) {
+                        var html = "<span style=\"color:red;\">" + row.Huilv + "</span>";
+                        return html;
+                    }
+                },
+                {
+                    field: "Tuikuan", title: "退款($)", align: "center", formatter: function (value, row, index) {
+                        var html = "<span style=\"color:green;\">" + row.Tuikuan + "</span>";
+                        return html;
+                    }
+                },
+                {
+                    field: "OrderNum", title: "订单号", align: "center", formatter: function (value, row, index) {
+                        var html = "<span>" + row.OrderNum + "</span>";
+                        return html;
+                    }
+                },
+                {
+                    field: "Balance", title: "Balance($)", align: "center", formatter: function (value, row, index) {
+                        var html = "<span style=\"color:blue;\">" + row.Balance + "</span>";
+                        return html;
+                    }
+                }, {
+                    field: "BalanceAvailable", title: "Funds available for Cash Out($)", align: "center", formatter: function (value, row, index) {
+                        var html = "<span style=\"color:green;\">" + row.BalanceAvailable + "</span>";
+                        return html;
+                    }
+                }
+                //,{ field: "UserName", title: "真实姓名", hidden: false },
+                //{
+                //    field: "TradingType", title: "类型", formatter: function (value, row, index) {
+                //        var html = "";
+                //        var dtype = row.TradingType;
+                //        if (dtype == "1") {
+                //            html = "<span style=\"color:red;\">提现</span>";
+                //        }
+                //        else {
+                //            html = "<span style=\"color:green;\">收入</span>";
+                //        }
+                //        return html;
+                //    }
+                //}, {
+                //    field: "TradingPrice", title: "金额", width: "80", formatter: function (value, row, index) {
+                //        var dprice = "<span style=\"font-weight:bold;\">" + row.TradingPrice + " USD</span>";
+                //        return dprice;
+                //    }
+                //},
+                //{
+                //    field: "operation", operation: true, title: "记录", align: "left", formatter: function (value, row, index) {
+                //        var html = "";
+                //        var dtype = row.TradingType;
+                //        var price = row.TradingPrice;
+                //        var order = row.Id;
+                //        var time = row.OrderDate;
+                //        if (dtype == "1") {
+                //            html = "在 " + jsonDateFormat(time) + " 提现了 <span style=\"color:red;\">" + price + " 元</span>,订单号(<a href=\"javascript:getorder(" + order + ")\">" + order + "</a>)";
+                //        } else {
+                //            html = "在 " + jsonDateFormat(time) + " 消费了 <span style=\"color:red\">" + price + " 元</span>,订单号(<a href=\"javascript:getorder(" + order + ")\">" + order + "</a>)";
+                //        }
+                //        return html;
+                //    }
+                //}
+            ]]
+        });
+    };
+    function getorder(str) {
+        if (str != "null") {
+            window.open("/SellerAdmin/order/Detail/" + str);
+        }
+    };
+    function GetMoney() {
+        var stime = null;
+        var etime = null;
+        $.post('./GetMoney', {starttime:stime,endtime:etime}, function (result) {
+            $(".addmoney").text(result+"");
+        });
+    };
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    };
+</script>

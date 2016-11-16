@@ -1,0 +1,172 @@
+﻿body, h1, div, a, p, header {
+    padding: 0;
+    margin: 0
+}
+
+.header {
+    height: 44px;
+    background-color: #000;
+    background-color: #3480e8;
+    box-shadow: 0 2px 2px #ccc;
+}
+
+.header a {
+    display: inline-block;
+    width: 48px;
+    height: 31px;
+    background: url(img/logo2.png);
+    position: absolute;
+    left: 20px;
+    top: 7px;
+}
+
+body {
+    background-color: #f8fbf7;
+    font-family: Arial
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    height: 52px;
+    line-height: 44px
+}
+
+.tips {
+    margin: 20px 10px 10px;
+    color: #999;
+    font-size: 12px;
+    line-height: 20px
+}
+
+.apps, .content {
+    padding: 10px
+}
+
+.apps {
+    text-align: center;
+    background-color: white
+}
+
+.content {
+    color: #555;
+}
+
+.apps .item {
+    margin: 20px 0
+}
+
+.platfom {
+    width: 200px;
+    height: 40px;
+    margin: 0 auto;
+    border: 1px solid #c7dfc4;
+    margin-top: 40px;
+    border-radius: 3px;
+}
+
+.platfom a {
+    display: block;
+    text-decoration: none;
+    color: #3d7d35;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    padding-left: 36px;
+    background-color: #e4f1e2;
+}
+
+.platfom a.android {
+    background: url(img/android.png) 10px 0 no-repeat;
+}
+
+.platfom a.ios {
+    background: url(img/ios.png) 10px 0 no-repeat;
+}
+
+.platfom a:active {
+    background-color: #d5e9d2
+}
+
+.name {
+    font-size: 14px;
+    color: #666;
+}
+
+.content h3 img {
+    display: inline-block;;
+    vertical-align: middle;
+    margin-right: 6px
+}
+
+.content h3 {
+    font-size: 18px;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    text-align: center;
+    color: #38d684;
+    margin-top: 2em
+}
+
+.download-tips {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+}
+
+h2 {
+    font-weight: normal;
+    color: #666;
+    font-size: 16px;
+    text-align: center;
+}
+
+p.img {
+    text-align: center;
+    margin: 16px 0 40px 0
+}
+
+p.text {
+    text-indent: 2em;
+    line-height: 1.5
+}
+
+.separate {
+    height: 0.5px;
+    background-color: #dff1e8
+}
+
+@media (min-width: 320px) and (max-width: 360px) {
+}
+
+@media (min-width: 320px) and (max-width: 360px) and (-webkit-device-pixel-ratio: 2) {
+    * {
+        font-size: 12px
+    }
+}
+
+@media (min-width: 360px) and (max-width: 480px) {
+    * {
+        font-size: 14px
+    }
+}
+
+@media (min-width: 480px) and (max-width: 640px) {
+    * {
+        font-size: 16px
+    }
+}
+
+@media (min-width: 640px) and (max-width: 1280px) {
+    * {
+        font-size: 22px
+    }
+}
+
+@media (min-width: 1280) and (max-width: 2560px) {
+    * {
+        font-size: 26px
+    }
+}

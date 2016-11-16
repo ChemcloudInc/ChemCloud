@@ -3,3 +3,13 @@ D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\bin\Debug\MyC
 D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.dll
 D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.pdb
 D:\projects\net\chemcloud\新版本\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.csprojResolveAssemblyReference.cache
+E:\ChemCloud\ChemCloud\cn_chemcloud\MyChemCloudCSharp\bin\Debug\MyChemCloudCSharp.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\MyChemCloudCSharp\bin\Debug\MyChemCloudCSharp.pdb
+E:\ChemCloud\ChemCloud\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.pdb
+E:\ChemCloud\ChemCloud\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.csprojResolveAssemblyReference.cache
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\MyChemCloudCSharp\bin\Debug\MyChemCloudCSharp.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\MyChemCloudCSharp\bin\Debug\MyChemCloudCSharp.pdb
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.csprojResolveAssemblyReference.cache
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\MyChemCloudCSharp\obj\Debug\MyChemCloudCSharp.pdb

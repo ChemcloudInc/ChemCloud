@@ -1,0 +1,57 @@
+
+
+
+ 记录时间：2016-10-31 16:01:04,708 
+日志级别：  ERROR 
+出错类：ChemCloud.Service.OrderService.AutoCloseOrder  
+错误描述：AutoCloseOrder:The underlying provider failed on Open./r/n   在 System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   在 System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   在 System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   在 ChemCloud.Service.SiteSettingService.GetSiteSettings() 位置 e:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Service\SiteSettingService.cs:行号 20
+   在 ChemCloud.Service.OrderService.AutoCloseOrder() 位置 e:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Service\OrderService.cs:行号 90 
+
+
+
+
+ 记录时间：2016-10-31 16:01:25,750 
+日志级别：  ERROR 
+出错类：ChemCloud.Service.OrderService.AutoConfirmOrder  
+错误描述：AutoConfirmOrder:The underlying provider failed on Open./r/n   在 System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   在 System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   在 System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   在 ChemCloud.Service.SiteSettingService.GetSiteSettings() 位置 e:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Service\SiteSettingService.cs:行号 20
+   在 ChemCloud.Service.OrderService.AutoConfirmOrder() 位置 e:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Service\OrderService.cs:行号 137 
+
+
+
+
+ 记录时间：2016-10-31 16:01:25,800 
+日志级别：  ERROR 
+出错类：ChemCloud.Service.GiftsOrderService.AutoConfirmOrder  
+错误描述：AutoConfirmGiftOrder:The underlying provider failed on Open./r/n   在 System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   在 System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   在 System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   在 ChemCloud.Service.SiteSettingService.GetSiteSettings() 位置 e:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Service\SiteSettingService.cs:行号 20
+   在 ChemCloud.Service.GiftsOrderService.AutoConfirmOrder() 位置 e:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Service\GiftsOrderService.cs:行号 35 
+

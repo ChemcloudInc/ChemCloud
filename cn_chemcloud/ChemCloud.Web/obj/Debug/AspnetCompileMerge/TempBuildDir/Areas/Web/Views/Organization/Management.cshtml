@@ -1,0 +1,154 @@
+﻿@*@model  List<ChemCloud.Model.Organization>
+
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    //ViewBag.Title = "组织架构";
+}
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Areas/Web/Scripts/Organization.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/artdialog.css" rel="stylesheet" />
+<link href="~/Content/inner-custom.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/dtree.js"></script>
+<link href="~/Areas/Web/Content/dtree.css" rel="stylesheet" />
+<div class="box1 lh24">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">组织架构</h3>
+        
+    </div>
+    <div class="border-box">
+        <div class="search-box only-line">
+            <div class="form-group" style="height:30px; padding-top:5px; padding-left:30px;">
+                @foreach (var organization in Model)
+                {
+                    if (@organization.ParentId == 0)
+                    {
+                        <input type="button" class="btn btn-danger btn-ssm" id="AddOrg" style="width:70px; height:28px;cursor:pointer;margin-left:-30px" value="新增" />
+                        <input type="button" class="btn btn-danger btn-ssm" id="AddByOrg" style="width:70px; height:28px;cursor:pointer;" value="新增下级" />
+                        <input type="button" class="btn btn-danger btn-ssm" id="EditOrg" style="width:70px; height:28px;cursor:pointer;" value="编辑" />
+                        <input type="button" class="btn btn-danger btn-ssm" id="DeleOrg" style="width:70px; height:28px;cursor:pointer;" value="删除" />
+                    }
+                }
+            </div>
+        </div>
+        <div class="dtree">
+
+            <p><a href="javascript: d.openAll();">open all</a> | <a href="javascript: d.closeAll();">close all</a></p>
+
+            <script type="text/javascript">
+		<!--
+		d = new dTree('d');
+		d.add(0, -1, '组织架构');
+		d.add(1,0,'Node 1','example01.html');
+		d.add(2,0,'Node 2','example01.html');
+		d.add(3,1,'Node 1.1','example01.html');
+		d.add(4,0,'Node 3','example01.html');
+		d.add(5,3,'Node 1.1.1','example01.html');
+		d.add(6,5,'Node 1.1.1.1','example01.html');
+		d.add(7,0,'Node 4','example01.html');
+		d.add(8,1,'Node 1.2','example01.html');
+		//d.add(9, 0, '组织架构', 'example01.html', 'Pictures I\'ve taken over the years', '', '', '/Areas/Web/Images/img_tree/imgfolder.gif');
+		//d.add(10,9,'The trip to Iceland','example01.html','Pictures of Gullfoss and Geysir');
+		//d.add(11,9,'Mom\'s birthday','example01.html');
+		//d.add(12, 0, 'Recycle Bin', 'example01.html', '', '', '/Areas/Web/Images/img_tree/trash.gif');
+		document.write(d);
+		//-->
+            </script>
+
+        </div>
+
+    </div>
+ 
+  
+</div>*@
+@model  List<ChemCloud.Model.Organization>
+
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    //ViewBag.Title = "组织架构";
+}
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Areas/Web/Scripts/Organization.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/artdialog.css" rel="stylesheet" />
+<link href="~/Content/inner-custom.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<style>
+    body {
+        background:#f2f2f2;
+    }
+    .box1 {
+        padding: 15px 4px 20px 100px;
+    }
+</style>
+<div class="box1 lh24">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">组织架构</h3>
+
+    </div>
+    <div class="border-box">
+        <div class="search-box only-line">
+            <div class="form-group" style="height:30px; padding-top:5px; padding-left:30px;">
+                @foreach (var organization in Model)
+                {
+                    if (@organization.ParentId == 0)
+                    {
+                        <input type="button" class="btn btn-danger btn-ssm" id="AddOrg" style="width:70px; height:28px;cursor:pointer;margin-left:-30px" value="新增" />
+                        <input type="button" class="btn btn-danger btn-ssm" id="AddByOrg" style="width:70px; height:28px;cursor:pointer;" value="新增下级" />
+                        <input type="button" class="btn btn-danger btn-ssm" id="EditOrg" style="width:70px; height:28px;cursor:pointer;" value="编辑" />
+                        <input type="button" class="btn btn-danger btn-ssm" id="DeleOrg" style="width:70px; height:28px;cursor:pointer;" value="删除" />
+                    }
+                }
+            </div>
+        </div>
+
+        @*<div id="shopToolBar">
+
+            </div>*@
+    </div>
+    <table class="table category_table" id="list">
+        <thead>
+            <tr>
+                <th class="td-choose">选择</th>
+                <th>用户名</th>
+                <th class="td-operate"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (null == Model)
+            {
+                <tr>
+                    <td style="text-align:center;" colspan="3"><h2>没有组织架构</h2></td>
+                </tr>
+            }
+            else
+            {
+                foreach (var organization in Model)
+                {
+                    var @str = @organization.UserName + "(" + @organization.RoleName + ")";
+                    <tr class="level-1 caokai">
+                        <td class="td-choose"><input type="checkbox" name="" /></td>
+                        <td>
+                            <span class="glyphicon glyphicon-plus-sign"></span><input type="hidden" class="hidden_id" id="Id" value="@organization.Id" /><input class="text-name" type="text" value="@str" style="width:200px" disabled="disabled" />
+                        </td>
+                        <td class="td-operate">
+                            <span class="btn-a" style="width:200px">
+                                @*@if (organization.ParentId == 0)
+                                    {
+                                        <a href="./AddNewOrg">新增</a><a href="./AddByParent?Id=@organization.Id">新增下级</a><a href="./Edit?Id=@organization.Id">编辑</a><a class="delete-classify">删除</a>
+                                    }*@
+                            </span>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    @*<div class="table-bt clearfix">
+            <div class="tabel-operate">
+                <label><input class="check-all" type="checkbox" name="" />全选</label>
+                <button type="submit" id="deleteBatch" class="btn btn-danger btn-ssm">批量删除</button>
+            </div>
+        </div>*@
+</div>

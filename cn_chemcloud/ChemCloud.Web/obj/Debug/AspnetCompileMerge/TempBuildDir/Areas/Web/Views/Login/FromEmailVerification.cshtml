@@ -1,0 +1,169 @@
+﻿@model ChemCloud.Model.UserMemberInfo
+
+@{
+    Layout = null;
+}
+
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>注册</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/inner-custom.css" />
+    <link href="~/Areas/Web/Content/register.css" rel="stylesheet" />
+    <link href="~/Areas/Web/Content/artdilog.css" rel="stylesheet" />
+
+    <style>
+        .btn {
+            margin-left: 10px;
+            border: 1px solid #dddddd;
+            padding: 0;
+            width: 106px;
+            height: 36px;
+            background: #f4f4f4;
+            margin-top: 0;
+            text-align: center;
+            line-height: 36px;
+            color: #333;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+        }
+
+            .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+                border-color: #3498db;
+                border-bottom-color: #fff;
+                background-color: #fff;
+                color: #3498db;
+            }
+
+            .nav-tabs > li > a {
+                height: 39px;
+            }
+
+        #divhtml {
+            width: 100%;
+        }
+
+        .checkrdo {
+            padding: 0px;
+            margin-bottom: 20px;
+        }
+
+        .nav-tabs-custom {
+            background-color: #ffffff;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+            .nav-tabs-custom li {
+                margin-right: 50px;
+            }
+
+                .nav-tabs-custom li.active a {
+                    padding: 15px 20px;
+                }
+
+                .nav-tabs-custom li a.hover {
+                    text-decoration: none;
+                }
+    </style>
+</head>
+
+<body>
+
+    <div class="w">
+        <div id="logo">
+            <a href="/">
+                @*<img src="@ViewBag.Logo" alt="ChemCloud" height="60">*@
+                <img src="~/Areas/Web/images/logo.png" width="330" alt="ChemCloud" />
+            </a>
+        </div>
+    </div>
+    <hr style="border-top:1px #3498db solid; position:relative;top:59px;" />
+    <div class="w" id="regist">
+        <div class="mt" style="height:39px;">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">邮箱激活</a></li>
+            </ul>
+            <ul class="nav-tabs-custom">
+                <li type="statusTab"><a>查看入驻协议</a></li>
+                <li type="statusTab"><a>填写账号信息</a></li>
+                <li value="1" type="statusTab"><a>邮箱激活</a></li>
+                <li value="1" class="active" type="statusTab"><a>注册成功</a></li>
+
+            </ul>
+            <div class="extra"><span>我已经注册，现在就&nbsp;<a href="/login" class="flk13">登录</a></span></div>
+        </div>
+        <div style="padding-left:35%;padding-top:100px;padding-bottom:300px;">
+            @if (string.IsNullOrEmpty(Model.UserName))
+            {
+                 <span style="font-size:22px;float:left;">该链接已过期</span>
+                <input type="hidden" id="usertype" value="-1" />
+            }
+            else
+            {
+                <img style="width: 30px;float:left; font-size:16px;" src="~/Areas/Web/Images/succeed.png" />
+                <span style="font-size:22px;float:left;">邮箱验证成功，<span id="sec">5</span><span id="messagetip">秒后进入入驻协议流程</span></span>
+                <br />
+                <p style="clear:both;margin-top:30px;font-size:14px;">如果页面不能自动刷新，请点击<a href="" style="color:blue;text-decoration:underline;" id="here">这里</a></p>
+                <input type="hidden" id="usertype" value="@Model.UserType" />
+            }
+           
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="w">
+        <div id="footer">
+            <div class="copyright">Copyright©2015-2025&nbsp;&nbsp;ChemCloud&nbsp;版权所有</div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/jquery.artDialog.js"></script>
+    <script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+    <script src="~/Scripts/CommonJS.js"></script>
+    <script src="~/Areas/Web/Scripts/register.js"></script>
+</body>
+</html>
+
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script>
+    $(function () {
+        var usertype = $.trim($("#usertype").val());
+
+        if (usertype == "2") {
+            $("#messagetip").html("秒后进入入驻协议流程...");
+            $("#here").attr("href", "/sellerAdmin");
+            self.setInterval(function () {
+                location.href = '/sellerAdmin'; //跳转至首页
+            }, 5000)
+
+        } else if (usertype == "3") {
+            $("#messagetip").html("秒后进入个人中心...");
+            $("#here").attr("href", "/userCenter/?c=1");
+            self.setInterval(function () {
+                location.href = '/userCenter/?c=1';
+            }, 5000)
+        }
+        var t = 5;
+        setInterval(function () {
+            $("#sec").html(t);
+            if (t > 0) {
+                t = t - 1;
+            }
+
+        }, 1000);
+    });
+</script>

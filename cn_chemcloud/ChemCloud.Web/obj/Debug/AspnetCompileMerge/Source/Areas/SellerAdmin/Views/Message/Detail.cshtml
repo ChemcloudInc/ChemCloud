@@ -1,0 +1,69 @@
+﻿@model ChemCloud.Web.Areas.Admin.Models.SiteMessagesModel
+@using ChemCloud.Core;
+@{
+    ViewBag.Title = "Detail";
+}
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>消息明细</strong>
+        <li class="active"><a>消息明细</a></li>
+        <li><a href="./Management">消息列表</a></li>
+    </ul>
+
+    <h3 class="table-hd">消息明细</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            @*<tr>
+                    <td>模板ID</td>
+                    <td>@Model.Id</td>
+                </tr>*@
+            <tr>
+                <td>模板名称</td>
+                <td>@Model.MessageModule</td>
+            </tr>
+            <tr>
+                <td>消息内容</td>
+                <td>@Model.MessageContent</td>
+            </tr>
+            <tr>
+                <td>发送时间</td>
+                <td>@Model.SendTime</td>
+            </tr>
+            <tr>
+                <td>消息发送人</td>
+                <td>@Model.SendName</td>
+            </tr>
+            @{
+                if (@Model.Status == "已读")
+                {
+                    <tr>
+                        <td>阅读状态</td>
+                        <td>@Model.Status</td>
+                    </tr>
+                    <tr>
+                        <td>阅读时间</td>
+                        <td>@Model.ReadTime</td>
+                    </tr>
+                }
+            }
+
+            @*<tr>
+                    <td>接收人ID</td>
+                    <td>@Model.MemberId</td>
+                </tr>
+                <tr>
+                    <td>接收人</td>
+                    <td>@Model.ReceiveName</td>
+                </tr>
+                <tr>
+                    <td>接收人类别</td>
+                    <td>@Model.ReceType</td>
+                </tr>*@
+        </tbody>
+    </table>
+
+</div>

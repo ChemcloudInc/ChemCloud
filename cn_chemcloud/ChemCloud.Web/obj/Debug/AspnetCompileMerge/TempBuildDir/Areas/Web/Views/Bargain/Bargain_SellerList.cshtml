@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "询价列表";
+}
+
+<div class="box1 lh24">
+
+    <div class="title bot-border">
+        <h3 class="title_txt cur">产品信息</h3>
+    </div>
+    <div class="border-box">
+        @{
+            if (ViewBag.ProductInfo != null)
+            {
+                <ul>
+                    <li>化学品名称：@ViewBag.ProductInfo.ProductName</li>
+                    <li>CAS#：@ViewBag.ProductInfo.CASNo</li>
+                    <li>分子式：@ViewBag.ProductInfo.MolecularFormula</li>
+                    <li>纯度：@ViewBag.ProductInfo.Purity</li>
+                    <li>计量单位：@ViewBag.ProductInfo.MeasureUnit</li>
+                </ul>
+            }
+        }
+    </div>
+
+    <div class="title bot-border" style="margin-top:20px;">
+        <h3 class="title_txt cur">供应商列表</h3>
+    </div>
+    <div class="border-box">
+        <div id="shopToolBar">
+            <div class="search-box only-line">
+                <form class="custom-inline" role="form"></form>
+            </div>
+        </div>
+        <table class="table mt30" id="shopDatagrid" style="width:100%"></table>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script type="text/javascript">
+    function Query(productname) {
+        $("#shopDatagrid").hiMallDatagrid({
+            url: "/Bargain/PageList_Products",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { "productname": productname },
+            toolbar: "#shopToolBar",
+            columns:
+            [[
+                { field: "Id", title: "Id", hidden: true },
+                { field: "ShopId", title: "ShopId", hidden: true },
+                { field: "ShopName", title: "供应商名称", width: 220 },
+                { field: "ProductCode", title: "化学品编号", width: 220 },
+                { field: "Purity", title: "纯度", width: 60 },
+                { field: "Weight", title: "重量", width: 60 },
+                { field: "MarketPrice", title: "价格", width: 60 },
+                { field: "MeasureUnit", title: "计量单位", width: 60 },
+                {
+                    field: "operation", operation: true, title: "详情",
+                    formatter: function (value, row, index) {
+                        var html = ['<span class="btn-a">'];
+                        html.push('<a href="/Bargain/BargainAdd?Id=' + row.Id + '">议价</a>');
+                        html.push("</span>");
+                        return html.join("");
+                    }
+                }
+            ]]
+        });
+
+    };
+
+    $(function () {
+        var pname = "@ViewBag.ProductInfo.ProductName";
+ 
+        if (pname != "") {
+            Query(pname);
+        }
+    });
+</script>

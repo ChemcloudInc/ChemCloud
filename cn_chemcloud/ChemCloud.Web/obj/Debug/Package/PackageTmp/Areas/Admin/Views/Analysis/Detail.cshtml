@@ -1,0 +1,234 @@
+﻿@model ChemCloud.Model.ProductAnalysis
+<script src="~/Scripts/jquery.himemberpUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>分析鉴定详细</a></li>
+    </ul>
+    <div class="search-box">
+        <form class="form">
+            <div class="box1 lh24">
+                <div class="border-box" style="padding:10px; width: 986px;">
+                    <div class="orderinfo-box">
+                        <div class="mc">
+                            <dl class="fore">
+                                <dt><span style="color:#3498DB;font-family:'microsoft yahei';font-size: 14px;">委托方信息</span></dt>
+                                <dd>
+                                    <ul>
+                                        <li>委托方姓名：@Model.ClientName</li>
+                                        <li>报告抬头：@Model.ReportHeader</li>
+                                        <li>联系人：@Model.ClientLinkMan</li>
+                                        <li>手机：@Model.ClientMobilePhone</li>
+                                        <li>E-mail：@Model.ClientEmail</li>
+                                        <li>固话：@Model.ClientFixedLine </li>
+                                        <li>传真：@Model.ClientFax</li>
+                                        <li>地址：@Model.ClientAddress</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><span style="color:#3498DB;font-family:'microsoft yahei';font-size: 14px;">样品信息</span></dt>
+                                <dd>
+                                    <ul>
+                                        <li>样品名称：@Model.SampleName </li>
+                                        <li>样品数量：@Model.SampleQuantity </li>
+                                        <li>样品规格型号：@Model.SampleSpecifications </li>
+                                        <li>样品来源：@Model.SampleSource </li>
+                                        <li>相关资料：@Model.RelatedData </li>
+                                        <li>样品已知信息：@Model.KnownInformation </li>
+                                        @*<li>性状：@Model.CharacterItem：@Model.CharacterItemDescribe </li>*@
+                                        @if (Model.CharacterItem == 1)
+                                        {
+                                            <li>性状：固体,@Model.CharacterItemDescribe </li>
+                                        }
+                                        @if (Model.CharacterItem == 2)
+                                        {
+                                            <li>性状：液体,@Model.CharacterItemDescribe </li>
+                                        }
+                                        @if (Model.CharacterItem == 3)
+                                        {
+                                            <li>性状：气体,@Model.CharacterItemDescribe </li>
+                                        }
+                                        <li>颜色：@Model.SampleColor </li>
+                                        @*<li>危险性：@Model.DangerItem：@Model.DangerItemDescribe </li>*@
+                                        @if (Model.DangerItem == 1)
+                                        {
+                                            <li>危险性：无危险性</li>
+                                        }
+                                        @if (Model.DangerItem == 2)
+                                        {
+                                            <li>危险性：危险性未知</li>
+                                        } @if (Model.DangerItem == 3)
+                                        {
+                                            <li>危险性：有以下危险性,@Model.DangerItemDescribe</li>
+                                        }
+                                        <li>保存条件：@Model.StorageCondition </li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><span style="color:#3498DB;font-family:'microsoft yahei';font-size: 14px;">委托内容</span></dt>
+                                <dd>
+                                    <ul>
+                                        @*<li>常规分析：@Model.GeneralAnaly </li>*@
+                                        @if (Model.GeneralAnaly == 1)
+                                        {
+                                            <li>常规分析：<span>塑料  6760元/样品</span></li>
+                                        }
+                                        @if (Model.GeneralAnaly == 2)
+                                        {
+                                            <li>常规分析：<span>精细化学品（含高分子类产品用助剂） 6760元/样品</span></li>
+                                        }
+                                        @if (Model.GeneralAnaly == 3)
+                                        {
+                                            <li>常规分析：<span>橡胶、胶粘剂、涂料  8850元/样品</span></li>
+                                        }
+                                        @if (Model.GeneralAnaly == 4)
+                                        {
+                                            <li>常规分析：<span>油墨  9850元/样品</span></li>
+                                        }
+                                        @*<li>常规分析周期：@Model.GeneralAnalyCycle </li>*@
+                                        @if (Model.GeneralAnalyCycle == 10)
+                                        {
+                                            <li>常规分析周期：普通服务（10个工作日）</li>
+                                        }
+                                        @if (Model.GeneralAnalyCycle == 7)
+                                        {
+                                            <li>常规分析周期：加急服务（7个工作日，加收50%服务费）</li>
+                                        }
+                                        @if (Model.GeneralAnalyCycle == 5)
+                                        {
+                                            <li>常规分析周期：特急服务（5个工作日，加收100%服务费）</li>
+                                        }
+                                        @*<li>深度分析：@Model.DepthAnalysis </li>*@
+                                        @if (Model.DepthAnalysis == 1)
+                                        {
+                                            <li>深度分析：<span>塑料  10700元/样品</span></li>
+                                        }
+                                        @if (Model.DepthAnalysis == 2)
+                                        {
+                                            <li>深度分析：<span>精细化学品（含高分子类产品用助剂） 10700元/样品</span></li>
+                                        }
+                                        @if (Model.DepthAnalysis == 3)
+                                        {
+                                            <li>深度分析：<span>橡胶、胶粘剂、涂料  13700元/样品</span></li>
+                                        }
+                                        @if (Model.DepthAnalysis == 4)
+                                        {
+                                            <li>深度分析：<span>油墨  15700元/样品</span></li>
+                                        }
+                                        @*<li>深度分析周期：@Model.DepthAnalysisCycle </li>*@
+                                        @if (Model.DepthAnalysisCycle == 15)
+                                        {
+                                            <li>常规分析周期：普通服务（15个工作日）</li>
+                                        }
+                                        @if (Model.DepthAnalysisCycle == 10)
+                                        {
+                                            <li>常规分析周期：加急服务（10个工作日，加收50%服务费）</li>
+                                        }
+                                        @if (Model.DepthAnalysisCycle == 7)
+                                        {
+                                            <li>常规分析周期：特急服务（7个工作日，加收100%服务费）</li>
+                                        }
+                                        <li>重大项目分析费用：@Model.ProjectAnalysisCost </li>
+                                        <li>重大项目分析周期：@Model.ProjectAnalysisCycle </li>
+                                        <li>备注：@Model.Remarks</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+
+                            <dl>
+                                <dt><span style="color:#3498DB;font-family:'microsoft yahei';font-size: 14px;">服务要求</span></dt>
+                                <dd>
+                                    <ul>
+                                        <li>余样处理：@Model.ResidualSampleTreatment </li>
+                                        <li>退样地址：@Model.ReturnSampleAddress </li>
+                                        <li>报告格式：@Model.ReportFormat </li>
+                                        <li>服务费用：@Model.ServiceCharge </li>
+                                        @*/*1已提交2已确认3已支付4分析中5已完成*/*@
+                                        @if (Model.AnalysisStatus == 1)
+                                        {
+                                            <li style="color:#3498DB;font-family:'microsoft yahei';font-size: 14px;">状态：已提交</li> }
+                                        @if (Model.AnalysisStatus == 2)
+                                        {
+                                            <li style="color:#3498DB;font-family:'microsoft yahei';font-size: 14px;">状态：已确认</li> }
+                                        @if (Model.AnalysisStatus == 3)
+                                        {
+                                            <li style="color:#3498DB;font-family:'microsoft yahei';font-size: 14px;">状态：已支付</li> }
+                                        @if (Model.AnalysisStatus == 4)
+                                        {
+                                            <li style="color:#3498DB;font-family:'microsoft yahei';font-size: 14px;">状态：分析中</li> }
+                                        @if (Model.AnalysisStatus == 5)
+                                        {
+                                            <li style="color:#3498DB;font-family:'microsoft yahei';font-size: 14px;">状态：已完成</li>
+                                        }
+                                        @if (!string.IsNullOrEmpty(Model.AnalysisAttachments))
+                                        {
+                                            <li>平台分析报告附件：<a href="@Model.AnalysisAttachments" target="_blank">分析报告</a> </li>
+                                        }
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl style="margin-top:15px;">
+                                <dd>
+                                    <a style="height:33px;width:75px;border-radius:5px;"
+                                       class="btn btn-primary statusBtn" href="/Admin/Analysis/Index">返回</a>
+                                    @if (Model.AnalysisStatus == 1)
+                                    {
+                                        <a id="btnconfirm" style="height:33px;width:75px;border-radius:5px;"
+                                           class="btn btn-primary statusBtn" onclick="Confirm(2)">确认</a>
+                                    }
+                                    else if (Model.AnalysisStatus == 3)
+                                    {
+                                        <a id="btnconfirm" style="height:33px;width:75px;border-radius:5px;"
+                                           class="btn btn-primary statusBtn" onclick="Confirm(4)">审核</a>
+                                    }
+                                    else if (Model.AnalysisStatus == 4)
+                                    {
+                                        <a id="btnupload" style="height:33px;width:88px;border-radius:5px;"
+                                           class="btn btn-primary statusBtn">上传报告</a>
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<input type="hidden" id="hdid" value="@Model.Id" />
+
+<script type="text/javascript">
+    /*确认*/
+    function Confirm(Status) {
+        var Id = $("#hdid").val();
+        $.dialog.confirm("确定提交？", function () {
+            var loading = showLoading();
+            $.post('./UpdateAnalysisStatus', { Id: Id, AnalysisStatus: Status }, function (result) {
+                if (result.success) {
+                    $.dialog.succeedTips("操作成功！", function () { location.href = "/Admin/Analysis/Index"; });
+                }
+                else
+                    $.dialog.errorTips("操作失败!");
+                loading.close();
+            });
+        });
+    }
+    $(document).ready(function () {
+
+        $("#btnupload").click(function () {
+
+            var Id = $("#hdid").val();
+
+            $.dialog.confirm('确定需要上传附件吗?',
+           function () {
+               window.location.href = "/Admin/Analysis/UploadFile?Id=" + Id;
+           }),
+           function () {
+               window.location.href = '/Admin/Analysis/Index';
+           };
+        });
+    });
+
+</script>

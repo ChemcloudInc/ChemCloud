@@ -1,0 +1,210 @@
+﻿@model ChemCloud.Web.Areas.Admin.Models.Product.ProductModel
+
+@using System.Collections
+@{
+    ViewBag.Title = "Management";
+    // Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<style>
+    table tr td:nth-child(5) {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    function Query() {
+        var companyName = $.trim($("#companyName").val());//供应商名称
+        var productId = $.trim($.trim($('#productId').val()));//产品编号
+        var productStatus = $("#productStatus").val();//状态
+        var searchBox = $.trim($("#searchBox").val());//产品名称
+        var CASNO = $.trim($("#CASNO").val());
+        var CID = $("#CID").val();
+        $("#list").hiMallDatagrid({
+            url: "./List",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { CASNO: CASNO, productName: searchBox, productCode: productId, companyName: companyName, status: productStatus, type: $("#type").val() },//"shopAccount": shopAccount, "shopGradeId": shopGradeId,
+            toolbar: "#shopToolBar",
+            columns:
+            [[
+
+                { field: "id", title: "序号", width: 50, hidden: true },
+                {
+                    field: "CASNo", title: 'CASNO', width: 100
+                },
+
+                {
+                    field: "name", title: "产品名称", width: 200, formatter: function (value, row, index) {
+                        var id = row.id;
+                        var html = "";
+                        html = row.name;
+                        return html;
+                    }
+                },
+                {
+                    field: "ProductCode", title: "产品货号", width: 200, formatter: function (value, row, index) {
+                        var id = row.id;
+                        var html = "";
+                        html = row.ProductCode;
+                        return html;
+                    }
+                },
+                {
+                    field: "CompanyName", title: "供应商名称", width: 310, formatter: function (value, row, index) {
+                        var id = row.id;
+                        var html = "";
+                        html = row.CompanyName;
+                        return html;
+                    }
+                },
+                {
+                    field: "Status", title: "状态", width: 100, formatter: function (value, row, index) {
+                        var id = row.id;
+                        var html = "";
+                        if (row.Status == '上架') {
+                            if (row.ShopStatus != 2) {
+                                html += ('<span style="color:green" >上架销售</span>');
+                            }
+                            else { html += ('<span style="color:green" >已下架</span>'); }
+                        }
+                        else
+                            if (row.Status == '待审核') {
+                                html += ('<span style="color:blue" >待审核</span>');
+                            }
+                            else
+                                if (row.Status == '待审核(结构式)') {
+                                    html += ('<span style="color:blue" >待审核(结构式)</span>');
+                                }
+                                else
+                                    if (row.Status == '未通过') {
+                                        html += ('<span style="color:red" >未通过</span>');
+                                    }
+                        html = row.Status
+                        return html;
+                    }
+                },
+                {
+                    field: "operation", operation: true, title: "操作", width: 200,
+                    formatter: function (value, row, index) {
+                        var id = row.Id;
+                        var html = ['<span class="btn-a">'];
+                        if (row.Status == '上架') {
+
+                            html.push('<a href="./Details?id=' + row.id + '">查看</a>');
+                        }
+                        if ($("#type").val() == "Auditing" || row.Status == '待审核') {
+                            html.push('<a href="./Auditing?id=' + row.id + '">审核</a>');
+                        }
+                        if ($("#type").val() == "Salesing" || row.Status == '上架销售') {
+                            html.push('<a href="./SaleOff?id=' + row.id + '">违规下架</a>');
+                        }
+                        if ($("#type").val() == "SaleOff" || row.Status == '违规下架') {
+                            html.push('<a href="./Details?id=' + row.id + '">查看</a>');
+                        }
+                        if ($("#type").val() == "NoCasNoAuditing" || row.Status == '待审核(结构式)') {
+                            html.push('<a href="./NoCasNoAuditing?id=' + row.id + '">审核</a>');
+                        }
+                        if (row.Status == '未通过') {
+                            html.push('<a href="./Details?id=' + row.id + '">查看</a>');
+                        }
+                        html.push("</span>");
+
+                        return html.join("");
+                    }
+                }
+            ]]
+        });
+
+    };
+    $(function () {
+        Query();
+        $("#searchBtn").click(function (e) {
+            Query();
+            searchClose(e);
+        });
+    });
+</script>
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>产品</strong>
+        @if (((string)ViewBag.Type).Equals("Auditing"))
+        {
+            <li class="active"><a>单一产品审核</a></li>
+            <li><a href="./Management?type=NoCasNoAuditing">结构式审核</a></li>
+
+        }
+        @if (((string)ViewBag.Type).Equals("Salesing"))
+        {
+            <li><a href="./Management">所有产品</a></li>
+            <li class="active"><a>销售中</a></li>
+            @*<li><a href="./Management?type=SaleOff">违规下架</a></li>*@
+
+        }
+        @if (((string)ViewBag.Type).Equals("NoCasNoAuditing"))
+        {
+            <li><a href="./Management?type=Auditing">单一产品审核</a></li>
+            <li class="active"><a>结构式审核</a></li>
+        }
+        @if (((string)ViewBag.Type).Equals("SaleOff"))
+        {
+
+            <li><a href="./Management">所有产品</a></li>
+            <li><a href="./Management?type=Salesing">销售中</a></li>
+            @*<li class="active"><a>违规下架</a></li>*@
+        }
+        @if ((string.IsNullOrWhiteSpace((string)ViewBag.Type)))
+        {
+            <li class="active"><a>所有产品</a></li>
+            <li><a href="./Management?type=Salesing">销售中</a></li>
+            @*<li><a href="./Management?type=SaleOff">违规下架</a></li>*@
+        }
+
+    </ul>
+    <div id="divList">
+        <div class="search-box">
+            <form class="custom-inline">
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width: 68px;">产品名称：</label>
+                    <input class="form-control input-ssm" type="text" id="searchBox">
+                </div>
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width: 68px;">供应商：</label>
+                    <input class="form-control input-ssm" type="text" id="companyName">
+                </div>
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width: 68px;">产品货号：</label>
+                    <input class="form-control input-ssm" type="text" id="productId">
+                </div>
+            </form>
+            <form class="custom-inline">
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width: 68px;">CAS#：</label>
+                    <input class="form-control input-ssm" type="text" id="CASNO">
+                </div>
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width: 68px;">产品状态：</label>
+                    @Html.DropDownListFor(s => s.Status, ((IEnumerable<SelectListItem>)ViewBag.Status),
+                    new { @class = "form-control input-ssm", id = "productStatus" })
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" id="searchBtn">搜 索</button>
+            </form>
+        </div>
+        <table id="list" class="table"></table>
+        <input type="hidden" value="@ViewBag.Type" id="type" />
+        @*<div class="tabel-operate" id="saleOff" style="display:none;">
+                <button type="button" id="infractionSaleOffBtn" onclick="batchInfractionSaleOff()" class="btn btn-default btn-ssm">违规下架</button>
+            </div>*@
+    </div>
+
+
+</div>
+
+
+

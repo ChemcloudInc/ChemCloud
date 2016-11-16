@@ -1,0 +1,5 @@
+#table_RefusalDial { width: 360px; height: 170px; margin: 0px auto; }
+    #table_RefusalDial .ref_title { width: 80px; }
+    #table_RefusalDial tr td input { width: 270px; }
+    #table_RefusalDial tr td textarea { }
+    #table_RefusalDial tr td select { width: 270px; }

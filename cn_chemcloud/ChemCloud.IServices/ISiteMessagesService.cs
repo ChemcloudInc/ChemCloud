@@ -58,5 +58,7 @@ namespace ChemCloud.IServices
         bool SendApplyPassMessage(long UserId);
 
         bool SendApplyNoPassMessage(long UserId);
+
+        void SendMessage(MessageDetial md, long userId, string[] urls);
     }
 }

@@ -1,0 +1,234 @@
+﻿@using ChemCloud.Web.Areas.Web.Models;
+@using ChemCloud.Model;
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>卖家处理退款申请</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    <style>
+        #Refund {
+            width: 1210px;
+            position: relative;
+            padding: 2px 0 30px 280px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        #liucheng {
+            background: #fff;
+            padding: 20px 8px;
+        }
+
+        #Refund .Refund_border .siader h3 {
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .Refund_border {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="Refund">
+        <div class="Refund_border" style="width:1004px; margin-top:20px;">
+            <div class="main_liu">
+                <div class="header_liu">
+                    <h3 style="font-weight:bold;">退款信息</h3>
+                    <span class="header_liu_chu" id="type"></span>
+                    <span class="header_hong"></span>
+                    <span class="header_xi"></span>
+                </div>
+                <div class="Refund_form">
+
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_text">退款状态：</span>
+                        </div>
+                        <span style="color:red;" id="spanstatus"></span>
+                    </div>
+
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_text">退款原因：</span>
+                        </div>
+                        <select name="" id="Reson" style="width:300px;">
+                            <option value="0">收到的产品与采购产品不一致</option>
+                            <option value="1">产品无法使用</option>
+                            <option value="2">其它原因</option>
+                        </select>
+                        <span><input type="text" id="ReasonEdit" style="display:none;" value="" disabled="disabled"></span>
+                    </div>
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_text">退款金额：</span>
+                        </div>
+                        <input type="text" id="Amont" value="" disabled="disabled">
+                        <span>元</span>
+                    </div>
+
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_text">退款说明：</span>
+                        </div>
+
+                        <textarea class="textarea" id="txtinstruction" disabled="disabled">@ViewBag.TKInstruction</textarea>
+                    </div>
+
+
+                    <div class="form_hang" id="divhifu">
+                        <div class="form_hang">
+                            <span class="lable">回复：</span>
+                            <textarea class="textarea" id="Introduce"></textarea>
+                        </div>
+                    </div>
+                    <div class="button_hang" style="padding-bottom:20px" id="divbutton">
+                        <span class="sq_button">
+                            <a onclick="TK(@ViewBag.OrderNo,1)" class="sq_a_button">同意退款</a>
+                        </span>
+                        <span class="sq_button">
+                            <a href="" onclick="TK(@ViewBag.OrderNo,2)" class="sq_a_button">拒绝退款</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="siader">
+                <h3>订单信息</h3>
+                <div class="border_sia">
+                    <div class="line_height_sia">
+                        <span class="guding">采购商：</span>
+                        <span>@ViewBag.ShopName</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span>订单编号：</span>
+                        <span class="blud_span">@ViewBag.OrderNo</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">单 价：</span>
+                        <span class="hong_span">@ViewBag.total</span>
+                        <span>元</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">快 递：</span>
+                        <span class="hong_span">@ViewBag.yunfei</span>
+                        <span>元</span>
+                    </div>
+                </div>
+                @*<div class="border_sia bor_bottom">
+                        联系平台：
+                        <span class="sq_button pt_button">
+                            <a onclick="onlinetalk('2')" class="sq_a_button">联系我们</a>
+                        </span>
+                    </div>*@
+            </div>
+
+
+            <div class="border_wai" style="margin-top:50px">
+                <h3 class="h3_gui"><span class="title_header">留言板</span></h3>
+                @if (ViewBag.tkmms != null)
+                {
+                    foreach (TKMessageModel item in ViewBag.tkmms as List<TKMessageModel>)
+                    {
+                        <div class="liuyan_div">
+                            <div class="left_img">
+                                <div class="img_tou">
+                                    <img src="~/images/2.jpg" alt="">
+                                </div>
+                                <div title=@item.ReturnName class="myname">@item.ReturnName</div>
+                            </div>
+                            <div class="right_input">
+                                <div class="right_text">@item.MessageContent<span class="time_span">@item.MessageDate.ToString("yyyy-MM-dd HH:mm:ss")</span></div>
+                                @foreach (TKImageInfo item1 in @item.tkis)
+                                {
+                                    <div class="image_tu">
+                                        <div class="left_img_tu">
+                                            <img src="@item1.TKImage" alt="ChemCloud">
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<input type="hidden" id="hdOrderNo" value="@ViewBag.OrderNo" />
+<input type="hidden" id="hdtype" value="@ViewBag.type" />
+<input type="hidden" id="hdTKResion" value="@ViewBag.TKResion" />
+<input type="hidden" id="hdTKAmont" value="@ViewBag.TKAmont" />
+<script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.TKUpload.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script>
+    $(function () {
+
+
+        $("#txtinstruction").val();
+
+        var type = $("#hdtype").val(); /*状态*/
+
+        if (type == "3" || type == "4" || type == "5") {
+            $("#divhifu").css("display", "none");
+
+            $("#divbutton").css("display", "none");
+        }
+
+
+        switch (type) {
+            case "1": type = "退款中"; break;
+            case "2": type = "仲裁中"; break;
+            case "3": type = "同意退款"; break;
+            case "4": type = "拒绝退款"; break;
+            case "5": type = "已完成"; break;
+        };
+        $("#spanstatus").html(type);
+
+        var resion = $("#hdTKResion").val();
+        var tkamont = $("#hdTKAmont").val();
+
+
+        $("#Amont").attr("disabled", "disabled");
+        $("#Reson").attr("disabled", "disabled");
+        $("#Amont").val(tkamont);
+        var count = $("#Reson").get(0).options.length;
+        var isExist = false;
+        for (var i = 0; i < count; i++) {
+            if ($("#Reson").get(0).options[i].text == resion) {
+                $("#Reson").get(0).options[i].selected = true;
+                isExist = true;
+                break;
+            }
+        }
+
+    });
+
+    /*退款*/
+    var TK = function (orderNo, att) {
+
+        $.post("InsertTK", {
+            OrderNo: $("#hdOrderNo").val(),
+            Reson: $('#Reson option:selected').text(),
+            Amont: $("#Amont").val(),
+            Introduce: $("#Introduce").val(),
+            images: "",
+            Attitude: att
+        }, function (data) {
+            if (data.success == true) {
+                $.dialog.succeedTips(data.msg);
+                location.href = "/SellerAdmin/TK/Management";
+            } else {
+                $.dialog.succeedTips(data.msg);
+            }
+        });
+    }
+</script>

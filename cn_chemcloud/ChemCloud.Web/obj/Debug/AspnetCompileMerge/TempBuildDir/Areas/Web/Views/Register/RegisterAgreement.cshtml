@@ -1,0 +1,205 @@
+﻿@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户注册协议</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/inner-custom.css" />
+    <link href="~/Areas/Web/Content/register.css" rel="stylesheet" />
+    <link href="~/Areas/Web/Content/artdilog.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/LodopFuncs.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="~/Scripts/jquery.nicescroll.min.js"></script>
+</head>
+<body>
+    <style>
+        .nav-tabs {
+         border-bottom:none;
+        }
+
+            .nav-tabs > li > a {
+                border:none;
+            }
+       .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+            border-color:#3498db;
+            border-bottom-color:#fff;
+            background-color:#fff;
+            color:#3498db;
+        }
+       .nav-tabs>li>a.hover{
+            background-color:#fff;
+            border-color:#fff;
+            border-bottom-color:#3498db;
+       }
+        #divhtml {
+            width:100%;
+        }
+        .checkrdo{
+            padding:0px;
+            margin-bottom:20px;
+        }
+        .nav-tabs-custom {
+             background-color:#ffffff;
+             margin-top:20px;
+             
+             text-align:center;
+         }
+        .nav-tabs-custom li{
+             margin-right:50px;
+        }
+        .nav-tabs-custom li.active a {
+            padding:15px 20px;
+        }
+        .nav-tabs-custom li a.hover {
+            text-decoration:none;
+        }
+        .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+            background: rgb(0,130,188);
+            color: #fff;
+            border-bottom: 1px solid rgb(0,130,188);
+        }
+       
+    </style>
+
+    <div class="w">
+        <div id="logo">
+            <a href="/">
+                @*<img src="@ViewBag.Logo" alt="ChemCloud" height="60">*@
+                <img src="~/Areas/Web/images/logo.png" width="330" alt="ChemCloud" />
+            </a>
+        </div>
+    </div>
+    <hr  style="border-top:1px #3498db solid; position:relative;top:59px;"/>
+    <div class="w" id="regist">
+        <div class="mt"  style="height:39px;"   >
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" style="margin-right:0;font-size: 18px;margin-top:-9px;">采购商注册</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" style="margin-right:0;font-size:18px;margin-top:-9px;">供应商注册</a></li>
+            </ul>
+            <ul class="nav-tabs-custom">
+                <li class="active" type="statusTab"><a>查看入驻协议</a></li>
+                <li value="1" type="statusTab"><a>填写账号信息</a></li>
+                <li value="1" type="statusTab"><a>邮箱激活</a></li>
+                <li value="1" type="statusTab"><a>注册成功</a></li>
+
+            </ul>
+            <div class="extra"><span>我已经注册，现在就&nbsp;<a href="/login" class="flk13">登录</a></span></div>
+        </div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="mc">
+                    <form class="form-horizontal" role="form" method="post" action="JoinSeller_Step1">
+                        <div class="form-group" style="max-height: 340px; overflow-y: scroll; border: 1px solid #ccc;">
+                            <div class="col-sm-10 col-sm-offset-1" id="divhtml">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-9 col-sm-offset-1 checkrdo">
+                            <input type="checkbox" onclick="changeArgeement1(this)" /> 我已阅读并同意以上协议
+                        </div>
+                        @*<div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-4">
+                        <label><input type="checkbox" id="agree" name="agree" /></label>
+                    </div>
+                </div>*@
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <button type="button" class="btn btn-primary" disabled="disabled" id="Argeement">下一步</button>
+                                @*<input type="button" class="btn btn-primary statusBtn" status="passArgeement" value="同意" />*@
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <div class="mc">
+                    <form class="form-horizontal" role="form" method="post" action="JoinSeller_Step1">
+                  
+                        <div class="form-group" style="max-height: 340px; overflow-y: scroll; border: 1px solid #ccc;">
+                            <div class="col-sm-10 col-sm-offset-1" id="divhtml1">
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-9 col-sm-offset-1 checkrdo">
+                            <input type="checkbox" onclick="changeArgeement2(this)" /> 我已阅读并同意以上协议
+                        </div>
+                        @*<div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-4">
+                        <label><input type="checkbox" id="agree" name="agree" /></label>
+                    </div>
+                </div>*@
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <button type="button" class="btn btn-primary" disabled="disabled" id="Argeement1">下一步</button>
+                                @*<input type="button" class="btn btn-primary statusBtn" status="passArgeement" value="同意" />*@
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+    <div class="w">
+        <div id="footer">
+            <div class="copyright">Copyright©2015-2025&nbsp;&nbsp;ChemCloud&nbsp;版权所有</div>
+        </div>
+    </div>
+    
+
+
+</body>
+</html>
+<script src="~/Scripts/CommonJS.js"></script>
+<script>
+    $(function () {
+        $('#refuse').click(function () {
+            location.href = "/";
+        });
+        $("#Argeement").click(function () {
+            location.href = "./Index";
+        });
+        $("#Argeement1").click(function () {
+            location.href = "./Index_";
+        });
+
+        $.post("/register/RegisterAgreememtInfo", "", function (result) {
+            if (result.success) {
+                $("#divhtml").append(result.AgreementContent);
+                $("#divhtml1").append(result.AgreementContent1);
+            }
+        })
+    });
+
+    var changeArgeement1 = function (b) {
+       
+        if (!$(b).is(':checked')) {
+            $("#Argeement").attr("disabled", "disabled");
+        } else {
+            $("#Argeement").removeAttr("disabled");
+        }
+    }
+
+
+    var changeArgeement2 = function (b) {
+
+        if (!$(b).is(':checked')) {
+            $("#Argeement1").attr("disabled", "disabled");
+        } else {
+            $("#Argeement1").removeAttr("disabled");
+        }
+    }
+
+</script>

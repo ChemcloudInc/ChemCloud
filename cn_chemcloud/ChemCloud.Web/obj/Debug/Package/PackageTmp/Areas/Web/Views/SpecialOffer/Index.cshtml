@@ -1,0 +1,160 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <input type="hidden" id="hdusertype" value="@ViewBag.UserType" />
+
+    <div class="w main">
+        <div class="right-extra" style="width:100%">
+            <div class="clr"></div>
+            <div class="m" id="select">
+                <div class="mt">
+                    <h1><strong>特价商品</strong></h1>
+                    <div class="total">
+                        <span>(共<strong id="res_count"></strong>个产品)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="clr"></div>
+            <style>
+                .p-img {
+                    display: table-cell;
+                    vertical-align: middle;
+                    width: 193px;
+                    height: 235px;
+                    text-align: center;
+                }
+            </style>
+            <div class="m psearch prebuy plist-n7 no-preview" id="plist">
+                <ul class="list-h cl"></ul>
+            </div>
+
+            <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
+        </div>
+        <span class="clr"></span>
+    </div>
+</body>
+</html>
+<script src="~/Areas/Web/Scripts/jquery.pagination.js"></script>
+<script type="text/javascript">
+    var totalcount = 0;
+    var maxcount = 0;
+    var pagesize = 10;
+    var pageno = 1;
+    $(function () {
+        QueryResultCount();
+        QueryResult();
+        $(window).scroll(function () {
+            /*当滚动到最底部以上500像素时， 加载新的查询结果*/
+            if ($(document).height() - $(this).scrollTop() - $(this).height() < 500) {
+                if (pageno < maxcount) {
+                    pageno = pageno + 1;
+                    QueryResult();
+                    $(".list-h li").lazyload();
+                    return false;
+                }
+            }
+        });
+    });
+    /*查记录数量*/
+    function QueryResultCount() {
+        $.ajax({
+            type: 'post',
+            url: '/SpecialOffer/SearchResultCount',
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                $("#res_count").html(data);
+                totalcount = parseInt(data);
+                maxcount = totalcount / 10;
+            }
+        });
+    };
+    /*查数据*/
+    function QueryResult() {
+        var loading = showLoading1();
+        $.ajax({
+            type: 'post',
+            url: '/SpecialOffer/SearchResult',
+            data: {
+                "pagesize": pagesize,
+                "pageno": pageno
+            },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                var html = "";
+                if (data == "") {
+                    html += "<span>很抱歉，没有找到相关的产品。</span>";
+                } else {
+                    var json = $.parseJSON(data);
+                    $.each(json.ds, function (i, item) {
+                        /*产品图片*/
+                        var imgdataurl = "https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=" + item.Pub_CID + "&t=l";
+                        if (item.Description != "" && item.Description.length > 10) {
+                            imgdataurl = item.Description;
+                        }
+                        html += "<li>";
+                        html += "   <div class=\"lh-wrap\" style='width:210px;'>";
+                        html += "        <div class=\"p-img\"><a alt=\"" + item.ProductName + "\"><img class=\"lazyload\" src=\"" + imgdataurl + "\" data-url=\"" + imgdataurl + "\" ></a></div>";
+                        html += "        <div class=\"p-price\"><strong>" + item.ProductName + "</strong></div>";
+                        html += "        <div class=\"p-price\">商品货号：" + item.ProductCode + "</div>";
+                        html += "        <div class=\"p-price\">供应商：" + item.ShopName + "</div>";
+
+                        html += "        <div class=\"p-price\"  id=\"fenzishi\"><a style=\"float:right;cursor:pointer;font-weight: bolder;font-size: 15px;color:#3498DB;text-decoration:none; margin-left:3px;\" onclick=\"xunpan(" + item.Id + ")\">询盘</a><a style=\"float:right;color:#3498DB;cursor:pointer;font-weight: bolder;font-size: 15px;text-decoration:none;\" onclick=\"xiadan(" + item.Id + ")\">下单</a></div>";
+                        html += "   </div>";
+                        html += "</li>";
+                    });
+                }
+                $(".list-h").append(html);
+                loading.close();
+            }
+        });
+    };
+
+    function showLoading1(msg, delay) {
+        if (!delay)
+            delay = 100;
+        var loading = $('<div class="ajax-loading" style="display:none"><table height="100%" width="100%"><tr><td align="center"><p>' + (msg ? msg : '') + '</p></td></tr></table></div>');
+        loading.appendTo('body');
+        var s = setTimeout(function () {
+            if ($(".ajax-loading").length > 0) {
+                loading.show();
+                $('.container,.login-box').addClass('blur');
+            }
+        }, delay);
+        return {
+            close: function () {
+                clearTimeout(s);
+                loading.remove();
+                $('.container,.login-box').removeClass('blur');
+            }
+        }
+    }
+
+    /*询盘*/
+    function xunpan(id) {
+
+        var usertype = $("#hdusertype").val();
+
+        if (usertype == "2") { $.dialog.errorTips("供应商账户无法进行操作！"); } else if (usertype == "3")
+        { location.href = "/userCenter/Index?productid=" + id + "&type=bargain"; } else {
+            $.dialog.errorTips("请先登录！", function () { location.href = "/Login/Index"; });
+        }
+    }
+
+    /*下单*/
+    function xiadan(id) {
+
+        var usertype = $("#hdusertype").val();
+ 
+        if (usertype == "2") { $.dialog.errorTips("供应商账户无法进行操作！"); } else if (usertype == "3")
+        { location.href = "/userCenter/Index?productid=" + id + "&type=order"; } else {
+            $.dialog.errorTips("请先登录！", function () { location.href = "/Login/Index"; });
+        }
+    }
+</script>

@@ -1,0 +1,219 @@
+﻿@using System.Collections
+@{
+    //Layout = "~/Areas/Web/Views/Shared/_SimpeHeadAndFoot.cshtml";
+    ViewBag.Title = "ProductCertification";
+}
+<link href="~/Areas/Web/Content/css.css" rel="stylesheet" />
+<link href="~/Content/inner-custom.css" rel="stylesheet" />
+<link href="~/Areas/Web/Content/news.css" rel="stylesheet" />
+<style>
+     #mohu {
+        margin-top: -55px;
+    }
+     .top_fl {
+        width: 446px;
+    }
+     .syl_img_bg{
+        width: 1300px;
+        margin: 0 auto;
+     }
+     a{
+         font-size:12px;
+     }
+    .syl_left_img {
+        /*background-color: #f7f7f7;*/
+        height: 300px;
+        background: url(/Areas/Web/Images/tip_05.png) no-repeat #f7f7f7;
+        background-repeat: no-repeat;
+        background-position: 20%;
+    }
+
+    .syl_left_img_main {
+        width: 600px;
+        margin-left: 500px;
+        /* margin-top: 200px; */
+    }
+
+    .syl_left_img_main h3 {
+        color: #666;
+        font-size: 30px;
+        font-weight: 400;
+        padding-bottom: 10px;
+        font-family: '华文新魏';
+    }
+
+    .syl_left_img_main div {
+        color: #6d6d6d;
+        font-size: 14px;
+        line-height: 30px;
+    }
+
+    .syl_right_img {
+        height: 304px;
+        background: url(/Areas/Web/Images/tip_06.png) no-repeat;
+        background-repeat: no-repeat;
+        background-position: 80% 64%;
+    }
+    .syl_right_img_2{
+        background: url(/Areas/Web/Images/tip_08.png) no-repeat;
+        background-repeat: no-repeat;
+        background-position: 80% 64%;
+    }
+    .syl_left_img_2{
+        background: url(/Areas/Web/Images/tip_07.png) no-repeat #f7f7f7;
+        background-repeat: no-repeat;
+        background-position: 20%;
+    }
+    .title_back_1 {
+        background-position-x: 10%;
+        height: 80px;
+        background: url(/Areas/Web/Images/tu_01.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+
+    .title_back_2 {
+        background-position-x: 10%;
+        height: 80px;
+        background: url(/Areas/Web/Images/tu_06.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+
+    .title_back_3 {
+        height: 80px;
+        background-position-x: 10%;
+        background: url(/Areas/Web/Images/tu_04.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+    .title_back_4{
+        height: 80px;
+        background-position-x: 10%;
+        background: url(/Areas/Web/Images/tip_04.png);
+        background-repeat: no-repeat;
+        background-position-x: 10%;
+    }
+    .syl_right_img .tabl {
+        border-radius: 4px;
+    }
+
+    .syl_right_img .syl_right_img_main {
+        width: 600px;
+        margin-left: 200px;
+    }
+
+    .borderR {
+        border: 1px solid rgb(221,221,221);
+        border-radius: 4px;
+    }
+
+    #divNews table tr td {
+        border: none;
+    }
+
+    #divNews table {
+        margin-top: 0;
+    }
+
+    #divNews table tr:nth-child(odd) {
+        background-color: #fafafa;
+    }
+
+    #divNews table tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    .header_img_back {
+        background: url(/Areas/Web/Images/bgbanner.jpg);
+        background-size: 100%;
+        height: 174px;
+    }
+
+    .syl_right_img_main h3 {
+        color: #666;
+        font-size: 30px;
+        font-weight: 400;
+        padding-bottom: 10px;
+        font-family: '华文新魏';
+    }
+
+    .title_q {
+        width: 1120px;
+        margin: 0 auto;
+        height: 50px;
+        background: url(/Areas/Web/Images/tu_05.png) no-repeat;
+        line-height: 50px;
+        text-indent: 4em;
+        font-size: 16px;
+        color: rgb(59,127,174);
+    }
+
+    .width_a {
+        width: 1120px;
+        margin: 0 auto;
+        clear: both;
+        overflow: hidden;
+    }
+
+    .title_a {
+        width: 1030px;
+        background: rgb(250,250,250);
+        float: right;
+        border-radius: 4px;
+        margin: 6px 0;
+        line-height: 20px;
+        padding: 5px;
+    }
+</style>
+<div id="divNews">
+    <div>
+        <div class="header_img_back"></div>
+        <div class="syl_img_bg">
+            <div class="syl_left_img">
+                <div class="title_back_1"></div>
+                <div class="syl_left_img_main">
+                    <h3>什么是Chemcloud产品分析和认证服务介绍</h3>
+                    <div>
+                        Chemcloud产品分析和认证服务是chemcloud平台基于自身的众多资源推出的产品分析和认证的代理服务。Chemcloud本身并不具备产品分析和认证服务的资质和能力，也不参与每一项产品分析和认证的服务。
+                    </div>
+                </div>
+            </div>
+            <div class="syl_right_img">
+                <div class="title_back_2"></div>
+                <div class="syl_right_img_main">
+                    <h3>为什么选择Chemcloud产品分析和认证服务</h3>
+                    <div style="color: #6d6d6d;font-size: 14px;line-height: 30px;">
+                        产品的分析和认证服务是很多企业必须接触的业务。药品结构，纯度，等等都需要产品分析。
+                        而企业机构想要进行相关资质申请时，相应的认证服务是必须的。
+                        当今检测机构鱼目混杂，良莠不齐，很多所谓机构甚至只是外包公司。企业很容易遭受损失。
+                        Chemcloud与国内权威检测机构深度合作，用户在chemcloud上可以与机构直接接触，避免
+                        中间环节和可能受到的欺骗，享受实惠而又放心的服务。
+                    </div>
+
+                </div>
+            </div>
+            <div class="syl_left_img syl_left_img_2">
+                <div class="title_back_3"></div>
+                <div class="syl_left_img_main">
+                    <h3>Chemcloud产品分析和认证服务的具体流程</h3>
+                    <div>
+                        用户下载产品分析和认证服务申请表，填写完毕后，在网页上提交，由后台审核。审核通过后转交给分析认证机构。由机构人员与用户直接对接，双方达成一致后，签订合同，在平台上进行付款交易。
+                    </div>
+
+                </div>
+            </div>
+            <div class="syl_right_img syl_right_img_2">
+                <div class="title_back_4"></div>
+                <div class="syl_right_img_main">
+                    <h3>Chemcloud产品分析和认证服务如何收费</h3>
+                    <div style="color: #6d6d6d;font-size: 14px;line-height: 30px;">
+                        服务的价格和用户选择的服务有关。用户提交申请表时，chemcloud会提供估价，但最终价
+                        格以用户和机构在合同上确定的价格为准。Chemcloud在其中不收取任何的手续费，只希望
+                        让chemcloud上的用户能够享受到最好的服务。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

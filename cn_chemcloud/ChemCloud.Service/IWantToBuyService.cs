@@ -1201,10 +1201,19 @@ namespace ChemCloud.Service
                 PageInfo = new PageInfo(),
                 Msg = new Result_Msg() { IsSuccess = true }
             };
-
+             DateTime NowDate = DateTime.Now;
             try
             {
+                var orders = from iWantToBuy in context.IWantToBuy
+                             where iWantToBuy.DeliveryDate < NowDate && iWantToBuy.Status == 0
+                             select iWantToBuy;
+                foreach (var order in orders)
+                {
+                    order.Status = 2;
+                }
+                context.SaveChanges();
                 var linqList = from iWantToBuy in context.IWantToBuy select iWantToBuy;
+               
 
                 #region 拼接 Linq 查询条件
                 //if (query.ParamInfo.UserType != 0)

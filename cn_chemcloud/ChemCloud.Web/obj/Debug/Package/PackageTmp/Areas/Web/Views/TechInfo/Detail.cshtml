@@ -1,0 +1,161 @@
+﻿@model ChemCloud.Model.TechnicalInfo
+@using ChemCloud.Core;
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "技术资料明细";
+}
+<script src="~/Scripts/jquery.nicescroll.min.js"></script>
+<script src="~/Scripts/jquery.nicescroll.plus.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script>
+    var eidtor;
+    $(function () {
+        eidtor = UE.getEditor('techContent', { initialFrameHeight: 300, initialFrameWidth: 700, setDisabled: ('fullscreen'), readonly: true });
+        (function initRichTextEditor() {
+            eidtor = UE.getEditor('techContent');
+            eidtor.addListener('contentChange', function () {
+                $('#contentError').hide();
+            });
+        })();
+
+    });
+</script>
+
+<style>
+    .nav > li > a {
+        padding: 0 10px;
+    }
+
+   .box1 {
+        margin: 0 auto;
+        margin-left: 0px;
+        padding-left: 272px;
+        padding: 0px 4px 4px 274px;
+        width: 78%;
+    }
+</style>
+<div class="box1 lh24">
+    <div class="title bot-border" style="margin-top:20px;">
+        <h3 class="title_txt cur">技术资料明细</h3><h3 class="title_txt cur" style="border:0"><a href="./Management">技术资料列表</a></h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            <div class="form">
+                <div class="item" id="select-regName">
+                    <span class="label">标题：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techTitle" name="techTitle" value="@Model.Title" class="text" style="width:570px;height:20px" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="realName">
+                    <div class="item" id="realName">
+                        <span class="label">发布时间：</span>
+                        <div class="fl item-ifo">
+                            <input type="text" id="techPublishTime" name="techPublishTime" value="@Model.PublishTime" class="text" style="width:570px;height:20px" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="realName">
+                    <div class="item" id="realName">
+                        <span class="label">状态：</span>
+                        <div class="fl item-ifo">
+                            @if (Model.Status == 1)
+                            {
+                                <input type="text" id="techStatus1" name="techStatus" value="待审核" class="text" style="width:570px;height:20px" disabled="disabled">
+                            }
+                            else if (Model.Status == 2)
+                            {
+                                <input type="text" id="techStatus2" name="techStatus" value="审核通过" class="text" style="width:570px;height:20px" disabled="disabled">
+                            }
+                            else if (Model.Status == 3)
+                            {
+                                <input type="text" id="techStatus3" name="techStatus" value="审核未通过" class="text" style="width:570px;height:20px" disabled="disabled">
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-Name">
+                    <span class="label">作者：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techAuthor" name="techAuthor" value="@Model.Author" class="text" style="width:570px;height:20px" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-Name">
+                    <span class="label">电话：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techTel" name="techTel" value="@Model.Tel" class="text" style="width:570px;height:20px" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-Name">
+                    <span class="label">邮箱：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techEamil" name="techEamil" value="@Model.Email" class="text" style="width:570px;height:20px" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-Name">
+                    <span class="label">发布人：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techPublisher" name="techPublisher" value="@Model.PublisherName" class="text" style="width:570px;height:20px" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-Name">
+                    <span class="label">审核人：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techAuditor" name="techAuditor" value="@Model.AuditorName" class="text" style="width:570px;height:20px" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="realName">
+                    <div class="item" id="realName">
+                        <span class="label">技术资料内容：</span>
+                        <div class="fl item-ifo">
+                            <textarea id="techContent" name="techContent" style="width:700px;height:300px">@Model.TechContent</textarea>
+                        </div>
+                    </div>
+                </div>
+                @if (@ViewBag.attachmentCount > 0)
+                {
+                    {
+                        int i = 1;
+                        foreach (ChemCloud.Model.AttachmentInfo item in ViewBag.attachmentInfo as List<ChemCloud.Model.AttachmentInfo>)
+                        {
+                            string fileName = System.IO.Path.GetFileName(@item.AttachmentName);
+                            <div class="item" id="select-regName">
+                                <span class="label">已经上传的附件：</span>
+                                <div class="fl item-ifo">
+                                    <div class="o-intelligent-regName" style="width:700px">
+                                        <a id="URL_@i" href=@item.AttachmentName style="color:blue" target="_blank">附件 @fileName</a>
+                                        <input type="hidden" id="attachmentId_@i" value="@item.Id" />
+                                    </div>
+                                </div>
+                            </div>
+                            i++;
+                        }
+                    }
+                }
+            </div>
+            <span class="clr"></span>
+        </div>
+        
+        <input type="hidden" id="attachmentId" value="@ViewBag.attachmentId" />
+        <input type="hidden" id="parentId" value="@ViewBag.parentId" />
+        <input type="hidden" id="attachment" value="@ViewBag.attachment" />
+        <input type="hidden" value="@Model.Id" id="Id" />
+    </div>
+</div>

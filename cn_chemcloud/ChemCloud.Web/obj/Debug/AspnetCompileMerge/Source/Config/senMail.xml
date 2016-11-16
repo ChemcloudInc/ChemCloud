@@ -1,0 +1,5 @@
+﻿<sendMail>
+  <smtpServer>smtp.qq.com</smtpServer>
+  <sendMailId>229882570@qq.com</sendMailId>
+  <sendMailPassword>zhenggen00</sendMailPassword>
+</sendMail>

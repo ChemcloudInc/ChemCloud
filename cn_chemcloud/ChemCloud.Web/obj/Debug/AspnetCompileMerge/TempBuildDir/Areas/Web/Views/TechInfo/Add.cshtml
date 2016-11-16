@@ -1,0 +1,99 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "新增技术资料";
+}
+@using ChemCloud.Core;
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script src="~/Areas/Web/Scripts/AddTechInfo.js"></script>
+@*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+<style>
+    .label {
+        margin-right:10px;
+    }
+</style>
+<div class="box1 lh24">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">新增技术资料</h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            <div class="form">
+                <div class="item" id="select-regName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>标题：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techTitle" name="techTitle" class="text" tabindex="1" autocomplete="off"
+                                   onpaste="return false;" value="标题" onfocus="    if (this.value == '标题') this.value = ''; this.style.color = '#333'"
+                                   onblur="if (this.value == '') { this.value = '标题'; this.style.color = '#999999' }" style="color: rgb(153, 153, 153);width:570px;height:20px">
+                            @*<i class="i-name"></i>*@
+                            <label id="techTitle_info" style="display:none;" class="focus">请输入标题</label>
+                            <label id="techTitle_error" style="display:none; color:red" class="error">请输入标题</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item" id="realName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>作者：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techAuthor" name="techAuthor" class="text" tabindex="1" autocomplete="off"
+                                   onpaste="return false;" value="作者" onfocus="    if (this.value == '作者') this.value = ''; this.style.color = '#333'"
+                                   onblur="if (this.value == '') { this.value = '作者'; this.style.color = '#999999' }" style="color: rgb(153, 153, 153);width:570px;height:20px">
+                            @*<i class="i-name"></i>*@
+                            <label id="techAuthor_info" style="display:none;" class="focus">请输入作者</label>
+                            <label id="techAuthor_error" style="display:none; color:red" class="error">请输入作者</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-Name">
+                    <span class="label">联系电话:</span>
+                    <div class="fl item-ifo">
+                        <input type="text" id="techTel" name="techTel" class="text" style="width:570px;height:20px">
+                    </div>
+                </div>
+                <div class="item" id="select-upName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>邮箱：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="techEmail" name="techEmail" class="text" tabindex="1" autocomplete="off"
+                                   onpaste="return false;" value="邮箱" onfocus="    if (this.value == '邮箱') this.value = ''; this.style.color = '#333'"
+                                   onblur="if (this.value == '') { this.value = '邮箱'; this.style.color = '#999999' }" style="color: rgb(153, 153, 153);width:570px;height:20px">
+                            @*<i class="i-name"></i>*@
+                            <label id="techEmail_info" style="display:none;" class="focus">请输入邮箱</label>
+                            <label id="techEmail_error" style="display:none; color:red" class="error">请输入邮箱</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="realName">
+                    <span class="label">语言版本：</span>
+                    <div class="o-intelligent-regName">
+                        <div class="fl item-ifo">
+                            <select id="LanguageType" style="width:600px;height:30px"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="realName">
+                    <span class="label">技术资料内容：</span>
+                    <div class="fl item-ifo">
+                        <textarea id="techContent" name="techContent" style="width:600px;height:400px"></textarea>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="fl" style="padding-left:110px">
+                        <input type="button" class="btn-5" id="AddTechInfo" style="cursor:pointer" value="保存">
+                    </div>
+                </div>
+                
+            </div>
+            <span class="clr"></span>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+
+

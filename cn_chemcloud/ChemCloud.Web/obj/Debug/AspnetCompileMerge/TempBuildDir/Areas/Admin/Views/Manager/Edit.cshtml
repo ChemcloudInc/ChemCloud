@@ -1,0 +1,155 @@
+﻿@model ChemCloud.Web.Areas.Admin.Models.RoleInfoModel
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(function () {
+        RestorePrivileges();
+        RestoreCheck();
+    })
+    function RestorePrivileges() {
+
+        var privileges = $("#hdPrivileges").val();
+        var Jsonprivileges = $.parseJSON(privileges);
+        if (Jsonprivileges.length > 0) {
+            if (Jsonprivileges[0].Privilege == 0) {
+                $("input[type='checkbox']").attr("checked", true);
+            }
+            else {
+
+                $(Jsonprivileges).each(function (index, item) {
+                    $("input[value='" + item.Privilege + "']").attr("checked", true)
+                });
+            }
+        }
+
+    }
+
+    function RestoreCheck() {
+        $(".parent-check").each(
+    function (index, item) {
+        var p = $(item).next("p");
+        if ($(p).find("input:checked").length == $(p).find("input").length) {
+            $(item).find("input").attr("checked", true);
+        };
+    });
+    }
+
+
+    function generateRoleInfo() {
+        //角色对象
+        var role = {
+            RoleName: $('#roleName').val(),
+            RolePrivilegeInfo: []
+        };
+        var all = $("input[name='privilege']").length;
+        var chkPrivileges = $("input[name='privilege']:checked");
+        if (chkPrivileges.length == 0) {
+            $.dialog.tips("请至少选择一个权限！");
+            return;
+        }
+        else {
+            if (chkPrivileges.length == all) {
+                var PrivilegeInfo = {
+                    Privilege: null
+                };
+                PrivilegeInfo.Privilege = 0;
+                role.RolePrivilegeInfo.push(PrivilegeInfo);
+            }
+            else {
+                $(chkPrivileges).each(function (index, item) {
+                    var PrivilegeInfo = {
+                        Privilege: null
+                    };
+                    PrivilegeInfo.Privilege = ($(item).val());
+                    role.RolePrivilegeInfo.push(PrivilegeInfo);
+                });
+            }
+        }
+        return role;
+    }
+
+    function submitRole() {
+        var object;
+        if ($('form').valid()) {
+            object = generateRoleInfo();
+            if (object == null) return;
+            var objectString = JSON.stringify(object);
+            var loading = showLoading();
+            $.post('Edit', { "roleJson": objectString, "id": $("#roleId").val() }, function (result) {
+                loading.close();
+                if (result.success) {
+                    $.dialog.tips('保存成功', function () { location.href = "/Admin/Manager/Management"; });
+                }
+                else {
+                    $.dialog.tips('保存失败！' + result.msg);
+                }
+            }, "json");
+
+        }
+    }
+</script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>供应商</strong>
+        <li><a href="/Admin/Manager/Management">管理员列表</a></li>
+        <li class="active"><a>管理员权限修改</a></li>
+    </ul>
+    <form class="form-horizontal" role="form">
+        <h3 class="table-hd">子账号信息</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>用户名</td>
+                    <td>@Model.UserName</td>
+                </tr>
+            </tbody>
+        </table>
+        @*<div class="form-group" id="UserNameDiv">
+                <label class="label-inline" for="">用户名</label>
+                <input class="form-control input-sm" type="text" id="UserName" name="UserName" value="@Model.UserName" readonly="readonly" style="display:none">
+            </div>*@
+        <input type="text" id="UserName" name="UserName" value="@Model.UserName" style="display:none">
+        <input type="text" id="shopId" value="@ViewBag.shopId" style="display:none" />
+        <input type="text" id="roleId" value="@ViewBag.roleId" style="display:none" />
+        <input type="text" id="roleName" value="@ViewBag.roleName" style="display:none" />
+        @Html.Hidden("hdPrivileges", (string)ViewBag.RolePrivilegeInfo)
+        <h3 class="table-hd" style="width:1010px">权限信息</h3>
+        <table class="table table-bordered table-striped" style="width:1010px">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>权限设置</td>
+                    <td>
+                        @*<div class="col-sm-10">*@
+                        <label class="checkbox-inline power-check-all"><input value="0" id="CheckAll" name="CheckAll" type="checkbox">权限设置（全选) </label>
+                        <ul class="checkbox-list">
+                            @foreach (var p in (ViewBag.Privileges as ChemCloud.Model.Privileges).Privilege)
+                            {
+                                <li>
+                                    <label class="checkbox-inline parent-check"><input type="checkbox">@p.GroupName</label>
+                                    <p>
+                                        @foreach (var item in p.Items)
+                                        {
+                                            <label class="checkbox-inline"><input name="privilege" value="@item.PrivilegeId" type="checkbox">@item.Name</label>
+                                        }
+                                    </p>
+                                </li>
+                            }
+                        </ul>
+                        @*</div>*@
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <div class="mt20">
+        <button type="button" onclick="submitRole()" class="btn btn-primary statusBtn">保 存</button>
+    </div>
+</div>

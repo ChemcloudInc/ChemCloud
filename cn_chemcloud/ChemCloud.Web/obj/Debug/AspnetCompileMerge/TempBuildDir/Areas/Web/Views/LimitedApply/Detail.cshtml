@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "Detail";
+}
+@using ChemCloud.Core
+@model ChemCloud.Model.ApplyAmountInfo
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<style>
+    .table {
+    width: 79%;
+}
+.box1 {
+    padding: 0 0px 0px 100px;
+}
+body{
+    background:#f2f2f2;
+}
+</style>
+<div class="box1 lh24">
+    <div class="title bot-border" style="margin-top:20px;">
+        <h3 class="title_txt cur" style="margin-top:0">限额明细</h3><h3 class="title_txt cur" style="margin-top:0"><a href="./Management">限额审核</a></h3>
+    </div>
+    <div class="border-box">
+        <div class="container">
+
+            <table class="table table-bordered table-striped">
+                <colgroup>
+                    <col class="col-xs-1">
+                    <col class="col-xs-7">
+                </colgroup>
+                <tbody>
+
+                    <tr>
+                        <td>申请人：</td>
+                        <td>@Model.ApplyName</td>
+                    </tr>
+                    <tr>
+                        <td>申请金额：</td>
+                        <td>@Model.ApplyAmount</td>
+                    </tr>
+                    <tr>
+                        <td>货币：</td>
+                        <td>@(Model.CoinName=="RMB"?"CNY":"USD")</td>
+                    </tr>
+                    <tr>
+                        <td>订单#：</td>
+                        <td>@Model.OrderId</td>
+                    </tr>
+                    <tr>
+                        <td>申请日期：</td>
+                        <td>@Model.ApplyDate</td>
+                    </tr>
+                    <tr>
+                       <td>申请状态：</td>
+                       @if (Model.ApplyStatus == 0)
+                       {
+                           <td>未审核</td>
+                       }
+                       else if (Model.ApplyStatus == 1)
+                       {
+                           <td>通过</td>
+                       }
+                       else if (Model.ApplyStatus == 2)
+                       {
+                           <td>未通过</td>
+                       }   
+                    </tr>
+                    
+                    @if (Model.ApplyStatus != 0)
+                    {
+                        <tr>
+                            <td>审核时间：</td>
+                            <td>@Model.AuthDate</td>
+                        </tr>
+                        <tr>
+                            <td>审核人：</td>
+                            <td>@Model.AuthorName</td>
+                        </tr>
+                    }
+                    
+                    
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+

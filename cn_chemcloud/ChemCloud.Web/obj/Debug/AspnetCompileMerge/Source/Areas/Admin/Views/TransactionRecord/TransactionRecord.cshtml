@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+
+}
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Areas/Admin/Scripts/upload/browser.js"></script>
+<script src="~/Areas/Admin/Scripts/upload/jquery.form.js"></script>
+<script src="~/Areas/Admin/Scripts/TransactionRecord.js"></script>
+
+<script src="~/Scripts/datetimeCustom.js"></script>
+<style>
+#tbody-list tr td:last-child span{
+    cursor:pointer;
+}
+.box1 {
+    height: 483px;
+    padding-top: 68px;
+}
+</style>
+<div class="box1 lh24">
+    <div class="title">
+        <span class="title_txt cur">实时交易统计配置</span>
+    </div>
+
+    <div class="search-area">
+        <label>起始时间：</label>
+        <input id="startDate" type="text" class="dateInput" />
+        <label>结束时间：</label>
+        <input id="endDate" type="text" value="" class="dateInput" />
+        <label>订单类型：</label>
+        <select id="curveType">
+            <option value="0">所有订单</option>
+            <option value="1">代理采购</option>
+            <option value="2">定制合成</option>
+        </select>
+        <button class="search_btn pointer" id="btn_Search">搜索</button>
+        <button class="search_btn pointer" id="btn_Add">新增</button>
+    </div>
+    <div class="border-box">
+        <table class="tb-list">
+            <colgroup>
+                <col width="10%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                @*<col width="8%" />*@
+                <col width="10%" />
+            </colgroup>
+            <thead>
+                <tr class="tr" style="background-color:#e6e6e6;">
+                    <th style="background-color:#e6e6e6;">序号</th>
+                    <th style="background-color:#e6e6e6;">订单类型</th>
+                    <th style="background-color:#e6e6e6;">年月</th>
+                    <th style="background-color:#e6e6e6;">中文名</th>
+                    <th style="background-color:#e6e6e6;">英文名</th>
+                    <th style="background-color:#e6e6e6;">完成总金额</th>
+                    <th style="background-color:#e6e6e6;">下单总金额</th>
+                    <th style="background-color:#e6e6e6;">完成订单数</th>
+                    <th style="background-color:#e6e6e6;">下单订单数</th>
+                    @*<th style="background-color:#e6e6e6;">数据真伪</th>*@
+                    <th style="background-color:#e6e6e6;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-list"></tbody>
+
+        </table>
+        <div class="mt10">
+            <div id="pagin-btm" class="pagin fr">
+                <span class="page-skip">
+
+                </span>
+            </div>
+
+            <div class="mt10">
+                <div id="pagin-btm" class="pagin fr">
+                    <span id="preSpanBtn">上一页</span><span class="current" id="currentSpanPage">1</span><span id="nextSpanBtn">下一页</span>
+                    <span class="page-skip">
+                        <em>&nbsp;&nbsp; <span>共 </span><span id="spanTotal"></span><span> 页</span>&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                    </span>
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

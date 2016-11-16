@@ -1,0 +1,108 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+
+}
+<link href="~/Areas/Web/Content/SearchListPager.css" rel="stylesheet" />
+<style>
+    td:last-child span { cursor: pointer; }
+    .box1 { padding: 71px 4px 20px 200px; }
+</style><link href="~/Areas/Web/Content/artdilog.css" rel="stylesheet" />
+<script src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script src="~/Scripts/ueditor/ueditor.all.min.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Areas/Admin/Scripts/upload/browser.js"></script>
+<script src="~/Areas/Admin/Scripts/upload/jquery.form.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/datetimeCustom.js"></script>
+
+<script src="~/Areas/Admin/Scripts/JobsList.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/JqueryHelper_Ver.js"></script>
+<script src="~/Areas/Web/Scripts/js_web/pageGroup.js"></script>
+
+<div class="box1 lh24">
+    <div class="title">
+        <span class="title_txt cur">人才招聘列表</span>
+    </div>
+
+    <div class="search-area">
+        <label>标题：</label>
+        <input class="search_order" id="txtkeyword" type="text" placeholder="请输入搜索标题" />
+        <label>商家类型：</label>
+        <select id="selectUserType" style="border: 1px solid #e4e4e4;">
+            @*发布者类型（1：平台管理员？；2：供应商；3：采购商；）*@
+            @*<option value="0">所有</option>
+                <option value="1">平台</option>
+                <option value="2">供应商</option>
+                <option value="3">采购商</option>*@
+        </select>
+        <label>审核状态：</label>
+        <select id="selectApprovalStatus" style="border: 1px solid #e4e4e4;">
+            @*<option value="1">待审核</option>
+            <option value="2">审核未通过</option>
+            <option value="3">审核已通过</option>
+            <option value="0">所有</option>*@
+        </select>
+        <label>语言类型：</label>
+        <select id="selectLanguageType" class="search_dll"></select>
+        <button class="search_btn pointer" id="btn_Search">搜索</button>
+        @*<button class="search_btn pointer" id="btn_Approval">批量通过</button>*@
+    </div>
+    <div class="border-box">
+        <table class="tb-list">
+            <colgroup>
+                @*<col width="10%" />*@
+                @*<col width="10%" />*@
+                <col width="18%" />
+                <col width="10%" />
+                <col width="18%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="7%" />
+                <col width="10%" />
+                <col width="20%" />
+            </colgroup>
+            <thead>
+                <tr class="tr" style="background-color:#e6e6e6;">
+                    @*<th style="background-color:#e6e6e6;"><input id="checkBoxAll" type="checkbox" />全选</th>*@
+                    @*<th style="background-color:#e6e6e6;">序号</th>*@
+                    <th style="background-color:#e6e6e6;">标题</th>
+                    <th style="background-color:#e6e6e6;">商家类型</th>
+                    <th style="background-color:#e6e6e6;">商家名称</th>
+                    <th style="background-color:#e6e6e6;">工作类型</th>
+                    <th style="background-color:#e6e6e6;">薪资类型</th>
+                    <th style="background-color:#e6e6e6;">语言类型</th>
+                    <th style="background-color:#e6e6e6;">审核状态</th>
+                    <th style="background-color:#e6e6e6;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-list"></tbody>
+        </table>
+        <!-------------------------------------------分页----------------------------------------------------------------->
+        <div id="pageGro1">
+            <div id="pageGro">
+                <div id="preSpanBtn">上一页</div>
+                <div class="pageList">
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+                <div id="nextSpanBtn">下一页</div>
+            </div>
+            <div style="float:right;">
+                <ul>
+                    <li style="line-height: 23px; text-align:center; border:1px solid #808080; padding:0px 10px;">共：<span id="span_allCount"></span> 条记录</li>
+                </ul>
+            </div>
+        </div>
+        <!-------------------------------------------END 分页----------------------------------------------------------------->
+
+    </div>
+</div>
+
+

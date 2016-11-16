@@ -1,0 +1,992 @@
+﻿@using ChemCloud.Core;
+@model ChemCloud.Web.Models.ShopModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<style>
+    .form-horizontal {
+        background-color: #fff;
+        margin-top: 0px;
+        padding: 0px 0 10px;
+    }
+    .field-validation-error {
+        color: red;
+    }
+</style>
+<div class="container" style="padding: 20px 0 30px 200px;">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>企业信息</a></li>
+    </ul>
+    <form class="form-horizontal" id="from_Save" role="form">
+        <h3 class="table-hd">公司及联系人信息</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>公司名称</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.CompanyName, new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.ValidationMessageFor(item => item.CompanyName)
+                            <span id="CompanyName_Info" style="height:30px;color:red;display:none"></span>
+                            @*<label id="regCompanyName_error" style="display:none;color:red" class="error">公司名称不能为空</label>*@
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>公司名称（英文）</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.ECompanyName, new { @class = "form-control input-sm" })
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>公司所在地</td>
+                    <td>
+
+                        <div class="col-sm-6">
+                            <span id="span_area">
+                                <span id="span_province"><select id="companyLocationProvince" class="form-control input-sm select-sort"><option value="">请选择：</option></select></span>
+                                <span id="span_city"><select id="companyLocationCity" class="form-control input-sm select-sort"><option value="">请选择：</option></select></span>
+                                <span id="span_county"><select id="companyLocationDistrict" class="form-control input-sm select-sort"><option value="">请选择：</option></select></span>
+                            </span>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.ValidationMessageFor(item => item.NewCompanyRegionId)
+                        </div>
+                        @Html.TextBoxFor(item => item.NewCompanyRegionId, new { style = "width:0px;height:0px;border-width:0px;" })
+                        <label id="regRegion_error" style="display:none;color:red" class="error">公司所在地不能为空</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>街道地址</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.CompanyAddress, new { @class = "form-control input-sm",maxlength = "50" })
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.ValidationMessageFor(item => item.CompanyAddress)
+                            <label id="regAddress_error" style="display:none;color:red" class="error">街道地址不能为空</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>公司详细地址(英文)</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.ECompanyAddress, new { @class = "form-control input-sm" })
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>公司电话</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.CompanyPhone, new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label id="regTel_info" class="focus" style="width:500px;display:block">请输入电话或手机号码</label>
+                            <label id="regTel_error" style="display:none;color:red" class="error">公司电话不能为空</label>
+                            <label id="regTelFormat_error" style="display:none;color:red" class="error">只能输入数字</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>员工总数</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.DropDownListFor(item => item.CompanyEmployeeCount, (IEnumerable<SelectListItem>)ChemCloud.Model.CompanyEmployeeCount.LessThanFive.ToSelectList(), new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.ValidationMessageFor(item => item.CompanyEmployeeCount)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>联系人姓名</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.ContactsName, new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.ValidationMessageFor(item => item.ContactsName)
+                            <label id="regPerson_error" style="display:none;color:red" class="error">联系人姓名不能为空</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>联系人姓名(英文)</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.EContactsName, new { @class = "form-control input-sm" })
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>联系人电话</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.ContactsPhone, new { @class = "form-control input-sm" })
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>电子邮箱</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.ContactsEmail, new { @class = "form-control input-sm emailfocus", @readonly = true })
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="button" value="更改邮箱" style="height:28px;background-color: #3498db;border-color: #3498db;color: #fff;padding: 3px 12px; border:0px solid #fff" id="changeEmail" />
+                            @Html.ValidationMessageFor(item => item.ContactsEmail)
+                            <label id="regEmail_error" style="display:none;color:red" class="error">Email不能为空</label>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>邮编</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.ZipCode, new { @class = "form-control input-sm" })
+                            <label id="regZipCode_error" style="display:none;color:red" class="error">邮编不能为空</label>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>传真</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.Fax, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>网址</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.URL, new { @class = "form-control input-sm" })
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        @if (!string.IsNullOrEmpty(Model.OrganizationCodePhoto))
+        {
+        <h3 class="table-hd">组织机构代码证</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>组织机构代码证<br />扫描件</td>
+                    <td><img style="max-width:700px" src="@Model.OrganizationCodePhoto" alt="" /></td>
+                </tr>
+            </tbody>
+        </table>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.TaxRegistrationCertificatePhoto))
+        {
+        <h3 class="table-hd">税务登记证</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>税务登记证<br />扫描件</td>
+                    <td><img style="max-width:700px" src="@Model.TaxRegistrationCertificatePhoto" alt="" /></td>
+                </tr>
+            </tbody>
+        </table>
+        }
+
+
+        @if (!string.IsNullOrEmpty(Model.CertificatePhoto))
+        {
+        <h3 class="table-hd">三证合一</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>三证合一<br />扫描件</td>
+                    <td><img style="max-width:700px" src="@Model.CertificatePhoto" alt="" /></td>
+                </tr>
+            </tbody>
+        </table>
+        }
+        <h3 class="table-hd">企业Logo</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>企业LOGO</td>
+                    @if (!string.IsNullOrWhiteSpace(Model.Logo))
+                    {
+                    <td>
+                        <img style="max-width:700px" src="@Model.Logo" alt="" />
+                    </td>
+                    }
+                    else
+                    {
+                    <td>
+                        <div class="form-group upload-img " id="LogoPhoto"></div>
+                    </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+        <h3 class="table-hd">危化品经营许可证</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>危化品经营许可证</td>
+                    @if (!string.IsNullOrEmpty(Model.ChemicalsBusinessLicense))
+                    {
+                    <td>
+                        <img style="max-width:700px" src="@Model.ChemicalsBusinessLicense" alt="" />
+                    </td>
+                    }
+                    else
+                    {
+                    <td>
+                        <div class="form-group upload-img " id="ChemicalsBusinessLicense"></div>
+                    </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+        <h3 class="table-hd">产品生产质量管理规范证书</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>产品生产质量管理规范证书</td>
+                    @if (!string.IsNullOrEmpty(Model.GMPPhoto))
+                    {
+                    <td>
+                        <img style="max-width:700px" src="@Model.GMPPhoto" alt="" />
+
+                    </td>
+                    }
+                    else
+                    {
+                    <td>
+                        <div class="form-group upload-img " id="GMPPhoto"></div>
+
+                    </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="table-hd">食品和药物管理局认证证书</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>食品和药物管理局认证证书</td>
+                    @if (!string.IsNullOrEmpty(Model.FDAPhoto))
+                    {
+                    <td>
+                        <img style="max-width:700px" src="@Model.FDAPhoto" alt="" />
+                    </td>
+                    }
+                    else
+                    {
+                    <td>
+                        <div class="form-group upload-img " id="FDAPhoto"></div>
+                    </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+        <h3 class="table-hd">ISO质量认证证书</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>ISO质量认证证书</td>
+                    @if (!string.IsNullOrEmpty(Model.ISOPhoto))
+                    {
+                    <td>
+                        <img style="max-width:700px" src="@Model.ISOPhoto" alt="" />
+                    </td>
+                    }
+                    else
+                    {
+                    <td>
+                        <div class="form-group upload-img " id="ISOPhoto"></div>
+                    </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+        <h3 class="table-hd">其它认证证书</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>其它认证证书</td>
+                    @if (!string.IsNullOrEmpty(Model.OtherCert))
+                    {
+                        <td>
+                            <img style="max-width:700px" src="@Model.OtherCert" alt="" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <div class="form-group upload-img " id="OtherCert"></div>
+                        </td>
+                    }
+
+                </tr>
+            </tbody>
+        </table>
+
+        @if (!string.IsNullOrEmpty(Model.BusinessLicenceNumberPhoto))
+        {
+        <h3 class="table-hd">营业执照信息（副本）</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>营业执照<br />扫描件</td>
+                    <td><img style="max-width:700px" src="@Model.BusinessLicenceNumberPhoto" alt="" /></td>
+                </tr>
+            </tbody>
+        </table>
+        }
+
+        <h3 class="table-hd">结算账号信息</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>开户行名称</td>
+
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.BankName, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>银行账号名称(公司/个人)</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.BankAccountName, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>公司银行账号</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.BankAccountNumber, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>开户银行所在地</td>
+                    <td>
+                        <div class="field">
+                            <span id="span_area">
+                                <span id="bank_span_province"><select id="bank_consignee_province"><option value="">请选择：</option></select></span>
+                                <span id="bank_span_city"><select id="bank_consignee_city"><option value="">请选择：</option></select></span>
+                                <span id="bank_span_county"><select id="bank_consignee_county"><option value="">请选择：</option></select></span>
+                                <input type="hidden" name="NewBankRegionId" />
+                            </span>
+                        </div>
+                    </td>
+
+                </tr>
+                @*<tr>
+                        <td>开户银行许可证<br />电子版</td>
+                        <td><img style="max-width:700px" src="@Model.BankPhoto" alt="" /></td>
+                    </tr>*@
+            </tbody>
+        </table>
+
+        @*<h3 class="table-hd">一般纳税人证明</h3>
+            <table class="table table-bordered table-striped">
+                <colgroup>
+                    <col class="col-xs-1">
+                    <col class="col-xs-7">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>一般纳税人证明</td>
+                        <td><img style="max-width:700px" src="@Model.GeneralTaxpayerPhot" alt="" /></td>
+                    </tr>
+                </tbody>
+            </table>*@
+
+
+        <h3 class="table-hd">Account Information</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>Beneficiary Bank's Name</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.BeneficiaryBankName, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SWIFT CODE</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.SWiftBic, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ABA/Routing number</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.AbaRoutingNumber, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Beneficiary's Name</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.BeneficiaryName, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Beneficiary's Account Number</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.BeneficiaryAccountNum, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Company Address</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.CompanysAddress, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Beneficiary Bank Branch Address</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.CompanysAddress, new { @class = "form-control input-sm" })
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 class="table-hd">公司经营信息</h3>
+
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>供应商帐号</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.Account, new { @class = "form-control input-sm", disabled = "disabled" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>供应商名称</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.Name, new { @class = "form-control input-sm", disabled = "disabled" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>公司类型</td>
+                    <td>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(item => item.CompanyType, new { @class = "form-control input-sm", disabled = "disabled" })
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="form-group" style="padding:20px 0 100px">
+            <div class="col-sm-offset-2 col-sm-10" style="margin-left:0">
+                <a class="btn btn-primary" id="Save" href="javascript:;" style="width:127px">保 存</a>
+            </div>
+        </div>
+    </form>
+
+</div>
+<script src="~/Scripts/Region.js"></script>
+<script src="~/Scripts/RegionBind.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/jquery.hishopUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/autoNumeric.js"></script>
+<script type="text/javascript">
+    var bankRegionIds = "@ViewBag.BankRegionIds";
+    var companyRegionIds = "@ViewBag.CompanyRegionIds";
+    $(function () {
+        bindCity("companyLocationProvince", "companyLocationCity", "companyLocationDistrict", companyRegionIds);
+        bindCity("bank_consignee_province", "bank_consignee_city", "bank_consignee_county", bankRegionIds);
+        $(function () {
+            $("#CompanyName").blur(function () {
+                var errorLabel = $("#regCompanyName_error");
+                if ($.trim($('#CompanyName').val()).length < 3) {
+                    $("#CompanyName_Info").css('display','none');
+                    errorLabel.css('display', 'block');
+                    //errorLabel.removeClass(".error-msg hide");
+                } else {
+                    errorLabel.css('display', 'none');
+                }
+            });
+            checkRegion();
+            $("#CompanyAddress").blur(function () {
+                var errorLabel = $("#regAddress_error");
+                if ($.trim($('#CompanyAddress').val()) == "") {
+                    errorLabel.css('display', 'block');
+                    //errorLabel.removeClass(".error-msg hide");
+                } else {
+                    errorLabel.css('display', 'none');
+                }
+            });
+            $("#CompanyPhone").blur(function () {
+                var errorLabel = $("#regTel_error");
+                if ($.trim($('#CompanyPhone').val()) == "") {
+                    $('#regTel_info').css('display','none');
+                    errorLabel.css('display', 'block');
+                    //errorLabel.removeClass(".error-msg hide");
+                } else {
+                    $("#regTel_error").css('display', 'none');
+                    $("#regTel_info").css('display','none');
+                    var reg = /^[0-9]*$/;
+                    if (!reg.test($.trim($("#CompanyPhone").val()))) {
+                        $("#regTelFormat_error").css('display', 'block');
+                        return false;
+                    }
+                    else{
+                        $("#regTelFormat_error").css('display', 'none');
+                    }
+                }
+            });
+            $("#ContactsName").blur(function () {
+                var errorLabel = $("#regPerson_error");
+                if ($.trim($('#ContactsName').val()) == "") {
+                    errorLabel.css('display', 'block');
+                    //errorLabel.removeClass(".error-msg hide");
+                } else {
+                    errorLabel.css('display', 'none');
+                }
+            });
+            $("#ContactsEmail").blur(function () {
+                var errorLabel = $("#regEmail_error");
+                if ($.trim($('#ContactsEmail').val()) == "") {
+                    errorLabel.css('display', 'block');
+                    //errorLabel.removeClass(".error-msg hide");
+                } else {
+                    errorLabel.css('display', 'none');
+                }
+            });
+
+            $("#ZipCode").blur(function () {
+                var errorLabel = $("#regZipCode_error");
+                if ($.trim($('#ZipCode').val()) == "") {
+                    errorLabel.css('display', 'block');
+                    //errorLabel.removeClass(".error-msg hide");
+                } else {
+                    errorLabel.css('display', 'none');
+                }
+            });
+
+
+            $('#Save').click(function () {       
+                var form = $('#from_Save');
+                var data = form.serialize();
+               
+                if (data!= null) {
+       
+                    //$('#CompanyRegisteredCapital').val($('#CompanyRegisteredCapital').val().replace(/,/g, ''));
+                    if (isSelectAddr($("#companyLocationProvince"), $("#companyLocationCity"), $("#companyLocationDistrict")))
+                    {
+                        var region= $("#companyLocationDistrict").val()==0 ? $("#companyLocationCity").val():$("#companyLocationDistrict").val();
+                        $('#NewCompanyRegionId').val(region);
+                    }
+                    if (isSelectAddr($("#bank_consignee_province"), $("#bank_consignee_city"), $("#bank_consignee_county")))
+                    {
+                        var bankregion = ($("#bank_consignee_province").val() || 0) == 0 ? $("#bank_consignee_city").val() : $("#bank_consignee_county").val();
+                        $('input[name="NewBankRegionId"]').val(bankregion);
+                    }
+                    if ($.trim($('#CompanyName').val()) == "") {
+                        $("#regCompanyName_error").css('display', 'block');
+                        return false;
+                    }
+                    if ($('#companyLocationProvince option:selected').text() == "请选择" || $('#companyLocationCity option:selected').text() == "请选择" || $('#companyLocationDistrict option:selected').text() == "请选择") {
+                     //   $("#regRegion_error").css('display', 'block');
+                        return false;
+                    }
+                    if ($.trim($('#CompanyAddress').val()) == "") {
+                        $("#regAddress_error").css('display', 'block');
+                        return false;
+                    }
+                    if ($.trim($('#CompanyPhone').val()) == "") {
+                        $("#regTel_error").css('display', 'block');
+                        return false;
+                        //errorLabel.removeClass(".error-msg hide");
+                    } else {
+                        $("#regTel_error").css('display', 'none');
+                        $("#regTel_info").css('display','none');
+                        var reg = /^[0-9]*$/;
+                        if (!reg.test($.trim($("#CompanyPhone").val()))) {
+                            $("#regTelFormat_error").css('display', 'block');
+                            return false;
+                        }
+                    }
+                    if ($.trim($('#ContactsName').val()) == "") {
+                        $("#regPerson_error").css('display', 'block');
+                        return false;
+                    }
+                    if ($.trim($('#ContactsEmail').val()) == "") {
+                        $("#regEmail_error").css('display', 'block');
+                        return false;
+                    }
+
+                    if ($.trim($('#ZipCode').val()) == "") {
+                        $("#regZipCode_error").css('display', 'block');
+                        return false;
+                    }
+           
+                    //data=data+'&CompanyRegionId='
+                    var loading = showLoading();
+                    $.post('EditProfile1', data, function (result) {
+                        loading.close();
+                        if (result.success)
+                        {
+                            $.dialog.tips('保存成功！');
+                            window.location.reload;
+                        }
+                        else
+                            $.dialog.errorTips('保存失败！' + result.msg);
+                    });
+                }
+            });
+            $('#changeEmail').click(function () {
+                var UserName = $(".emailfocus").val();
+                var loading = showLoading();
+                $.post("SendMail", { "username": UserName }, function (result) {
+                    if (result.success)
+                        $.dialog.succeedTips('验证码已经发送到您的邮箱，请查收');
+                    else
+                        $.dialog.errorTips('验证码发送失败！' + result.msg);
+                    loading.close();
+                    setTimeout("showlog()",3000);
+                });
+            });
+            @*var businessLicenseCerts = @Html.Raw(Json.Encode(@ViewBag.BusinessLicenseCerts));
+            var productCerts = @Html.Raw(Json.Encode(@ViewBag.ProductCerts));*@
+            var logo = @Html.Raw(Json.Encode(@ViewBag.Logo));
+            var otherCerts = @Html.Raw(Json.Encode(@ViewBag.OtherCerts));
+            var chemicalsBusinessLicense=@Html.Raw(Json.Encode(@ViewBag.ChemicalsBusinessLicense));
+            var gMPPhoto=@Html.Raw(Json.Encode(@ViewBag.GMPPhoto));
+            var fDAPhoto=@Html.Raw(Json.Encode(@ViewBag.FDAPhoto));
+            var iSOPhoto=@Html.Raw(Json.Encode(@ViewBag.ISOPhoto));
+
+            //$("#BusinessLicenseCert").hishopUpload({
+            //    title: '经营许可类证书:(最多三张)',
+            //    imageDescript: '',
+            //    displayImgSrc: businessLicenseCerts,
+            //    imgFieldName: "BusinessLicenseCert",
+            //    defaultImg: '/Images/default_100x100.png',
+            //    imagesCount: 3,
+            //    dataWidth: 6
+            //});
+            //$("#ProductCert").hishopUpload({
+            //    title: '产品类证书:(最多三张)',
+            //    imageDescript: '',
+            //    displayImgSrc: productCerts,
+            //    imgFieldName: "ProductCert",
+            //    defaultImg: '/Images/default_100x100.png',
+            //    imagesCount: 3,
+            //    dataWidth: 6
+            //});
+            $("#LogoPhoto").hishopUpload({
+                title: '企业LOGO上传',
+                imageDescript: '上传大小小于5M',
+                displayImgSrc: logo,
+                imgFieldName: "Logo",
+                dataWidth: 6
+            });
+            $("#OtherCert").hishopUpload({
+                title: '其它证书',
+                imageDescript: '上传大小小于5M',
+                displayImgSrc: otherCerts,
+                imgFieldName: "OtherCert",
+                defaultImg: '/Images/default_100x100.png',
+                //pictureSize: '100*100',
+                dataWidth: 6
+            });
+            $("#ChemicalsBusinessLicense").hishopUpload({
+                title: '危化品经营许可证',
+                imageDescript: '上传大小小于5M',
+                displayImgSrc: chemicalsBusinessLicense,
+                imgFieldName: "ChemicalsBusinessLicense",
+                defaultImg: '/Images/default_100x100.png',
+                imagesCount:1,
+                dataWidth: 6
+            });
+            $("#GMPPhoto").hishopUpload({
+                title: '产品生产质量管理规范证书',
+                imageDescript: '上传大小小于5M',
+                displayImgSrc: gMPPhoto,
+                imgFieldName: "GMPPhoto",
+                defaultImg: '/Images/default_100x100.png',
+                imagesCount:1,
+                dataWidth: 6
+            });
+            $("#FDAPhoto").hishopUpload({
+                title: '食品和药物管理局认证证书',
+                imageDescript: '上传大小小于5M',
+                displayImgSrc: fDAPhoto,
+                imgFieldName: "FDAPhoto",
+                defaultImg: '/Images/default_100x100.png',
+                imagesCount: 1,
+                dataWidth: 6
+            });
+            $("#ISOPhoto").hishopUpload({
+                title: 'ISO质量认证证书',
+                imageDescript: '上传大小小于5M',
+                displayImgSrc:iSOPhoto,
+                imgFieldName: "ISOPhoto",
+                defaultImg: '/Images/default_100x100.png',
+                imagesCount: 1,
+                dataWidth: 6
+            });
+            //var businessLicenseCert = $("#BusinessLicenseCert").hishopUpload('getImgSrc').toString()
+
+            //$('#CompanyRegisteredCapital').autoNumeric({vMax:999999});
+            setProvince($("#companyLocationProvince"), $("#companyLocationCity"), $("#companyLocationDistrict"));
+            InitRegion($("#companyLocationProvince"), $("#companyLocationCity"), $("#companyLocationDistrict"),companyRegionIds);
+            setProvince($("#bank_consignee_province"), $("#bank_consignee_city"), $("#bank_consignee_country"));
+            InitRegion($("#bank_consignee_province"), $("#bank_consignee_city"), $("#bank_consignee_country"),bankRegionIds);
+        });
+    })
+    function checkRegion() {
+        if ($('#companyLocationProvince option:selected').text() == "请选择" || $('#companyLocationCity option:selected').text() == "请选择" || $('#companyLocationDistrict option:selected').text() == "请选择") {
+          //  $("#regRegion_error").css('display', 'block');
+        } else {
+            $("#regRegion_error").css('display', 'none');
+        }
+    }
+
+    function bindCity(provinceControl, cityControl, countyControl, regionId) {
+        var regions = regionId.split(',');
+        var shengfen = regions.length > 0 ? regions[0] : 0;
+        var city = regions.length > 1 ? regions[1] : 0;
+        var county = regions.length > 2 ? regions[2] : 0;
+        $('#' + provinceControl + ',#' + cityControl + ',#' + countyControl).cityLink(shengfen, city, county);
+    }
+    (function ($, data) {
+        $.fn.cityLink = function (a, b, c) {
+            var that = this,
+                province = '',//省
+                city = '',//市
+                area = '',//区域
+                i, e,
+                createElem = function (data, elem, select, id) {// 创建元素
+                    if (!data) { return; }
+                    for (var i = 0, e; e = data[i++];) {
+                        if (select == e.id) {
+                            elem.append('<option value="' + e.id + '" selected="true" ' + (id ? 'data="' + id + '"' : '') + '>' + e.name + '</option>');
+                        } else {
+                            elem.append('<option value="' + e.id + '"' + (id ? 'data="' + id + '"' : '') + '>' + e.name + '</option>');
+                        }
+                    }
+                },
+                fnSelect = function (data, val, tag) {
+                    if (!data) { return; }
+                    for (var i = 0, e; e = data[i++];) {
+                        if (e.id == val) {
+                            return e[tag];
+                        }
+                    }
+                },
+                fnChange = function (dom, target, tag, bool) {
+                    dom.click(function (e) {
+                        var t = e.target,
+                            val = $(this).val(),
+                            dataTag = '',
+                            temp = '',
+                            cityData;
+                        if (val != 0) {
+                            if (bool) {
+                                dataTag = $(this).find("option:selected").attr('data');
+                                temp = fnSelect(data, dataTag, bool);
+                                cityData = fnSelect(temp, val, tag);
+                            } else {
+                                cityData = fnSelect(data, val, tag);
+                            }
+                            target.html('');
+                            if (tag == 'city') {
+                                $('.selected-address i').html($(this).find("option:selected").html() + ' ');
+                                $('.selected-address em').html(' ');
+                                $('.selected-address s').html(' ');
+                            } else {
+                                $('.selected-address em').html($(this).find("option:selected").html() + ' ');
+                            }
+                            createElem(cityData, target, val, val);
+                        }
+                        return false;
+                    });
+                },
+                init = function (a, b, c) {
+                    $(that[0]).html('');
+                    if (b == 0) {
+                        $(that[1]).html('<option value="0">请选择</option>');
+                    }
+                    if (c == 0) {
+                        $(that[2]).html('<option value="0">请选择</option>');
+                    }
+                    createElem(data, province, a);
+                    var cityData = fnSelect(data, a, 'city'),
+                        areaData = fnSelect(cityData, b, 'county');
+
+                    if (province && city) {
+                        createElem(cityData, city, b);
+                        fnChange(province, city, 'city');//@@province dom //当前点击事件的dom @@city市级dom @@市级字符串用来读取json数据
+                    }
+                    if (province && city && area) {
+                        createElem(areaData, area, c);
+                        fnChange(city, area, 'county', 'city');
+                    }
+                    $('#consignee_county').change(function (e) {
+                        var id = $(this).val();
+                        if (id != 0) {
+                            $('.selected-address s').html($(this).find("option:selected").html());
+                        }
+                    });
+                };
+            that.each(function (i, e) {
+                switch (i) {
+                    case 0: province = $(e); break;
+                    case 1: city = $(e); break;
+                    case 2: area = $(e); break;
+                    default: break;
+                }
+            });
+            init(a, b, c);// 初始化
+        };
+    }(jQuery, province));
+    var allcookies = document.cookie;
+    function getCookie(cookie_name) {
+        var allcookies = document.cookie;
+        var cookie_pos = allcookies.indexOf(cookie_name);
+        if (cookie_pos != -1) {
+            cookie_pos += cookie_name.length + 1;
+            var cookie_end = allcookies.indexOf(";", cookie_pos);
+            if (cookie_end == -1) {
+                cookie_end = allcookies.length;
+            }
+            var value = unescape(allcookies.substring(cookie_pos, cookie_end));
+        }
+        return value;
+    }
+    var cookie_val = getCookie("username");
+    function showlog() {
+        $.dialog({
+            title: '输入验证码',
+            lock: true,
+            id: 'validCode',
+            content: ['<div class="dialog-form">',
+                '<div class="form-group">',
+                    '<input type="text" id="txtvalidCode" class="form-control"></text>',
+                '</div>',
+            '</div>'].join(''),
+            padding: '0',
+            okVal: '确认',
+            ok: function () {               
+                var id = getCookie("validCode");
+                var valid = $("#txtvalidCode").val();
+                if (valid=="") {
+                    $.dialog.ErrorTips('验证成功');
+                    return false;
+                }
+                var loading = showLoading();
+                if (id == valid) {
+                    $.dialog.succeedTips('验证成功');
+                    loading.close();
+                    var cObj = document.getElementById("ContactsEmail");
+                    cObj.removeAttribute("readOnly");
+                }
+            }
+        });
+    };
+
+</script>
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

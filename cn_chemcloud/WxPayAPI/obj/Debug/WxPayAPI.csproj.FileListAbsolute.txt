@@ -4,3 +4,15 @@ D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\bin\Debug\LitJson.dll
 D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.dll
 D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.pdb
 D:\projects\net\chemcloud\新版本\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.csprojResolveAssemblyReference.cache
+E:\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\bin\Debug\WxPayAPI.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\bin\Debug\WxPayAPI.pdb
+E:\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\bin\Debug\LitJson.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.csprojResolveAssemblyReference.cache
+E:\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.pdb
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\bin\Debug\WxPayAPI.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\bin\Debug\WxPayAPI.pdb
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\bin\Debug\LitJson.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.csprojResolveAssemblyReference.cache
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\WxPayAPI\obj\Debug\WxPayAPI.pdb

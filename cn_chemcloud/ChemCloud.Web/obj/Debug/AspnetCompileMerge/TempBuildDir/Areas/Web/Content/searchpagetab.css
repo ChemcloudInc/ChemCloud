@@ -1,0 +1,156 @@
+﻿.Jhds {
+	position: relative;
+}
+
+.Jhds .radio {
+	position: absolute;
+	opacity: 0;
+}
+
+.Jhds .radio:nth-of-type(1):checked ~ .tab-title label:nth-of-type(1) {
+	background-color: #3498DB;
+	color: #fff;
+}
+
+.Jhds .radio:nth-of-type(2):checked ~ .tab-title label:nth-of-type(2) {
+	background-color: #3498DB;
+	color: #fff;
+}
+
+.Jhds .radio:nth-of-type(3):checked ~ .tab-title label:nth-of-type(3) {
+	background-color: #3498DB;
+	color: #fff;
+}
+
+.Jhds .radio:nth-of-type(1):checked ~ .tab-outer .tab-inner:nth-of-type(1) {
+	display: block;
+}
+
+.Jhds .radio:nth-of-type(2):checked ~ .tab-outer .tab-inner:nth-of-type(2) {
+	display: block;
+}
+
+.Jhds .radio:nth-of-type(3):checked ~ .tab-outer .tab-inner:nth-of-type(3) {
+	display: block;
+}
+
+.Jhds .tab-title {
+	padding: 15px 1px 1px 1px;
+	text-align: left;
+	font-size: 0;
+}
+
+.Jhds .tab-title label {
+	display: inline-block;
+	padding: 5px 0;
+	width: 30%;
+	border: 1px solid #498fee;
+	background-color: #fff;
+	color: #498fee;
+	text-align: center;
+	font-size: 14px;
+}
+
+.Jhds .tab-title label:first-child {
+	border-right: 0 none;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.Jhds .tab-title label:last-child {
+	border-left: 0 none;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.Jhds .tab-outer .tab-inner {
+	display: none;
+}
+
+.Jhds .tab-inner li {
+	position: relative;
+	background-color: #fff;
+}
+
+.Jhds .title:after,
+        .Jhds .tab-inner li:before,
+        .Jhds .tab-inner li:last-child:after {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background-color: #d9d9d9;
+	content: '';
+	font-size: 0;
+	-webkit-transform: scaleY(0.5);
+	transform: scaleY(0.5);
+}
+
+.Jhds .tab-inner li:before {
+	top: 0;
+}
+
+.Jhds .title:after,
+        .Jhds .tab-inner li:last-child:after {
+	bottom: 0;
+}
+
+.Jhds .title {
+	position: relative;
+	overflow: hidden;
+	padding: 10px;
+}
+
+.Jhds .title .Jhds-num {
+	color: #3498DB;
+	white-space: nowrap;
+}
+
+.Jhds .title .time {
+	float: right;
+	display: inline-block;
+}
+
+.Jhds .list {
+	position: relative;
+	display: block;
+	padding: 10px 60px 10px 10px;
+	color: #252525;
+}
+
+.Jhds .price {
+	margin-top: 5px;
+	color: #f90;
+}
+
+.Jhds .num {
+	position: absolute;
+	top: 50%;
+	right: 30px;
+	margin-top: -10px;
+	height: 20px;
+	line-height: 20px;
+}
+
+.arrow {
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	margin-top: -6px;
+	width: 10px;
+	height: 10px;
+	border-top: 1px solid #cfcfcf;
+	border-left: 1px solid #cfcfcf;
+	-webkit-transform: rotate(135deg);
+	transform: rotate(135deg);
+}
+
+@media screen and (max-width:370px) {
+	.Jhds .title .time {
+		float: none;
+	}
+}
+
+
+
+  

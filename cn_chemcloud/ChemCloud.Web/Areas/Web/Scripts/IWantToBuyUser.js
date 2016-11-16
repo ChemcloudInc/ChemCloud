@@ -527,7 +527,7 @@ function getParamModifyVal(status) {
             message = "";
             break;
         case 3://确已定
-            message = "已定确，不能修改";
+            message = "已确定，不能修改";
             break;
         case 4://已下单
             message = "已下单，不能修改";

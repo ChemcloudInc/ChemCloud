@@ -1,0 +1,157 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "配置组织架构页面";
+}
+@using ChemCloud.Core;
+<script src="~/Areas/Web/Scripts/AddDownLevelOrg.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.ChemCloudUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+
+<div class="box1 lh24">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">新增组织架构</h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            @*<form id="personRegForm" role="form" method="post">*@
+            @*<input type="hidden" name="regType" id="regType" value="person">
+                <input type="hidden" name="uuid" id="uuid" value="9e4da8d0-1b3e-45c7-b3bd-928fd09f3f97">*@
+            <div class="form">
+                <div class="item" id="select-regName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>用户名：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="regName" name="regName" class="text" tabindex="1" >
+                            <i class="i-name"></i>
+                            <label id="regName_succeed" class="blank"></label>
+                            <label id="regName_info" style="display:none;" class="focus">请输入用户名</label>
+                            <label id="regName_error" style="display:none;color:red" class="error">请输入用户名</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="realName">
+                    @if (ViewBag.LanguageType == 1)
+                    {
+                        <span class="label">姓:</span>
+                    }
+                    else if (ViewBag.LanguageType == 2)
+                    {
+                        <span class="label">FirstName:</span>
+                    }
+                    <div class="fl">
+                        <input type="text" id="firstName" class="form-control input-sm select-sort" style="width:120px;height:32px">
+                    </div>
+                    @if (ViewBag.LanguageType == 1)
+                    {
+                        <span class="label" style="width:35px">名:</span>
+                    }
+                    else if (ViewBag.LanguageType == 2)
+                    {
+                        <span class="label">SecondName:</span>
+                    }
+                    <div class="fl">
+                        <input type="text" id="secondName" class="form-control input-sm select-sort" style="width:120px;height:32px">
+                    </div>
+                </div>
+                <div class="item" id="select-Name">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>角色名称:</span>
+                    <div class="fl">
+                        <select name="list" id="UserSelect" class="form-control input-sm select-sort" style="width:280px;height:32px"></select>
+                    </div>
+                </div>
+                <div class="item" id="select-upName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>上级角色名称：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="upName" name="upName" value="@ViewBag.RoleName" disabled="disabled" class="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-upName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>上级用户名：</span>
+                    <div class="fl item-ifo">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="upName" name="upName" value="@ViewBag.ParentName" disabled="disabled" class="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="item" id="select-regName">
+                    <span class="label"><b class="ftx04" style="color:red">*</b>邮箱：</span>
+
+                    <div class="fl item-ifo" style="height:30px;">
+                        <div class="o-intelligent-regName">
+                            <input type="text" id="regEmail" name="regEmail" class="text" tabindex="1" autocomplete="off"
+                                   onpaste="return false;" value="邮箱" onfocus="if(this.value=='邮箱') this.value='';this.style.color='#333'"
+                                   onblur="if (this.value == '') { this.value = '邮箱'; this.style.color = '#999999' }" style="color: rgb(153, 153, 153);">
+                            <i class="i-name"></i>
+                            <label id="regEmail_succeed" class="blank"></label>
+                            <label id="regEmail_info" style="display:none;" class="focus">请输入您常用的电子邮箱</label>
+                            <label id="regEmail_error" style="display:none;color:red" class="error">请输入邮箱帐号</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="o-password">
+                    <div class="item">
+                        <span class="label"><b class="ftx04" style="color:red">*</b>请设置密码：</span>
+                        <div class="fl item-ifo" style="height:30px;">
+                            <input type="password" id="pwd" name="pwd" class="text" tabindex="2" style="ime-mode:disabled;" onpaste="return  false" autocomplete="off">
+                            <i class="i-pass"></i>
+                            <label id="pwd_succeed" class="blank"></label>
+                            <label id="pwd_info" class="focus" style="display:none;"><span>6-20位字符，可使用字母、数字或符号的组合,，不建议使用纯字母、纯数字、纯符号</span></label>
+                            <label id="pwd_error" class="focus" style="display:none;color :red"><span>密码长度只能在6-20位字符之间，不包含空格</span></label>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <span class="label"><b class="ftx04" style="color:red">*</b>请确认密码：</span>
+                        <div class="fl item-ifo" style="height:30px;">
+                            <input type="password" id="pwdRepeat" name="pwdRepeat" class="text" tabindex="2" style="ime-mode:disabled;" onpaste="return  false" autocomplete="off">
+                            <i class="i-pass"></i>
+                            <label id="pwdRepeat_succeed" class="blank"></label>
+                            <label id="pwdRepeat_info" class="focus" style="display:none;"><span>6-20位字符，可使用字母、数字或符号的组合</span></label>
+                            <label id="pwdRepeat_error" class="focus" style="display:none;color:red"><span>两次输入的密码不一致</span></label>
+                        </div>
+                    </div>
+                    <div class="item hide" id="authcodeDiv">
+                        <span class="label"><b class="ftx04" style="color:red">*</b>验证码：</span>
+                        <div class="fl item-ifo" style="width:272px;">
+                            <input type="text" id="checkCode" name="authcode" class="text text-1" tabindex="5" autocomplete="off" maxlength="5">
+
+                            <label class="img">
+                                <img style="margin-top:10px;" id="checkCodeImg" src="/Organization/GetCheckCode" onclick="reloadImg()">
+                            </label>
+                            <label id="checkCode_error" class="error" style="display:none;color:red"><span>请输入验证码</span></label>
+                            <span class="clr"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item item-new">
+                    <span class="label">&nbsp;</span>
+                    <div class="fl item-ifo">
+                        <label><input type="checkbox" class="checkbox" onchange="checkAgreementIsValid()" checked="checked" id="readme">我已阅读并同意《<a href="/Register/RegisterAgreement" target="_blank" style="color:#3498DB" id="protocol">用户注册协议</a>》</label>
+                        <label id="checkAgreement_error" class="error" style="display:none"><span>请仔细阅读并同意以上协议</span></label>
+                        <span class="clr"></span>
+                    </div>
+                </div>
+                <input type="hidden" value="@ViewBag.userId" id="UserId" />
+                <input type="hidden" value="@ViewBag.RoleName" id="roleName" />
+                <input type="hidden" value="@ViewBag.roleId" id="roleId" />
+                <input type="hidden" value="@ViewBag.parentId" id="parentId" />
+                <input type="hidden" value="@ViewBag.AdminUserId" id="AdminUserId" />
+                <div class="item">
+                    <span class="label">&nbsp;</span>
+                    @*<input type="hidden" id="introducer" name="introducer" value="@ViewBag.Introducer" />*@
+                    <div class="fl">
+                        <input type="button" class="btn-5" id="AddNewDown" style="cursor:pointer"
+                               value="保存">
+                    </div>
+                </div>
+            </div>
+            <span class="clr"></span>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+
+

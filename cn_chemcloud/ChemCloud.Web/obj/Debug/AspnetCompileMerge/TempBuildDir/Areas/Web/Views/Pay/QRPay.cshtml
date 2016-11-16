@@ -1,0 +1,83 @@
+﻿@{
+
+    Layout = "~/Areas/Web/Views/Shared/_PayTopBar.cshtml";
+}
+<div class="bg-gray cl">
+    <div class="w990 main">
+        <div class="m pay-box">
+            <div class="qrcode-box cl">
+                <div class="p-w-hd">@(ViewBag.Name)支付</div>
+
+                <div class="p-w-bd">
+                    <div class="p-w-box">
+                        <div class="pw-box-hd">
+                            <img id="imgORPay" src="@ViewBag.QRCode" width="298">
+
+                        </div>
+                        <div class="pw-box-ft">
+                            <p>请使用@(ViewBag.Name)扫一扫</p>
+                            <p>扫描二维码支付</p>
+                        </div>
+                    </div>
+                    <div class="p-w-sidebar" style="background-image:url(@ViewBag.HelpImage)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+
+
+
+        ///没有订单号
+        var out_trade_no = "@(ViewBag.out_trade_no)";
+        var paytype = "@(ViewBag.paytype)";
+        var type = "@(ViewBag.type)";
+
+        //显示 支付成功了
+        if (out_trade_no == "") {
+            $("#imgORPay").attr("src", "~/Areas/Web/Images/paid.png");
+
+            return;
+        }
+
+
+
+        var GetOrderStatueTimer = setInterval(function () {
+
+
+            $.get('/Pay/GetOrderStatue', {
+
+
+                out_trade_no: out_trade_no,
+                paytype: paytype,
+                type: type
+
+            }, function (result) {
+
+                ///说明   0 支付了 其它 没有支付
+
+                if (result.OrderStatus == 1) {
+
+                    window.clearInterval(GetOrderStatueTimer);
+
+                    //显示 支付成功了
+                    $("#imgORPay").attr("src", "~/Areas/Web/Images/paid.png");
+                } else {
+
+
+
+                }
+
+            });
+
+
+        }, 1000);
+
+    });
+
+
+</script>

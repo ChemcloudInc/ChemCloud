@@ -1,0 +1,306 @@
+﻿@model ChemCloud.Model.TH
+@using ChemCloud.Web.Areas.Web.Models;
+@using ChemCloud.Model;
+
+@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>退货申请</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <style>
+        #Refund {
+            width: 1210px;
+            position: relative;
+            padding: 24px 0 30px 280px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+            #Refund .right_input {
+                width: 800px;
+            }
+
+            #Refund .left_img {
+                margin-top: 20px;
+            }
+
+            #Refund .myname {
+                font-size: 14px;
+            }
+
+            #Refund .Refund_border .siader h3 {
+                height: 45px;
+                line-height: 45px;
+            }
+
+        .Refund_border {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="Refund">
+        @*发货信息*@
+        <div class="border_wai" style="padding-left:0px; padding-right:0px; display:none;" id="div_jihuo">
+            <ul class="border_wai_ul" style="padding-bottom: 20px;border-bottom: 0px solid #ccc; ">
+                <li style="font-weight:bolder;font-size:16px; border-bottom: 1px solid #ccc;">寄货到卖家</li>
+                <li style="padding-top:10px; padding-left:50px;">
+                    物流公司：<input type="text" id="txtwuliugongsi" style="width:220px;height:26px" value="@Model.TH_WLGS" />
+                    <span style="margin-left:20px;">物流单号</span>：
+                    <input type="text" id="txtwuliudanhao" style="width:220px;height:26px" value="@Model.TH_WLDH" />
+                    <input type="button" id="btnsend" value="寄货"
+                           style="margin-left:5px;cursor: pointer;padding: 5px 15px;border: 1px solid #3498DB;background-color: #3498DB;display: inline-block;text-align: center;color: #fff;font-size: 14px;border-radius: 2px;" />
+                </li>
+            </ul>
+        </div>
+
+        <div class="border_wai" style="padding-left:0px; padding-right:0px; display:none;" id="div_wuliuxinxi">
+            <ul class="border_wai_ul" style="padding-bottom: 20px;border-bottom: 0px solid #ccc; ">
+                <li style="font-weight:bolder;font-size:16px; border-bottom: 1px solid #ccc;">物流信息</li>
+                <li style="padding-top:10px; padding-left:50px;">
+                    <span>物流公司：</span><span id="spanwuliugongsi">@Model.TH_WLGS</span><span style="margin-left:20px;">物流单号：</span><span id="spanwuliudanhao">@Model.TH_WLDH</span>
+                </li>
+                <li style="padding-top:10px; padding-left:50px;">
+                    <span id="spanwuliuxinxi">暂无物流信息</span>
+                </li>
+            </ul>
+        </div>
+
+
+        @*退货信息*@
+        <div class="Refund_border" style="width:1004px; margin-top:20px;">
+            <div class="main_liu">
+                <div class="Refund_form">
+                    <div class="header_liu">
+                        <h3 style="font-weight:bold;margin-top: 18px;">退货信息</h3>
+                        <span class="header_xi"></span>
+                    </div>
+
+                    <div class="form-hang" id="inputTextDiv">
+                        <div class="lable">
+                            <span class="lable_mi">*</span><span class="lable_text">退货原因：</span>
+                        </div>
+                        <input type="text" id="txtreason" disabled="disabled" style="width:400px;height:30px">
+                    </div>
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_mi">*</span><span class="lable_text">退货金额：</span>
+                        </div>
+                        <input type="text" id="txtamount" disabled="disabled" style="width:290px;height:30px">
+                    </div>
+                </div>
+            </div>
+            <div class="siader">
+                <h3>订单信息</h3>
+                <div class="border_sia">
+                    <div class="line_height_sia">
+                        <span class="guding">采购商：</span>
+                        <span>@ViewBag.UserName</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">供应商：</span>
+                        <span>@ViewBag.ShopName</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span>订单编号：</span>
+                        <span class="blud_span">@ViewBag.OrderNo</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">订单金额：</span>
+                        <span class="hong_span">@ViewBag.total</span>
+                        <span>元</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">运 费：</span>
+                        <span class="hong_span">@ViewBag.yunfei</span>
+                        <span>元</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*操作区*@
+        <div class="border_wai">
+            <ul class="border_wai_ul">
+                <li style="font-weight:bolder;font-size:16px;">退货状态：<span style="color:red;" id="spanstatus"></span></li>
+                <li>如果卖家同意，请自行将货邮寄给卖家，签收后，平台会审核并把款项转入您的账户。</li>
+                <li>如果卖家拒绝，联系平台。</li>
+            </ul>
+            <div class="button_start">
+                <span class="margin_right">您还可以：</span>
+                <a href="step2?orderno=@ViewBag.OrderNo" class="">继续发言</a>
+                <span>|</span>
+                <a href="" onclick="Cancle(@ViewBag.OrderNo,8)">取消申请</a>
+                @*<span>|</span>
+                    <a href="" onclick="Cancle(@ViewBag.OrderNo)">申请仲裁</a>*@
+            </div>
+        </div>
+
+        @*留言板*@
+        <div class="border_wai" style="margin-top:50px;overflow-y: auto;min-height: 626px;max-height: 626px;">
+            <h3 class="h3_gui"><span class="title_header">留言板</span></h3>
+            @if (ViewBag.tkmms != null)
+            {
+                foreach (THMessageModel item in ViewBag.tkmms as List<THMessageModel>)
+                {
+                    <div class="liuyan_div">
+                        <div class="left_img">
+                            <div class="img_tou">
+                                @*<img src="~/images/2.jpg" alt="">*@
+                                @{
+                    long userid = item.UserId;/*chemcloud_members id*/
+                    UserMemberInfo _UserMemberInfo = ChemCloud.Web.Framework.ServiceHelper.Create<ChemCloud.IServices.IMemberService>().GetMember(userid);
+                    if (_UserMemberInfo != null)
+                    {
+                        if (_UserMemberInfo.UserType == 3)
+                        {
+                            MemberDetail md = ChemCloud.Web.Framework.ServiceHelper.Create<ChemCloud.IServices.IMemberDetailService>().GetMemberDetailByUid(_UserMemberInfo.Id);
+                            if (md != null && !string.IsNullOrEmpty(md.CompanySign))
+                            {
+                                <img src="@md.CompanySign" alt="">
+                            }
+                            else
+                            {
+                                <img src="~/images/2.jpg" alt="">;
+                            }
+                        }
+                        else if (_UserMemberInfo.UserType == 2)
+                        {
+                            //ShopInfo shop = ServiceHelper.Create<IShopService>().GetShop(base.CurrentSellerManager.ShopId, false);
+                            ManagerInfo _ManagerInfo = ChemCloud.Web.Framework.ServiceHelper.Create<ChemCloud.IServices.IManagerService>().GetManagerInfoByUserName(_UserMemberInfo.UserName);
+                            if (_ManagerInfo != null)
+                            {
+                                long shopid = _ManagerInfo.ShopId;
+                                ShopInfo _ShopInfo = ChemCloud.Web.Framework.ServiceHelper.Create<ChemCloud.IServices.IShopService>().GetShop(shopid);
+                                if (_ShopInfo != null && _ShopInfo.Logo != null)
+                                {
+                                    <img src="@_ShopInfo.Logo" alt="">;
+                                }
+                                else
+                                {
+                                    <img src="~/images/2.jpg" alt="">;
+                                }
+                            }
+                            else
+                            {
+                                <img src="~/images/2.jpg" alt="">;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <img src="~/images/2.jpg" alt="">;
+                    }
+                                }
+                            </div>
+                            <div title=@item.ReturnName class="myname">@item.ReturnName</div>
+                        </div>
+                        <div class="right_input">
+                            <div class="right_text">@item.MessageContent<span class="time_span">@item.MessageDate.ToString("yyyy-MM-dd HH:mm:ss")</span></div>
+                            @foreach (THImageInfo item1 in @item.tkis)
+                            {
+                                <div class="image_tu">
+                                    <div class="left_img_tu">
+                                        <img src="@item1.THImage" alt="ChemCloud">
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+
+    <input type="hidden" id="hdOrderNo" value="@ViewBag.OrderNo" />
+    <input type="hidden" id="hdTH_Reason" value="@ViewBag.TH_Reason" />
+    <input type="hidden" id="hdTH_ProductMoney" value="@ViewBag.TH_ProductMoney" />
+    <input type="hidden" id="hdTH_Status" value="@ViewBag.TH_Status" />
+
+    <script>
+        $(function () {
+            var TH_Status = $("#hdTH_Status").val(); /*状态*/
+
+            if (TH_Status == "2") {
+                /*同意退货*/
+                $("#div_jihuo").css("display", "block");
+            }
+
+            if (TH_Status == "4") {
+                /*已寄货*/
+                $("#div_wuliuxinxi").css("display", "block");
+            }
+
+            switch (TH_Status) {
+                case "1": TH_Status = "退货申请中"; break;
+                case "2": TH_Status = "同意退货"; break;
+                case "3": TH_Status = "拒绝退货"; break;
+                case "4": TH_Status = "已寄货"; break;
+                case "5": TH_Status = "已签收"; break;
+                case "6": TH_Status = "已完成"; break;
+                case "7": TH_Status = "仲裁中"; break;
+                case "8": TH_Status = "已取消"; break;
+            };
+            $("#spanstatus").html(TH_Status);
+
+            /*原因*/
+            $("#txtreason").val($("#hdTH_Reason").val());
+
+            /*金额*/
+            $("#txtamount").val($("#hdTH_ProductMoney").val());
+
+            /*寄货*/
+            $("#btnsend").click(function () {
+                var txtwuliugongsi = $.trim($("#txtwuliugongsi").val());
+                var txtwuliudanhao = $.trim($("#txtwuliudanhao").val());
+
+                if (txtwuliugongsi == "" || txtwuliudanhao == "") {
+                    alert("寄货要求同时填写物流单号和物流公司！");
+                    return false;
+                }
+
+                if ($("#hdTH_Status").val() == "2") {
+                    $.post("SendTH", {
+                        ordernum: $("#hdOrderNo").val(),
+                        wuliugongsi: txtwuliugongsi,
+                        wuliudanhao: txtwuliudanhao
+                    }, function (d) {
+                        if (d.success) {
+                            alert("操作成功！");
+                            location.href = "/TH/management";
+                        }
+                        else {
+                            alert("操作失败！");
+                        }
+                    });
+                } else {
+                    alert("只有同意退货状态的订单才可以寄货！");
+                }
+            });
+        });
+
+        /*取消申请*/
+        var Cancle = function (id, type) {
+            if ($("#hdTH_Status").val() == "1") {
+                $.post("ChangeTHStatus", { id: id, type: type }, function (d) {
+                    if (d.success) {
+                        alert("操作成功！");
+                        location.href = "/TH/management";
+                    }
+                    else {
+                        alert("操作失败！");
+                    }
+                });
+            } else {
+                alert("只有退货申请中的订单才可以取消！");
+            }
+        }
+    </script>
+</body>
+</html>

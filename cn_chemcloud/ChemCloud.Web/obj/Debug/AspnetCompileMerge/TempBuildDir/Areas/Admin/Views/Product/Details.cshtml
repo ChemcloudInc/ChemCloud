@@ -1,0 +1,231 @@
+﻿@model ChemCloud.Web.Areas.Admin.Models.Product.ProductModel
+@using ChemCloud.Core;
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>产品</strong>
+        <li><a href="./Management">产品明细</a></li>
+        <li><a href="./Management">所有产品</a></li>
+        <li><a href="./Management?type=Auditing">单一产品审核</a></li>
+        <li><a a href="./Management?type=Salesing">销售中</a></li>
+        <li><a href="./Management?type=NoCasNoAuditing">结构式审核</a></li>
+        <li><a href="./Management?type=SaleOff">违规下架</a></li>
+    </ul>
+
+    <h3 class="table-hd">产品信息</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>产品名称</td>
+                <td>@Model.name</td>
+            </tr>
+            <tr>
+                <td>产品英文名</td>
+                <td>@Model.name</td>
+            </tr>
+            <tr>
+                <td>中文别名</td>
+                <td>@Model.Alias</td>
+            </tr>
+            <tr>
+                <td>英文别名</td>
+                <td>@Model.Ealias</td>
+            </tr>
+
+            <tr>
+                <td>产品货号</td>
+                <td>@Model.ProductCode</td>
+            </tr>
+            <tr>
+                <td>分子式</td>
+                <td>@Model.MolecularFormula</td>
+            </tr>
+            <tr>
+                <td>分子量</td>
+                <td>@Model.MolecularWeight</td>
+            </tr>
+            <tr>
+                <td>PAS值</td>
+                <td>@Model.PASNo</td>
+            </tr>
+            <tr>
+                <td>LogP</td>
+                <td>@Model.LogP</td>
+            </tr>
+            <tr>
+                <td>CASNO</td>
+                <td>@Model.CASNo</td>
+            </tr>
+          
+        </tbody>
+    </table>
+    <h3 class="table-hd">物化性质</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+           
+          
+            <tr>
+                <td>外观与形状</td>
+                <td>@Model.Shape</td>
+            </tr>
+            <tr>
+                <td>密度</td>
+                <td>@Model.Density</td>
+            </tr>
+            <tr>
+                <td>熔点</td>
+                <td>@Model.FusingPoint</td>
+            </tr>
+            <tr>
+                <td>沸点</td>
+                <td>@Model.BoilingPoint</td>
+            </tr>
+            <tr>
+                <td>闪点</td>
+                <td>@Model.FlashPoint</td>
+            </tr>
+            <tr>
+                <td>折射率</td>
+                <td>@Model.RefractiveIndex</td>
+            </tr>
+            <tr>
+                <td>存储条件</td>
+                <td>@Model.StorageConditions</td>
+            </tr>
+            <tr>
+                <td>蒸汽压</td>
+                <td>@Model.VapourPressure</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 class="table-hd">安全信息</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>海关编码</td>
+                <td>@Model.HSCODE</td>
+            </tr>
+            <tr>
+                <td>危险等级</td>
+                <td>@Model.DangerLevel</td>
+            </tr>
+            <tr>
+                <td>危险品运输编号</td>
+                <td>@Model.TransportationNmber</td>
+            </tr>
+            <tr>
+                <td>RETCS</td>
+                <td>@Model.RETCS</td>
+            </tr>
+            <tr>
+                <td>WGKGermany</td>
+                <td>@Model.WGKGermany</td>
+            </tr>
+            <tr>
+                <td>安全信息</td>
+                <td>@Model.SafetyInstructions</td>
+            </tr>
+          
+        </tbody>
+    </table>
+    <h3 class="table-hd">产品报价</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>包装</td>
+                <td>@Model.PackagingLevel </td>
+            </tr>
+            <tr>
+                <td>纯度</td>
+                <td>@Model.Purity </td>
+            </tr>
+            <tr>
+                <td>单价</td>
+                <td>@Model.price  </td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+    @if (!string.IsNullOrEmpty(Model.MSDS))
+    {
+        <h3 class="table-hd">化学品安全技术说明书</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                @for (int i = 1; i < 4; i++)
+                {
+                    if (File.Exists(Server.MapPath(Model.MSDS + string.Format("{0}.png", i))))
+                    {
+                        <tr>
+                            <td><img style="max-width:700px" src="@(Model.MSDS + string.Format("{0}.png", i))" alt="" /></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    @if (!string.IsNullOrEmpty(Model.NMRSpectrum))
+    {
+        <h3 class="table-hd">核磁共振波谱</h3>
+        <table class="table table-bordered table-striped">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <tbody>
+                @for (int i = 1; i < 4; i++)
+                {
+                    if (File.Exists(Server.MapPath(Model.NMRSpectrum + string.Format("{0}.png", i))))
+                    {
+                        <tr>
+                            <td><img style="max-width:700px" src="@(Model.NMRSpectrum + string.Format("{0}.png", i))" alt="" /></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    @{
+        if (Model.Status.Equals("未通过") || Model.Status.Equals("违规下架"))
+        {
+            <h3 class="table-hd">被拒绝原因</h3>
+            <table class="table table-bordered table-striped">
+                <colgroup>
+                    <col class="col-xs-1">
+                    <col class="col-xs-7">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>被拒绝原因</td>
+                        <td>@Model.RefuseReason</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+
+    }
+</div>

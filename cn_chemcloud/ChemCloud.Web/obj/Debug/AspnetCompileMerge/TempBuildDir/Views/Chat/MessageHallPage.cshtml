@@ -1,0 +1,1337 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="在线咨询">
+    <meta name="author" content="王传伟">
+    <title>在线咨询</title>
+    <link rel="stylesheet" href="~/Content/Chat/themes/bootstrap/css/bootstrap.css" />
+
+    <link rel="stylesheet" href="~/Content/Chat/themes/notifications/humane/css/bigbox.min.css" />
+
+    <link rel="stylesheet" href="~/Content/Chat/themes/animate.min.css" />
+
+    <link rel="stylesheet" href="~/Content/Chat/themes/loading/default.css" />
+
+    <link rel="stylesheet" href="~/Content/Chat/themes/loading/ladda-themeless.css" />
+
+    <link rel="stylesheet" href="~/Content/Chat/themes/bootstrap/css/bootstrap-select.css" />
+
+    <link rel="stylesheet" href="~/Content/Chat/hoverifyBootnav.min.css" />
+
+    <link rel="stylesheet" href="~/Content/Chat/dataTables/css/jquery.dataTables.min.css" />
+    <script src="~/Scripts/Chat/jquery-1.7.1.min.js"></script>
+
+    <script src="~/Scripts/Chat/jquery.form.min.js"></script>
+    <script src="~/Scripts/Chat/jquery.cookie.min.js"></script>
+
+    <script src="~/Scripts/Chat/jquery.placeholder.min.js"></script>
+
+
+    <style>
+        Body {
+            scrollbar-arrow-color: #f4ae21; /*图6,三角箭头的颜色*/
+            scrollbar-face-color: #333; /*图5,立体滚动条的颜色*/
+            scrollbar-3dlight-color: #666; /*图1,立体滚动条亮边的颜
+
+                色*/
+            scrollbar-highlight-color: #666; /*图2,滚动条空白部分的
+
+                颜色*/
+            scrollbar-shadow-color: #999; /*图3,立体滚动条阴影的颜
+
+                色*/
+            scrollbar-darkshadow-color: #666; /*图4,立体滚动条强阴
+
+                影的颜色*/
+            scrollbar-track-color: #666; /*图7,立体滚动条背景颜色*/
+            scrollbar-base-color: #f8f8f8; /*滚动条的基本颜色*/
+            Cursor: url(mouse.cur); /*自定义个性鼠标*/
+        }
+
+        .modal-header-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="row" style="height:50px;">
+        </div>
+
+        <div id="divOtherSideGroupContextMenu">
+            <ul class="dropdown-menu" role="menu">
+                <li><a tabindex="-1">历史记录</a></li>
+                <li><a tabindex="-1">移除此项</a></li>
+            </ul>
+        </div>
+
+        <!-- 不支持模态框（Modal） -->
+        <div class="modal fade" id="divNotSupportWebSocketDialog" tabindex="-1" role="dialog"
+             aria-labelledby="信息提示" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title">
+                            信息提示
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        此浏览器不支持WebSocket！
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">
+                            关闭
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                            提交更改
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <!-- end 不支持模态框模态框（Modal） -->
+        <!-- 消息历史记录模态框（Modal） -->
+        <div class="modal fade" id="divMessageHistoryDialog" tabindex="-1" role="dialog"
+             aria-labelledby="历史记录" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <span class="text-info">历史记录</span>
+                    </div>
+
+                    <div class="modal-header">
+
+                        <ul class="nav nav-pills" id="divHistroyMessageNavigationContainer">
+
+                            <li role="presentation" class="active" id="btnShowHistroyMessageRecordPage_1"><a href="#">三个月内</a></li>
+                            <li role="presentation"><a href="#" id="btnShowHistroyMessageRecordPage_2">六个月内</a></li>
+                            <li role="presentation"><a href="#" id="btnShowHistroyMessageRecordPage_3">近一年内</a></li>
+                            <li role="presentation"><a href="#" id="btnShowHistroyMessageRecordPage_4">近三年内</a></li>
+
+                        </ul>
+
+                    </div>
+                    <div class="modal-body" id="divHistroyMessageRecordPageContainer"
+                         style="overflow-x:hidden;overflow-y:scroll;min-height:400px;max-height:600px;">
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-primary"
+                                data-dismiss="modal" aria-hidden="true">
+                            关闭
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+
+        </div>
+        <!-- end 消息历史记录 模态框（Modal） -->
+        <!--  人员查找 模态框（Modal） -->
+        <div class="modal fade" id="divSearchOtherSideDialog" tabindex="-1" role="dialog"
+             aria-labelledby="人员查找" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <span class="text-info">人员查找</span>
+
+                    </div>
+
+                    <div class="modal-header">
+
+                        @*查找范围*@
+
+                        <input type="text" placeholder="请填写查找的人员姓名" class="form-control"
+                               maxlength="40"
+                               id="txtSearchOtherSide">
+
+                        @*end 查找范围*@
+
+                    </div>
+
+                    <div class="modal-body" id="divSearchOtherSidePageContainer"
+                         style="overflow-x:hidden;overflow-y:scroll;min-height:300px;max-height:380px;">
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-primary"
+                                data-dismiss="modal" aria-hidden="true">
+                            关闭
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+
+        </div>
+        <!--  end 人员查找 模态框（Modal） -->
+        <!--  删除人员 确认 模态框（Modal） -->
+        <div class="modal fade" id="divRemoveOtherSideConfirmDialog" tabindex="-1" role="dialog"
+             aria-labelledby="删除人员 确认 模态框" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title">
+                            提示信息
+                        </h4>
+                    </div>
+                    <div class="modal-body" id="divRemoveOtherSideUserName">
+                        在这里添加一些文本
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">
+                            取消
+                        </button>
+                        <button type="button" class="btn btn-primary"
+                                data-dismiss="modal"
+                                id="btnRemoveSelectedOtherSideConfirm">
+                            确认
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <!-- end  删除人员 确认 模态框（Modal） -->
+        <!-- 主面板 -->
+        <div class="row panel panel-info">
+            <div class="panel-heading ">
+
+                <span id="txtCurrentOtherSideUserName" class="label label-info" style="color:white;background-color:#3480e8"></span>
+                <span style="visibility:hidden">不显示</span>
+            </div>
+
+            <div class="panel-body">
+                @*左边聊天布局*@
+                <div class="col-sm-8 col-md-8">
+
+                    @*左边面板*@
+                    <div class="panel  panel-success" style="height:600px;">
+
+                        @*对话记录区*@
+                        <div class="panel-body" style="height:470px;overflow-y:scroll; overflow-x:hidden;" id="divRecentMessageRecord">
+
+                        </div>
+                        @*end 对话记录区*@
+
+                        @*中间工具栏*@
+                        <div class="panel-heading">
+                            <span></span>
+                            <div class="btn-group" role="group" aria-label="...">
+
+                                <div class="btn btn-default btn-group-sm" role="group" aria-label="..." id="btnOpenMessageHistoryDialog">历史记录</div>
+                            </div>
+                        </div>
+
+                        @*end 中间工具栏*@
+
+                        @*信息发送区*@
+                        <div class="panel-body">
+                            <form role="form">
+                                <div class="input-group input-group-lg">
+
+                                    <input type="text" class="form-control" placeholder="请填写发送内容"
+                                           maxlength="40"
+                                           id="txtSendMessage" data-provide="typeahead" data-items="4">
+
+                                    <span class="input-group-btn"><input type="button" class="btn btn-success" value="发送" id="btnSendMessage" /></span>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        @*end信息发送区*@
+                    </div>
+
+                </div>
+                @*end 左边聊天布局*@
+
+                @*右边聊天对像列表*@
+                <div class="col-sm-4 col-md-4">
+
+                    <div class="panel panel-danger" style="height:600px;">
+
+                        <div class="panel-heading" style="background-color:#3480e8">
+                            <span style="color:white">人员列表</span>
+                            <div class="btn-toolbar pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-danger btn-sm" id="btnRemoveSelectedOtherSide" style="background-color:#ccc"
+                                            data-toggle="modal"
+                                            data-target="#divRemoveOtherSideConfirmDialog">
+                                        <span class="glyphicon glyphicon-trash"></span>
+
+                                    </button>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-info btn-sm " id="btnOpenSearchOtherSideDialog">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="panel-body" id="divOtherSideGroup" style="height:550px;overflow-y:scroll; overflow-x:hidden;">
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="background-color:#adf4b5;border-color:#7dd687"></div>
+
+                </div>
+                @*end 右边聊天对像列表*@
+            </div>
+        </div>
+        <!-- end 主面板 -->
+    </div>
+    <script>
+
+
+        /// 待处理  得到发送者编号
+        function GetSendUserID() {
+
+
+            return $.cookie("ChatMessage_SendUserID");
+        }
+
+        ///待处理 得到发送者编号
+        function GetSendUserName() {
+
+            return $.cookie("ChatMessage_SendUserName");
+        }
+
+
+        //新建一个发送消息
+        function CreateSendMessage(head, message) {
+
+
+            var _head = $("<strong></strong>");
+            _head.text(head + " ");
+            var _message = $("<span></span>");
+            _message.text(message);
+
+            var _templet = $('<div class="alert alert-danger text-right" style="background-color:#adf4b5;border-color:#7dd687"></div>');
+            _templet.append(_head);
+
+            _templet.append(_message);
+
+            ////双击时
+            $(_templet).on("dblclick", function () {
+
+                $("#txtSendMessage").val($(this).find("span").text());
+            });
+
+            return _templet;
+
+        }
+
+        ///新建一个收到的消息
+        function CreateReceiveMessage(head, message) {
+            var _head = $("<strong></strong>");
+            _head.text(head + " ");
+            var _message = $("<span></span>");
+            _message.text(message);
+
+            var _templet = $('<div class="alert alert-info"></div>');
+            _templet.append(_head);
+
+            _templet.append(_message);
+
+            ////双击时
+            $(_templet).on("dblclick", function () {
+
+                $("#txtSendMessage").val($(this).find("span").text());
+            });
+
+
+            return _templet;
+        }
+
+        ///新建一个 聊天对像
+        function CreateOtherSide(userID, userName) {
+            var _templet = $('<a class="list-group-item"></a>');
+            _templet.text(userName);
+            _templet.data('userID', userID)
+            return _templet;
+        }
+
+        ///新建一个 聊天对像
+        function CreateOtherSideWithBadge(userID, userName) {
+            var _templet = $('<a class="list-group-item"></a>');
+            _templet.text(userName);
+            _templet.data('userID', userID)
+            var badge = $('<span class="badge pull-right">新</span>');
+            _templet.append(badge);
+            return _templet;
+        }
+        //end 新建一个 聊天对像
+
+        //检测 聊天对像Cookie
+        function CheckOtherSideToCookie() {
+
+            if ($.cookie('cookieOtherSideGroup') == null) {
+
+                var cookieOtherSideGroupEmpty = [];
+                //空数组
+                $.cookie('cookieOtherSideGroup', JSON.stringify(cookieOtherSideGroupEmpty), { expires: 100, path: '/' });
+
+            }
+            var otherSideGroup = JSON.parse($.cookie('cookieOtherSideGroup'));
+
+            var selectedIndex = otherSideGroup.findIndex(function (item) {
+                return item.userID == GetSendUserID();
+
+            });
+
+            //在Cookie中没有这个人
+            if (selectedIndex < 0) {
+
+                return;
+            }
+            //移除自己
+            otherSideGroup.splice(selectedIndex, 1);
+
+            //保存一下to Cookie 吧
+            $.cookie('cookieOtherSideGroup', JSON.stringify(otherSideGroup), { expires: 100, path: '/' })
+
+        }
+
+
+        ///新增一个聊天对像 到 如果已经存在了 return false ;or return true;，就更新时间
+        function AddOtherSideToCookie(userID, userName) {
+
+            CheckOtherSideToCookie();
+
+            var otherSideGroup = JSON.parse($.cookie('cookieOtherSideGroup'));
+
+            var isExist = false;
+
+            $.each(otherSideGroup, function () {
+
+                ///有了这个人
+                if (this.userID == userID) {
+
+                    this.updateTime = new Date();
+                    isExist = true;
+                    ///保存一下
+                    $.cookie('cookieOtherSideGroup', JSON.stringify(otherSideGroup), { expires: 100, path: '/' });
+
+                }
+            });
+
+            ///已经存在了
+            if (isExist == true) {
+                return false;
+            }
+            ///不存在 新增加
+
+            //不能为自己
+            if (GetSendUserID() == userID) {
+                return false;
+            }
+
+            otherSideGroup.push({ userID: userID, userName: userName, updateTime: new Date() });
+
+            $.cookie('cookieOtherSideGroup', JSON.stringify(otherSideGroup), { expires: 100, path: '/' });
+
+            return true;
+        }
+
+        ///正在加载中
+        function CreateLoadingProgressBar() {
+            return $('<div class="progress progress-striped active">'
+                  + '<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">'
+                  + '<span >正在加载***</span> </div></div>');
+
+
+        }
+        ///end 正在加载中
+        //end 重新设置 交流对像 Click 事件
+
+        ///更新聊天记录区内容 注意是更新 url 请求的地址
+        function GetRecentMessageRecordPage(sendUserID, reviceUserID, maxLimit) {
+            var href = '/ChatMessage/GetRecentMessageRecordPage'
+
+            $("#divRecentMessageRecord").html("");
+
+            //正在加载中
+            $("#divRecentMessageRecord").append(CreateLoadingProgressBar());
+
+            $.get(href, {
+
+                //begin 登录用户信息
+                sendUserID: sendUserID,
+                reviceUserID: reviceUserID,
+                maxLimit: maxLimit
+                //end    登录用户信息
+
+            }, function (result) {
+
+                $("#divRecentMessageRecord").html(result);
+
+                $("#divRecentMessageRecord").addClass("animated fadeIn").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+
+                    $("#divRecentMessageRecord").removeClass("animated fadeIn")
+
+                });
+
+                ///双击自动填写
+                $("#divRecentMessageRecord >div").on("dblclick", function () {
+
+                    $("#txtSendMessage").val($(this).find("span").text());
+                });
+                ///end 双击自动填写
+
+
+            });
+        }
+        ///更新聊天记录区内容
+
+        ///更新聊天记录区内容 注意是更新 url 请求的地址
+        function GetHistroyMessageRecordPage(sendUserID, reviceUserID, type) {
+            var href = '/ChatMessage/GetHistroyMessageRecordPage'
+
+            ///为空吧
+            $("#divHistroyMessageRecordPageContainer").html("");
+
+            $("#divHistroyMessageRecordPageContainer").append(CreateLoadingProgressBar());
+
+
+            $.get(href, {
+
+                sendUserID: sendUserID,
+                reviceUserID: reviceUserID,
+                type: type
+
+
+            }, function (result) {
+
+                $("#divHistroyMessageRecordPageContainer").html(result);
+
+                $("#divHistroyMessageRecordPageContainer").addClass("animated fadeIn").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+
+                    $("#divHistroyMessageRecordPageContainer").removeClass("animated fadeIn")
+
+                });
+
+
+                //begin 生成表格
+                var table = $("#divHistroyMessageRecordPageContainer>table").dataTable({
+                    dom: '<"top">rt<"bottom"p><"clear">',
+                    searching: false,
+                    pageLength: 6,
+                    language: {
+
+                        lengthMenu: "Display _MENU_ records per page",
+                        zeroRecords: "没有数据",
+                        info: "_PAGE_ of _PAGES_",
+                        infoEmpty: "没有数据",
+                        infoFiltered: "(从 _MAX_ 条搜索)",
+                        emptyTable: "没有数据",
+                        paginate: {
+                            first: "第一页",
+                            last: "最后一页",
+                            previous: "上一页",
+                            next: "下一页"
+                        }
+                    }
+                });
+
+
+                $("#divHistroyMessageRecordPageContainer> table").removeClass("dataTable ");
+                //end 生成表格
+
+
+            });
+        }
+        ///end 更新聊天记录区内容
+
+
+
+        ///更新查找好友列表 searchText:关键字，customerLimit：客服数量 ，memberLimit：其它数量
+        function GetSearchOtherSidePage(searchText, customerLimit, memberLimit) {
+
+            var href = '/ChatOtherSide/GetSearchOtherSidePage'
+
+
+            ///为空吧
+            $("#divSearchOtherSidePageContainer").html("");
+
+            $("#divSearchOtherSidePageContainer").append(CreateLoadingProgressBar());
+
+            $.get(href, {
+
+                searchText: searchText,
+                customerLimit: customerLimit,
+                memberLimit: memberLimit
+
+
+            }, function (result) {
+
+                $("#divSearchOtherSidePageContainer").html(result);
+
+                $("#divSearchOtherSidePageContainer").addClass("animated fadeIn").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+
+                    $("#divSearchOtherSidePageContainer").removeClass("animated fadeIn")
+
+                });
+
+                ///收藏 Command 事件处理
+                $("#divSearchOtherSidePageContainer button").click(function () {
+
+
+                    var userID = $(this).closest("tr").first().data("userId");
+
+                    var userName = $(this).closest("tr").first().data("userName");
+
+                    ///返回 true 时，说明是新的
+                    if (AddOtherSideToCookie(userID, userName)) {
+                        AppendOtherSideToGroupWithBadge(userID, userName);
+                        humane.log("成功收藏");
+                    } else {
+                        humane.log("已收藏了");
+                    }
+
+                    //移除它
+                    $(this).remove();
+
+
+                });
+
+                ///end 收藏 Command 事件处理
+            });
+        }
+        ///end 更新查找好友列表
+
+
+        ///保存消息
+        function SaveMessageRecord(
+              sendUserID
+            , sendUserName
+            , messageContent
+            , reviceUserID
+            , reviceUserName) {
+
+
+            var href = '/ChatMessage/SaveMessageRecord';
+            $.post(href,
+            {
+                sendUserID: sendUserID,
+                sendUserName: sendUserName,
+                messageContent: messageContent,
+                reviceUserID: reviceUserID,
+                reviceUserName: reviceUserName
+
+            }, function (result) {
+
+                //保存消息成功了
+
+            }, "json");
+
+        }
+        //end 保存消息
+
+        ///设置 交流对像Click
+        function SetOtherSideItemClickFunction(otherSideItem) {
+
+            ///Click 时
+            $(otherSideItem).on("click", function () {
+
+                var currentOtherSideUserName = $(this).text();
+
+                // //移除 有消息 高亮
+                $(this).removeClass("list-group-item-danger");
+
+                ///移除 新标识
+                $(this).find("span").remove();
+
+                $("#txtCurrentOtherSideUserName").text(currentOtherSideUserName);
+
+                var divOtherSideGroupItems = $("#divOtherSideGroup >a");
+                ///移除选择 (所有）
+                divOtherSideGroupItems.removeClass("list-group-item-info");
+
+                //选择它了
+                $(this).addClass("list-group-item-info");
+
+                //当前 接收者
+                var otherSideItemObject = $(this).data("otherSideItemObject");
+
+                //当前 接收者
+                GetRecentMessageRecordPage(GetSendUserID(), otherSideItemObject.userID, 100);
+
+                $.cookie("currentOtherSideItemID", otherSideItemObject.userID);
+
+                $.cookie("currentOtherSideItemName", otherSideItemObject.userName);
+
+                //当前历史可用
+                $('#btnOpenMessageHistoryDialog').removeAttr("disabled");
+
+                $('#btnRemoveSelectedOtherSide').removeAttr("disabled");
+
+
+
+            });
+        }
+
+
+        ///加入一个聊天对像了
+        function AppendOtherSideToGroup(userID, userName) {
+            var otherSideItem = CreateOtherSide(userID, userName);
+
+            $(otherSideItem).data("otherSideItemObject", { userID: userID, userName: userName });
+            ///设置功能处理
+            SetOtherSideItemClickFunction(otherSideItem);
+
+            var divOtherSideGroup = $("#divOtherSideGroup");
+
+            divOtherSideGroup.append(otherSideItem);
+
+            otherSideItem.addClass("animated fadeIn").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+
+                otherSideItem.removeClass("animated fadeIn")
+
+            });
+        }
+        // ///end 加入一个聊天对像了
+
+
+        function AppendOtherSideToGroupWithBadge(userID, userName) {
+            var otherSideItem = CreateOtherSideWithBadge(userID, userName);
+
+            $(otherSideItem).data("otherSideItemObject", { userID: userID, userName: userName });
+            ///设置功能处理
+            SetOtherSideItemClickFunction(otherSideItem);
+
+            var divOtherSideGroup = $("#divOtherSideGroup");
+
+            divOtherSideGroup.append(otherSideItem);
+
+            otherSideItem.addClass("animated fadeIn").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+
+                otherSideItem.removeClass("animated fadeIn")
+
+            });
+        }
+
+        ///end 加入一个 聊天对像到
+
+        ///create 聊天对像列表
+        function CreateOtherSideGroupByCookie() {
+
+
+
+            //清空一下
+            $("#divOtherSideGroup").html("");
+
+            //检测一下
+            CheckOtherSideToCookie();
+            ///保存的
+
+            var otherSideGroup = JSON.parse($.cookie('cookieOtherSideGroup'));
+
+            var divOtherSideGroup = $("#divOtherSideGroup");
+
+            ///更新时间 排序一下
+            otherSideGroup = otherSideGroup.sort(function (a, b) {
+                return a.updateTime > b.updateTime ? 1 : -1;
+            });
+            ///生成
+            $.each(otherSideGroup, function () {
+
+                AppendOtherSideToGroup(this.userID, this.userName);
+
+            });
+
+            //保存一下，这时 已经更新了
+            $.cookie('cookieOtherSideGroup', JSON.stringify(otherSideGroup), { expires: 100, path: '/' });
+
+            //此时 历史记录不能使用
+            $("#btnOpenMessageHistoryDialog").attr("disabled", true);
+
+            //移除Command 也不能使用
+            $("#btnRemoveSelectedOtherSide").attr("disabled", true);
+
+
+            //如果 从选择商品过来
+
+            if ($.cookie("currentSelectedShopUserID") != null) {
+                //如果加了进去了 ，如果加不进行说明已经存在了
+                if (AddOtherSideToCookie($.cookie("currentSelectedShopUserID"), $.cookie("currentSelectedShopUserName"))) {
+                    AppendOtherSideToGroupWithBadge($.cookie("currentSelectedShopUserID"), $.cookie("currentSelectedShopUserName"));
+
+                }
+                ///高亮一下
+                highlightOtherSideItem($.cookie("currentSelectedShopUserID"));
+
+
+            }
+
+
+        }
+        ///end create 聊天对像列表
+
+        ///设置 导航click
+        function SetHistroyMessageNavigationItemClickFunction() {
+
+            ///三个月 Click
+            $("#btnShowHistroyMessageRecordPage_1").click(function () {
+
+                $("#divHistroyMessageNavigationContainer >li").removeClass("active");
+                $(this).addClass("active");
+                $(this).parent().addClass("active");
+
+                GetHistroyMessageRecordPage(GetSendUserID(), $.cookie("currentOtherSideItemID"), 1);
+                return false;
+            });
+            ///end 三个月 Click
+
+            ///六个月 Click
+            $("#btnShowHistroyMessageRecordPage_2").click(function () {
+
+                $("#divHistroyMessageNavigationContainer >li").removeClass("active");
+
+                $(this).parent().addClass("active");
+
+
+                GetHistroyMessageRecordPage(GetSendUserID(), $.cookie("currentOtherSideItemID"), 2);
+                return false;
+            });
+            ///end 六个月 Click
+
+            ///一年 Click
+            $("#btnShowHistroyMessageRecordPage_3").click(function () {
+
+                $("#divHistroyMessageNavigationContainer >li").removeClass("active");
+
+                $(this).parent().addClass("active");
+
+
+                GetHistroyMessageRecordPage(GetSendUserID(), $.cookie("currentOtherSideItemID"), 3);
+                return false;
+
+            });
+            ///end 一年 Click
+
+            ///三年 Click
+            $("#btnShowHistroyMessageRecordPage_4").click(function () {
+
+                $("#divHistroyMessageNavigationContainer >li").removeClass("active");
+
+                $(this).parent().addClass("active");
+
+                GetHistroyMessageRecordPage(GetSendUserID(), $.cookie("currentOtherSideItemID"), 4);
+                return false;
+            });
+            ///end 三年 Click
+        }
+
+        ///end 设置 导航click
+
+
+        ///初始化音乐
+        function InitializeMessageSound() {
+
+            ion.sound({
+                sounds: [
+                    {
+                        name: "MessageArrived"
+                    }
+                ],
+                volume: 0.5,
+                path: "Sounds/",
+                preload: true
+            });
+
+        }
+
+        ///end 初始化音乐
+
+        //播放 消息到达音乐
+        function PlayMessageArrivedMusic() {
+            ion.sound.play("MessageArrived");
+        }
+        //end 播放 消息到达音乐
+
+        ///启动WebSocket
+
+        var websocket;
+
+        ///发送WebSocket 消息
+
+        function SendWebSockeMessage(
+           requestCode
+          , sendUserID
+         , sendUserName
+         , messageContent
+         , reviceUserID
+         , reviceUserName) {
+
+            if (websocket != null) {
+                //发送消息了
+                websocket.send(JSON.stringify({
+                    RequestCode: requestCode,
+                    SendUserID: sendUserID,
+                    SendUserName: sendUserName,
+                    MessageContent: messageContent,
+                    ReviceUserID: reviceUserID,
+                    ReviceUserName: reviceUserName
+                }));
+            }
+
+        }
+        //end  ///发送WebSocket 消息
+
+        //打开时
+        function onWebSocketOpen(evt) {
+
+            //$("#divNotSupportWebSocketDialog").modal("show");
+
+            ///发送 注册自己 消息给服务器 请求码请参考 WebSockeMessageViewModel
+            SendWebSockeMessage('1', GetSendUserID(), GetSendUserName(), 'null', 'null', 'null');
+
+
+
+
+            //
+
+            //如果 从选择商品过来
+            if ($.cookie("currentSelectedShopUserID") != null && $.cookie("currentSelectedShopUserName")) {
+
+                SendWebSockeMessage('2', GetSendUserID(), GetSendUserName(), GetSendUserName() + ':在线咨询', $.cookie("currentSelectedShopUserID"), $.cookie("currentSelectedShopUserName"));
+
+                //清空一下
+                $.cookie("currentSelectedShopUserID", null);
+            }
+
+            //保存当前 商家+UserName
+
+
+        }
+
+        //关闭时
+        function onWebSocketClose(evt) {
+
+
+        }
+
+        ///高亮 好友
+        function highlightOtherSideItem(userID) {
+            $("#divOtherSideGroup a").each(function () {
+
+                //是这个好友 ，高亮一下
+                if ($(this).data('userID') == userID) {
+
+                    $(this).addClass("list-group-item-danger");
+
+                    return $(this).fadeIn();
+                }
+
+            });
+        }
+        ///end 高亮 好友
+
+        //收到消息时
+        function onWebSocketMessage(evt) {
+
+            var received_msg = evt.data;
+
+            var msg = JSON.parse(received_msg);
+
+            ///请求吗
+            var requestCode = msg["RequestCode"];
+
+            PlayMessageArrivedMusic();
+
+            //别人发信息给我
+            if (requestCode == '2') {
+
+                //新人
+                if (AddOtherSideToCookie(msg["SendUserID"], msg["SendUserName"])) {
+                    AppendOtherSideToGroupWithBadge(msg["SendUserID"], msg["SendUserName"])
+                }
+
+                //高亮一下
+                var userID = msg["SendUserID"];
+
+                ///
+                var otherSideItem = highlightOtherSideItem(userID);
+
+
+                //end 高亮一下
+
+                //通知信息
+                $.notify(
+                    {
+                        title: ''
+                        , message: '新信息，请查收！'
+                    }, {
+                        placement: {
+                            from: "bottom",
+                            align: "right"
+                        },
+                    })
+                //end 通知信息
+
+
+                //播放一下音乐
+                PlayMessageArrivedMusic();
+
+                //如果是发给当前用户的 ，加一条信息到记录区
+                if (userID == $.cookie("currentOtherSideItemID")) {
+                    var receiveMessage = CreateReceiveMessage(msg["SendUserName"], msg["MessageContent"])
+
+                    ///加一信息 到聊天记录中
+                    $("#divRecentMessageRecord").append(receiveMessage);
+
+                    $("#divRecentMessageRecord").each(function () { this.scrollTop = 1000000; });
+
+                    //fade in
+                    receiveMessage.addClass("animated fadeIn").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+
+                        receiveMessage.removeClass("animated fadeIn")
+
+                    });
+
+                }
+
+                return;
+
+            }
+
+
+            ///服务器 上次保存的信息 不播放音乐
+            if (requestCode == '3') {
+
+                if (AddOtherSideToCookie(msg["SendUserID"], msg["SendUserName"])) {
+                    AppendOtherSideToGroup(msg["SendUserID"], msg["SendUserName"])
+                }
+                highlightOtherSideItem(userID);
+            }
+
+        }
+
+        //发生错误时
+        function onWebSocketError(evt) {
+
+        }
+
+
+
+        function StartWebSocket() {
+
+            window.WebSocket = window.WebSocket || window.MozWebSocket;
+            if (!window.WebSocket) {
+
+                $("#divNotSupportWebSocketDialog").modal("show");
+
+                return;
+            }
+
+            /*可配置 WebSocket 服务器地址*/
+
+            /*正式地址*/
+            websocket = new WebSocket('ws://139.196.230.197:8181');
+
+            /*测试地址*/
+            //websocket = new WebSocket('ws://114.55.111.132:8181');
+
+            websocket.onopen = function (evt) {
+                onWebSocketOpen(evt)
+            };
+            websocket.onclose = function (evt) {
+                onWebSocketClose(evt)
+            };
+            websocket.onmessage = function (evt) {
+                onWebSocketMessage(evt)
+            };
+            websocket.onerror = function (evt) {
+                onWebSocketError(evt)
+            };
+
+        }
+        ///end 启动WebSocket
+
+
+        //初始化
+        $(function () {
+
+
+            //发送消息框 回车处理
+            $("#txtSendMessage").on("keydown", function (e) {
+
+                if (e.keyCode == 13) {
+                    e.preventDefault();//取消原按enter时自动刷新页面；
+                    $("#btnSendMessage").click();//添加enter事件，同时会自动选择检索时下拉选项默认选项，为避免干扰，enter发送事件屏蔽
+                }
+            });
+
+
+            ///发送信息
+            $('#btnSendMessage').on("click", function () {
+                ///没有选择人员 不做处理
+                if ($.cookie("currentOtherSideItemID") == null) {
+                    humane.log("请选择接收人");
+
+                    return;
+                }
+
+                if ($.trim($("#txtSendMessage").val()) == "") {
+
+                    $('#btnSendMessage').addClass("disabled");
+                    $('#btnSendMessage').attr("disabled", true);
+
+                    humane.log("请填写内容");
+
+                    return;
+                } else {
+
+                    var sendMessage = CreateSendMessage('我说', $.trim($("#txtSendMessage").val()));
+
+                    $("#divRecentMessageRecord").append(sendMessage);
+
+                    $("#divRecentMessageRecord").each(function () { this.scrollTop = 1000000; });
+
+
+                    //先保存消息到数据库
+                    SaveMessageRecord(GetSendUserID(), GetSendUserName(), $.trim($("#txtSendMessage").val()), $.cookie("currentOtherSideItemID"), $.cookie("currentOtherSideItemName"));
+
+                    ////给选择的好友发一条信息
+                    SendWebSockeMessage('2'
+                        , GetSendUserID() + ''
+                        , GetSendUserName() + ''
+                        , $.trim($("#txtSendMessage").val())
+                        , $.cookie("currentOtherSideItemID")
+                        , $.cookie("currentOtherSideItemName"));
+
+                    //为空
+                    $("#txtSendMessage").val("");
+
+                }
+            });
+            //end 发送信息
+
+
+
+            // 发送内容改变时 更新发送按键状态
+            $("#txtSendMessage").on("change blur keyup foucs", function () {
+
+                if ($.trim($("#txtSendMessage").val()) == "") {
+
+                    $('#btnSendMessage').addClass("disabled");
+                    $('#btnSendMessage').attr("disabled", true);
+                    return;
+                }
+                $('#btnSendMessage').removeClass("disabled");
+                $('#btnSendMessage').attr("disabled", false);
+
+
+            });
+
+
+
+            //end 发送内容改变时 更新发送按键状态
+
+            //发送内容 自动提示
+
+            //end 发送内容 自动提示
+
+
+            CreateOtherSideGroupByCookie();
+
+            //不显示 历史记录
+            $("#divMessageHistoryDialog").modal('hide');
+
+            ///打开历史记录 Button
+            $("#btnOpenMessageHistoryDialog").click(function () {
+
+                //清空一下
+                $("#divHistroyMessageRecordPageContainer").html("");
+
+                //4 个类型 默认 第一个选择（三个月内）
+
+                //代理一下吧
+                $("#btnShowHistroyMessageRecordPage_1").click();
+
+                $("#divMessageHistoryDialog").modal('show');
+
+            });
+
+
+            ///人员查找对话框 头
+
+            $("#btnOpenSearchOtherSideDialog").click(function () {
+
+
+                $("#divSearchOtherSideDialog").modal('show');
+
+                //聚焦吧
+                $("#txtSearchOtherSide").focus();
+
+            });
+
+
+            ///搜索 框
+
+            //搜索 框 去抖动
+            var txtSearchOtherSideDebouncedFunction = $.debounce(1000, false, function () {
+
+                //没有Search 不处理 返回就行了
+                if ($.trim($("#txtSearchOtherSide").val()) == "") {
+                    return;
+                }
+
+                GetSearchOtherSidePage($.trim($("#txtSearchOtherSide").val()), 5, 10);
+
+            });
+
+            //end 搜索 框 去抖动
+
+            $("#txtSearchOtherSide").bind("input", txtSearchOtherSideDebouncedFunction);
+
+            //end   ///搜索 框
+
+            ///end 人员查找对话框头
+
+            //
+            //移除 好友 确认
+            $("#btnRemoveSelectedOtherSideConfirm").click(function () {
+
+
+                //
+                var otherSideGroup = JSON.parse($.cookie('cookieOtherSideGroup'));
+
+                var selectedIndex = otherSideGroup.findIndex(function (item) {
+                    return item.userID == $.cookie("currentOtherSideItemID");
+
+                });
+
+                //在Cookie中没有这个人
+                if (selectedIndex < 0) {
+
+                    return;
+                }
+                ///当前选择的好友在Cookie中 移除它
+                otherSideGroup.splice(selectedIndex, 1);
+
+                //保存一下to Cookie 吧
+                $.cookie('cookieOtherSideGroup', JSON.stringify(otherSideGroup), { expires: 100, path: '/' })
+
+                //在好友列表中 移除
+                $("#divOtherSideGroup a[class*='list-group-item-info']").remove();
+                //清空 聊天记录
+                $("#divRecentMessageRecord").html("");
+
+                //此时 历史记录不能使用, 如果有记录，用户单击 好友时 就可以使用了
+                $("#btnOpenMessageHistoryDialog").attr("disabled", true);
+
+            });
+
+            //end 移除 好友 确认
+
+            //移除 好友 具体 由 移除 好友 确认 处理
+            $("#btnRemoveSelectedOtherSide").click(function () {
+
+                //设置 删除人员姓名
+                $("#divRemoveOtherSideUserName").html('确认删除：' + $.cookie("currentOtherSideItemName"));
+
+            });
+            //end 移除 好友
+
+
+            // 打开历史记录 Button
+            // 历史 导航 Item Click
+            SetHistroyMessageNavigationItemClickFunction();
+            //启动Websocket
+            StartWebSocket();
+
+            ///初始化音乐
+            InitializeMessageSound();
+
+            //设置 PlaceHolder
+
+            //请填写查找的人员姓名
+            $("#txtSearchOtherSide").attr("placeholder", '请填写查找的人员姓名');
+            $("#txtSearchOtherSide").placeholder();
+            //
+            $("#txtSendMessage").attr("placeholder", '请填写发送内容');
+            $("#txtSendMessage").placeholder("");;
+
+            //end 设置 PlaceHolder
+
+
+            $('#txtSendMessage').maxlength({
+                alwaysShow: true
+
+            });
+
+            $('#txtSearchOtherSide').maxlength({
+                alwaysShow: true
+
+            });
+
+        });
+
+
+
+    </script>
+
+
+    <script src="~/Scripts/Chat/bootstrap-typeahead.min.js"></script>
+    <script src="~/Scripts/Chat/bootstrap-modal.min.js"></script>
+    <script src="~/Scripts/Chat/bootstrap-button.min.js"></script>
+    <script src="~/Scripts/Chat/bootstrap-dropdown.min.js"></script>
+
+    <script src="~/Scripts/Chat/bootstrap-tooltip.min.js"></script>
+    <script src="~/Scripts/Chat/bootstrap-popover.min.js"></script>
+
+    <script src="~/Scripts/Chat/bootstrap-notify.min.js"></script>
+
+    <script src="~/Scripts/Chat/humane.min.js"></script>
+    <script src="~/Scripts/Chat/ion.sound.min.js"></script>
+    <script src="~/Scripts/Chat/jquery.ba-throttle-debounce.min.js"></script>
+
+    <script src="~/Scripts/Chat/jquery.easing.1.3.js"></script>
+
+    <script src="~/Scripts/Chat/hoverifyBootnav.min.js"></script>
+    <script src="~/Scripts/Chat/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/Chat/bootstrap-maxlength.min.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,299 @@
+﻿@model ChemCloud.Model.OrderInfo
+@{
+    ViewBag.Title = "发票打印";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>发票打印</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <!--media=print 这个属性可以在打印时有效-->
+    <style media="print">
+        .Noprint {
+            display: none;
+        }
+
+        .PageNext {
+            page-break-after: always;
+        }
+    </style>
+    <style type="text/css">
+        .wrap {
+            width: 100%;
+            text-align: center;
+            padding: 0;
+            margin: 0 auto;
+            display: block;
+            font: normal 0.9rem/1.5 'microsoft yahei';
+            overflow: hidden;
+        }
+    </style>
+    <script src="~/Scripts/jquery-1.4.2.min.js"></script>
+</head>
+<body>
+    <center class="Noprint">
+        <p>
+            <input value="打印" type="button" id="btnPrint" />
+            <input type=button name=button_fh value="关闭" onclick="javascript:window.close();">
+            <br />
+        </p>
+    </center>
+    <div class="wrap" id="printContent">
+
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="493" style="font-family:Arial, Helvetica, sans-serif; font-weight:bold">
+            <tr>
+                @*style="height:340px"*@
+                <td valign="top">
+                    <table align="left" border="1" cellpadding="0" cellspacing="0" width="493" height="380">
+                        <tr align="center" style="font-size:24px">
+                            <td colspan="4">Invoice Notification</td>
+                        </tr>
+                        <tr align="center" style="background-color:#dfdff0; font-size:16px;">
+                            <td colspan="3">Customer Purchase Order</td>
+                            <td>Page</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">@Model.UserName</td>
+                            <td align="center"></td>
+                        </tr>
+                        <tr align="center" style="background-color:#dfdff0">
+                            <td colspan="2">Release Number</td>
+                            <td colspan="2">Order Placed By</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <textarea id="releaseNumber" style="width:100%;height:72px;padding:0;margin:0;background-color:#fff;border:none;resize:none;"></textarea>
+                            </td>
+                            <td colspan="2">
+                                <table border="0" style="width:100%;">
+                                    <tr><td>@Model.UserName</td></tr>
+                                    <tr><td>@Model.CellPhone</td></tr>
+                                    <tr><td>@ViewBag.email</td></tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                        <tr align="center" style="background-color:#dfdff0">
+                            <td>Order Number</td>
+                            <td>Order Date</td>
+                            <td>Invoice Number</td>
+                            <td>Invoice Date</td>
+                        </tr>
+                        <tr align="center">
+                            <td>@Model.Id</td>
+                            <td>@Model.OrderDate.ToString("MM/dd/yyyy")</td>
+                            <td>@ViewBag.invoice</td>
+                            <td>@ViewBag.strDate</td>
+                        </tr>
+                        <tr align="center" style="background-color:#dfdff0">
+                            <td colspan="2">Ship To</td>
+                            <td colspan="2">Bill To</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">@Model.ShipTo</td>
+                            <td colspan="2">@Model.InvoiceContext</td>
+                        </tr>
+
+                        <tr align="center" style="background-color:#dfdff0">
+                            <td colspan="2">Bank Name</td>
+                            <td colspan="2">BankAccountName</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">@ViewBag.BankName</td>
+                            <td colspan="2">@ViewBag.BankAccountName</td>
+                        </tr>
+
+                        <tr align="center" style="background-color:#dfdff0">
+                            <td colspan="4">BankAccountNumber</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">@ViewBag.BankAccountNumber</td>
+                        </tr>
+                    </table>
+                </td>
+
+                <td>
+                    <table align="right" border="0" cellpadding="0" cellspacing="0" width="373" height="340" style="font-size:14px">
+                        <tr>
+                            <td colspan="2" rowspan="2" align="center" style="margin-left:20px"><img src="~/Areas/SellerAdmin/Content/Icon/logo4.png" /></td>
+                            <td style=" width:300px; font-size:24px">ChemCloud</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:12px; color:#6d6d6d; width:322px;">part of Thermo ChemCloud</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" height="35">ChemCloud COMPANY.LLC.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" height="35">Thank you for your order. Any questions please<br />contact Customer Service.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" height="35">Phove:021-6048-3042</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" height="35">Email: info@chemcloud.com</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" height="35" style="color:#ff1e1e">Please refer to the order number on all correspondence</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" height="60">For complete terms and conditions visit our website at:</br><a href="#">http://www.chemcloud.com/</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" height="48"> current order status please click:<a href="#">Status for @Model.Id</a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            @*</br>
+                </br>
+                </br>*@
+            <tr>
+                <td valign="top" colspan="2" width="942" height="67"></td>
+            </tr>
+            @*</tr>
+                </br>
+                </br>
+                </br>*@
+            <tr>
+                <td valign="top" colspan="2">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="942" height="113">
+                        <tr style="height:46px" align="center">
+                            <td width="52" style="border-left:1px solid #747474;border-bottom:1px solid #747474; border-top:1px solid #747474;">Shpmt</td>
+                            <td width="37" style="border-bottom:1px solid #747474; border-top:1px solid #747474;">Qty</td>
+                            <td width="42" style="border-bottom:1px solid #747474; border-top:1px solid #747474;">UM</td>
+                            <td width="114" style="border-bottom:1px solid #747474; border-top:1px solid #747474;">Catalog<br />Number</td>
+                            <td width="363" style="border-bottom:1px solid #747474; border-top:1px solid #747474;">Description</td>
+                            <td width="138" style="border-bottom:1px solid #747474; border-top:1px solid #747474;">Documents</td>
+                            <td width="83" style="border-bottom:1px solid #747474; border-top:1px solid #747474;">Unit<br />Price</td>
+                            <td width="116" style="border-bottom:1px solid #747474; border-top:1px solid #747474; border-right:1px solid #747474;">Extended<br />Price</td>
+                        </tr>
+
+                        @foreach (var orderItem in (List<ChemCloud.Model.OrderItemInfo>)ViewBag.orderItemInfo)
+                        {
+                            <tr align="center" style="background-color:#e0e0e0; font-size:12px;height:20px">
+                                <td style="text-align:center"><input type="text" style="width:100%;height:100%;background-color:#e0e0e0;border:none;" id="shipMent"></td>
+                                <td>@orderItem.Quantity</td>
+                                <td><input type="text" style="width:100%;height:100%;background-color:#e0e0e0;border:none;" id="UM"></td>
+                                <td><input type="text" style="width:100%;height:100%;background-color:#e0e0e0;border:none;" id="CatalogNumber"></td>
+                                <td>@orderItem.ProductName @orderItem.PackingUnit</td>
+                                <td><input type="text" style="width:100%;height:100%;background-color:#e0e0e0;border:none;" id="Documents"></td>
+                                <td align="right">@orderItem.SalePrice</td>
+                                <td align="right">@orderItem.SalePrice</td>
+                            </tr>
+                        }
+
+                        <tr height="45" valign="bottom">
+                            <td colspan="9"><hr style="height:3px;border:none;border-top:3px solid #b0b0b0;" /></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            @*<br />*@
+            &nbsp;&nbsp;
+            <tr>
+                <td valign="top" colspan="2">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="942" height="80">
+                        <tr>
+                            <td width="247"></td>
+                            <td style="text-align:right;">
+                                Merchandise Total(@Model.CoinTypeName)：<br />
+                                Freight(@Model.CoinTypeName)：<br />
+                                Insurance Premium(@Model.CoinTypeName)：<br />
+                                Order Total(@Model.CoinTypeName)：<br />
+                                <span style="color:#ff3a3a">This is net an Invoice-Do not Remit Payment</span>
+                            </td>
+                            <td align="right" style="text-align:left;">
+                                @Model.ProductTotalAmount<br />
+                                @Model.Freight<br />
+                                @Model.Insurancefee<br />
+                                @Model.OrderTotalAmount<br />&nbsp;&nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            @*<br />*@
+            &nbsp;&nbsp;
+            <tr>
+                <td valign="top" colspan="2">
+                    <table align="center" border="1" cellpadding="0" cellspacing="0" width="942" height="107" style="font-size:14px">
+                        <tr align="center" style="background-color:#dfdff0">
+                            <td width="141">Shipment</td>
+                            <td width="141">Shipment Date</td>
+                            <td rowspan="2" width="656px" height="58px"><textarea name="" style="width:100%;height:100%;background-color:#dfdff0;margin:1px;border:none;resize:none;" id="remarks"></textarea></td>
+                        </tr>
+                        <tr align="center">
+                            <td><input type="text" style="width:100%;height:100%;border:0" id="ship" value="@Model.BehalfShipType"></td>
+                            <td><input type="text" style="width:100%;height:100%;border:0" id="shipDate" value="@Model.ShippingDate"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><br /><a href="#">@Model.BehalfShipNumber</a><br /></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            @*<br />*@
+            &nbsp;&nbsp;
+            <tr>
+                <td valign="top" colspan="2">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="942" height="98">
+                        <br>
+                        <br />
+                        <span style="font-size:15px">TELL US ABOUT YOUR RECENT CUSTOMER SERVICE EXPERIENCE BY COMPLETING A SHORT SURVEY.THIS SHOULD TAKE NO<br />LONGER THAN THREE MINUTES. ENTER THE LINK INTO TOUR BROWSER AND ENTER THE PASSCODE USA-PGH-CS2.<br /><a href="#">http://survey.medallia.com/fsherscl</a></span>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    (function ($) {
+        var printAreaCount = 0;
+        $.fn.printArea = function () {
+            var ele = $(this);
+            var idPrefix = "printArea_";
+            removePrintArea(idPrefix + printAreaCount);
+            printAreaCount++;
+            var iframeId = idPrefix + printAreaCount;
+            var iframeStyle = 'position:absolute;width:0px;height:0px;left:-500px;top:-500px;';
+            iframe = document.createElement('IFRAME');
+            $(iframe).attr({
+                style: iframeStyle,
+                id: iframeId
+            });
+            document.body.appendChild(iframe);
+            var doc = iframe.contentWindow.document;
+            var testtext = $("#printContent").html();
+            testtext = testtext.replace('<textarea id="releaseNumber" style="width:100%;height:72px;padding:0;margin:0;background-color:#fff;border:none;resize:none;"></textarea>', $('#releaseNumber').val());
+            testtext = testtext.replace('<input type="text" style="width:100%;height:100%;background-color:#e0e0e0;border:none;" id="shipMent">', $("#shipMent").val());
+            testtext = testtext.replace('<input type="text" style="width:100%;height:100%;background-color:#e0e0e0;border:none;" id="UM">', $("#UM").val());
+            testtext = testtext.replace('<input type="text" style="width:100%;height:100%;background-color:#e0e0e0;border:none;" id="CatalogNumber">', $("#CatalogNumber").val());
+            testtext = testtext.replace('<input type="text" style="width:100%;height:100%;background-color:#e0e0e0;border:none;" id="Documents">', $("#Documents").val());
+            testtext = testtext.replace('<textarea name="" style="width:100%;height:100%;background-color:#dfdff0;margin:1px;border:none;resize:none;" id="remarks"></textarea>', $("#remarks").val());
+            testtext = testtext.replace('<input type="text" style="width:100%;height:100%;border:0" id="ship">', $("#ship").val());
+            testtext = testtext.replace('<input type="text" style="width:100%;height:100%;border:0" id="shipDate">', $("#shipDate").val().toString("MM/dd/yyyy"));
+            doc.write(testtext);
+            doc.close();
+            var frameWindow = iframe.contentWindow;
+            frameWindow.close();
+            frameWindow.focus();
+            frameWindow.print();
+            $(".header-footer-checkbox").removeAttr("checked");
+        }
+        var removePrintArea = function (id) {
+            $("iframe#" + id).remove();
+        };
+    })(jQuery);
+
+    $(function () {
+        $("#btnPrint").click(function () { $("#printContent").printArea(); });
+    });
+</script>
+
+

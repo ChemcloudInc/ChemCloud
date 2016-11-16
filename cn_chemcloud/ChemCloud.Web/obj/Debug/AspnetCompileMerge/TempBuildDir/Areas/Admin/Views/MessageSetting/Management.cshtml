@@ -1,0 +1,188 @@
+﻿@model ChemCloud.Web.Areas.Admin.Models.MessageSettingModel
+
+@using System.Collections
+@{
+    ViewBag.Title = "Management";
+}
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script type="text/javascript">
+    function Query() {
+        var activeStatus = $("#messageModule").val();
+        $("#list").hiMallDatagrid({
+            url: "./List",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { MessageNameId: activeStatus, Status: $("#TempStatus option:selected").val() },//"shopAccount": shopAccount, "shopGradeId": shopGradeId,
+            toolbar: "#shopToolBar",
+            columns:
+            [[
+
+                { field: "Id", title: "Id", width: 100 },
+                {
+                    field: "MessageNameId", title: "模板名称", width: 250, formatter: function (value, row, index) {
+                        var Id = row.Id;
+                        var html = "";
+                        html = row.MessageNameId;
+                        return html;
+                    }
+                },
+                {
+                    field: "LanguageName", title: "语言版本", width: 250, formatter: function (value, row, index) {
+                        var Id = row.Id;
+                        var html = "";
+                        html = row.LanguageName;
+                        return html;
+                    }
+                },
+                {
+                    field: "ActiveStatus", title: "是否激活", width: 250, formatter: function (value, row, index) {
+                        var Status = row.ActiveStatus;
+                        var html = "";
+                        if (Status == 1)
+                            html = "已激活";
+                        else if (Status == 2)
+                            html = "未激活";
+                        return html;
+                    }
+                },
+                {
+                    field: "operation", operation: true, title: "操作",width:250,formatter: function (value, row, index) {
+                        var Id = row.Id;
+                        var Status = row.ActiveStatus;
+                        var TitleId = row.TitleId;
+                        var LanguageType = row.Languagetype;
+                        
+                        var html = ['<span class="btn-a">'];
+                        html.push('<a  href="./Detail?Id=' + row.Id + '" style="color:green">查看</a>');
+                        html.push('<a  href="./Edit?Id=' + row.Id + '" style="color:blue">编辑</a>');
+                        html.push('<a href="javascript:delMessage(' + row.Id + ');"  class="good-del" style="color:red">删除</a>');
+                        if (Status == 1) {
+                            html.push('<a href="javascript:UnActiveStatus(' + Id + ',' + TitleId + ',' + LanguageType + ')" style="color:blue">取消激活</a>');
+                        }
+                        if (Status == 2) {
+                            
+                            html.push('<a href="javascript:ActiveStatus(' + Id + ',' + TitleId + ',' + LanguageType + ')" style="color:blue">激活</a>');
+                        }
+                        html.push("</span>");
+                        return html.join("");
+                    }
+                }
+            ]]
+        });
+
+    };    
+    $(function () {
+        Query();
+        $("#searchBtn").click(function (e) {
+            Query();
+            searchClose(e);
+        });        
+    });
+    $(function () {
+        $("#openBtn").click(function (e) {
+            window.location.href = "./Adding";
+        });
+    });
+    function UnActiveStatus(id, titleId, languageType) {
+        $.post("./UnActiveMessageTemp", { Id: id, titleId: titleId, languageType: languageType }, function (data) {
+            if (data.success) {
+                $.dialog.tips('更新状态成功');
+                //Query();
+            }
+            else {
+                $.dialog.alert('更新状态失败!');
+            }
+            Query();
+        });
+    }
+    function ActiveStatus(id, titleId, languageType) {
+            alert(titleId);
+            alert(languageType);
+            $.post("./ActiveMessageTemp", { Id: id, titleId: titleId, languageType: languageType }, function (data) {
+            if (data.success) {
+                SetUnActiveStatus(id, titleId, languageType);
+                //Query();
+            }
+            else {
+                $.dialog.alert('更新状态失败!');
+                Query();
+            }
+            
+        });
+    }
+    function SetUnActiveStatus(id, titleId, languageType) {
+        $.post("./SetOtherUnActiveStatus", { Id: id, titleId: titleId, languageType: languageType }, function (data) {
+            if (data.success) {
+                $.dialog.tips('更新状态成功');
+            }
+            else {
+                $.dialog.alert('更新状态失败!');
+            }
+            Query();
+        });
+    }
+</script>
+
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>通知模板</strong>
+        @if ((string.IsNullOrWhiteSpace((string)ViewBag.Type)))
+        {
+            <li class="active"><a>通知模板</a></li>
+        }
+    </ul>
+    <div id="divList">
+        <div class="search-box">
+            <form class="custom-inline">
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width:52px">模板标题:</label>
+                    @Html.DropDownListFor(Model => Model.MessageNameId, ((IEnumerable<SelectListItem>)ViewBag.Status),
+                             new { @class = "form-control input-ssm", id = "messageModule" })
+                </div>
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width:52px">模板状态:</label>
+                    <select id="TempStatus" style="width:65px;height:28px;">
+                        <option value="0">请选择</option>
+                        <option value="1">已激活</option>
+                        <option value="2">未激活</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" id="searchBtn">搜 索</button>
+                <button type="button" class="btn btn-primary btn-sm" id="openBtn">新 增</button>
+            </form>
+        </div>
+        <table id="list" class="table"></table>
+        <input type="hidden" value="@ViewBag.Type" id="type" />
+        @Html.EditorFor(Model => Model.Id, new { htmlAttributes = new { @type = "hidden",@id = "Id"} })
+        @Html.EditorFor(Model => Model.Languagetype, new { htmlAttributes = new { @type = "hidden" } })
+        @*<div class="tabel-operate" id="saleOff" style="display:none;">
+                <button type="button" id="infractionSaleOffBtn" onclick="batchInfractionSaleOff()" class="btn btn-default btn-ssm">违规下架</button>
+            </div>*@
+    </div>
+</div>
+<script type="text/javascript">
+    function delMessage(Id) {
+        var Id = Id;
+        $.dialog.confirm('您确定要删除该记录吗', function () {
+            var loading = showLoading();
+            $.post('Delete', { Id: Id }, function (result) {
+                loading.close();
+                if (result.success) {
+                    $.dialog.tips('删除成功');
+                    Query();
+                }
+                else
+                    $.dialog.alert('删除失败!' + result.msg);
+            });
+        });
+    }
+    
+</script>
+
+
+

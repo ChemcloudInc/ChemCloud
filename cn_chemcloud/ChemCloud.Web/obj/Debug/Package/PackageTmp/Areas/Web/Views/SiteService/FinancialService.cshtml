@@ -1,0 +1,355 @@
+﻿@using System.Collections
+@{
+    ViewBag.Title = "RegionalAndOverseasStorag";
+}
+@*业务流程*@
+<link href="~/Areas/Web/Content/css.css" rel="stylesheet" />
+<link href="~/Content/inner-custom.css" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon" href="~/Areas/Web/Images/icon.ico" media="screen" />
+<link rel="stylesheet" href="~/Content/uikit.min.css" />
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/uikit.min.js"></script>
+<style>
+    #mohu {
+        margin-top: -55px;
+    }
+
+    .top_fl {
+        width: 446px;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+    /*.chang_bg{
+        background: url(/Areas/Web/Images/img/chang.png);
+        width: 133px;
+        height: 1892px;
+        float: left;
+        background-size: 134px;
+        margin-top: 22px;
+    }*/
+    .chang_h1 {
+        background: rgb(230,248,246);
+        height: 90px;
+        margin-top: 53px;
+        line-height: 90px;
+        border-bottom: 1px solid #ccc;
+        text-indent: 42px;
+        width: 1148px;
+        font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+    }
+
+    .chang_h1_1 {
+        margin-top: 24px;
+    }
+
+    #divNews {
+        height: 2820px;
+    }
+
+    .uk-row-first {
+        width: 1200px;
+    }
+
+    .uk-panel-box {
+        width: 1016px;
+    }
+
+    .img_title {
+        margin-bottom: 20px;
+    }
+
+    .uk-grid + .uk-grid, .uk-grid-margin, .uk-grid > * > .uk-panel + .uk-panel {
+        margin-top: 15px !important;
+    }
+
+    .img_1111 {
+        padding-top: 20px;
+        background: #fff;
+        position: fixed;
+        z-index: 100;
+        top: 0px;
+        box-shadow: 3px 3px 3px #ccc;
+        border: 1px solid #ccc;
+        width: 1046px;
+        padding-bottom: 20px;
+    }
+
+    .uk-nav > li > .uk-nav-side > li.uk-active > a {
+        width: 50px;
+        background: rgb(0, 148, 255);
+        display: block;
+        height: 6px;
+        position: fixed;
+        top: 38px;
+        left: 119px;
+        color: #fff;
+        z-index: 400;
+        border-radius: 5px;
+    }
+
+    .uk-nav > li > .uk-nav-side > li.uk-active > .ananana {
+        width: 262px;
+        left: 212px;
+    }
+
+    .uk-nav > li > .uk-nav-side > li.uk-active > .ananana2 {
+        width: 262px;
+        left: 516px;
+    }
+
+    .uk-nav > li > .uk-nav-side > li.uk-active > .ananana3 {
+        width: 240px;
+        left: 824px;
+    }
+
+    .uk-nav > li > .uk-nav-side > li.uk-active > .ananana4 {
+        width: 47px;
+        left: 1112px;
+    }
+
+    .uk-nav-side > li.uk-active > a {
+        background: #fff;
+        display: block;
+        color: #fff;
+    }
+
+    .uk-nav-side > li > a {
+        display: none;
+    }
+
+    .uk-nav li > a > div {
+        margin-left: -10px;
+    }
+
+    #animation-repeat {
+        position: absolute;
+        top: 700px;
+        left: 100px;
+        z-index: 200;
+    }
+
+    #animation {
+        position: absolute;
+        top: 700px;
+        left: 100px;
+        z-index: 200;
+    }
+
+    #animation1 {
+        position: absolute;
+        top: 1000px;
+        left: 100px;
+        z-index: 200;
+    }
+
+    #animation111 {
+        position: absolute;
+        top: 1650px;
+        left: 100px;
+        z-index: 200;
+    }
+
+    #animation222 {
+        position: absolute;
+        top: 1800px;
+        left: 100px;
+        z-index: 200;
+    }
+
+    #animation333 {
+        position: absolute;
+        top: 2200px;
+        left: 100px;
+        z-index: 200;
+    }
+
+    #animation444 {
+        position: absolute;
+        top: 2200px;
+        left: 100px;
+        z-index: 200;
+    }
+
+    .animation444 {
+        top: 2000px !important;
+    }
+
+    #animation-repeat2 {
+        position: absolute;
+        top: 0px;
+        left: 100px;
+        z-index: 200;
+    }
+
+    .animation-repeat1 {
+        top: 1000px !important;
+    }
+
+    .animation-repeat2 {
+        top: 1400px !important;
+    }
+
+    .animation-repeat3 {
+        top: 1800px !important;
+    }
+
+    .animation-repeat4 {
+        top: 2200px !important;
+    }
+
+    .uk-container {
+        position: relative;
+    }
+
+    .animation1 {
+        top: 800px !important;
+    }
+
+    .animation2 {
+        top: 1200px !important;
+    }
+
+    .animation3 {
+        top: 1600px !important;
+    }
+</style>
+<div id="divNews">
+    <div class="content">
+        <div>
+            <div class="uk-container uk-container-center">
+                <ul class="uk-nav uk-nav-side" data-uk-scrollspy-nav="{closest:'li', smoothscroll:true}">
+                    <li>
+                        <a href="#animation-repeat">
+                            <div class="img_title img_1111">
+                                <img src="~/Areas/Web/Images/img/ywlc1.png" alt="Alternate Text" />
+                            </div>
+                        </a>
+                        <ul class="uk-nav uk-nav-side" data-uk-scrollspy-nav="{closest:'li', smoothscroll:true}">
+                            <li><a href="#animation"></a></li>
+                            <li><a href="#animation1"></a></li>
+                            <li><a href="#animation111"></a><a class="ananana"></a></li>
+                            <li><a href="#animation222"></a><a class="ananana"></a><a class="ananana2"></a></li>
+                            <li><a href="#animation333"></a><a class="ananana"></a><a class="ananana2"></a><a class="ananana3"></a><a class="ananana4"></a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#animation-repeat2">
+
+                        </a>
+                    </li>
+                </ul>
+                <div id="animation-repeat2"> &nbsp;</div>
+                <div id="animation-repeat">&nbsp; </div>
+                <div id="animation-repeat" class="animation-repeat1"> &nbsp;</div>
+                <div id="animation-repeat" class="animation-repeat2">&nbsp; </div>
+                <div id="animation-repeat" class="animation-repeat3">&nbsp; </div>
+                <div id="animation-repeat" class="animation-repeat4">&nbsp; </div>
+                <div id="animation">&nbsp; </div>
+                <div id="animation1">&nbsp; </div>
+                <div id="animation111">&nbsp; </div>
+                <div id="animation222"> &nbsp;</div>
+                <div id="animation333">&nbsp; </div>
+                <div id="animation444">&nbsp; </div>
+                <div id="animation444" class="animation444"> &nbsp;</div>
+                <img class="img_title" style="margin-top: 86px;" src="~/Areas/Web/Images/img/ywlc3.png" alt="Alternate Text" />
+                <div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+                    <div class="">
+                        <div class="uk-panel uk-panel-box" style="background:rgb(247,249,242)" data-uk-scrollspy="{cls:'uk-animation-fade'}">
+                            <p>大型仪器是指选用不同分析检测仪器对样品进行特定的仪器分析测试，以得到样品中物质的成分、含量及相应的谱图表征数据和理化性能数据，实现样品成分、含量和谱图表征数据的测定，满足各科研院所和企业对分析仪器测试的需求，主要服务项目是光谱测试、色谱测试、质谱测试、热谱测试、电镜测试、核磁测试、其它测试。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-grid" data-uk-scrollspy="{cls:'uk-animation-fade uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
+                    <div class="">
+                        <div class="uk-panel uk-invisible">
+                            <img src="~/Areas/Web/Images/img/ywlc4.png" alt="Alternate Text" />
+                        </div>
+                    </div>
+                </div>
+                <img class="img_title" src="~/Areas/Web/Images/img/ywlc5.png" alt="Alternate Text" />
+
+                <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-fade uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
+                    <div class="">
+                        <div class="uk-panel uk-panel-box uk-invisible" style="background:rgb(251,248,238)">
+                            <p>
+                                是指将提供的目标样品通过化学物理手段，处理成可以被大型仪器分析的状态，包括烘干、提纯、萃取、过滤、蒸馏、离心等处理方法。
+                                对前处理后的样品，进行大型仪器分析，结合数据库图谱进行匹配，并结合分析工程师的行业经验，得到目标样品的各组分是什么，占比多少的基础配方体系。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="test uk-grid" style="text-align: center;" data-uk-scrollspy="{cls:'uk-animation-scale-up uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}" data-uk-grid-margin>
+                    <div class="">
+                        <div class="uk-panel uk-invisible">
+                            <img src="~/Areas/Web/Images/img/ywlc6.png" alt="Alternate Text" />
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-scale-down uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
+                    <div class="">
+                        <div class="uk-panel uk-panel-box uk-invisible" style="background:rgb(251,248,238)">
+                            <p>
+                                <span>解决问题:</span>   <br>
+                                【成分分析】：分析各类塑料成分，到树脂、添加助剂、填充料物质名称，百分比含量； <br>
+                                【配方改进】：帮助客户改进现有产品配方，提高产品各项性能，降低原材料选择成本； <br>
+                                【成本控制】：对比同行产品，优化配方用料，在性能不变的前提下调整原料，降低成本；<br>
+                                【模仿生产】：根据客户提供的目标样品目标样品，分析配方，结合工艺，生产类似产品；<br>
+                                【研发新产品】：帮助通过分析行业内先进的产品，了解竞品配方体系，为客户提供研发思路；<br>
+                                【了解原材料】：分析产品原材料的成分组成，寻找替代品，关键原料不再受供应商控制；<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <img class="img_title" src="~/Areas/Web/Images/img/ywlc7.png" alt="Alternate Text" />
+                <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-slide-left uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
+                    <div class="">
+                        <div class="uk-panel uk-panel-box uk-invisible" style="background:rgb(239,251,251)">
+                            <p>
+                                1.选择服务项目（分析业务或者测试业务），仔细阅读服务通则，接受条款后，进入ERP下单流程；<br>
+                                2.根据网站ERP下单表提示下单，带*号为必填项，填选完毕，确认无误，生成订单，下载打印，签字或者盖章扫描上传；<br>
+
+
+                                3.付款；<br>
+                                4.寄送样品地址：<br>
+                                上海市杨浦区国伟路135号10号楼206室<br>
+                                上海开姆电子商务有限公司<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <img class="img_title" src="~/Areas/Web/Images/img/ywlc8.png" alt="Alternate Text" />
+
+                <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-slide-right uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
+                    <div class="">
+                        <div class="uk-panel uk-panel-box uk-invisible" style="background:rgb(253,244,250)">
+                            <p>
+                                1.成分是指通过微观谱图（光谱、色谱、质谱、能谱、核磁共振谱、热谱等）对未知成分进行分析的技术方法。<br>
+                                为了实现最好的服务质量，建议委托方按照实际需求选择相应的委托项目。<br>
+                                2.chemcloud分析报告是服务方为委托方提供技术服务的载体，未经服务方书面许可，委托方不得将分析报告及相关数据在媒体或互联网上发布，否则委托方将承担此行为可能导致的一切责任，如发布行为对服务方造成损失的，委托方须赔偿服务方相关损失。委托方须慎重使用微谱技术分析报告，使用报告中的内容与数据可能产生的风险损失及法律后果由委托方承担。<br>
+                                3.委托方应预先通知服务方与委托服务项目有关的任何实际或潜在的风险或危险，如样品的辐射性、氧化性、毒性、有害、易爆、易燃、环境污染性、生物毒性、生物感染性等，并承诺所委托之样品符合国家法律的要求。若委托方未告知服务方相关信息而引起的相关安全事故，由委托方承担相关责任；服务方根据事故的严重性，可采取终止原服务合同、要求委托方赔偿损失、报警等措施。<br>
+                                4.样品分析不同于产品开发，成分分析是产品开发不可或缺的环节，同时，由于存在分析仪器检出限等局限性因素、产品原材料牌号及供应商选择的可变因素、产品生产设备及工艺的复杂性因素和委托方本身的技术积累和研发水平等因素，样品成分分析在某些场合无法完全替代产品开发，服务方不承诺委托方可以根据分析报告开发出跟样品性能完全一样的产品。<br>
+                                5.服务方承诺在分析报告签发后提供售后技术咨询。委托方不得利用分析报告或服务方提供的售后技术咨询服务侵犯其他方的知识产权。<br>
+                                6.服务方在收到样品，且委托方付款后开始分析工作，并于下一个工作日开始计算服务周期；样品成分分析所采用的技术方法由服务方决定，属于服务方技术秘密，服务方只向委托方提供分析结果，不提供分析技术方法和相关谱图；服务方对委托方提供的技术资料以及样品分析结果负有保密责任，未经委托方书面同意，服务方不得以任何形式向其他第三方透漏；委托方不得以任何形式与服务方工作人员进行私下交易，如以个人名义与服务方工作人员进行私下合作、或者委托方与服务方工作人员建立私下合作关系（包括但不限于劳动关系）等，如有以上任意情况，委托方须赔偿服务方100万元，并终止相关关系，同时服务方有权追究委托方相关法律责任。<br>
+                                7.普通服务按照基准报价收取费用；加急服务在基准价格上加收50%的额外服务费用；特急服务在基准价格上加收100%的额外服务费用。<br>
+                                8.成分分析服务须消耗或破坏样品，由此导致样品消耗或破损服务方不承担责任，同时服务方不保证样品经分析后一定有余样；由于样品量不足而影响微谱分析结果的，风险责任由委托方承担。<br>
+                                9.成分分析报告若未加盖“Chemcloud”章，一律无效；服务方默认发送电子版报告，使用统一格式与通用文字（中文）；纸质版报告存在泄密风险，请慎重选择；若需提供纸质版报告，加收100元/份，需提供英文版报告的请提供公司与样品相关的英文信息，加收200元/份；非服务方原因委托方提出修改报告（分析数据和结果除外）的，委托方应出具书面申请并将原报告寄回，加收100元/次；委托方需要提供一份以上报告时（以副本形式提供），加收100元/份；报告中的样品名称由委托方提供，由于样品名称引起的相关责任由委托方负责。<br>
+                                10.服务方仅对来样负责，委托方如对分析结果有异议，应在报告签发后一个月内提出，由双方进行技术交流解决异议问题；也可在服务方帮助下在服务方内部进行投诉予以解决。若投诉仍无法解决双方分歧，委托方可以对相同样品出具有法律效力的样品分析报告，若证明属于服务方失误，服务方将全额退还委托方已支付的分析费用，但服务方不承担除此以外的其他费用。<br>
+                                11.双方合作过程中如发生争议，经双方协商未能达成一致的，可在服务方所在地人民法院提起诉讼。<br>
+                                委托方若需更改本委托登记表中的内容，需以书面方式提出，经服务方重新进行合同评审其可行性后方可更改，并由双方签字或盖章后生效。<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

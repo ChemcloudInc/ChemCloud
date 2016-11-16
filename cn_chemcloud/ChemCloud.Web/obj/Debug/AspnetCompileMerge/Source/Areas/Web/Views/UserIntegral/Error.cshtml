@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "礼品兑换-错误";
+}
+
+<div class="box1 lh24">
+    <div class="mod-main mod-comm">
+        <div>
+            <div class="title bot-border">
+                <span class="title_txt"><a href="@Url.Action("Index")">我的积分</a></span>
+                <span class="title_txt curr">礼品兑换管理</span>
+            </div>
+            <div class="safe-icon-box formno">
+                <div><s class="icon-warn02 m-icon" style="display:block;"></s></div>
+                <div class="fore">
+                    <h3 class="ftx04">您不符合积分兑换规则！</h3>
+                    <div class="ftx-03">对不起，您目前没有下过任何订单，无法进行礼品兑换！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

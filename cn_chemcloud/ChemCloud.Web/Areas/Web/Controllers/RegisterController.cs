@@ -282,11 +282,13 @@ namespace ChemCloud.Web.Areas.Web.Controllers
         public JsonResult SendMail(string username, string email)
         {
             bool falg = false;
-            if (ServiceHelper.Create<IMemberService>().GetMemberByName(username) != null)
-            {
-                string password = ServiceHelper.Create<IMemberService>().GetMemberByName(username).Password;
 
-                int usertype = ServiceHelper.Create<IMemberService>().GetMemberByName(username).UserType;
+            UserMemberInfo _userinfo = ServiceHelper.Create<IMemberService>().GetMemberByName(username);
+            if (_userinfo != null)
+            {
+                string password = _userinfo.Password;
+
+                int usertype = _userinfo.UserType;
                 string mailsubject = "ChemCloud,Welcome To Join ChemCloud";
 
                 string mailcontent = "Welcome To ChemCloud!";
@@ -305,12 +307,32 @@ namespace ChemCloud.Web.Areas.Web.Controllers
 
                 str = str.Replace("@httpurl", currentrooturl);
                 falg = ChemCloud.Service.SendMail.SendEmail(email, mailsubject, str);
+
+                /*供应商 账号注册成功后，提醒平台审核*/
+                if (usertype == 2)
+                {
+                    MessageDetial md = new MessageDetial()
+                    {
+                        ManagerId = _userinfo.Id,
+                        MessageTitleId = 17,
+                        MessageTitle = "供应商注册待审核",
+                        MessageContent = "供应商" + _userinfo.UserName + "注册成功待审核！",
+                        LanguageType = 1,
+                        MsgType = 2,
+                        SendTime = DateTime.Now,
+                        SendObj = 1
+                    };
+
+                    ServiceHelper.Create<ISiteMessagesService>().SendMessage(md, 2, null);
+                }
             }
             Result result = new Result();
             result.msg = falg.ToString();
             result.success = falg;
             return Json(result);
         }
+
+
 
         //注册成功，跳转到提示页面
         public ActionResult RegisterSuccessTip()

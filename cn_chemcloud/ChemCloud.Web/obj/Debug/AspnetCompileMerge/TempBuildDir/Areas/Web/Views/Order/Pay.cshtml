@@ -1,0 +1,557 @@
+﻿@{
+    ViewBag.Title = "订单支付";
+    Layout = "~/Areas/Web/Views/Shared/_PayTopBar.cshtml";
+    var orders = (IEnumerable<ChemCloud.Model.OrderInfo>)ViewBag.Orders;
+}
+@model IEnumerable<ChemCloud.Web.Areas.Web.Models.PaymentModel>
+<div class="w990 main">
+    <div class="m mainbody">
+        <div class="mc">
+            <s class="icon-succ04"></s>
+            <h3 class="orderinfo">订单提交成功，请您尽快付款！</h3>
+            <ul class="list-orderinfo">
+                @foreach (var order in orders)
+                {
+                    <li>订单号：@order.Id</li>
+                }
+                <li class="li-last">
+                    @if (ViewBag.paytype == "0")
+                    {
+                        <div style="float:left;">
+                            应付总额：<strong class="ftx-01" id="totalAmount">@(((decimal)ViewBag.TotalAmount).ToString("F2"))</strong>@ViewBag.paydanwei
+                            <span>
+                                (产品总价：<strong class="ftx-01">@(((decimal)ViewBag.order.ProductTotalAmount).ToString("F2"))</strong>,
+                                运费：<strong class="ftx-01">@(((decimal)ViewBag.order.Freight).ToString("F2"))</strong>,
+                                保险费：<strong class="ftx-01">@(((decimal)ViewBag.order.Insurancefee).ToString("F2"))</strong>)
+                            </span>
+                        </div>
+                        <div id="showpay" style="display:none;float:left;margin-left:10px;">
+                            本期应付金额(应付总额的
+                            <strong style="color:#62c92b">@ViewBag.percentpay</strong> %)：
+                            <strong class="ftx-01" id="RealPrice">@(((decimal)ViewBag.RealPrice).ToString("F2"))</strong>@ViewBag.paydanwei  &nbsp;
+                            剩余应付金额：<strong class="ftx-01" id="LeftPrice">@(((decimal)ViewBag.LeftPrice).ToString("F2"))</strong>@ViewBag.paydanwei
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="float:left;">
+                            应付总额：<strong class="ftx-01" id="totalAmount">@(((decimal)ViewBag.SortCost).ToString("F2"))</strong>@ViewBag.paydanwei &nbsp;<span id="paytypename"></span>
+                        </div>
+
+                    }
+                </li>
+            </ul>
+            @*<p class="mb-tip">请您在提交订单后<span class="ftx-04">@(ViewBag.UnpaidTimeout)小时</span>内完成支付，否则订单会自动取消。</p>*@
+            <p class="mb-tip">请您尽快完成支付，否则订单会自动取消。</p>
+        </div>
+    </div>
+    <div class="m pay-box">
+        <div class="mc">
+            <h5 class="subtit">使用预付款支付</h5>
+            <label>
+                <input type="radio" class="jdradio" value="" name="requestUrl" urltype="-1" id="" />
+                <span>当前账户可用余额 <span id="capitalAmount"> @(ViewBag.Capital)</span></span>
+
+                @*@if (ViewBag.UserType == 3)
+                    {
+                        <a id="btnCharge" href="/userCenter?url=/usercapital/capitalcharge&tar=usercapital">去充值</a>
+                    }
+                    else if (ViewBag.UserType == 2)
+                    {
+                        <a id="btnCharge" href="/SellerAdmin/UserCapital/CapitalCharge">去充值</a>
+                    }*@
+
+            </label>
+        </div>
+    </div>
+    <div class="m pay-box">
+        <div class="mc">
+            <h5 class="subtit">请选择支付方式</h5>
+            <ul class="list-bank">
+                <li id="pp_show">
+                    <label>
+                        <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="2" />
+                        <img title="paypal" width="165" height="48" alt="paypal" src="~/Areas/Web/Images/logo_paypal.png" style="border: 1px solid #CCC;" />
+                    </label>
+                </li>
+                <li id="ali_show">
+                    <label>
+                        <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="3" />
+                        <img title="ALIPAY" width="165" height="48" alt="ALIPAY" src="~/Areas/Web/Images/alipay.png" style="border: 1px solid #CCC;" />
+                    </label>
+                </li>
+
+                <li id="weixin_show">
+                    <label>
+                        <input type="radio" class="jdradio" value="" name="requestUrl" id="" urltype="4" />
+                        <img title="weixin" width="165" height="48" alt="weixin" src="~/Areas/Web/Images/WePayLogo.png" style="border: 1px solid #CCC;" />
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="javascript:;" id="nextBtn" class="btn-next" style="margin-bottom:10px">下一步</a>
+</div>
+<div id="shownextbtn"></div>
+@*订单号*@
+<input type="hidden" id="orderIds" value="@ViewBag.OrderIds" />
+@*支付单号*@
+<input type="hidden" id="payid" value="@ViewBag.PayId" />
+@*货币类型*@
+<input type="hidden" id="hidlanguage" value="@ViewBag.CoinType" />
+
+@*是否分期支付*@
+<input type="hidden" id="hdisfq" value="" />
+
+@*分期支付状态*@
+<input type="hidden" id="hidpaystatus" value="@ViewBag.PayStatus" />
+@*当前用户编号*@
+<input type="hidden" id="hiduid" value="@base.CurrentUser.Id" />
+@*支付类型 (3供应商认证支付,2产品认证支付，1排名付费支付,0订单支付)*@
+<input type="hidden" id="hidpaytype" value="@ViewBag.paytype" />
+@*支付对象的Id*@
+<input type="hidden" id="hidtargetid" value="@ViewBag.targetid" />
+@*第一次分期付款*@
+<input type="hidden" id="hidfqfirst" value="@ViewBag.fqfirst" />
+<script type="text/javascript">
+    $(function () {
+        var paytype_ = $("#hidpaytype").val();
+        switch (paytype_) {
+            case "1": $("#paytypename").html("排名付费支付"); break;
+            case "2": $("#paytypename").html("产品认证支付"); break;
+            case "3": $("#paytypename").html("供应商认证支付"); break;
+            case "4": $("#paytypename").html("定制合成支付"); break;
+            case "5": $("#paytypename").html("代理采购支付"); break;
+            case "6": $("#paytypename").html("分析鉴定支付"); break;
+            case "7": $("#paytypename").html("我要采购支付"); break;
+        }
+        var paystatus = $("#hidpaystatus").val();
+        if (paystatus != "" && paystatus != 2) {
+            $("#showpay").css("display", "block");
+        }
+
+        $('.progress-').hide();
+        var typeid = getUrlParam("type");
+        var totalmon = "";
+        var fq = "";
+        if (typeid == "1") {
+            totalmon = $("#RealPrice").html();
+            fq = "1";
+            $("#hdisfq").val(fq);
+        } else {
+            totalmon = $("#totalAmount").html();
+            fq = "0"; $("#hdisfq").val(fq);
+        }
+        var orderIds = $('#orderIds').val();
+        $('input[name="requestUrl"]').change(function () {
+            var url = $(this).val();
+            if ($(this).attr('urlType') != '-1') {
+                if ($(this).attr('urlType') == "1")
+                    url = '/pay/QRPay?url=' + url + '&id=' + $(this).attr('id') + '&orderIds=' + orderIds;
+                $('#nextBtn').attr('urlType', $(this).attr('urlType'));
+                $('#nextBtn').attr('formdata', url);
+                $('#nextBtn').removeAttr('href');
+                $('#nextBtn').removeAttr('target');
+            }
+            else {
+                $('#nextBtn').attr('urlType', $(this).attr('urlType'));
+                $('#nextBtn').removeAttr('href');
+            }
+        });
+
+        /*支付开始*/
+        $('#nextBtn').click(function () {
+            var t = $("input[name='requestUrl']:checked").val();
+            if (t == undefined) {
+                $.dialog.tips('请选择支付方式！');
+                return false;
+            }
+            /*订单支付开始*/
+            if ($("#hidpaytype").val() == "0") {
+                /*账户余额支付*/
+                if ($(this).attr('urlType') == "-1") {
+                    var lmoney=@(((decimal)ViewBag.RealPrice).ToString("F2"));
+                    if (getUrlParam("type")=="1") {
+                        if (parseFloat($('#capitalAmount').text()) < parseFloat(lmoney)) {
+                            $.dialog.alert('预付款金额少于订单金额');
+                            return false;
+                        }
+                    }else{
+                        if (parseFloat($('#capitalAmount').text()) < parseFloat($('#totalAmount').text())) {
+                            $.dialog.alert('预付款金额少于订单金额');
+                            return false;
+                        }
+                    }
+                    /*设置支付密码，如果支付密码为空，前往设置*/
+                    $.ajax({
+                        type: 'post',
+                        url: 'IsNullWalletPayPassword',
+                        async: false,
+                        dataType: 'json',
+                        success: function (result) {
+                            if (!result.success) {
+                                //window.top.open('/userCenter?url=/usercapital/setpaypwd&tar=setpaypwd', '_blank');
+                                location.href = '/userCenter?url=/usercapital/setpaypwd&tar=setpaypwd';
+                            } else {
+                                /*确认支付，输入支付密码*/
+                                $.dialog.confirm('确定现在付款吗？', function () {
+                                    $.dialog({
+                                        title: '确认支付',
+                                        lock: true,
+                                        id: 'goodCheck',
+                                        content: ['<div class="dialog-form">',
+                                            '<div class="form-group">',
+                                               '<div class="item">\
+                                 <span class="label">支付密码：</span>\
+                                    <div class="">\
+                                    <input type="password" value="" id="payPwd" name="userVo.realName" maxlength="20" class="itxt fl">\
+                            </div>\
+                            </div>',
+                                            '</div>',
+                                        '</div>'].join(''),
+                                        padding: '10px',
+                                        init: function () { $("#auditMsgBox").focus(); },
+                                        button: [
+                                        {
+                                            name: '付款',
+                                            callback: function () {
+                                                if ($("#payPwd").val().length == 0) {
+                                                    $.dialog.alert("请输入支付密码");
+                                                    return false;
+                                                }
+
+                                                /*是否分期支付*/
+                                                var paystatus = 2;
+                                                if (fq == 1) {
+                                                    //分期支付 状态
+                                                    $.ajax({
+                                                        type: 'post',
+                                                        url: '/Pay/UpFQStatusandMoney',
+                                                        async: false,
+                                                        data: { "orderid": $('#orderIds').val(),"fqfirst":$("#hidfqfirst").val() },
+                                                        dataType: 'json',
+                                                        success: function (result) {
+                                                            if (result != "") {
+                                                                //ok
+                                                                if (parseFloat(result) <= 0) {
+                                                                    paystatus = "2";
+                                                                } else {
+                                                                    paystatus = "7";
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+
+                                                var loading = showLoading();
+
+                                                $.post('PayByCapital', { orderIds: $('#orderIds').val(), pwd: $('#payPwd').val(), payid: $('#payid').val() }, function (result) {
+                                                    if (result.success == true) {
+                                                        var orderid = $('#orderIds').val();//订单号
+                                                        //添加支付记录 --isWallet：1余额支付
+                                                        $.post('AddUserPayMentInfo', { "orderid": orderid, "price": totalmon, "isWallet": 1, "paytype": $("#hidpaytype").val() }, function (result) {
+                                                            if (result == "ok") {
+                                                                //成功添加支付记录后更新供应商的锁定金额和添加供应商的收入记录
+                                                                $.post('/common/PublicMoney/AddInComeAndUpdateManagerWallet', { "orderId": orderid, "price": totalmon, "isWallet": 1 }, function (result) {
+                                                                    if (result == "ok") {
+                                                                        //成功操作后执行订单状态修改
+                                                                        $.post('/common/PublicMoney/UpdateOrderStatus', { "orderId": orderid, "status": paystatus, "paymodel": "余额支付" }, function (result) {
+                                                                            if (result == "ok") {
+                                                                                loading.close();
+                                                                                //全部操作成功完成后执行订单状态修改
+                                                                                var strs = '/userCenter?url=/userorder?orderids=' + orderid + '&tar=userorder';
+                                                                                //setTimeout("change(" + strs + ")", 3000);
+                                                                                $.dialog.succeedTips("您已完成支付！", function () { location.href = strs; });
+
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        $.dialog.alert(result.msg);
+                                                        loading.close();
+                                                        return false;
+                                                    }
+                                                });
+                                            },
+                                            focus: true
+                                        },
+                                        {
+                                            name: '取消',
+                                            callback: function () { }
+                                        }]
+                                    });
+                                });
+                            }
+                        }
+                    });
+                } else if ($(this).attr('urlType') == "2") {
+                    //paypal
+                    $.dialog.confirm('确定现在付款吗？', function () {
+                        //$.ajax({
+                        //    type: 'post',
+                        //    url: 'SetExpressCheckout',
+                        //    async: false,
+                        //    dataType: 'json',
+                        //    data: { "amount": parseFloat(totalmon), "currency_code": "USD", "item_name": orderIds, "return_false_url": location.href, "webtype": "zhifu", "fq": fq },
+                        //    success: function (result11) {
+                        //        if (result11 != "") {
+                        //            location.href = result11;
+                        //        }
+                        //    }
+                        //});
+                        openBlank('https://www.paypal.com/cgi-bin/webscr', {
+                            cmd: "_xclick",
+                            business: "fangmsen@sina.com",
+                            item_name: orderIds,
+                            amount: totalmon,
+                            notify_url: "/Pay/Return?orderid=" + orderIds + "&price=" + totalmon + "&paytype=0&type=webzf&iplm=2",
+                            currency_code: "USD"
+                        }, true);
+                    });
+                }
+                else if ($(this).attr('urlType') == "3") {
+                    //支付宝付款
+                    $.ajax({
+                        type: 'post',
+                        url: '/common/AliPay/SetAliPay',
+                        async: false,
+                        dataType: 'json',
+                        data: {
+                            "out_trade_no": orderIds,
+                            "subject": orderIds,
+                            "total_fee": totalmon,
+                            "body": "付款到chemcloud",
+                            "paytype": "0",
+                            "type": "webzf",
+                            "iplm": "2",
+                            "targetid": "0",
+                            "paymodel": "支付宝"
+                        },
+                        success: function (aliresult) {
+                            console.log(aliresult);
+                            $('#nextBtn').attr('href', "javascript:void(0)");
+                            $('#nextBtn').attr('target', "_self");
+                            $("#shownextbtn").html(aliresult);
+                        }
+                    });
+                }
+
+                else if ($(this).attr('urlType') == "4") {
+                    //微信支付
+
+                    //打开微信支付界面
+
+                    window.open("/Pay/QRPay?out_trade_no=" + orderIds + "&paytype=0");
+
+                }
+                else {
+                    alert("type:" + $(this).attr('urlType'));
+                }
+
+                /*订单支付结束*/
+            }
+            else {
+                var sortcost = $("#totalAmount").val(); //费用
+                var paytype = $("#hidpaytype").val();//支付类型
+
+                /*其他支付（3供应商认证支付,2产品认证支付，1排名付费支付，4定制合成，5代理采购）*/
+                if ($(this).attr('urlType') == "-1") {
+                    /*账户余额支付*/
+                    if (parseFloat($('#capitalAmount').text()) < parseFloat($('#totalAmount').text())) {
+                        $.dialog.alert('预付款金额少于订单金额');
+                        return false;
+                    }
+                    $.ajax({
+                        type: 'post',
+                        url: 'IsNullWalletPayPassword',
+                        async: false,
+                        dataType: 'json',
+                        success: function (result) {
+                            if (!result.success) {
+                                //window.top.open('/userCenter?url=/usercapital/setpaypwd&tar=setpaypwd', '_blank');
+                                if ("@ViewBag.UserType" == 2) {
+                                    location.href = '/SellerAdmin?url=/SellerAdmin/UserCapital/setpaypwd&tar=setpaypwd';
+                                }
+                                else {
+                                    location.href = '/userCenter?url=/usercapital/setpaypwd&tar=setpaypwd';
+                                }
+                            } else {
+                                /*确认支付，输入支付密码*/
+                                $.dialog.confirm('确定现在付款吗？', function () {
+                                    $.dialog({
+                                        title: '确认支付',
+                                        lock: true,
+                                        id: 'goodCheck',
+                                        content: ['<div class="dialog-form">',
+                                            '<div class="form-group">',
+                                               '<div class="item">\
+                                 <span class="label">支付密码：</span>\
+                                    <div class="">\
+                                    <input type="password" value="" id="payPwd" name="userVo.realName" maxlength="20" class="itxt fl">\
+                            </div>\
+                            </div>',
+                                            '</div>',
+                                        '</div>'].join(''),
+                                        padding: '10px',
+                                        init: function () { $("#auditMsgBox").focus(); },
+                                        button: [
+                                        {
+                                            name: '付款',
+                                            callback: function () {
+                                                if ($("#payPwd").val().length == 0) {
+                                                    $.dialog.alert("请输入支付密码");
+                                                    return false;
+                                                }
+                                                /*余额支付*/
+                                                $.post('PayByCapital', { orderIds: $('#orderIds').val(), pwd: $('#payPwd').val(), payid: $('#payid').val() }, function (result) {
+                                                    if (result.success == true) {
+                                                        var orderid = $('#orderIds').val();//订单号
+                                                        location.href = "/Pay/Return?orderid=" + $('#orderIds').val() + "&price=" + totalmon + "&type=webzf&iplm=1&paytype=" + paytype + "&targetid=" + $("#hidtargetid").val();
+                                                    }
+                                                    else {
+                                                        $.dialog.alert(result.msg);
+                                                        return false;
+                                                    }
+                                                });
+                                            },
+                                            focus: true
+                                        },
+                                        {
+                                            name: '取消',
+                                            callback: function () { }
+                                        }]
+                                    });
+                                });
+                            }
+                        }
+                    });
+                } else if ($(this).attr('urlType') == "2") {
+                    /*paypal*/
+                    $.dialog.confirm('确定现在付款吗？', function () {
+                        openBlank('https://www.paypal.com/cgi-bin/webscr', {
+                            cmd: "_xclick",
+                            business: "fangmsen@sina.com",
+                            item_name: orderIds,
+                            amount: totalmon,
+                            notify_url: "/Pay/Return?orderid=" + orderIds + "&price=" + totalmon + "&paytype=0&type=webzf&iplm=2",
+                            currency_code: "USD"
+                        }, true);                        
+                    });
+                }
+                else if ($(this).attr('urlType') == "3") {
+                    /*支付宝*/
+                    $.dialog.confirm('确定现在付款吗？', function () {
+
+                        //支付宝付款
+                        $.ajax({
+                            type: 'post',
+                            url: '/common/AliPay/SetAliPay',
+                            async: false,
+                            dataType: 'json',
+                            data: {
+                                "out_trade_no": orderIds,
+                                "subject": orderIds,
+                                "total_fee": totalmon,
+                                "body": "付款到chemcloud",
+                                "paytype": paytype,
+                                "type": "webzf",
+                                "iplm": "2",
+                                "targetid": $("#hidtargetid").val(),
+                                "paymodel": "支付宝"
+                            },
+                            success: function (aliresult) {
+                                console.log(aliresult);
+                                $('#nextBtn').attr('href', "javascript:void(0)");
+                                $('#nextBtn').attr('target', "_self");
+                                $("#shownextbtn").html(aliresult);
+                            }
+                        });
+                    });
+                }
+
+                else if ($(this).attr('urlType') == "4") {
+                    //微信支付
+
+                    //打开微信支付界面
+
+                    window.open("/Pay/QRPay?out_trade_no=" + orderIds + "&paytype=" + paytype);
+
+                }
+                else {
+                    alert("type:" + $(this).attr('urlType'));
+                }
+            }
+        });
+    });
+
+    //获取参数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    };
+
+    function BuildPostForm(fm, url, target) {
+        var e = null, el = [];
+        if (!fm || !url)
+            return e;
+        target = target || '_blank';
+        e = document.getElementById(fm);
+        if (!e) {
+            e = document.createElement('Form');
+            e.Id = fm;
+            document.body.appendChild(e);
+        }
+
+        e.method = 'post';
+        e.target = target;
+        e.style.display = 'none';
+        e.enctype = 'application/x-www-form-urlencoded';
+
+        var idx = url.indexOf('?');
+        var para = [], op = [];
+        if (idx > 0) {
+            para = url.substring(idx + 1, url.length).split('&');
+            url = url.substr(0, idx);//截取URL
+            var keypair = [];
+            for (var p = 0 ; p < para.length; p++) {
+                idx = para[p].indexOf('=');
+                if (idx > 0) {
+                    el.push('<input type="hidden" name="' + para[p].substr(0, idx) + '" id="frm' + para[p].substr(0, idx) + '" value="' + para[p].substring(idx + 1, para[p].length) + '" />');
+                }
+            }
+        }
+
+        e.innerHTML = el.join('');
+        e.action = url;
+        return e;
+    };
+
+    function CheckSelct() {
+        var t = $("input[name='requestUrl']:checked").val();
+        if (t == undefined) {
+            $.dialog.tips('请选择支付方式！');
+            return;
+        }
+    }
+
+    function openBlank(action, data, n) {
+        var form = $("<form/>").attr('action', action).attr('method', 'post');
+        if (n)
+            var input = '';
+        $.each(data, function (i, n) {
+            input += '<input type="hidden" name="' + i + '" value="' + n + '" />';
+        });
+        form.append(input).appendTo("body").css('display', 'none').submit();
+    }
+
+    function change(str) {
+        location.href = str;
+    };
+
+</script>

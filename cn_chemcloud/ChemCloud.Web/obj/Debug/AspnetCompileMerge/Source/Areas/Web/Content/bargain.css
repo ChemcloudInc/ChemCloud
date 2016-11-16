@@ -1,0 +1,107 @@
+﻿.btn-margain {
+    width: 156px;
+    height: 36px;
+    color: white;
+    font-family: "微软雅黑";
+    font-size: 16px;
+    font-weight: 800;
+    overflow: hidden;
+    background-color: #3498DB;
+    border: none 0;
+    margin-top: 3px;
+    margin-left: 10px;
+}
+
+
+.text {
+    width: 208px;
+    margin-left:4px;
+    height: 16px;
+    padding: 5px 25px 5px 5px;
+    border: 1px solid #cccccc;
+    float: none;
+    font-size: 14px;
+    font-family: arial, "宋体";
+    color: #999;
+}
+
+.btn-regist {
+    width: 270px;
+    height: 36px;
+    color: #FFF;
+    font-family: "微软雅黑";
+    font-size: 16px;
+    text-indent: -9999px;
+    font-weight: 800;
+    overflow: hidden;
+    background: url(../images/regist-btn.jpg) no-repeat;
+    border: none 0;
+}
+
+    .btn-regist:hover {
+        background: url(../images/hover-btn.jpg) no-repeat;
+    }
+
+#table_margain {
+    border: 0px solid #808080;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+
+    #table_margain tr {
+        height: 3em;
+    }
+
+        #table_margain tr td:nth-child(1) {
+            width: 100px;
+            text-align: right;
+        }
+
+        #table_margain tr td:nth-child(2) {
+            width: 280px;
+            text-align: left;
+        }
+
+.ulproduct li {
+    float: left;
+    width: 200px;
+    margin-left: 3px;
+    line-height: 3em;
+}
+
+.ultalk {
+    margin-left: 0.4em;
+}
+
+    .ultalk li {
+        float: left;
+        width: 180px;
+        line-height: 3em;
+        margin-left: 1em;
+    }
+
+.tabledesc {
+    border: 0px solid #808080;
+    border-collapse: collapse;
+    margin-top: 3em;
+}
+
+    .tabledesc tr {
+        height: 1.3em;
+    }
+
+        .tabledesc tr td {
+            width: 5em;
+            text-align: center;
+        }
+
+.selectbox {
+    width: 238px;
+    height: 28px;
+    padding: 5px 25px 5px 5px;
+    border: 1px solid #cccccc;
+    float: none;
+    font-size: 13px;
+    font-family: arial, "宋体";
+    color: #999;
+}

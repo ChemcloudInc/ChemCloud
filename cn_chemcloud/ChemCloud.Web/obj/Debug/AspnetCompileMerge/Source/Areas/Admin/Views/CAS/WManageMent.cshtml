@@ -1,0 +1,91 @@
+﻿<link href="~/Content/bootstrap-switch.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-switch.min.js"></script>
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        <li class="active"><a>CAS审核</a></li>
+    </ul>
+    <div id="shopToolBar">
+        <div class="search-box only-line">
+            <form class="custom-inline" role="form">
+                <div class="form-group">
+                    <label class="label-inline" for="" style="width : 78px ">CAS号</label>
+                    <input class="form-control input-ssm" type="text" id="CASNUMBER">
+                </div>
+                <div class="form-group">
+                    @*<label class="label-inline" for="" style="width : 78px ">状态</label>*@
+                    @*<select id="sel_type" class="form-control input-ssm"><option value="1" selected="selected">审核通过</option><option value="-1">审核拒绝</option><option value="0">待审核</option></select>*@
+                </div>
+                <input type="button" class="btn btn-primary btn-sm" id="searchBtn" value="搜 索">
+            </form>
+        </div>
+    </div>
+    <table class="table mt20" id="shopDatagrid"></table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        Query();        
+    });
+    function Query() {
+        $("#shopDatagrid").hiMallDatagrid({
+            url: "./List",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到符合条件的数据',
+            idField: "Id",
+            pageSize: 15,
+            pageNumber: 1,
+            queryParams: { "CAS_NUMBER": $("#CASNUMBER").val(), "type": "0" },
+            toolbar: "#shopToolBar",
+            columns:
+            [[
+
+                { field: "CAS_NO", title: "编号", hidden: true },
+                {
+                    field: "CAS_NUMBER", title: "CAS编号", width: 560, formatter: function (value, row, index) {
+                        var html = "";
+                        html = row.CAS_NUMBER;
+                        if (row.CAS_NUMBER == "") {
+                            html = "无CAS号";
+                        }
+                        return html;
+                    }
+                },
+                {
+                    field: "VERSION", title: "CAS版本", formatter: function (value, row, index) {
+                        var html = "";
+                        html = row.VERSION;                        
+                        return html;
+                    }
+                },
+                {
+                    field: "IS_AUDIT", title: "状态", width: 140, formatter: function (value, row, index) {
+                        var id = row.IS_AUDIT;
+                        var html = "";
+                        if (id == "1") {
+                            html += "<span style=\"color:green;\">审核通过</span>";
+                        } else if (id == "-1") {
+                            html += "<span style=\"color:red;\">审核拒绝</span>";
+                        } else {
+                            html += "<span style=\"color:blue;\">待审核</span>";
+                        }
+                        return html;
+                    }
+                },
+                {
+                    field: "operation", operation: true, title: "操作",
+                    formatter: function (value, row, index) {
+                        var id = row.CAS_NO;
+                        var html = "<span class=\"btn-a\"><a href=\"Details?CAS_NO=" + id + "\">查看</a></span> | <span class=\"btn-a\"><a href=\"./Edit?CAS_NO=" + id + "\">编辑</a></span> | <span class=\"btn-a\"><a href=\"./Audit?CAS_NO=" + id + "\">审核</a></span>";
+                        return html;
+                    }
+                }
+            ]]
+        });
+    };
+    $(function () {
+        $("#searchBtn").on("click", function () {
+            Query();
+        });
+    });
+</script>

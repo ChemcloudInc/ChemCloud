@@ -3,3 +3,8 @@ D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Weixin.MP\bin\Debug\C
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Weixin.MP\obj\Debug\ChemCloud.Weixin.MP.dll
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Weixin.MP\obj\Debug\ChemCloud.Weixin.MP.pdb
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.Weixin.MP\obj\Debug\ChemCloud.Weixin.MP.csprojResolveAssemblyReference.cache
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Weixin.MP\bin\Debug\ChemCloud.Weixin.MP.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Weixin.MP\bin\Debug\ChemCloud.Weixin.MP.pdb
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Weixin.MP\obj\Debug\ChemCloud.Weixin.MP.csprojResolveAssemblyReference.cache
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Weixin.MP\obj\Debug\ChemCloud.Weixin.MP.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.Weixin.MP\obj\Debug\ChemCloud.Weixin.MP.pdb

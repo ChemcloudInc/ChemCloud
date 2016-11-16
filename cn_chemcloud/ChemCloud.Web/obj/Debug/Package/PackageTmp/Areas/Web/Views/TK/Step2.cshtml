@@ -1,0 +1,300 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>卖家处理退款申请</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <style>
+        #Refund {
+            width: 1210px;
+            position: relative;
+            padding: 24px 0 30px 280px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+            #Refund .Refund_border .siader h3 {
+                height: 45px;
+                line-height: 45px;
+            }
+
+        #liucheng {
+            background: #fff;
+            padding: 20px 8px;
+        }
+
+        .Refund_border {
+            background: #fff;
+        }
+
+        .fl {
+            float: none;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="Refund">
+        @*<ul class="liucheng" style="border:1px solid #ccc;border-bottom:none;padding:20px 0;">
+                <li id="liuchengs"><img src="~/images/liucheng001.png" alt=""></li>
+                <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+                <li id="liuchengs"><img src="~/images/liucheng02.png" alt=""></li>
+                <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+                <li id="liuchengs"><img src="~/images/liucheng0003.png" alt=""></li>
+                <li id="liuchenga"><img src="~/images/arrow_001.png" alt=""></li>
+                <li id="liuchengs"><img src="~/images/liucheng0004.png" alt=""></li>
+            </ul>*@
+        <div class="Refund_border" style="width:1004px;">
+            <div class="main_liu">
+                <div class="header_liu">
+                    <span>
+                        退款信息:
+                    </span>
+                    <span class="header_liu_chu" id="type">退款</span>
+                    <span class="header_hong">
+                        *
+                    </span>
+                    <span class="header_xi">
+                        为必填项
+                    </span>
+                </div>
+                <div class="Refund_form">
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_mi">*</span><span class="lable_text">退款原因：</span>
+                        </div>
+                        <select name="" id="Reson" style="width:400px;height:30px">
+                            <option value="0">收到的产品与采购产品不一致</option>
+                            <option value="1">产品无法使用</option>
+                            <option value="2">其它原因</option>
+                        </select>
+                    </div>
+                    <div class="form-hang" id="inputTextDiv" style="display:none;">
+                        <div class="lable">
+                            <span class="lable_mi">*</span><span class="lable_text">请说明原因：</span>
+                        </div>
+                        <input type="text" id="ResonText" value="" style="width:400px;height:30px">
+                    </div>
+                    <div class="form_hang">
+                        <div class="lable">
+                            <span class="lable_mi">*</span><span class="lable_text">退款金额：</span>
+                        </div>
+                        <input type="text" id="Amont" value="" style="width:290px;height:30px" placeholder="退款金额必须大于0" />
+                        <span>元</span>
+                        <span>(最多 </span>
+                        <span style="color:red;">@ViewBag.max</span> <input type="hidden" id="hdmax" value="@ViewBag.max" />
+                        <span class="more"></span>
+                        <span>元)</span>
+                    </div>
+                    <div class="form_hang">
+                        <span class="lable">说明：</span>
+                        <textarea class="textarea" id="Introduce">@ViewBag.TKInstruction</textarea>
+                    </div>
+                    <div class="form_hang" style="overflow: hidden;margin-left: 130px;">
+                        <span class="lable">上传凭证：</span>
+                        <div style="overflow:hidden">
+                            <div class="form-group upload-img " id="pinzheng"></div>
+                            <img id="image" src="" />
+                        </div>
+                    </div>
+                    <div class="button_hang" style="padding-bottom:40px;">
+                        <span class="sq_button">
+                            <a onclick="TK(@ViewBag.OrderNo)" class="sq_a_button">申  请</a>
+                        </span>
+                        <span class="sq_button">
+                            <a href="" onclick="history.back()" class="sq_a_button">取消并返回</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="siader">
+                <h3>
+                    订单信息
+                </h3>
+                <div class="border_sia">
+                    <div class="line_height_sia">
+                        <span class="guding">卖家：</span>
+                        <span>@ViewBag.ShopName</span>
+                        <span class="link_op">
+                            <a onclick="onlinetalk(@ViewBag.ShopId)" class="sq_a_button">联系商家</a>
+                        </span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span>订单编号：</span>
+                        <span class="blud_span">@ViewBag.OrderNo</span> <input type="hidden" value="@ViewBag.OrderNo" id="hdOrderNo" />
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">单 价：</span>
+                        <span class="hong_span">@ViewBag.total</span>
+                        <span>元</span>
+                    </div>
+                    <div class="line_height_sia">
+                        <span class="guding">快 递：</span>
+                        <span class="hong_span">@ViewBag.yunfei</span>
+                        <span>元</span>
+                    </div>
+                </div>
+                <div class="border_sia bor_bottom">
+                    <span class="guding">
+                        联系平台：
+                    </span>
+                    <span class="sq_button pt_button">
+                        <a onclick="onlinetalk('2')" class="sq_a_button">联系我们</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.artDialog.js"></script>
+<script src="~/Areas/Web/Scripts/artDialog.iframeTools.js"></script>
+<script src="~/Scripts/jquery.TKUpload.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script src="~/Scripts/jquery.cookie.js"></script>
+<script>
+    $(function () {
+        var type = "@ViewBag.type";
+        var resion = "@ViewBag.TKResion";
+        var tkamont = "@ViewBag.TKAmont";
+        var reasontype = "@ViewBag.ReasonType";
+
+        if (type != 0) {
+            $("#Amont").attr("disabled", "disabled");
+            $("#Reson").attr("disabled", "disabled");
+            $("#Amont").val(tkamont);
+        }
+
+        if (reasontype != null && reasontype != "") {
+            if (reasontype == "2") {
+                $("#Reson").val(reasontype);
+                $('#inputTextDiv').css('display', 'block');
+                $('#ResonText').val(resion);
+            } else if (reasontype != "2") {
+                $("#Reson").val(reasontype);
+                $('#inputTextDiv').css('display', 'none');
+            }
+        }
+    });
+</script>
+
+
+
+<script>
+    $(function () {
+
+        $("#pinzheng").hishopUpload({
+            title: '凭证文件上传(最多6张)',
+            imageDescript: '',
+            displayImgSrc: '',
+            imgFieldName: "pinzheng",
+            imagesCount: 6,
+            dataWidth: 6
+        });
+
+        $('#Reson').change(function () {
+            var reasonId = $('#Reson option:selected').val();
+            if (reasonId == 2) {
+                $('#inputTextDiv').css('display', 'block');
+            } else {
+                $('#inputTextDiv').css('display', 'none');
+            }
+        });
+    });
+
+    function checkImgType(filename) {
+        var pos = filename.lastIndexOf(".");
+        var str = filename.substring(pos, filename.length)
+        var str1 = str.toLowerCase();
+        if (!/\.(gif|jpg|jpeg|png|bmp)$/.test(str1)) {
+            return false;
+        }
+        return true;
+    }
+
+    var TK = function (orderNo) {
+
+        var reason;
+        var values = $('#Reson').val();
+        if (values == 2) {
+            reason = $('#ResonText').val();
+        } else {
+            reason = $('#Reson option:selected').text();
+        }
+
+
+        var imgstr = "";
+
+        /*上传的图片*/
+        $(".hiddenImgSrc").each(function () {
+            if ($(this).val() != "") {
+                imgstr += $(this).val() + ",";
+            }
+        });
+
+        if ($("#Amont").val() == "") {
+            $.dialog.errorTips('请填写退款金额');
+            return;
+        }
+
+        if (parseFloat($("#Amont").val()) < 0 || parseFloat($("#Amont").val()) == 0) {
+            $.dialog.errorTips('退款金额必须大于0');
+            return;
+        }
+
+        if (parseFloat($("#Amont").val()) > parseFloat($("#hdmax").val())) {
+            $.dialog.errorTips('退款金额超出订单实际金额');
+            return;
+        }
+
+
+        $.post("InsertTK", {
+            OrderNo: $("#hdOrderNo").val(), Reson: reason, Amont: $("#Amont").val(),
+            Introduce: $("#Introduce").val(), ReasonType: values, images: imgstr, Attitude: 0
+        },
+            function (data) {
+                if (data.success == true) {
+                    $.dialog.succeedTips(data.msg);
+                    location.href = "/TK/Management";
+                } else {
+                    $.dialog.succeedTips(data.msg);
+                }
+            });
+    }
+
+    /*在线咨询*/
+    function onlinetalk(shopID) {
+        //没有用户在线
+        if ($.cookie("ChemCloud-User") == null) {
+            var r = confirm("请先登陆!");
+            if (r == true) {
+                window.location.href = '/Login';
+            }
+            return;
+        }
+        $.get('/ChatOtherSide/GetOtherSideInfoByShop',
+        {
+            shopID: shopID
+        }, function (result) {
+            if (result.Result == -1 && shopID != 2) {
+
+                $.dialog.errorTips('商家不存在');
+
+            } else {
+                $.cookie("currentSelectedShopUserID", result.UserID, { expires: 100, path: '/' });
+                $.cookie("currentSelectedShopUserName", result.UserName, { expires: 100, path: '/' });
+                //window.open("/ChatMessage/Index");
+                var w = window.open();
+                setTimeout(function () {
+                    w.location = "/ChatMessage/Index";
+                }, 1000);
+            }
+        });
+    }
+</script>

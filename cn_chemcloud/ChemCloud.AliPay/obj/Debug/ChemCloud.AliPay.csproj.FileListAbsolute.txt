@@ -3,3 +3,12 @@ D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\bin\Debug\Chem
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.dll
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.pdb
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.csprojResolveAssemblyReference.cache
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.AliPay\bin\Debug\ChemCloud.AliPay.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.AliPay\bin\Debug\ChemCloud.AliPay.pdb
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.pdb
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.AliPay\bin\Debug\ChemCloud.AliPay.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.AliPay\bin\Debug\ChemCloud.AliPay.pdb
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.csprojResolveAssemblyReference.cache
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.AliPay\obj\Debug\ChemCloud.AliPay.pdb

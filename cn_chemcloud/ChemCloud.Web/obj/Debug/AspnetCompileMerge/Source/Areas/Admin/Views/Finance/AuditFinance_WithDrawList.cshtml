@@ -1,0 +1,178 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "提现审核";
+}
+
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/CommonJS.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<style type="text/css">
+    .table th {
+        background-color: #3498DB;
+        color: #fff;
+    }
+    .box1{
+        padding-top:68px ;
+    }
+    .table tr {
+        height: 30px;
+    }
+</style>
+<link href="~/Content/jquery-ui.css" rel="stylesheet">
+<script src="~/Content/jquery-ui.min.js"></script>
+<div class="box1 lh24">
+    <div class="title bot-border" style="margin-bottom: 0px">
+        <h3 class="title_txt cur" style="border-bottom:0px;">提现审核列表</h3>
+    </div>
+    <div class="border-box">
+        <div class="clr"></div>
+        <div id="shopToolBar">
+            <div id="tabs">
+                <div id="tabs-3">
+                    <div class="search-box only-line">
+                        <div class="form-group" style="height:30px; padding-top:5px;margin-left:10px">
+                            <label class="label-inline" for="start_datetime2" style="width : 78px ">开始日期</label>
+                            <input class="form-control input-ssm" type="text" id="start_datetime2" style="height:24px;" />
+                            <label class="label-inline" for="end_datetime2" style="width : 78px ">结束日期</label>
+                            <input class="form-control input-ssm" type="text" id="end_datetime2" style="height:24px;" />
+                            <select id="type_id2" class="sele valid" style="width:80px;height:28px;"><option value="1">CNY</option><option value="2">USD</option></select>
+                            <input type="button" class="btn btn-primary btn-sm" id="searchBtn2" value="搜 索" style="width:70px; height:28px; border:0px solid; background-color:#3498DB; color:#fff; border-radius:2px; cursor:pointer;" />
+                        </div>
+                    </div>
+                    <table class="table mt40" id="MoneyWithDraw" style="width:100%;margin-top:10px;"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        //提现时间筛选 开始
+        $("#start_datetime2").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $("#end_datetime2").datetimepicker({
+            language: "zh-CN",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $("#start_datetime2").click(function () {
+            $('#start_datetime2').datetimepicker('show');
+        });
+        $("#end_datetime2").click(function () {
+            $("#end_datetime2").datetimepicker("show");
+        });
+        $('#start_datetime2').on('changeDate', function () {
+            if ($(".end_datetime2").val()) {
+                if ($("#start_datetime1").val() > $("#end_datetime2").val()) {
+                    $('#end_datetime2').val($("#start_datetime2").val());
+                }
+            }
+            $('#end_datetime2').datetimepicker('setStartDate', $("#start_datetime2").val());
+        });
+        //提现时间筛选 结束
+
+        QueryWithDraw(); //提现
+
+        //点击查询按钮
+        $("#searchBtn2").on("click", function () {
+            QueryWithDraw();
+        });
+
+        //审核
+        $(".shenhe").live("click", function () {
+            var id = $(this).attr("id");
+            window.location.href = "./AuditFinance_WithDrawList_Detail/" + id;
+        });
+    });
+
+    //提现
+    function QueryWithDraw() {
+        $("#MoneyWithDraw").hiMallDatagrid({
+            url: "/common/PublicMoney/ListWithDraw",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到您的提现信息.',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: {
+                "starttime": $("#start_datetime2").val(), "endtime": $("#end_datetime2").val(),
+                "moneytype": $('#type_id2 option:selected').val(),
+                "userid": 0, "usertype": 0
+            },
+            columns:
+            [[
+                 {
+                     field: "Withdraw_Number", title: "提现单号", align: "center", formatter: function (value, row, index) {
+                         return row.Withdraw_Number;
+                     }
+                 },
+                {
+                    field: "Withdraw_Time", title: "提现时间", align: "center", formatter: function (value, row, index) {
+                        var time = row.Withdraw_Time;
+                        return jsonDateFormat(time);
+                    }
+                },
+                 {
+                     fiele: "Withdraw_UserName", title: "提现用户", align: "center", formatter: function (value, row, index) {
+                         return row.Withdraw_UserName;
+                     }
+                 }
+                 , {
+                     field: "Withdraw_Money", title: "提现金额", align: "center", formatter: function (value, row, index) {
+                         return row.Withdraw_Money.toFixed(2);
+                     }
+                 }
+                , {
+                    field: "Withdraw_MoneyType", title: "提现币种", align: "center", formatter: function (value, row, index) {
+                        if (row.Withdraw_MoneyType == "1") {
+                            return "CNY";
+                        } else {
+                            return "USD";
+                        }
+                    }
+                }
+                , {
+                    field: "Withdraw_shenhe", title: "审核状态", align: "center", formatter: function (value, row, index) {
+                        switch (row.Withdraw_shenhe) {
+                            case 0: return "<input class='shenhe' id='" + row.Id + "' style='width:70px;height:26px; border:0px solid;border-radius:2px;cursor:pointer;' type='button' value='待审核'/>"; break;
+                            case 1: return "已通过"; break;
+                            case 2: return "已拒绝"; break;
+                        }
+                    }
+                }
+            ]]
+        });
+    };
+ 
+
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    };
+</script>

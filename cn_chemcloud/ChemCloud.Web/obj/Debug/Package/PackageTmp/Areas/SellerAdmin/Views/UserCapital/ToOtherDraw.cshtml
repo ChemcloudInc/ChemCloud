@@ -1,0 +1,228 @@
+﻿@{
+    Layout = "~/Areas/Web/Views/Shared/_UserCenter.cshtml";
+    ViewBag.Title = "转账";
+}
+<link href="~/Areas/Web/Content/register.css" rel="stylesheet" />
+<style>
+    .err_syl {
+        display: inline-block;
+        color: #ff0000;
+        display: none;
+    }
+
+    .err_poss {
+        display: none;
+        color: #ff0000;
+    }
+</style>
+<div class="box1 lh24" id="step2" name="stepname">
+    <div class="title bot-border">
+        <h3 class="title_txt cur">转账信息设置</h3>
+    </div>
+    <div class="border-box">
+        <div class="user-set userset-lcol">
+            <div class="form">
+                <div class="item">
+                    <span class="label" style="width:150px;">对方账户：</span>
+                    <div class="fl">
+                        <input type="text" id="bankName" class="itxt" placeholder="请输入对方的账户" /><br />
+                    </div>
+                    <div class="err_syl" id="bankName_err">对方账户不能为空</div>
+                </div>
+                @*<div class="item">
+                        <span class="label" style="width:150px;">对方账户(再填写一次)：</span>
+                        <div class="fl">
+                            <input type="text" id="bankuserName" class="itxt" placeholder="确认对方的账户" /><br />
+                        </div>
+                        <div class="err_syl" id="bankuserName_err">对方账户不能为空</div>
+                    </div>*@
+                <div class="item">
+                    <span class="label" style="width:150px;">账户可用余额：</span>
+                    <div class="fl" id="mymoney"></div>
+                </div>
+                <div class="item">
+                    <span class="label" style="width:150px;">转账金额：</span>
+                    <div class="fl">
+                        <input type="text" id="zzmoney" class="itxt" placeholder="转账金额必须大于0" /><br /><br />
+                        <a id="submitPayBank" class="btn-5" href="javascript:;">提交</a>
+                    </div>
+                    <div class="err_syl" id="bankId_err">请填写正确金额格式</div>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hmm" />
+<script type="text/javascript">
+    $(function () {
+        GetMoney();
+        //提交提现操作
+        $('#submitPayBank').click(function () {
+            var reg = /^[0-9]+([.]{1}[0-9]{1,2})?$/;
+            if (!reg.test($('#zzmoney').val())) {
+                $.dialog.alert("请输入有效的金额");
+                $('#zzmoney').focus();
+                return;
+            }
+
+            if (parseFloat($.trim($('#zzmoney').val())) == 0) {
+                $.dialog.alert("请输入有效的金额");
+                $('#zzmoney').focus();
+                return false;
+            }
+
+            $.post('Checkuid', { uname: $("#bankName").val() },
+                function (result) {
+                    if (result != "ok") {
+                        $.dialog.alert('对方账户不存在,请重新输入');
+                        return;
+                    } else {
+
+                        //$.post('GetMyValMoney', {}, function (result) {
+                        //    if (parseFloat(result) < parseFloat($('#zzmoney').val())) {
+                        //        $.dialog.alert("转账金额不能超出可用金额");
+                        //        $('#zzmoney').focus();
+                        //        return;
+                        //    } else {
+                        //        $.post('AddZZinfo', { uname: $("#bankName").val(), zmoney: $("#zzmoney").val() },
+                        //        function (result) {
+                        //            if (result == "ok") {
+                        //                $.dialog.succeedTips('转账成功！');
+                        //                location.href = "/sellerAdmin/Finance/index";
+                        //            }
+                        //        }
+                        //                 );
+                        //    }
+                        //});
+
+                        $.post('GetMyValMoney', {}, function (result) {
+                            if (result != "") {
+                                var mmoney = parseFloat(result);
+                                if (mmoney <= 0 || mmoney < parseFloat($('#zzmoney').val())) {
+                                    $.dialog.alert('账户余额不足');
+                                    return false;
+                                }
+                                else {
+                                    /*设置支付密码，如果支付密码为空，前往设置*/
+                                    $.ajax({
+                                        type: 'post',
+                                        url: '/Order/IsNullWalletPayPassword',
+                                        async: false,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            if (!result.success) {
+                                                location.href = '/SellerAdmin?url=/SellerAdmin/UserCapital/setpaypwd&tar=setpaypwd';
+                                            } else {
+                                                /*确认支付，输入支付密码*/
+                                                $.dialog.confirm('确定现在付款吗？', function () {
+                                                    $.dialog({
+                                                        title: '确认支付',
+                                                        lock: true,
+                                                        id: 'goodCheck',
+                                                        content: ['<div class="dialog-form">',
+                                                            '<div class="form-group">',
+                                                            '<div class="item">\
+                                                <span class="label">支付密码：</span>\
+                                                <div class="">\
+                                                <input type="password" value="" id="payPwd" name="userVo.realName" maxlength="20" class="itxt fl">\
+                                                </div>\
+                                                </div>',
+                                                            '</div>',
+                                                            '</div>'].join(''),
+                                                        padding: '10px',
+                                                        init: function () { $("#auditMsgBox").focus(); },
+                                                        button: [
+                                                        {
+                                                            name: '付款',
+                                                            callback: function () {
+                                                                if ($("#payPwd").val().length == 0) {
+                                                                    $.dialog.alert("请输入支付密码");
+                                                                    return false;
+                                                                }
+                                                                var loading = showLoading();
+                                                                $.post('/Order/PayByCapital', { orderIds: null, pwd: $('#payPwd').val(), payid: null }, function (result) {
+                                                                    if (result.success) {
+                                                                        //添加转账记录
+                                                                        $.post('AddZZinfo', { uname: $("#bankName").val(), zmoney: $("#zzmoney").val() },
+                                                                            function (result) {
+                                                                                if (result == "ok") {
+                                                                                    $.dialog.succeedTips('转账成功！');
+                                                                                    location.href = "/Money/MoneyList";
+                                                                                }
+                                                                            }
+                                                                        );
+                                                                    }
+                                                                });
+                                                            },
+                                                            focus: true
+                                                        },
+                                                        {
+                                                            name: '取消',
+                                                            callback: function () { }
+                                                        }]
+                                                    });
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            );
+
+
+        });
+        //转账帐户设置
+        $('#bankName').blur(function () {
+            if ($(this).val() == "") {
+                $('#bankName_err').css('display', 'block');
+            } else {
+                $('#bankName_err').css('display', 'none');
+            }
+        });
+        $('#bankuserName').blur(function () {
+            if ($(this).val() == "") {
+                $('#bankuserName_err').css('display', 'block');
+            } else {
+                $('#bankuserName_err').css('display', 'none');
+
+            }
+        });
+        $('#bankId').blur(function () {
+            var reg = /^[0-9]+([.]{1}[0-9]{1,2})?$/;
+            if ($(this).val() == "" || !reg.test($(this).val())) {
+                $('#bankId_err').css('display', 'inline-block');
+            } else {
+                $('#bankId_err').css('display', 'none');
+            }
+        });
+        // $('#zzmoney').blur(function () {
+        //    var reg = /^[0-9]+([.]{1}[0-9]{1,2})?$/;
+        //    if (!reg.test($('#zzmoney').val())) {
+        //        $.dialog.alert("请输入有效的金额");
+        //        $('#zzmoney').focus();
+        //        return;
+        //    }
+        //    $.post('GetMyValMoney', {},
+        //   function (result) {
+        //       if (parseFloat(result) < parseFloat($('#zzmoney').val())) {
+        //           $.dialog.alert("转账金额不能超出可用金额");
+        //           $('#zzmoney').focus();
+        //           return;
+        //       }
+        //   });
+        //});
+    });
+    function GetMoney() {
+        $.post('GetMyValMoney', {},
+           function (result) {
+               if (result != "") {
+                   $("#mymoney").html(result);
+                   //balance = result;
+               }
+           });
+    }
+</script>

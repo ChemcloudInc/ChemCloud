@@ -40,12 +40,13 @@ namespace ChemCloud.Web.Areas.Web.Controllers
         {
             if (base.CurrentUser == null)
             {
-                return base.RedirectToAction("Index", "Login", new { area = "Web" });
+                ViewBag.CurrentUser = "0";
             }
             else
             {
-                return View();
+                ViewBag.CurrentUser = base.CurrentUser.UserName;
             }
+            return View();
         }
 
         /*分析鉴定提交*/

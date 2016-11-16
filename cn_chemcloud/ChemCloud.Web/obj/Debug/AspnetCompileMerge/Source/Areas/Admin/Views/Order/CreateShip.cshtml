@@ -1,0 +1,213 @@
+﻿
+
+<style type="text/css">
+    .addcoa {
+        cursor: pointer;
+    }
+
+        .addcoa:hover {
+            background: #eee;
+        }
+
+    .coaarea {
+        width: 1016px;
+        height: 600px;
+        position: absolute;
+        top: 3%;
+        left: 16%;
+        background-color: white;
+        display: none;
+    }
+
+    body {
+        margin: 0 auto;
+    }
+
+    .Coa_div {
+        width: 100%;
+        text-align: center;
+        font-family: arial;
+    }
+
+    .title_p {
+        font-weight: 900;
+        margin-top: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .toptable td {
+        border: 0px solid #000;
+        padding-left: 5px;
+        font-weight: bold;
+    }
+
+        .toptable td:first-child {
+            text-align: right;
+        }
+
+        .toptable td:nth-child(3) {
+            text-align: right;
+        }
+
+    .toptable tr {
+        height: 30px;
+    }
+
+    .detial_table th {
+        font-weight: bolder;
+    }
+
+    .detial_table td {
+        font-weight: 500;
+    }
+
+    .detial_table td, .detial_table th {
+        border: 0px solid #000;
+        text-align: center;
+    }
+
+        .detial_table td input {
+            width: 100%;
+            height: 30px;
+        }
+
+    .detial_table tr {
+        height: 30px;
+    }
+
+    .btnspan {
+        width: 208px;
+        height: 16px;
+        padding: 5px 11px 5px 13px;
+        border: 1px solid #cccccc;
+        margin-right: 10px;
+        text-align: center;
+        background-color: #3498DB;
+        font-weight: bolder;
+        color: white;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<div class="container" style="position:relative; height:700px;padding-top:60px">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>订单</strong>
+        <li><a href="./ManageShip">所有订单</a></li>
+        <li class="active">
+           物流单号
+        </li>
+    </ul>
+
+    <table class="table" style="margin-top:20px">
+        <tr>
+            <td>订单号：</td>
+            <td id="orderId">@Model.Id</td>
+            <td>下单日期：</td>
+            <td>@Model.OrderDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+            <td>下单人：</td>
+            <td>@Model.UserName</td>
+        </tr>
+        <tr>
+            <td>收货人：</td>
+            <td>@Model.ShipTo</td>
+            <td>手机号码：</td>
+            <td>@Model.CellPhone</td>
+        </tr>
+        <tr>
+            <td>收货人地址：</td>
+            <td colspan="5">@Model.RegionFullName <span id="spAddress">@Model.Address</span></td>
+        </tr>
+        <tr>
+            <td>物流公司：</td>
+            <td>
+              <select id="shipType" class="form-control input-xs cssCompanyName">
+                 @*<option value="DHL">DHL</option>
+                 <option value="EMS">EMS</option>*@
+                 <option value="FedEx">FedEx</option>
+                 @*<option value="UPS">UPS</option>
+                 <option value="TNT">TNT</option>
+                 <option value="SF">SF</option>*@
+             </select>
+            </td>
+            <td>物流单号:</td>
+            <td><input class="form-control input-xs cssShipOrderNumber" id="shipNumber" type="text" readonly placeholder="自动生成" /></td>
+            <td><button id="btnCreateShip" type="button" class="btn btn-primary" >生成运单</button></td>
+        </tr>
+    </table>
+    <button id="btnSendGood" type="button" class="btn btn-primary mt20">订单发货</button>
+     
+</div>
+
+<script type="text/javascript">
+    //生成物流单号
+    $('#btnCreateShip').click(function () {
+        
+        var type = $("#shipType").val();
+        if (type != "FedEx") {
+            $.dialog.errorTips(type+"不支持在线生成运单!");
+            return;
+        }
+        var orderId=$("#orderId").html();
+        var loading = showLoading();
+        $.post('./CreateShipInfo', { orderid: orderId },
+            function (result) {
+            loading.close();
+            if (result.Success) {
+                $("#shipNumber").val(result.TrackNumber);
+            }
+            else
+                $.dialog.errorTips("生成失败:" + result.msg);
+        });
+    });
+    $('#btnSendGood').click(function () {
+        var orderId=$("#orderId").html();;
+        var companyNames = "";
+        var shipOrderNumbers = "";
+        var invaldat = false;
+
+        
+        $('.cssCompanyName').each(function (index, item) {
+            if ($(item).val() == "") {
+                $.dialog.errorTips("请填写快递公司名称！");
+                invaldat = true;
+                return;
+            }
+            companyNames= $(this).find("option:selected").text();
+        });
+
+        var shipOrderNumbers = $('#shipNumber').val();
+        if (shipOrderNumbers == "")
+        {
+            $.dialog.errorTips("请填写快递单号！");
+            invaldat = true;
+            return;
+        }
+
+        if (invaldat) { return; }
+
+        var loading = showLoading();
+        $.post('./DeliverGoods', { orderId: orderId, companyName: companyNames, shipOrderNumber: shipOrderNumbers },
+            function (result) {
+            loading.close();
+            if (result.success) {
+                 $.dialog.succeedTips("操作成功！", function () {
+
+                  });
+                 setTimeout(function () { window.location.href = "./ManageShip"; }, 3000);
+                }
+             else
+                 $.dialog.errorTips("操作失败" + result.msg);
+         });
+       
+    });
+
+
+
+</script>

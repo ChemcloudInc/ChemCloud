@@ -1,0 +1,413 @@
+﻿@model ChemCloud.Model.COAList
+
+@using System.Linq
+@{
+    ViewBag.Title = "AddStepThree";
+}
+<script src="~/Scripts/jquery.hishopUpload.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/autoNumeric.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<style>
+    .addcoa {
+        cursor: pointer;
+    }
+
+        .addcoa:hover {
+            background: #eee;
+        }
+
+    .coaarea {
+        width: 1016px;
+        height: 600px;
+        position: relative;
+        top: 50%;
+        background-color: white;
+    }
+
+    body {
+        margin: 0 auto;
+    }
+
+    .Coa_div {
+        width: 100%;
+        text-align: center;
+        font-family: arial;
+    }
+
+    .title_p {
+        font-weight: 900;
+        margin-top: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .toptable td {
+        border: 0px solid #000;
+        padding-left: 5px;
+        font-weight: bold;
+    }
+
+        .toptable td:first-child {
+            text-align: right;
+        }
+
+        .toptable td:nth-child(3) {
+            text-align: right;
+        }
+
+    .toptable tr {
+        height: 30px;
+    }
+
+    .detial_table th {
+        font-weight: bolder;
+    }
+
+    .detial_table td {
+        font-weight: 500;
+    }
+
+    .detial_table td, .detial_table th {
+        border: 0px solid #000;
+        text-align: center;
+    }
+
+        .detial_table td input {
+            width: 100%;
+            height: 30px;
+        }
+
+    .detial_table tr {
+        height: 30px;
+    }
+
+    .btnspan {
+        width: 208px;
+        height: 16px;
+        padding: 5px 11px 5px 13px;
+        border: 1px solid #cccccc;
+        margin-right: 10px;
+        text-align: center;
+        background-color: #3498DB;
+        font-weight: bolder;
+        color: white;
+    }
+
+    .uploadFile {
+        opacity: 0;
+        filter: alpha(opacity=0);
+        font-size: 100px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+    }
+
+    .divFile {
+        position: relative;
+        width: 75px;
+        height: 22px;
+        display: inline;
+    }
+
+    .inputFile {
+        position: absolute;
+        top: 0px;
+        left: 135px;
+        width: 75px;
+        height: 22px;
+        opacity: 0;
+        filter: "alpha(opacity=0)";
+        filter: alpha(opacity=0);
+        -moz-opacity: 0;
+    }
+
+    .form-group {
+        height: 40px;
+    }
+</style>
+<div class="container" style="padding-top:20px;">
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">COA #：</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control input-sm" value="@ViewBag.CoANo" id="inputCoA" disabled="disabled" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">CAS #</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control input-sm" value="" id="CoaNo" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" class="btn btn-primary" id="btnUpload" value="生成PDF并保存" />
+        </div>
+    </div>
+    <div id="div_coaarea" class="coaarea">
+        <div class="Coa_div">
+            <p class="title_p" style="font-size: 28px;position:relative;">
+                CERTIFICATE OF ANALYSIS
+            </p>
+            <table class="toptable">
+                <tr>
+                    <td style="width:150px; text-align:right;">Certificate Number:</td>
+                    <td style="width:220px;"><input id="txtCertificateNumber" value="@ViewBag.CoANo" style="width:206px; height:26px;" disabled="disabled" /></td>
+                    <td>LABORATORY MANAGER:</td>
+                    <td>
+                        <input id="txtLABORATORYMANAGER" style="width:206px; height:26px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Product Code:</td>
+                    <td><input id="txtProductCode" style="width:206px; height:26px;" /></td>
+                    <td>Manufacturer's Batch #:</td>
+                    <td><input id="txtManufacturersBatchNo" style="width:206px; height:26px;" /></td>
+                </tr>
+                <tr>
+                    <td>Product Name:</td>
+                    <td><input id="txtProductName" style="width:206px; height:26px;" /></td>
+                    <td>Sydco's Lab.Batch #:</td>
+                    <td><input id="txtSydcosLabBatchNo" style="width:206px; height:26px;" /></td>
+                </tr>
+                <tr>
+                    <td>Date of Manufacture:</td>
+                    <td>
+                        <input id="txtDateofManufacture" class="form-control input-ssm DateofManufacture" type="text" style="width:206px; height:26px;" />
+                    </td>
+                    <td style="width:160px;text-align:right;">ExpiryDate:</td>
+                    <td style="width:220px;"><input id="txtExpiryDate" class="form-control input-ssm ExpiryDate" type="text" style="width:206px; height:26px;" /></td>
+                </tr>
+
+            </table>
+            <p class="title_p">The undersigned hereby certifies the following data to be true specifiation</p>
+            <table class="detial_table">
+                <thead>
+                    <tr>
+                        <th><span class="Dojson" id="AppearanceSpan" onclick="Changetitle('Appearance', this)">Appearance</span><input id="Appearance" value="Appearance" onblur="Changeti('Appearance', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="IdentitySpan" onclick="Changetitle('Identity', this)">Identity</span><input id="Identity" value="Identity" onblur="Changeti('Identity', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="CarbonatesSpan" onclick="Changetitle('Carbonates', this)">Carbonates</span><input id="Carbonates" value="Carbonates" onblur="Changeti('Carbonates', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="SolubilitySpan" onclick="Changetitle('Solubility', this)">Solubility</span><input id="Solubility" value="Solubility" onblur="Changeti('Solubility', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="AmmoniumSpan" onclick="Changetitle('Ammonium', this)">Ammonium</span><input id="Ammonium" value="Ammonium" onblur="Changeti('Ammonium', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="CalciumSpan" onclick="Changetitle('Calcium', this)">Calcium</span><input id="Calcium" value="Calcium" onblur="Changeti('Calcium', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="ArsenicSpan" onclick="Changetitle('Arsenic', this)">Arsenic</span><input id="Arsenic" value="Arsenic" onblur="Changeti('Arsenic', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="HeavyMetalsSpan" onclick="Changetitle('HeavyMetals', this)">Heavy Metals</span><input id="HeavyMetals" value="HeavyMetals" onblur="Changeti('HeavyMetals', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="IronSpan" onclick="Changetitle('Iron', this)">Iron</span><input id="Iron" value="Iron" onblur="Changeti('Iron', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="SulphatesSpan" onclick="Changetitle('Sulphates', this)">Sulphates</span><input id="Sulphates" value="Sulphates" onblur="Changeti('Sulphates', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="ChloridesSpan" onclick="Changetitle('Chlorides', this)">Chlorides</span><input id="Chlorides" value="Chlorides" onblur="Changeti('Chlorides', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="AppearanceofsolutionSpan" onclick="Changetitle('Appearanceofsolution', this)">Appearance of solution</span><input id="Appearanceofsolution" value="Appearanceofsolution" onblur="Changeti('Appearanceofsolution', this)" style="display:none;" /></th>
+                        <th><span class="Dojson" id="MicroStatusSpan" onclick="Changetitle('MicroStatus', this)">Micro Status</span><input id="MicroStatus" value="Micro Status" onblur="Changeti('MicroStatus', this)" style="display:none;" /></th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody_list">
+                    <tr>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td><input /></td>
+                        <td>
+                            <img src="~/Images/iconfont-icon52.png" onclick="DeleteRow(this)" />
+                            <img src="~/Images/iconfont-zengjia.png" onclick="NewRow(this)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="form-group">
+                <br />
+                <label for="" class="col-sm-2 control-label" style="float:left;font-weight:bold;">Specifications(BP)：</label>
+                <div class="col-sm-4">
+                </div>
+                <table id="Specifications" style="float:left;">
+                    <tr>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Conforms" value="Conforms" id="AppearanceBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Conforms" value="Conforms" id="IdentityBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Less than Ph 8.6" value="Less than Ph 8.6" id="CarbonatesBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Conforms" value="Conforms" id="SolubilityBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Less than 20 ppm" value="Less than 20 ppm" id="AmmoniumBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Less than 100 ppm" value="Less than 100 ppm" id="CalciumBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Less than 2 ppm" value="Less than 2 ppm" id="ArsenicBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Less than 2 ppm" value="Less than 2 ppm" id="HeavyMetalsBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Less than 20 ppm" value="Less than 20 ppm" id="IronBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Less than 150 ppm" value="Less than 150 ppm" id="SulphatesBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Less than 150 ppm" value="Less than 150 ppm" id="ChloridesBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Conforms" value="Conforms" id="AppearanceofsolutionBP" /></td>
+                        <td><input style="width:74px;height:35px;" class="SpecificationsBP" title="Conforms" value="Conforms" id="MicroStatusBP" /></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+    var Changetitle = function (id, a) {
+        $(a).css("display", "none");
+        $("#" + id).css("display", "inline-block");
+    }
+
+    var Changeti = function (id, a) {
+        $("#" + id + "Span").css("display", "inline-block");
+        $("#" + id).css("display", "none");
+        $("#" + id + "Span").html($(a).val());
+    }
+
+
+    var htmlrow = "";
+    $(function () {
+        htmlrow = "<tr><td><input /></td><td><input /></td><td><input /></td><td><input /></td><td><input /></td><td><input /></td><td><input /></td><td><input /></td><td><input /></td><td><input /></td><td><input /></td><td><input /></td><td><input /></td><td><img src=\"/Images/iconfont-icon52.png\" onclick=\"DeleteRow(this)\" /><img src=\"/Images/iconfont-zengjia.png\" onclick=\"NewRow(this)\" /></td></tr>";
+
+        $(".DateofManufacture").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".ExpiryDate").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $('#btnUpload').bind('click', function () {
+            if ($("#CoaNo").val() == "") {
+                $.dialog.tips('请填写CAS No.！');
+                return false;
+            }
+            var path = "";
+            var CertificateNumber = $.trim($("#txtCertificateNumber").val());
+            var LABORATORYMANAGER = $.trim($("#txtLABORATORYMANAGER").val());
+            var ProductCode = $.trim($("#txtProductCode").val());
+            var ManufacturersBatchNo = $.trim($("#txtManufacturersBatchNo").val());
+            var ProductName = $.trim($("#txtProductName").val());
+            var SydcosLabBatchNo = $.trim($("#txtSydcosLabBatchNo").val());
+            var DateofManufacture = $.trim($("#txtDateofManufacture").val());
+            var ExpiryDate = $.trim($("#txtExpiryDate").val());
+
+            if (LABORATORYMANAGER == "" || ProductCode == "" || ManufacturersBatchNo == "" || ProductName == "" || ProductName == "" || SydcosLabBatchNo == "" || DateofManufacture == "" || ExpiryDate == "") {
+                $.dialog.tips('尚未填写完整!');
+                return false;
+            }
+            var strjson = "";
+            strjson += "{";
+            strjson += "\"CertificateNumber\":\"" + CertificateNumber + "\",";
+            strjson += "\"LABORATORYMANAGER\":\"" + LABORATORYMANAGER + "\",";
+            strjson += "\"ProductCode\":\"" + ProductCode + "\",";
+            strjson += "\"ManufacturersBatchNo\":\"" + ManufacturersBatchNo + "\",";
+            strjson += "\"ProductName\":\"" + ProductName + "\",";
+            strjson += "\"SydcosLabBatchNo\":\"" + SydcosLabBatchNo + "\",";
+            strjson += "\"DateofManufacture\":\"" + DateofManufacture + "\",";
+            strjson += "\"ExpiryDate\":\"" + ExpiryDate + "\",";
+            strjson += "\"ChemCloud_COADetails\":[";
+
+            var Appearance = "";
+            var Identity = "";
+            var Carbonates = "";
+            var Solubility = "";
+            var Ammonium = "";
+            var Calcium = "";
+            var Arsenic = "";
+            var HeavyMetals = "";
+            var Iron = "";
+            var Sulphates = "";
+            var Chlorides = "";
+            var Appearanceofsolution = "";
+            var MicroStatus = "";
+
+            var leg = $(".detial_table tr").length - 1;
+
+            $(".detial_table tr:gt(0):lt(" + leg + ")").each(function () {
+                Appearance = $(this).children('td').eq(0).children('input').val();
+                Identity = $(this).children('td').eq(1).children('input').val();
+                Carbonates = $(this).children('td').eq(2).children('input').val();
+                Solubility = $(this).children('td').eq(3).children('input').val();
+                Ammonium = $(this).children('td').eq(4).children('input').val();
+                Calcium = $(this).children('td').eq(5).children('input').val();
+                Arsenic = $(this).children('td').eq(6).children('input').val();
+                HeavyMetals = $(this).children('td').eq(7).children('input').val();
+                Iron = $(this).children('td').eq(8).children('input').val();
+                Sulphates = $(this).children('td').eq(9).children('input').val();
+                Chlorides = $(this).children('td').eq(10).children('input').val();
+                Appearanceofsolution = $(this).children('td').eq(11).children('input').val();
+                MicroStatus = $(this).children('td').eq(12).children('input').val();
+                strjson += "{";
+                strjson += "\"CertificateNumber\":\"" + CertificateNumber + "\",";
+                strjson += "\"Appearance\":\"" + Appearance + "\",";
+                strjson += "\"IIdentity\":\"" + Identity + "\",";
+                strjson += "\"Carbonates\":\"" + Carbonates + "\",";
+                strjson += "\"Solubility\":\"" + Solubility + "\",";
+                strjson += "\"Ammonium\":\"" + Ammonium + "\",";
+                strjson += "\"Calcium\":\"" + Calcium + "\",";
+                strjson += "\"Arsenic\":\"" + Arsenic + "\",";
+                strjson += "\"HeavyMetals\":\"" + HeavyMetals + "\",";
+                strjson += "\"Iron\":\"" + Iron + "\",";
+                strjson += "\"Sulphates\":\"" + Sulphates + "\",";
+                strjson += "\"Chlorides\":\"" + Chlorides + "\",";
+                strjson += "\"Appearanceofsolution\":\"" + Appearanceofsolution + "\",";
+                strjson += "\"MicroStatus\":\"" + MicroStatus + "\"";
+                strjson += "},";
+            });
+            strjson = strjson.substring(0, strjson.length - 1);
+            strjson += "]}";
+            var titles = "";
+            var elems = document.getElementsByClassName("Dojson");
+            for (var i = 0; i < elems.length; i++) {
+                titles += $(elems[i]).html() + ";";
+            }
+            var Specification = "";
+            var elemss = document.getElementsByClassName("SpecificationsBP");
+            for (var i = 0; i < elemss.length; i++) {
+                Specification += $(elemss[i]).val() + ";";
+            }
+            var loading = showLoading('正在上传');
+            $.post("./AddPdfByHtml", { CoANo: $('#inputCoA').val(), Html: strjson, titles: titles, CASNo: $("#CoaNo").val(), Specification: Specification }, function (data) {
+                if (data.success) {
+                    $('.ajax-loading').remove();
+                    art.dialog.alert("上传COA报告成功", function () { location.reload(); });
+                }
+            });
+        })
+    });
+    function NewRow(a) {
+        $(".detial_table").append(htmlrow);
+    }
+
+    function DeleteRow(obj) {
+        var trCount = $("#tbody_list tr").length;
+        if (trCount > 1) {
+            var rowIndex = obj.parentElement.parentElement.rowIndex;
+            //if (rowIndex != 1) {
+            //    var styles = document.getElementById("TBbody");
+            //    styles.deleteRow(rowIndex - 1);
+            //}
+            //允许删除第一行
+            var styles = $(obj).parent().parent().parent()[0];
+            styles.deleteRow(rowIndex - 1);
+        }
+        else {
+
+        }
+
+    }
+</script>

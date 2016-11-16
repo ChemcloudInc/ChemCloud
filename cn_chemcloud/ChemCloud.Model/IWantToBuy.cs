@@ -153,6 +153,7 @@ namespace ChemCloud.Model
         /// <summary>
         /// 结束时间
         /// </summary>
+        
         public string EndDate { get; set; }
         /// <summary>
         /// 采购信息状态（0：公示中；1：废弃采购；2：终止公示；3：已确定；4：已下单；5：已支付；）

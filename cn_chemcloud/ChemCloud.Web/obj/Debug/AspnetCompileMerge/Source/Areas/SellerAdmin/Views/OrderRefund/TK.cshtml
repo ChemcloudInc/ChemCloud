@@ -1,0 +1,194 @@
+﻿@model IEnumerable<ChemCloud.Core.Plugins.PluginInfo>
+<script src="~/Scripts/jquery.ChemCloudDatagrid.js"></script>
+<script src="~/Scripts/jquery.ChemCloudLinkage.nocreate.js"></script>
+<script src="~/Scripts/jquery.placeholder.min.js"></script>
+<script src="~/Scripts/bootstrap.autocomplete.js"></script>
+<script src="~/Scripts/jquery.json.js"></script>
+
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".start_datetime").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".end_datetime").datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            weekStart: 1,
+            minView: 2
+        });
+        $(".start_datetime").click(function () {
+            $('.end_datetime').datetimepicker('show');
+        });
+        $(".end_datetime").click(function () {
+            $('.start_datetime').datetimepicker('show');
+        });
+        $('.start_datetime').on('changeDate', function () {
+            if ($(".end_datetime").val()) {
+                if ($(".start_datetime").val() > $(".end_datetime").val()) {
+                    $('.end_datetime').val($(".start_datetime").val());
+                }
+            }
+
+            $('.end_datetime').datetimepicker('setStartDate', $(".start_datetime").val());
+        });
+
+
+    });
+</script>
+
+<div class="container" style="padding-top:20px">
+    <ul class="nav nav-tabs-custom clearfix">
+        <strong>退货退款</strong>
+        <li class="active"><a>未处理</a></li>
+        <li><a href="./TK1">已处理</a></li>
+        <em class="primary-btn">
+            <span class="glyphicon glyphicon-question-sign"></span>
+            <div class="primary">
+                <h3>温馨提示：</h3>
+                <span>*</span><p>处理订单的退货、退款问题</p>
+            </div>
+        </em>
+    </ul>
+
+    <div class="search-box">
+        <form class="custom-inline" role="form">
+            <div class="form-group">
+                <label class="label-inline" for="">开始日期</label>
+                <input id="inputStartDate" class="form-control input-ssm start_datetime" type="text" style="width:auto;">
+            </div>
+            <div class="form-group">
+                <label class="label-inline" for="">结束日期</label>
+                <input id="inputEndDate" class="form-control input-ssm end_datetime" type="text" style="width:auto;">
+            </div>
+            <div class="form-group">
+                <label class="label-inline" for="">订单编号</label>
+                <input class="form-control input-ssm" type="text" id="txtOrderId" style="width:auto;">
+            </div>
+            <div class="form-group">
+                <label class="label-inline" for="">采购商</label>
+                <input class="form-control input-ssm" type="text" id="txtUserName" style="width:auto;">
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" id="searchButton">搜 索</button>
+        </form>
+    </div>
+    <table id="list" class="table"></table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        Query();
+        $("#searchButton").on("click", function () {
+            Query();
+        });
+    });
+    function Query() {
+        $("#list").hiMallDatagrid({
+            url: "ListTK",
+            singleSelect: true,
+            pagination: true,
+            NoDataMsg: '没有找到有关您的退款信息.',
+            idField: "Id",
+            pageSize: 10,
+            pageNumber: 1,
+            queryParams: { "starttime": $("#inputStartDate").val(), "endtime": $("#inputEndDate").val(), "OrderNum": $("#txtOrderId").val(), "username": $("#txtUserName").val() },
+            columns:
+            [[
+                 {
+                     field: "Refund_Number", title: "退款单号", align: "center", formatter: function (value, row, index) {
+                         return row.Refund_Number;
+                     }
+                 },
+                 {
+                     field: "Refund_OrderNum", title: "订单号", align: "center", formatter: function (value, row, index) {
+                         return row.Refund_OrderNum;
+                     }
+                 }, {
+                     field: "Refund_ToUserName", title: "采购商", align: "center", formatter: function (value, row, index) {
+                         return row.Refund_ToUserName;
+                     }
+                 }
+                , {
+                    field: "Refund_MoneyType", title: "退货币种", align: "center", formatter: function (value, row, index) {
+                        if (row.Refund_MoneyType == "1") {
+                            return "CNY";
+                        } else {
+                            return "USD";
+                        }
+                    }
+                }, {
+                    field: "Refund_Money", title: "退货金额", align: "center", formatter: function (value, row, index) {
+                        return row.Refund_Money.toFixed(2);
+                    }
+                }, {
+                    field: "Refund_Time", title: "退货时间", align: "center", formatter: function (value, row, index) {
+                        var time = row.Refund_Time;
+                        return jsonDateFormat(time);
+                    }
+                }, {
+                    field: "Refund_Status", title: "状态", align: "center", formatter: function (value, row, index) {
+                        var status = row.Refund_Status;
+                        if (status != "1" && status != "2") {
+                            return "<span style=\"color:red;\">未处理</span>";
+                        } else {
+                            return "<span style=\"color:green;\">已处理</span>";
+                        }
+                    }
+                }, {
+                    field: "Operation", title: "操作", align: "center", formatter: function (value, row, index) {
+                        var status = row.Refund_Status;
+                        if (status != 1 && status != 2) {
+                            return "<a href=\"javascript:void(0);\" onclick=\"TKTY(" + row.Refund_Number + "," + row.Refund_OrderNum + ")\">同意退款</a> | <a href=\"javascript:void(0);\" onclick=\"TKJJ(" + row.Refund_Number + ")\">拒绝退款</a>";
+                        } else {
+                            return "此单已完结";
+                        }
+                    }
+                }
+            ]]
+        });
+    };
+    function TKTY(str, oid) {
+        if (str == "" || str == "underfind") {
+            return false;
+        }
+        $.post('TKTY', { thnum: str, orderid: oid }, function (data) {
+            if (data == "yes") {
+                alert("成功退款,退款已成功返还给采购商.");
+                location.reload(true);
+            }
+        });
+    };
+    function TKJJ(str) {
+        if (str == "" || str == "underfind") {
+            return false;
+        }
+        $.post('TKJJ', { thnum: str }, function (data) {
+            if (data == "yes") {
+                alert("操作完成.");
+            } else {
+                alert("操作失败.");
+            }
+            location.reload(true);
+        });
+    };
+    function jsonDateFormat(jsonDate) {
+        try {
+            var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var milliseconds = date.getMilliseconds();
+            return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        } catch (ex) {
+            return "";
+        }
+    };
+</script>

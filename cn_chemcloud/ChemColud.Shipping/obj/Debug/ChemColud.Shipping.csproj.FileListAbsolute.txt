@@ -5,3 +5,17 @@ D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\bin\Debug\Ne
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.dll
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.pdb
 D:\projects\net\chemcloud\新版本\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.csprojResolveAssemblyReference.cache
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\bin\Debug\ChemColud.Shipping.dll.config
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\bin\Debug\ChemColud.Shipping.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\bin\Debug\ChemColud.Shipping.pdb
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\bin\Debug\Newtonsoft.Json.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.csprojResolveAssemblyReference.cache
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.dll
+E:\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.pdb
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\bin\Debug\ChemColud.Shipping.dll.config
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\bin\Debug\ChemColud.Shipping.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\bin\Debug\ChemColud.Shipping.pdb
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\bin\Debug\Newtonsoft.Json.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.csprojResolveAssemblyReference.cache
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.dll
+D:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemColud.Shipping\obj\Debug\ChemColud.Shipping.pdb

@@ -1,0 +1,113 @@
+﻿@model ChemCloud.Web.Models.FieldCertificationModel
+@using ChemCloud.Core;
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container">
+    <ul class="nav nav-tabs-custom clearfix">
+        @*<li class="active"><a>查看</a></li>*@
+        <li><a href="./Management">实地认证</a></li>
+        @*<li><a href="./Management?type=Receing">受理申请</a></li>*@
+    </ul>
+    <h3 class="table-hd">公司基本信息</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>公司名称</td>
+                <td>@Model.CompanyName</td>
+            </tr>
+            @*<tr>
+                    <td>法定代表人</td>
+                    <td>@Model.LegalPerson</td>
+                </tr>
+                <tr>
+                    <td>注册资本</td>
+                    <td>@Model.CompanyRegisteredCapital</td>
+                </tr>*@
+            <tr>
+                <td>经营地址</td>
+                <td>@Model.CompanyAddress</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 class="table-hd">实地认证信息</h3>
+    <table class="table table-bordered table-striped">
+        <colgroup>
+            <col class="col-xs-1">
+            <col class="col-xs-7">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>年销售额</td>
+                <td>@Model.AnnualSales</td>
+            </tr>
+            <tr>
+                <td>企业荣誉</td>
+                <td>@Model.EnterpriseHonor</td>
+            </tr>
+            <tr>
+                <td>产品详情</td>
+                <td>@Model.ProductDetails</td>
+            </tr>
+            <tr>
+                <td>申请日期</td>
+                <td>@Model.ApplicationDate</td>
+            </tr>
+            <tr>
+                <td>受理日期</td>
+                <td>@Model.ToAcceptTheDate</td>
+            </tr>
+            <tr>
+                <td>认证日期</td>
+                <td>@Model.CertificationDate</td>
+            </tr>
+            <tr>
+                <td>确认付款日期</td>
+                <td>@Model.FeedbackDate</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    @{
+        if (Model.Status.Equals("被拒绝"))
+        {
+            <h3 class="table-hd">实地认证结果</h3>
+            <table class="table table-bordered table-striped">
+                <colgroup>
+                    <col class="col-xs-1">
+                    <col class="col-xs-7">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>认证状态</td>
+                        <td style="color:#ff0000">@Model.Status</td>
+                    </tr>
+                    <tr>
+                        <td>被拒绝原因</td>
+                        <td>@Model.RefuseReason</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h3 class="table-hd">实地认证结果</h3>
+            <table class="table table-bordered table-striped">
+                <colgroup>
+                    <col class="col-xs-1">
+                    <col class="col-xs-7">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>认证状态</td>
+                        <td style="color:#00ff90">@Model.Status</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    }
+</div>
