@@ -87,7 +87,9 @@
         <div class="search_link">
             @foreach (string item in (ViewBag.Keys as string[]))
             {
-                <a href="/search/index?keywords=@item&islike=0">@item</a>
+             
+              <a href="/search/index?keywords=@item&islike=0">@item</a>
+              
             }
         </div>
         @{
@@ -127,6 +129,10 @@ else
 
 
 <script>
+    function Add(str)
+    {
+        alert(str);
+    }
     $(function () {
 
 

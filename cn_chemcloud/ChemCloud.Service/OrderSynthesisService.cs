@@ -270,11 +270,11 @@ namespace ChemCloud.Service
 
             resList.List = topCountList.Take(10).Select(p => new OrderSynthesis_Index()
             {
-                ProductName = _ProductService.GetProduct(p.ProductId) == null ? "" : _ProductService.GetProduct(p.ProductId).EProductName,
+                ProductName = _ProductService.GetProduct(p.ProductId) == null ? "" : _ProductService.GetProduct(p.ProductId).CASNo,
                 SellNum = p.Quantity
 
             }).OrderByDescending(x => x.SellNum).ToList();
-
+            
             resList.List = (from p in resList.List
                             where p.ProductName != "" && p.ProductName != null
                             select new OrderSynthesis_Index

@@ -1,0 +1,86 @@
+
+
+
+ 记录时间：2016-11-18 15:44:01,149 
+日志级别：  INFO  
+出错类：ChemCloud.Service.LoginGenerateIntegral.ConversionIntegral  
+错误描述：找不到登录产生会员积分的规则 
+
+
+
+
+ 记录时间：2016-11-18 15:44:22,379 
+日志级别：  INFO  
+出错类：ChemCloud.Service.LoginGenerateIntegral.ConversionIntegral  
+错误描述：找不到登录产生会员积分的规则 
+
+
+
+
+ 记录时间：2016-11-18 16:01:15,325 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：ISiteSettingService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.ISiteSettingService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 d:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51
+
+
+
+ 记录时间：2016-11-18 16:02:08,835 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：ISiteSettingService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.ISiteSettingService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 d:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51
+
+
+
+ 记录时间：2016-11-18 16:40:25,200 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：ISiteSettingService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.ISiteSettingService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 d:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51
+
+
+
+ 记录时间：2016-11-18 16:40:25,201 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：ISiteSettingService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.ISiteSettingService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 d:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51
+
+
+
+ 记录时间：2016-11-18 16:41:51,179 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：ISiteSettingService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.ISiteSettingService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 d:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51
+
+
+
+ 记录时间：2016-11-18 16:41:51,180 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：ISiteSettingService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.ISiteSettingService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 d:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51
+
+
+
+ 记录时间：2016-11-18 16:44:10,866 
+日志级别：  INFO  
+出错类：ChemCloud.ServiceProvider.Instance`1[T].get_Create  
+错误描述：ISiteSettingService服务实例创建失败 
+
+System.ApplicationException: 未配置ChemCloud.IServices.ISiteSettingService的实现
+   在 ChemCloud.ServiceProvider.Instance`1.get_Create() 位置 d:\aaachemcloud\ChemCloud\ChemCloud\cn_chemcloud\ChemCloud.ServiceProvider\Instance_T_.cs:行号 51

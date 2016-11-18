@@ -1150,7 +1150,7 @@ function getCurrentUserType() {
                 //3：采购商；2：供应商；
                 if (json.Model.UserType == 3) {
                     //采购商
-                    $("#table_Form").css("display", "table");
+                   // $("#table_Form").css("display", "table");
                     $("#iWantToBuyList").css("display", "table");
 
                     //供应商
@@ -1173,7 +1173,7 @@ function getCurrentUserType() {
                 }
                 else if (json.Model.UserType == 2) {
                     //采购商
-                    $("#table_Form").css("display", "none");
+                  //  $("#table_Form").css("display", "none");
                     $("#iWantToBuyList").css("display", "none");
 
                     //供应商

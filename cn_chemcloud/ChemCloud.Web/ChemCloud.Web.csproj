@@ -2448,8 +2448,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\DefaultController.cs" />
-    <Compile Include="API\ExpressDataController.cs" />
+    <Compile Include="App_Start\API\DefaultController.cs" />
+    <Compile Include="App_Start\API\ExpressDataController.cs" />
     <Compile Include="Areas\Admin\Controllers\AnalysisController.cs" />
     <Compile Include="Areas\Admin\Controllers\BannersIndexController.cs" />
     <Compile Include="Areas\Admin\Controllers\CASController.cs" />
